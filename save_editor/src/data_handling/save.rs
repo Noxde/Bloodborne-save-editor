@@ -41,12 +41,11 @@ impl SaveData {
             }
         }
 
-        //The username should match 2 times
-        //The second match is the valid one
-        if matchs.len() != 2 {
+        //The last match is the valid one
+        if matchs.len() == 0 {
             Err("Failed to find username in save data.")
         } else {
-            Ok(matchs[1])
+            Ok(*matchs.last().unwrap())
         }
     }
 
