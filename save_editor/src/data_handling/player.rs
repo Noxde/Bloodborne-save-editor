@@ -1,11 +1,13 @@
+use super::file::FileData;
+
 pub struct PlayerData {
     pub health: u32,
 }
 
 impl PlayerData {
-    pub fn new(save_data: &Vec<u8>, username_offset: usize) -> PlayerData {
-        let health_offset = username_offset-147;
-        let health_bytes = &save_data[health_offset..health_offset+2];
+    pub fn new(file: &FileData) -> PlayerData {
+        let health_offset = file.username_offset-147;
+        let health_bytes = &file.bytes[health_offset..health_offset+2];
 
         let mut health: u32 = 0;
         let base: u32 = 256;
