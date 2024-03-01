@@ -46,5 +46,20 @@ impl FileData {
 
         Ok(FileData{bytes, username_offset,})
     }
+
+    //offset_from_username is value_offset-username_offset
+    pub fn get_number(&self, offset_from_username: isize, length: usize) -> u32 {
+        let value_offset = (self.username_offset as isize+offset_from_username) as usize;
+        let value_bytes = &self.bytes[value_offset..value_offset+length];
+
+        let mut value: u32 = 0;
+        let base: u32 = 256;
+
+        for (index, byte) in value_bytes.iter().enumerate().rev() {
+            value += *byte as u32 * (base.pow(index as u32));
+        }
+
+        value
+    }
 }
 
