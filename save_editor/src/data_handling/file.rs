@@ -1,5 +1,8 @@
 use super::enums::Error;
-use std::{fs, io::Read};
+use std::{
+    fs,
+    io::{self, Read},
+};
 
 pub struct FileData {
     pub bytes: Vec<u8>,
@@ -8,10 +11,10 @@ pub struct FileData {
 
 impl FileData {
     fn search_username(username: &str, save_data: &Vec<u8>) -> Result<usize, &'static str> {
-        let mut matchs: Vec<usize> = Vec::new(); 
+        let mut matchs: Vec<usize> = Vec::new();
         let mut encoded_username = Vec::new();
 
-        //Encodes the username 
+        //Encodes the username
         for byte in username.as_bytes() {
             encoded_username.push(0);
             encoded_username.push(*byte);
@@ -19,8 +22,8 @@ impl FileData {
         let username_len = encoded_username.len();
 
         //Searches for the username
-        for i in 0..(save_data.len()-username_len) {
-            if *encoded_username == save_data[i..(i+username_len)] {
+        for i in 0..(save_data.len() - username_len) {
+            if *encoded_username == save_data[i..(i + username_len)] {
                 matchs.push(i);
             }
         }
@@ -41,16 +44,19 @@ impl FileData {
         let mut bytes = Vec::new();
         file.read_to_end(&mut bytes).map_err(Error::IoError)?;
 
-        let username_offset = FileData::search_username(username, &bytes)
-            .map_err(Error::CustomError)?;
+        let username_offset =
+            FileData::search_username(username, &bytes).map_err(Error::CustomError)?;
 
-        Ok(FileData{bytes, username_offset,})
+        Ok(FileData {
+            bytes,
+            username_offset,
+        })
     }
 
     //offset_from_username is value_offset-username_offset
     pub fn get_number(&self, offset_from_username: isize, length: usize) -> u32 {
-        let value_offset = (self.username_offset as isize+offset_from_username) as usize;
-        let value_bytes = &self.bytes[value_offset..value_offset+length];
+        let value_offset = (self.username_offset as isize + offset_from_username) as usize;
+        let value_bytes = &self.bytes[value_offset..value_offset + length];
 
         let mut value: u32 = 0;
         let base: u32 = 256;
@@ -61,5 +67,8 @@ impl FileData {
 
         value
     }
-}
 
+    pub fn save(&self, path: &str) -> Result<(), io::Error> {
+        fs::write(path, &self.bytes)
+    }
+}
