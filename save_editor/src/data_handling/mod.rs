@@ -1,4 +1,4 @@
 pub mod save;
-pub mod player;
+pub mod stats;
 pub mod file;
 pub mod enums;
