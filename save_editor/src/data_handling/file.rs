@@ -40,6 +40,10 @@ impl FileData {
         // Open the save file
         let mut file = fs::File::open(path).map_err(Error::IoError)?;
 
+        // Create a backup
+        let backup_path = format!("{}.bak",path);
+        fs::copy(path, backup_path).map_err(Error::IoError)?;
+
         // Read the entire file into a vector of bytes
         let mut bytes = Vec::new();
         file.read_to_end(&mut bytes).map_err(Error::IoError)?;
