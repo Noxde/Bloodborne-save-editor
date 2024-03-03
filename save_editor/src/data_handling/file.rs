@@ -41,7 +41,7 @@ impl FileData {
         let mut file = fs::File::open(path).map_err(Error::IoError)?;
 
         // Create a backup
-        let backup_path = format!("{}.bak",path);
+        let backup_path = format!("{}.bak", path);
         fs::copy(path, backup_path).map_err(Error::IoError)?;
 
         // Read the entire file into a vector of bytes
@@ -72,7 +72,19 @@ impl FileData {
         value
     }
 
-    pub fn save(&self, path: &str) -> Result<(), io::Error> {
+    pub fn _edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {
+        let value_bytes = value.to_le_bytes();
+        let from_offset = (self.username_offset as isize + rel_offset) as usize;
+
+        for i in 0..times {
+            let offset = i * 4;
+            for (j, b) in value_bytes[..length].iter().enumerate() {
+                self.bytes[from_offset + j + offset] = *b;
+            }
+        }
+    }
+
+    pub fn _save(&self, path: &str) -> Result<(), io::Error> {
         fs::write(path, &self.bytes)
     }
 }
