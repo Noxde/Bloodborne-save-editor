@@ -1,1 +1,2 @@
-pub mod gui_main;
+pub mod main_win;
+pub mod file_win;
