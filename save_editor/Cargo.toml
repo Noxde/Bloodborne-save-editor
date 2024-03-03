@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 fltk = "^1.4"
 fltk-grid = "0.4"
+serde = {version = "1.0.197", features = ["derive"]}
+serde_json = "1.0.114"

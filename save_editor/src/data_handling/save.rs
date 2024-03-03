@@ -14,7 +14,7 @@ impl SaveData {
 
         let file = FileData::build(path, username)?;
 
-        let player = PlayerData::new(&file);
+        let player = PlayerData::new(&file).unwrap();
 
         Ok(SaveData{file, player})
     }
