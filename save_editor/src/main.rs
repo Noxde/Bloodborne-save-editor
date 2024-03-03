@@ -5,11 +5,9 @@ mod data_handling;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let data = SaveData::build("testsave", "Proyectito")?;
-    println!("Health: {}", data.player.health);
-    println!("Stamina: {}", data.player.stamina);
-    println!("Level: {}", data.player.level);
-    println!("Blood echoes: {}", data.player.echoes);
-    println!("Insight: {}", data.player.insight);
+    for s in data.player.stats.iter() {
+        println!("{}: {}", s.name, s.value);
+    }
 
     Ok(())
 }
