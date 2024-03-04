@@ -1,32 +1,18 @@
 use fltk::{enums::Align, frame, prelude::*};
 use fltk_grid::Grid;
-use crate::data_handling::save;
 
-pub fn display(data: save::SaveData) -> Grid {
+pub fn display() -> Grid {
     
-    //Main grid
-    let mut grid = Grid::default_fill();
+    // Grid
+    let mut grid = Grid::new(0, 25, 900, 475, "");
         grid.show_grid(false);
         grid.set_layout(20, 15);
     
-    // Display stats
-    let mut lable_current = frame::Frame::default()
-        .with_label("Current Value")
+    // Display message
+    let mut lable_message = frame::Frame::default()
+        .with_label("This is the 'File' window.")
         .with_align(Align::Center);
-    grid.set_widget(&mut lable_current, 4, 5);
-    for (index, stat) in data.stats.iter().enumerate() {
-        let name_label = format!("{}:", stat.name);
+    grid.set_widget(&mut lable_message, 10, 7);
 
-        let mut stat_name = frame::Frame::default()
-            .with_label(&name_label)
-            .with_align(Align::Right);
-        let mut stat_value = frame::Frame::default()
-            .with_label(&stat.value.to_string())
-            .with_align(Align::Center);
-
-        grid.set_widget(&mut stat_name, index + 5, 3);
-        grid.set_widget(&mut stat_value, index + 5, 5);
-    }
-    
     grid
 }
