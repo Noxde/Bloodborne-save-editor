@@ -1,4 +1,4 @@
-use fltk::{button, enums::Align, frame, input, prelude::*};
+use fltk::{button, dialog, enums::Align, frame, input, prelude::*};
 use fltk_grid::Grid;
 use super::main_win::Data;
 use std::{rc::Rc, cell::RefCell};
@@ -19,9 +19,22 @@ pub fn display(data: Rc<RefCell<Data>>) -> Grid {
     grid.set_widget(&mut username_input, 8, 6..9);
 
     // Buttons
+    // Select file Button
+    let mut select_file_button = button::Button::default().with_label("Select File");
+    grid.set_widget(&mut select_file_button, 19, 11..13);
+
     // Submit username Button
     let mut submit_button = button::Button::default().with_label("Submit");
     grid.set_widget(&mut submit_button, 10, 6..9);
+
+    // Callbacks
+    let data_clone = Rc::clone(&data);
+    select_file_button.set_callback(move|_| {
+        let mut dialog = dialog::NativeFileChooser::new(dialog::NativeFileChooserType::BrowseFile);
+        dialog.show();
+        let filename = format!("{:?}", dialog.filename());
+        data_clone.borrow_mut().path = filename.trim_matches('"').to_string();
+    });
 
     let data_clone = Rc::clone(&data);
     submit_button.set_callback(move|_| {
