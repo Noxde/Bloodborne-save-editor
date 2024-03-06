@@ -4,15 +4,17 @@ use fltk_grid::Grid;
 use super::{stats_win, file_win};
 use std::{cell::RefCell, rc::Rc};
 
-pub fn run() -> Result<(), enums::Error> {
-    let data = save::SaveData::build("testsave", "Proyectito")?;
 
+pub fn run() -> Result<(), enums::Error> {
+
+    let data = Rc::new(RefCell::new(Data::new()));
+    
     // Main App
     let app = app::App::default();
     let mut wind = Window::default()
-        .with_size(900, 500)
-        .center_screen()
-        .with_label("Bloodborne save editor.");
+    .with_size(900, 500)
+    .center_screen()
+    .with_label("Bloodborne save editor.");
 
     //Main grid
     let mut main_grid = Grid::new(0, 0, 900, 25, "");
@@ -31,11 +33,11 @@ pub fn run() -> Result<(), enums::Error> {
     main_grid.end();
 
     // Windows grids
-    let stats_grid = Rc::new(RefCell::new(stats_win::display(data)));
+    let stats_grid = Rc::new(RefCell::new(stats_win::create()));
     stats_grid.borrow_mut().end();
-    let file_grid = Rc::new(RefCell::new(file_win::display()));
+    let file_grid = Rc::new(RefCell::new(file_win::display(Rc::clone(&data))));
     file_grid.borrow_mut().end();
-    
+
     let file_grid_clone1 = Rc::clone(&file_grid);
     let stats_grid_clone1 = Rc::clone(&stats_grid);
     file_button.set_callback(move |_| {
@@ -46,6 +48,7 @@ pub fn run() -> Result<(), enums::Error> {
     let file_grid_clone2 = Rc::clone(&file_grid);
     let stats_grid_clone2 = Rc::clone(&stats_grid);
     stats_button.set_callback(move |_| {
+        stats_win::update(data.clone(), &mut *stats_grid_clone2.borrow_mut());
         file_grid_clone2.borrow_mut().hide();
         stats_grid_clone2.borrow_mut().show();
     });
@@ -56,4 +59,38 @@ pub fn run() -> Result<(), enums::Error> {
     app.run().map_err(enums::Error::UiError)?;
 
     Ok(())
+}
+
+pub struct Data {
+    pub save_data: Option<save::SaveData>,
+    pub username: String,
+    pub path: String,
+}
+
+impl Data {
+    pub fn new() -> Data {
+        Data {
+            save_data: None,
+            username: String::from(""),
+            path: String::from(""),
+        }
+    }
+    
+    pub fn _usr_and_path(&self) -> bool {
+        !self.username.is_empty() && !self.path.is_empty()   
+    }
+
+    pub fn save_data(&self) -> bool {
+        match self.save_data {
+            Some(_) => true,
+            None => false,
+        }
+    }
+
+    pub fn data_or_panic(&self) -> &save::SaveData {
+        match &self.save_data {
+            Some(data) => data,
+            None => panic!("save_data field of Data struct was None"),
+        }
+    }
 }

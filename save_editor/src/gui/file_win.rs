@@ -1,18 +1,33 @@
-use fltk::{enums::Align, frame, prelude::*};
+use fltk::{button, enums::Align, frame, input, prelude::*};
 use fltk_grid::Grid;
+use super::main_win::Data;
+use std::{rc::Rc, cell::RefCell};
 
-pub fn display() -> Grid {
-    
+pub fn display(data: Rc<RefCell<Data>>) -> Grid {
     // Grid
     let mut grid = Grid::new(0, 25, 900, 475, "");
         grid.show_grid(false);
         grid.set_layout(20, 15);
     
-    // Display message
+    // Username input
     let mut lable_message = frame::Frame::default()
-        .with_label("This is the 'File' window.")
+        .with_label("Enter your character name:")
         .with_align(Align::Center);
-    grid.set_widget(&mut lable_message, 10, 7);
+    grid.set_widget(&mut lable_message, 7, 6..9);
+    
+    let mut username_input = input::Input::default();
+    grid.set_widget(&mut username_input, 8, 6..9);
+
+    // Buttons
+    // Submit username Button
+    let mut submit_button = button::Button::default().with_label("Submit");
+    grid.set_widget(&mut submit_button, 10, 6..9);
+
+    let data_clone = Rc::clone(&data);
+    submit_button.set_callback(move|_| {
+        let username = username_input.value();
+        data_clone.borrow_mut().username = username;
+    });
 
     grid
 }
