@@ -76,7 +76,7 @@ impl Data {
         }
     }
     
-    pub fn _usr_and_path(&self) -> bool {
+    pub fn usr_and_path(&self) -> bool {
         !self.username.is_empty() && !self.path.is_empty()   
     }
 

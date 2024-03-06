@@ -2,6 +2,7 @@ use fltk::{button, dialog, enums::Align, frame, input, prelude::*};
 use fltk_grid::Grid;
 use super::main_win::Data;
 use std::{rc::Rc, cell::RefCell};
+use crate::data_handling::{save, enums::Error};
 
 pub fn display(data: Rc<RefCell<Data>>) -> Grid {
     // Grid
@@ -27,6 +28,10 @@ pub fn display(data: Rc<RefCell<Data>>) -> Grid {
     let mut submit_button = button::Button::default().with_label("Submit");
     grid.set_widget(&mut submit_button, 10, 6..9);
 
+    // Open file Button
+    let mut open_file_button = button::Button::default().with_label("Open File");
+    grid.set_widget(&mut open_file_button, 19, 13..15);
+
     // Callbacks
     let data_clone = Rc::clone(&data);
     select_file_button.set_callback(move|_| {
@@ -40,6 +45,23 @@ pub fn display(data: Rc<RefCell<Data>>) -> Grid {
     submit_button.set_callback(move|_| {
         let username = username_input.value();
         data_clone.borrow_mut().username = username;
+    });
+
+    let data_clone = Rc::clone(&data);
+    open_file_button.set_callback(move|_| {
+        let mut data_borrow = data_clone.borrow_mut();
+        if data_borrow.usr_and_path() {
+            let save_data = save::SaveData::build(
+                &data_borrow.path, 
+                &data_borrow.username);
+            let save_data = match save_data {
+                Ok(data) => data,
+                Err(Error::IoError(e)) => panic!("{}",e),
+                Err(Error::CustomError(e)) => panic!("{}",e),
+                Err(Error::UiError(e)) => panic!("{}",e),
+            };
+            data_borrow.save_data = Some(save_data);
+        }
     });
 
     grid
