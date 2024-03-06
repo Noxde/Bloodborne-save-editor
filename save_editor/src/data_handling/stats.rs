@@ -8,7 +8,7 @@ use std::io::{self, BufReader};
 pub struct Stat {
     pub name: String,
     pub rel_offset: isize,
-    pub lenght: usize,
+    pub length: usize,
     pub times: usize,
     pub value: u32,
 }
@@ -20,7 +20,7 @@ pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
     // Read the JSON contents of the file as Vec<Stat>.
     let mut stats: Vec<Stat> = serde_json::from_reader(reader)?;
     for s in &mut stats {
-        s.value = file.get_number(s.rel_offset, s.lenght);
+        s.value = file.get_number(s.rel_offset, s.length);
     }
 
     Ok(stats)
