@@ -72,7 +72,7 @@ impl FileData {
         value
     }
 
-    pub fn _edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {
+    pub fn edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {
         let value_bytes = value.to_le_bytes();
         let from_offset = (self.username_offset as isize + rel_offset) as usize;
 
@@ -84,7 +84,7 @@ impl FileData {
         }
     }
 
-    pub fn _save(&self, path: &str) -> Result<(), io::Error> {
+    pub fn save(&self, path: &str) -> Result<(), io::Error> {
         fs::write(path, &self.bytes)
     }
 }
