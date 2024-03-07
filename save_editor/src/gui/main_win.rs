@@ -33,7 +33,7 @@ pub fn run() -> Result<(), enums::Error> {
     main_grid.end();
 
     // Windows grids
-    let stats_grid = Rc::new(RefCell::new(stats_win::create()));
+    let stats_grid = stats_win::create();
     stats_grid.borrow_mut().end();
     let file_grid = Rc::new(RefCell::new(file_win::display(Rc::clone(&data))));
     file_grid.borrow_mut().end();
@@ -48,7 +48,7 @@ pub fn run() -> Result<(), enums::Error> {
     let file_grid_clone2 = Rc::clone(&file_grid);
     let stats_grid_clone2 = Rc::clone(&stats_grid);
     stats_button.set_callback(move |_| {
-        stats_win::update(data.clone(), &mut *stats_grid_clone2.borrow_mut());
+        stats_win::update(data.clone(), Rc::clone(&stats_grid_clone2));
         file_grid_clone2.borrow_mut().hide();
         stats_grid_clone2.borrow_mut().show();
     });
@@ -87,8 +87,8 @@ impl Data {
         }
     }
 
-    pub fn data_or_panic(&self) -> &save::SaveData {
-        match &self.save_data {
+    pub fn data_or_panic(&mut self) -> &mut save::SaveData {
+        match &mut self.save_data {
             Some(data) => data,
             None => panic!("save_data field of Data struct was None"),
         }
