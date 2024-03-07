@@ -2,77 +2,77 @@
   {
     "name": "Health",
     "rel_offset": -147,
-    "lenght": 4,
+    "length": 4,
     "times": 3,
     "value": 0
   },
   {
     "name": "Stamina",
     "rel_offset": -119,
-    "lenght": 4,
+    "length": 4,
     "times": 3,
     "value": 0
   },
   {
     "name": "Echoes",
     "rel_offset": -19,
-    "lenght": 4,
+    "length": 4,
     "times": 1,
     "value": 0
   },
   {
     "name": "Insight",
     "rel_offset": -35,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Level",
     "rel_offset": -23,
-    "lenght": 4,
+    "length": 4,
     "times": 1,
     "value": 0
   },
   {
     "name": "Vitality",
     "rel_offset": -103,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Endurance",
     "rel_offset": -95,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Strength",
     "rel_offset": -79,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Skill",
     "rel_offset": -71,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Bloodtinge",
     "rel_offset": -63,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Arcane",
     "rel_offset": -55,
-    "lenght": 1,
+    "length": 1,
     "times": 1,
     "value": 0
   }
