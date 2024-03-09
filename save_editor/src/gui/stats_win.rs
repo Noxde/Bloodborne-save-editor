@@ -29,23 +29,33 @@ pub fn update(data: Rc<RefCell<Data>>, grid_rc: Rc<RefCell<Grid>>) {
             .with_label("Current Value")
             .with_align(Align::Center);
         grid.add(&lable_current);
-        grid.set_widget(&mut lable_current, 4, 6);
+        grid.set_widget(&mut lable_current, 4, 5);
         
         let mut lable_new = frame::Frame::default()
-        .with_label("New Value")
-        .with_align(Align::Center);
+            .with_label("New Value")
+            .with_align(Align::Center);
         grid.add(&lable_new);
-        grid.set_widget(&mut lable_new, 4, 8..10);
+        grid.set_widget(&mut lable_new, 4, 7..9);
+
+        let mut lable_valid = frame::Frame::default()
+            .with_label("Valid Range")
+            .with_align(Align::Center);
+        grid.add(&lable_valid);
+        grid.set_widget(&mut lable_valid, 4, 10);
 
         let stats_inputs: Rc<RefCell<Vec<input::IntInput>>> = Rc::new(RefCell::new(Vec::new()));
+        let base: u128 = 256;
         for (index, stat) in save_data.stats.iter().enumerate() {
 
             let mut stat_input = input::IntInput::default();
             grid.add(&stat_input);
-            grid.set_widget(&mut stat_input, index+5, 8..10);
+            grid.set_widget(&mut stat_input, index+5, 7..9);
             stats_inputs.borrow_mut().push(stat_input);
 
             let name_label = format!("{}:", stat.name);
+            
+            let max_value: u128 = base.pow(stat.length as u32);
+            let valid_range =  format!("0 - {}",max_value);
 
             let mut stat_name = frame::Frame::default()
                 .with_label(&name_label)
@@ -53,11 +63,16 @@ pub fn update(data: Rc<RefCell<Data>>, grid_rc: Rc<RefCell<Grid>>) {
             let mut stat_value = frame::Frame::default()
                 .with_label(&stat.value.to_string())
                 .with_align(Align::Center);
+            let mut valid_range =  frame::Frame::default()
+                .with_label(&valid_range)
+                .with_align(Align::Center);
 
             grid.add(&stat_name);
-            grid.set_widget(&mut stat_name, index + 5, 3);
+            grid.set_widget(&mut stat_name, index + 5, 2);
             grid.add(&stat_value);
-            grid.set_widget(&mut stat_value, index + 5, 6);
+            grid.set_widget(&mut stat_value, index + 5, 5);
+            grid.add(&valid_range);
+            grid.set_widget(&mut valid_range, index + 5, 10);
         }
         
         // Save Changes button
