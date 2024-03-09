@@ -20,13 +20,16 @@ impl FileData {
             encoded_username.push(*byte);
         }
         let username_len = encoded_username.len();
+        let save_len = save_data.len();
 
-        //Searches for the username
-        for i in 0..(save_data.len() - username_len) {
-            if *encoded_username == save_data[i..(i + username_len)] {
-                matchs.push(i);
+        if save_len>username_len {  //TODO: Compare save_len with a more appropriate value
+            //Searches for the username
+            for i in 0..(save_data.len() - username_len) {
+                if *encoded_username == save_data[i..(i + username_len)] {
+                    matchs.push(i);
+                }
             }
-        }
+        } 
 
         //The last match is the valid one
         if matchs.len() == 0 {
