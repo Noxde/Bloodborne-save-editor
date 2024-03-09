@@ -1,6 +1,6 @@
 use fltk::{button, dialog, enums::Align, frame, input, prelude::*};
 use fltk_grid::Grid;
-use super::main_win::Data;
+use super::main_win::{Data, center};
 use std::{rc::Rc, cell::RefCell};
 use crate::data_handling::{save, enums::Error};
 
@@ -56,11 +56,23 @@ pub fn display(data: Rc<RefCell<Data>>) -> Grid {
                 &data_borrow.username);
             let save_data = match save_data {
                 Ok(data) => data,
-                Err(Error::IoError(e)) => panic!("{}",e),
-                Err(Error::CustomError(e)) => panic!("{}",e),
+                Err(Error::IoError(_)) => {
+                    dialog::alert(center().0-200, center().1-30, &format!("Failed to open file '{}'",data_borrow.path));
+                    return
+                },
+                Err(Error::CustomError(e)) => {
+                    dialog::alert(center().0-200, center().1-30, e);
+                    return
+                },
                 Err(Error::UiError(e)) => panic!("{}",e),
             };
             data_borrow.save_data = Some(save_data);
+        } else {
+            if data_borrow.username.is_empty() {
+                dialog::alert(center().0-200, center().1-30, "Please submit a character name.");
+            } else {
+                dialog::alert(center().0-200, center().1-30, "Please select a file.");
+            }
         }
     });
 
