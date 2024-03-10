@@ -499,5 +499,104 @@
       "item_desc": "Whistle of the Madaras twins, denizens of the Forbidden Woods. The twins grew up alongside a poisonous snake, and developed a silent, inhuman kinship.\n\nThe poisonous snake grew uncontrollably, raised on a \nhealthy diet of beast entrails. Even after their deaths, it is \nsaid to respond to the call of the twins' whistle from within \nthe Nightmare.datamined",
       "item_img": "https://1.bp.blogspot.com/-IdmymigeqnA/VmSCO4FEs9I/AAAAAAAANMs/bOAv_7SpPO8/s250/06.%2BMadaras%2BWhistle.png"
     }
+  },
+  "upgrade": {
+    "3000": {
+      "item_name": "Blood Stone Shard",
+      "item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop. these bloodstones are embedded in\nweapons to fortify them.",
+      "item_img": "https://1.bp.blogspot.com/-NabA16pvRvc/Vkfv9HHmTCI/AAAAAAAAL9Y/RmHUuxYfeGM/s250/01.%2BMaterials%2B-%2BBlood%2BStone%2BShard.png"
+    },
+    "3010": {
+      "item_name": "Twin Blood Stone Shards",
+      "item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop, these bloodstones are embedded in\nweapons to fortify them.",
+      "item_img": "https://3.bp.blogspot.com/-_yFfE8QkpFo/Vkfv9ES_-YI/AAAAAAAAL9U/jGu95Qqkiu0/s250/02.%2BMaterials%2B-%2BTwin%2BBlood%2BStone%2BShards.png"
+    },
+    "3020": {
+      "item_name": "Blood Stone Chunk",
+      "item_desc": "A solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nA chunk will never appear in the blood of an ordinary\nhuman. Seek deadlier foes if bloodstone chunks are needed.",
+      "item_img": "https://2.bp.blogspot.com/-f8AAHicnahM/Vkfv9LqYhKI/AAAAAAAAL9c/i-NWxjHo2WE/s250/03.%2BMaterials%2B-%2BBlood%2BStone%2BChunk.png"
+    },
+    "3030": {
+      "item_name": "Blood Rock",
+      "item_desc": "A large solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nThis is no mere chunk, it is nearly a boulder.\n\nFew blood stones of such size have ever been discovered,\neven considering the combined experience of all the hunters.",
+      "item_img": "https://2.bp.blogspot.com/-IIhuBgEu0hk/Vkfv9afA3UI/AAAAAAAAL9g/am_9Q3zsvcU/s250/04.%2BMaterials%2B-%2BBlood%2BRock.png"
+    }
+  },
+  "ritual": {
+    "7000": {
+      "item_name": "Ritual Blood",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nOne of the basic ingredients used to satiate a Holy Chalice is this incoagulable blood.\nWhen all is melted in blood, all is reborn.\n",
+      "item_img": "https://2.bp.blogspot.com/-GVOno-7bgTw/WyT5rD3p86I/AAAAAAAAZRo/Lgu6ttln0jYTNZuRcq_leylsK_qeMAT2wCLcBGAs/s42/Ritual%2BBlood%2B1.png"
+    },
+    "7012": {
+      "item_name": "Coldblood Flowerbud",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long ago abandoned.\n",
+      "item_img": "https://4.bp.blogspot.com/-LwqXmla7jEU/WyT5qakekfI/AAAAAAAAZRU/zzMwkjKj0KsbQNbyMXT3erDGJ0BW4T_GQCLcBGAs/s42/Coldblood%2BFlowerbud.png"
+    },
+    "7013": {
+      "item_name": "Coldblood Flower Bulb",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long abandoned, said to mature slowly in close\nproximity to death, and eventually bloom.\n",
+      "item_img": "https://1.bp.blogspot.com/-dNDNXL-yyDI/WyT5phDVuTI/AAAAAAAAZRQ/FIn4OwPYg546U3TP8vJWRt8b69HcyTBxQCLcBGAs/s42/Coldblood%2BFlower%2BBulb.png"
+    },
+    "7014": {
+      "item_name": "Blooming Coldblood Flower",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long abandoned, that has bloomed into a bright red\nstygian flower.\n",
+      "item_img": "https://4.bp.blogspot.com/-ZYwGAExQCz8/WyT5ph1dobI/AAAAAAAAZRI/LJZA0AIIFHwriq84QK9QsVlOazQePmdfQCLcBGAs/s42/Blooming%2BColdblood%2BFlower.png"
+    },
+    "7020": {
+      "item_name": "Tomb Mold",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nMold that grows from rotten flesh and blood inside the old\nlabyrinth. Matures to bear giant spores.\n",
+      "item_img": "https://2.bp.blogspot.com/-PoNdW_lZbl8/WyT5s9dDqoI/AAAAAAAAZSE/Ef9ZsaK_CKont8fEBg5XOq38EgFFIQfhACLcBGAs/s42/Tomb%2BMold%2B1.png"
+    },
+    "7050": {
+      "item_name": "Arcane Haze",
+      "item_desc": "\nMaterial used in a Holy Chalice rite.\nThe tiny smatterings of haze that are found in certain ritual materials. Sometimes required for special rites.\n\nThe additional rite Sinister Bell makes the bell-ringing\nwoman appear, and when she rings a sinister bell, hunters\nfrom other worlds will be beckoned as adversaries.\n",
+      "item_img": "https://2.bp.blogspot.com/-RJmQ4lcD7Y0/WyT5nydPM5I/AAAAAAAAZRA/x7IdFn4B_GY6vxNe6dTYR1rvN9eTiDoewCLcBGAs/s42/Arcane%2BHaze.png"
+    },
+    "7100": {
+      "item_name": "Pearl Slug",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nOf the all the strange lifeforms that reside in the nooks and  crannies of the old labyrinth, the slugs are clear signs of the  left-behind Great Ones.\n",
+      "item_img": "https://2.bp.blogspot.com/-2Ua_vHXhqKw/WyT5rC0H2mI/AAAAAAAAZRg/BRVO9Ifx_PAk9DVj0v2CVrpZKYoaFbFngCLcBGAs/s42/Pearl%2BSlug.png"
+    },
+    "7110": {
+      "item_name": "Red Jelly",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nStillborn infants born of a creature of unknown origin, of the\ntype found in some corners of the old labyrinth.\n",
+      "item_img": "https://1.bp.blogspot.com/-JcDWWvKqqs4/WyT5rFWbfhI/AAAAAAAAZRk/UvLC1p6r5rYIidzf9N8fjKJ_ytQWAcGogCLcBGAs/s42/Red%2BJelly.png"
+    },
+    "7120": {
+      "item_name": "Sage's Wrist",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nA body part of a saint, sacrificed by the Healing Church in\ntheir search for Truth.\nThe additional rite Fetid Offering invigorates the Watchers,\nmaking them more treacherous than normal, but also making\nthem worthy prey for a special hunt.\n",
+      "item_img": "https://2.bp.blogspot.com/-YF6bgXyvIks/VkfwAaXgKaI/AAAAAAAAL-s/n7J3FHBpX_M/s250/23.%2BMaterials%2B-%2BSage%2527s%2BWrist.png"
+    },
+    "7121": {
+      "item_name": "Sage's Hair",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nA body part of a saint, sacrificed by the Healing Church in\ntheir search for Truth.\nThe additional rite Fetid Offering invigorates the Watchers,\nmaking them more treacherous than normal, but also making \nthem worthy prey for a special hunt.",
+      "item_img": "https://2.bp.blogspot.com/-uNwwIrb1M9k/VkfwAoQgKEI/AAAAAAAAL-4/rBznMvzQebE/s250/24.%2BMaterials%2B-%2BSage%2527s%2BHair.png"
+    },
+    "7130": {
+      "item_name": "Inflicted Organ",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nSpecial body parts collected by the Healing Church.\nWhat was this gruesome bait used to lure?\nThe additional rite Rotted Offering beckons ungodly forces,\nnormally terrifying things, but also worthy prey for a special\nhunt.\n",
+      "item_img": "https://1.bp.blogspot.com/-oGpg456jFPU/WyT5qv_263I/AAAAAAAAZRY/6slLTrEH9AIp6LiT55XwfoQKoaeXDISpgCLcBGAs/s42/Inflicted%2BOrgan.png"
+    },
+    "7131": {
+      "item_name": "Yellow Backbone",
+      "item_desc": "\nSpecial material used in a Holy Chalice rite.\nSpecial body parts collected by the Healing Church.\nWhat was this gruesome bait used to lure?\n  \nThe additional rite Rotted Offering beckons ungodly forces,\nnormally terrifying things, but also worthy prey for a special\nhunt.\n",
+      "item_img": "https://1.bp.blogspot.com/-f1uqtKK0ul0/WyT5tt3qKvI/AAAAAAAAZSY/8ro2X388zlsuYxQT2aYbGt0xQc-gBR1OACLcBGAs/s42/Yellow%2BBackbone.png"
+    },
+    "7140": {
+      "item_name": "Bastard of Loran",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nRemains of Loran infant infected by the scourge.\nA harbinger of curses and symbol of defilement.\nThe additional rite Curse defiles dungeons in which hunters'\nHP is greatly eroded, but what better place to seek cursed\nblood gems but in the midst of defilement?\n",
+      "item_img": "https://4.bp.blogspot.com/-PxSGdeC9EN0/WyT5n4PRvcI/AAAAAAAAZRE/JtUmPYME7tsfgPQOGIlmHIB-26agVibkQCLcBGAs/s42/Bastard%2Bof%2BLoran.png"
+    },
+    "7150": {
+      "item_name": "Bloodshot Eyeball",
+      "item_desc": "\nMaterial used in a Holy Chalice rite.\nAn exquisite eyeball removed quickly after death, or perhaps even before. Used to unlock the seal of the old labyrinth hintertombs.\n",
+      "item_img": "https://3.bp.blogspot.com/-9rvLTJpnYAM/WyT5ppCYuqI/AAAAAAAAZRM/daBAL7EluEQo_-2blB8cQ0vS8z8ayM8nQCLcBGAs/s42/Bloodshot%2BEyeball.png"
+    },
+    "7200": {
+      "item_name": "Living String",
+      "item_desc": "\nSpecial material used in a holy chalice ritual.\nThe immense brain that Mensis retrieved from the nightmare\nwas indeed lined with eyes on the inside, but they were of\nan evil sort, and the brain itself was terrible rotten.\nBut even still, it was a legitimate Great One, and left a relic.\nA living relic, at that, which is a precious thing indeed. \n",
+      "item_img": "https://3.bp.blogspot.com/-_Cdpxe2aoa0/WyT5q3_YZdI/AAAAAAAAZRc/UaPs60Bdr8cu4dHbk80etvKZiNPE1OJTgCLcBGAs/s42/Living%2BString.png"
+    }
   }
 }
