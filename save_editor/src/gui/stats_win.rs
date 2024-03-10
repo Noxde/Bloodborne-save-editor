@@ -1,6 +1,6 @@
-use fltk::{button, enums::Align, frame, input, prelude::*};
+use fltk::{dialog, button, enums::Align, frame, input, prelude::*};
 use fltk_grid::Grid;
-use super::main_win::Data;
+use super::main_win::{Data , center};
 use std::{cell::RefCell, rc::Rc};
 
 pub fn create() -> Rc<RefCell<Grid>> {
@@ -29,23 +29,35 @@ pub fn update(data: Rc<RefCell<Data>>, grid_rc: Rc<RefCell<Grid>>) {
             .with_label("Current Value")
             .with_align(Align::Center);
         grid.add(&lable_current);
-        grid.set_widget(&mut lable_current, 4, 6);
+        grid.set_widget(&mut lable_current, 4, 5);
         
         let mut lable_new = frame::Frame::default()
-        .with_label("New Value")
-        .with_align(Align::Center);
+            .with_label("New Value")
+            .with_align(Align::Center);
         grid.add(&lable_new);
-        grid.set_widget(&mut lable_new, 4, 8..10);
+        grid.set_widget(&mut lable_new, 4, 7..9);
+
+        let mut lable_valid = frame::Frame::default()
+            .with_label("Valid Range")
+            .with_align(Align::Center);
+        grid.add(&lable_valid);
+        grid.set_widget(&mut lable_valid, 4, 10);
 
         let stats_inputs: Rc<RefCell<Vec<input::IntInput>>> = Rc::new(RefCell::new(Vec::new()));
+        let mut max_values: Vec<u64> = Vec::new();
+        let base: u64 = 256;
         for (index, stat) in save_data.stats.iter().enumerate() {
 
             let mut stat_input = input::IntInput::default();
             grid.add(&stat_input);
-            grid.set_widget(&mut stat_input, index+5, 8..10);
+            grid.set_widget(&mut stat_input, index+5, 7..9);
             stats_inputs.borrow_mut().push(stat_input);
 
             let name_label = format!("{}:", stat.name);
+            
+            let max_value: u64 = base.pow(stat.length as u32)-1;
+            max_values.push(max_value);
+            let valid_range =  format!("0 - {}",max_value);
 
             let mut stat_name = frame::Frame::default()
                 .with_label(&name_label)
@@ -53,11 +65,16 @@ pub fn update(data: Rc<RefCell<Data>>, grid_rc: Rc<RefCell<Grid>>) {
             let mut stat_value = frame::Frame::default()
                 .with_label(&stat.value.to_string())
                 .with_align(Align::Center);
+            let mut valid_range =  frame::Frame::default()
+                .with_label(&valid_range)
+                .with_align(Align::Center);
 
             grid.add(&stat_name);
-            grid.set_widget(&mut stat_name, index + 5, 3);
+            grid.set_widget(&mut stat_name, index + 5, 2);
             grid.add(&stat_value);
-            grid.set_widget(&mut stat_value, index + 5, 6);
+            grid.set_widget(&mut stat_value, index + 5, 5);
+            grid.add(&valid_range);
+            grid.set_widget(&mut valid_range, index + 5, 10);
         }
         
         // Save Changes button
@@ -69,30 +86,55 @@ pub fn update(data: Rc<RefCell<Data>>, grid_rc: Rc<RefCell<Grid>>) {
         let stats_inputs_clone = Rc::clone(&stats_inputs);
         let grid_clone = Rc::clone(&grid_rc);
         save_button.set_callback( move|_| {
+            let mut input_values: Vec<Option<u32>> = Vec::with_capacity(stats_inputs_clone.borrow().len());
+            let mut changes_made = false;
             {
-            let mut data_mut_borrow = data_clone.borrow_mut();
-            let data_mut = data_mut_borrow.data_or_panic();
-            for (index, input) in stats_inputs_clone.borrow_mut().iter().enumerate() {
-                if !input.value().is_empty() {
-                    let value: u32 = match input.value().parse() {
-                        Ok(val) => val,
-                        Err(e)  => panic!("Invalid stat value input: {}",e),
-                    };
-                    data_mut.stats[index].edit(value, &mut data_mut.file);
+                let mut data_mut = data_clone.borrow_mut();
+                let data = data_mut.data_or_panic();
+                for (index, input) in stats_inputs_clone.borrow_mut().iter().enumerate() {
+                    let stat_name = &data.stats[index].name;
+                    if !input.value().is_empty() {
+                        if let Ok(value) = input.value().parse::<i64>() {
+                            if value>=0 && value<=max_values[index] as i64 {
+                                input_values.push(Some(value as u32));
+                                changes_made = true;
+                            } else {
+                                dialog::alert(center().0-200, center().1-30, &format!("Value entered for '{}', is out of range.",stat_name));
+                                changes_made = false;
+                                break;
+                            }
+                        } else {
+                            dialog::alert(center().0-200, center().1-30, &format!("Value entered for '{}', is invalid.",stat_name));
+                            changes_made = false;
+                            break;
+                        }
+                    } else {
+                        input_values.push(None);
+                    }
                 }
             }
+            if changes_made {
+                {
+                    let mut data_mut_borrow = data_clone.borrow_mut();
+                    let data_mut = data_mut_borrow.data_or_panic();
+                    for (index, value_option) in input_values.iter().enumerate() {
+                        if let Some(value) = value_option {
+                            data_mut.stats[index].edit(*value, &mut data_mut.file);
+                        }
+                    }
+                }
+                {
+                    // Save the changes to the file
+                    let temp_clone = Rc::clone(&data_clone);
+                    let path = &temp_clone.borrow().path.clone();
+                    match data_clone.borrow_mut().data_or_panic().file.save(&path) {
+                        Ok(_) => (),
+                        Err(e) => panic!("Error while tring to save file: {e}"),
+                    }
+                }
+                // Show the changes
+                update(Rc::clone(&data_clone), Rc::clone(&grid_clone));
             }
-            // Save the changes to the file
-            {
-            let temp_clone = Rc::clone(&data_clone);
-            let path = &temp_clone.borrow().path.clone();
-            match data_clone.borrow_mut().data_or_panic().file.save(&path) {
-                Ok(_) => (),
-                Err(e) => panic!("Error while tring to save file: {e}"),
-            }
-            }
-            // Show the changes
-            update(Rc::clone(&data_clone), Rc::clone(&grid_clone));
         });
     } else {
         // Display message
