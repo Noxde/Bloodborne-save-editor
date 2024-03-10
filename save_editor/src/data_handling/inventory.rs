@@ -100,10 +100,9 @@ pub fn inventory_offset(bytes: &[u8]) -> (usize, usize) {
 
 pub fn parse_items(bytes: &[u8]) -> Vec<Item> {
     let mut items = Vec::new();
-    let (inventory, _storage) = inventory_offset(bytes);
-    println!("{inventory}");
+    let (inventory_start, _) = inventory_offset(bytes);
 
-    for i in (inventory..bytes.len()).step_by(16) {
+    for i in (inventory_start..bytes.len()).step_by(16) {
         let index = bytes[i];
         let id = u32::from_le_bytes([bytes[i + 8], bytes[i + 9], bytes[i + 10], 0]);
         let first_part =
