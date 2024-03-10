@@ -140,14 +140,18 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Box<dyn Error>> {
     let reader = BufReader::new(json_file);
     let items: Value = serde_json::from_reader(reader).unwrap();
 
-    if let Some((_, value)) = items
-        .as_object()
-        .ok_or("Items is not an object")?
-        .iter()
-        .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
-    {
-        let item_info: ItemInfo = serde_json::from_value(value.clone())?;
-        return Ok(Some(item_info));
+    if let Some(object) = items.as_object() {
+        for (_, category) in object {
+            if let Some(category) = category.as_object() {
+                if let Some((_, value)) = category
+                    .iter()
+                    .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
+                {
+                    let item_info: ItemInfo = serde_json::from_value(value.clone())?;
+                    return Ok(Some(item_info));
+                }
+            }
+        }
     }
 
     if let Some(consumables) = items["consumables"].as_object() {
