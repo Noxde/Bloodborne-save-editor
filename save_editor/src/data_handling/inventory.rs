@@ -85,13 +85,14 @@ pub fn inventory_offset(bytes: &[u8]) -> (usize, usize) {
         buffer[..4].copy_from_slice(&bytes[i..i + 4]);
         let current = u32::from_le_bytes(buffer);
         let t = 0xfffff040 as u32;
+        let e = 0xffffffff as u32;
         if t == current {
             if matches.0 == 0 {
                 matches.0 = i;
-            } else {
-                matches.1 = i;
-                break;
             }
+        } else if e == current && matches.0 != 0 {
+            matches.1 = i - 4;
+            break;
         }
     }
     matches
