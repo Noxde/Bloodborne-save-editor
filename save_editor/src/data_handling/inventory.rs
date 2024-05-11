@@ -11,7 +11,7 @@ pub struct ItemInfo {
 }
 
 #[derive(Debug)]
-pub struct Item {
+pub struct Article {
     // pub name: String,
     pub index: u8,
     pub id: u32,
@@ -22,7 +22,7 @@ pub struct Item {
 }
 
 pub struct Inventory {
-    pub items: Vec<Item>,
+    pub items: Vec<Article>,
 }
 
 impl Inventory {
@@ -59,7 +59,7 @@ impl Inventory {
         bytes[inventory_end + 7] = 0x40;
         bytes[inventory_end + 12] = bytes[inventory_end - 4] + 1;
 
-        let new_item = Item {
+        let new_item = Article {
             index: bytes[inventory_end + 12],
             id: u32::from_le_bytes(endian_id),
             first_part: 213,
@@ -98,7 +98,7 @@ pub fn inventory_offset(bytes: &[u8]) -> (usize, usize) {
     matches
 }
 
-pub fn parse_items(bytes: &[u8]) -> Vec<Item> {
+pub fn parse_items(bytes: &[u8]) -> Vec<Article> {
     let mut items = Vec::new();
     let (inventory_start, _) = inventory_offset(bytes);
 
@@ -122,7 +122,7 @@ pub fn parse_items(bytes: &[u8]) -> Vec<Item> {
 
         let info = get_info(id).unwrap();
 
-        items.push(Item {
+        items.push(Article {
             index,
             id,
             first_part,
