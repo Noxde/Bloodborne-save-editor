@@ -16,3 +16,10 @@ impl fmt::Display for Error {
 }
 
 impl std::error::Error for Error {}
+
+#[derive(Debug)]
+pub enum ArticleType {
+    Armor,
+    Item,
+    Weapon,
+}

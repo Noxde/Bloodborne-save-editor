@@ -1,6 +1,6 @@
 use serde::Deserialize;
 use serde_json::{self, Value};
-
+use super::enums::ArticleType;
 use std::{error::Error, fs::File, io::BufReader};
 
 #[derive(Deserialize, Debug)]
@@ -19,10 +19,12 @@ pub struct Article {
     pub second_part: u32,
     pub amount: u32,
     pub info: Option<ItemInfo>,
+    pub article_type: ArticleType,
 }
 
+#[derive(Debug)]
 pub struct Inventory {
-    pub items: Vec<Article>,
+    pub articles: Vec<Article>,
 }
 
 impl Inventory {
@@ -33,7 +35,7 @@ impl Inventory {
         for i in (start..bytes.len()).step_by(16) {
             if index == bytes[i] {
                 for (i, b) in bytes[i + 12..i + 16].iter_mut().enumerate() {
-                    if let Some(item) = self.items.iter_mut().find(|item| item.index == index) {
+                    if let Some(item) = self.articles.iter_mut().find(|item| item.index == index) {
                         item.amount = value;
                     }
                     *b = value_endian[i];
@@ -66,15 +68,16 @@ impl Inventory {
             second_part: 1233,
             info: get_info(id).unwrap(),
             amount: quantity,
+            article_type: ArticleType::Item,
         };
 
-        self.items.push(new_item);
+        self.articles.push(new_item);
     }
 }
 
 pub fn build(bytes: &Vec<u8>) -> Inventory {
     Inventory {
-        items: parse_items(bytes),
+        articles: parse_articles(bytes),
     }
 }
 
@@ -98,8 +101,8 @@ pub fn inventory_offset(bytes: &[u8]) -> (usize, usize) {
     matches
 }
 
-pub fn parse_items(bytes: &[u8]) -> Vec<Article> {
-    let mut items = Vec::new();
+pub fn parse_articles(bytes: &[u8]) -> Vec<Article> {
+    let mut articles = Vec::new();
     let (inventory_start, _) = inventory_offset(bytes);
 
     for i in (inventory_start..bytes.len()).step_by(16) {
@@ -116,23 +119,27 @@ pub fn parse_items(bytes: &[u8]) -> Vec<Article> {
             break;
         }
 
-        if bytes[i + 7] != 0xB0 || bytes[i + 11] != 0x40 {
-            continue;
-        }
-
+        
         let info = get_info(id).unwrap();
 
-        items.push(Article {
+        let article_type = match (bytes[i+7],bytes[i+11]) {
+            (0xB0,0x40) => ArticleType::Item,
+            (_,0x10) => ArticleType::Armor,
+            _ => ArticleType::Weapon,
+        };
+
+        articles.push(Article {
             index,
             id,
             first_part,
             second_part,
             amount,
             info,
+            article_type,
         });
     }
 
-    items
+    articles
 }
 
 pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Box<dyn Error>> {
