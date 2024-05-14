@@ -1,9 +1,11 @@
 use std::{fmt, io};
+use serde_json::Error as JsonError;
 
 #[derive(Debug)]
 pub enum Error {
     IoError(io::Error),
     CustomError(&'static str),
+    JsonError(JsonError),
 }
 
 impl fmt::Display for Error {
@@ -11,6 +13,7 @@ impl fmt::Display for Error {
         match self {
             Error::IoError(err) => write!(f, "I/0 error: {}",err),
             Error::CustomError(err) => write!(f, "Save error: {}",err),
+            Error::JsonError(err) => write!(f, "JSON SERDES error: {}",err),
         }
     }
 }

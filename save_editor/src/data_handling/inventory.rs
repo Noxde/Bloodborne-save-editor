@@ -1,7 +1,7 @@
 use serde::Deserialize;
 use serde_json::{self, Value};
-use super::enums::ArticleType;
-use std::{error::Error, fs::File, io::BufReader};
+use super::enums::{ArticleType, Error};
+use std::{fs::File, io::BufReader};
 
 #[derive(Deserialize, Debug)]
 pub struct ItemInfo {
@@ -142,8 +142,8 @@ pub fn parse_articles(bytes: &[u8]) -> Vec<Article> {
     articles
 }
 
-pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Box<dyn Error>> {
-    let json_file = File::open("items.json")?;
+pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Error> {
+    let json_file = File::open("items.json").map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let items: Value = serde_json::from_reader(reader).unwrap();
 
@@ -154,7 +154,7 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Box<dyn Error>> {
                     .iter()
                     .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
                 {
-                    let item_info: ItemInfo = serde_json::from_value(value.clone())?;
+                    let item_info: ItemInfo = serde_json::from_value(value.clone()).map_err(Error::JsonError)?;
                     return Ok(Some(item_info));
                 }
             }
@@ -168,7 +168,7 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Box<dyn Error>> {
                     .iter()
                     .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
                 {
-                    let item_info: ItemInfo = serde_json::from_value(value.clone())?;
+                    let item_info: ItemInfo = serde_json::from_value(value.clone()).map_err(Error::JsonError)?;
                     return Ok(Some(item_info));
                 }
             }
