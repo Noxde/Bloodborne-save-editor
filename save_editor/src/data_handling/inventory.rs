@@ -22,6 +22,39 @@ pub struct Article {
     pub article_type: ArticleType,
 }
 
+impl Article {
+
+
+    pub fn transform(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
+        match self.article_type {
+            ArticleType::Item => self.transform_item(file_data, new_id),
+            _  => Ok(()), //TODO: Add match arm for weapons and armor
+        }
+    }
+    fn transform_item(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
+        if new_id.len()!=3 {
+            Err(Error::CustomError("ERROR: 'new_id' argument must be 3B long."))
+        } else {
+            let (start, finish) = inventory_offset(&file_data);
+            for i in (start..finish).step_by(16) {
+                if self.index == file_data.bytes[i] {
+                    
+                    //FIRST PART
+                    for j in i+4..=i+6 {
+                        file_data.bytes[j] = new_id[j-i-4];
+                    }
+                    //SECOND PART
+                    for j in i+8..=i+10 {
+                        file_data.bytes[j] = new_id[j-i-8];
+                    }
+                    return Ok(())
+                }
+            }
+            Err(Error::CustomError("ERROR: The Article was not found in the inventory."))
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct Inventory {
     pub articles: Vec<Article>,
@@ -93,7 +126,7 @@ pub fn inventory_offset(file_data: &FileData) -> (usize, usize) {
                 matches.0 = i;
             }
         } else if e == current && matches.0 != 0 {
-            matches.1 = i - 4;
+            matches.1 = i + 7;
             break;
         }
     }
