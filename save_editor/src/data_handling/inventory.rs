@@ -23,8 +23,6 @@ pub struct Article {
 }
 
 impl Article {
-
-
     pub fn transform(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
         match self.article_type {
             ArticleType::Item => self.transform_item(file_data, new_id),
@@ -38,15 +36,24 @@ impl Article {
             let (start, finish) = inventory_offset(&file_data);
             for i in (start..finish).step_by(16) {
                 if self.index == file_data.bytes[i] {
-                    
+
                     //FIRST PART
                     for j in i+4..=i+6 {
                         file_data.bytes[j] = new_id[j-i-4];
                     }
+                    self.first_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0xB0]);
+                    
                     //SECOND PART
                     for j in i+8..=i+10 {
                         file_data.bytes[j] = new_id[j-i-8];
                     }
+                    self.second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x40]);
+                    
+                    //ID
+                    self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
+                    
+                    //INFO
+                    self.info = get_info(self.id)?;
                     return Ok(())
                 }
             }
