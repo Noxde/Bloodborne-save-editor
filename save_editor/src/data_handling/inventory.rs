@@ -26,7 +26,7 @@ impl Article {
     pub fn transform(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
         match self.article_type {
             ArticleType::Item => self.transform_item(file_data, new_id),
-            _  => Ok(()), //TODO: Add match arm for weapons and armor
+            ArticleType::Armor | ArticleType::Weapon => self.transform_armor_or_weapon(file_data, new_id),
         }
     }
     fn transform_item(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
@@ -54,6 +54,57 @@ impl Article {
                     
                     //INFO
                     self.info = get_info(self.id)?;
+                    return Ok(())
+                }
+            }
+            Err(Error::CustomError("ERROR: The Article was not found in the inventory."))
+        }
+    }
+
+    fn transform_armor_or_weapon(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
+        if new_id.len()!=4 {
+            Err(Error::CustomError("ERROR: 'new_id' argument must be 4B long."))
+        } else {
+            let (start, finish) = inventory_offset(&file_data);
+            for i in (start..finish).step_by(16) {
+                if self.index == file_data.bytes[i] {
+
+                    //Take the first and second part to search later
+                    let mut query = Vec::with_capacity(8);
+                    for j in 4..=11 {
+                        query.push(file_data.bytes[i+j]);
+                    }
+                    
+                    //SECOND PART
+                    for j in i+8..=i+11 {
+                        file_data.bytes[j] = new_id[j-i-8];
+                    }
+                    self.second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
+                    
+                    //ID
+                    self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
+                    
+                    //INFO
+                    self.info = get_info(self.id)?;
+
+                    //Search for the query above the inventory (where the article appears with its gems)
+                    let mut found = false;
+                    let mut index = 0;
+                    for j in (0..(start - 8)).rev() {
+                        if query == file_data.bytes[j..=(j + 7)] {
+                            found = true;
+                            index = j;
+                            break;
+                        }
+                    }
+                    if !found {
+                        return Err(Error::CustomError("ERROR: The Article was not found above the inventory."))
+                    } else {
+                        //Update the article id 
+                        for j in index+4..=index+7 {
+                            file_data.bytes[j] = new_id[j-index-4];
+                        }
+                    }
                     return Ok(())
                 }
             }
