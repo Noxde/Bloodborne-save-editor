@@ -120,7 +120,7 @@ pub struct Inventory {
 
 impl Inventory {
     ///Modifies the amount of an article
-    pub fn _edit_item(&mut self, file_data: &mut FileData, index: u8, value: u32) {
+    pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, value: u32) {
         let value_endian = u32::to_le_bytes(value);
         let (start, _) = inventory_offset(&file_data);
         for i in (start..file_data.bytes.len()).step_by(16) {
@@ -270,6 +270,8 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Error> {
 
 #[cfg(test)]
 mod tests {
+    use crate::data_handling::inventory;
+
     use super::*;
 
     const TEST_SAVE_PATH: &str = "testsave";
@@ -338,5 +340,17 @@ mod tests {
         
         article.index = 255;
         assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+    }
+    
+    #[test]
+    fn inventory_edit_item() {
+        let mut file_data = build_file_data();
+        let mut inventory = build(&file_data);
+        assert!(check_bytes(&file_data, 1155868, 
+            &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
+        inventory.edit_item(&mut file_data, 0x48, 0xAABBCCDD);
+        assert!(check_bytes(&file_data, 1155868, 
+            &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
+        assert_eq!(inventory.articles[8].amount, 0xAABBCCDD);
     }
 }
