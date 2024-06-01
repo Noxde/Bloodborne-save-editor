@@ -312,4 +312,31 @@ mod tests {
         article.index = 255;
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
     }
+
+    #[test]
+    fn article_transform_armor_or_weapon() {
+        let mut file_data = build_file_data();
+        let mut inventory = build(&file_data);
+
+        let article = &mut inventory.articles[0];
+        assert!(check_bytes(&file_data, 1155740, 
+            &[0x40,0xF0,0xFF,0xFF,0x4B,0,0x80,0x80,0x40,0x42,0x0F,0,1,0,0,0]));
+        assert!(check_bytes(&file_data, 1121756, 
+            &[0x4B,0,0x80,0x80,0x40,0x42,0x0F,0]));
+        article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]).unwrap();
+        assert!(check_bytes(&file_data, 1155740, 
+            &[0x40,0xF0,0xFF,0xFF,0x4B,0,0x80,0x80,0xAA,0xBB,0xCC,0xDD,1,0,0,0]));
+        assert!(check_bytes(&file_data, 1121756, 
+            &[0x4B,0,0x80,0x80,0xAA,0xBB,0xCC,0xDD]));
+        assert_eq!(article.id, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
+        assert_eq!(article.first_part, u32::from_le_bytes([0x4B,0,0x80,0x80]));
+        assert_eq!(article.second_part, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]));
+
+        //error tests
+        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD,0xEE]).is_err());
+        
+        article.index = 255;
+        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+    }
 }
