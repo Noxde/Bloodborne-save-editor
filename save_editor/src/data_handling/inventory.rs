@@ -119,6 +119,7 @@ pub struct Inventory {
 }
 
 impl Inventory {
+    ///Modifies the amount of an article
     pub fn _edit_item(&mut self, file_data: &mut FileData, index: u8, value: u32) {
         let value_endian = u32::to_le_bytes(value);
         let (start, _) = inventory_offset(&file_data);
@@ -265,4 +266,50 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Error> {
     }
 
     Ok(None)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const TEST_SAVE_PATH: &str = "testsave";
+    const TEST_SAVE_USERNAME: &str = "Proyectito";
+
+    fn build_file_data() -> FileData {
+        FileData::build(TEST_SAVE_PATH, TEST_SAVE_USERNAME).unwrap()
+    }
+
+    fn check_bytes(file_data: &FileData,index: usize,bytes: &[u8]) -> bool {
+        let mut equal = true;
+        for (i, byte) in bytes.iter().enumerate() {
+            if file_data.bytes[index+i]!=*byte {
+                equal = false;
+                break;
+            }
+        }
+        equal
+    }
+
+    #[test]
+    fn article_transform_item() {
+        let mut file_data = build_file_data();
+        let mut inventory = build(&file_data);
+
+        let article = &mut inventory.articles[8];
+        assert!(check_bytes(&file_data, 1155868, 
+            &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
+        article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).unwrap();
+        assert!(check_bytes(&file_data, 1155868, 
+            &[0x48,0x80,0xCF,0xA8,0xAA,0xBB,0xCC,0xB0,0xAA,0xBB,0xCC,0x40,0x01,0,0,0]));
+        assert_eq!(article.id, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
+        assert_eq!(article.first_part, u32::from_le_bytes([0xAA,0xBB,0xCC,0xB0]));
+        assert_eq!(article.second_part, u32::from_le_bytes([0xAA,0xBB,0xCC,0x40]));
+
+        //error tests
+        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB]).is_err());
+        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]).is_err());
+        
+        article.index = 255;
+        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+    }
 }
