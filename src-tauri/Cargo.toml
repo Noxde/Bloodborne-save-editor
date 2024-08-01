@@ -1,11 +1,11 @@
 [package]
-name = "save_editor"
+name = "src-tauri"
 version = "0.1.0"
 description = "Bloodborne save editor."
 authors = ["Noxde", "Valentino Amato"]
 license = ""
 repository = "https://github.com/Noxde/Bloodborne-save-editor"
-default-run = "save_editor"
+default-run = "src-tauri"
 edition = "2021"
 rust-version = "1.60"
 
