@@ -1,0 +1,2762 @@
+{
+  "10000": {
+    "image": "https://4.bp.blogspot.com/-ihsJs1zoKfE/WzBbx35NWZI/AAAAAAAAZrY/hOaqvTN4DuUtWXZx2fw1o5NhlCMsDW2EQCLcBGAs/s42/ashen%2Bhunter%2Bhead.png",
+    "name": "Grey Wolf Cap",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 50,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 9,
+      "rapidPoison": 12,
+      "frenzy": 19
+    },
+    "beasthood": 37,
+    "type": "Head",
+    "description": "\nAttire of the retired hunter Djura. \nThis worn wolf cap was his trademark.\nDjura is known through his contact with the Powder Kegs,\nthe heretics of the workshop. He is said to have been \nboth uncommonly kind and dreadfully foolish.\n\nDjura felt defeated by the state of Old Yharnam,\nand renounced his hunter's vows."
+  },
+  "11000": {
+    "image": "https://4.bp.blogspot.com/-oUa4ZWS-Uhs/WzBb4OIoNII/AAAAAAAAZtE/B2IdTKeV_9M7G5gb3Gap31_HAZanw0hfQCLcBGAs/s42/charred%2Bchest.png",
+    "name": "Charred Hunter Garb",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 100,
+      "thrust": 70,
+      "blood": 100
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 140,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 29,
+      "rapidPoison": 37,
+      "frenzy": 45
+    },
+    "beasthood": 58,
+    "type": "Chest",
+    "description": "\nOne of the staple articles of hunter attire, fashioned at the \nworkshop.\nA product of the scourge of the beast that once plagued Old \nYharnam and culminated in the town's fiery cleansing.\nThe cape's dampness makes it highly resistant to fire.\nWearers of this attire hunted down victims of the scourge w\nho survived the raging flames and stench of singed blood."
+  },
+  "12000": {
+    "image": "https://2.bp.blogspot.com/-anxT9ihPPH0/WzBb3osvPQI/AAAAAAAAZtA/b2ESQGj8Ja8YeljOCPn51GixJWwWMQ-_wCLcBGAs/s42/charred%2Barms.png",
+    "name": "Charred Hunter Gloves",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 70,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 15,
+      "rapidPoison": 20,
+      "frenzy": 24
+    },
+    "beasthood": 30,
+    "type": "Hands",
+    "description": "\nOne of the staple articles of hunter attire, fashioned at the workshop.\nA product of the scourge of the beast that once plagued Old \nYharnam and culminated in the town's fiery cleansing.\nDesigned to be highly resistant to fire. Wearers of this attire \nhunted down victims of the scourge who survived the raging \nflames and stench of singed blood."
+  },
+  "13000": {
+    "image": "https://3.bp.blogspot.com/-5INLa1AdC54/WzBb4S4XqNI/AAAAAAAAZtI/ZM8_UCXEsW8G6H2kiPgd0AAhdKOgr1kkwCLcBGAs/s42/charred%2Blegs.png",
+    "name": "Charred Hunter Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 80,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 21,
+      "frenzy": 27
+    },
+    "beasthood": 33,
+    "type": "Legs",
+    "description": "\nOne of the staple articles of hunter attire, fashioned at the \nworkshop.\nA product of the scourge of the beast that once plagued Old \nYharnam and culminated in the town's fiery cleansing.\nDesigned to be highly resistant to fire. Wearers of this attire \nhunted down victims of the scourge who survived the raging \nflames and stench of singed blood."
+  },
+  "20000": {
+    "image": "https://1.bp.blogspot.com/-RWYCTmPqNhs/WzBcPISpRbI/AAAAAAAAZy0/BZwXDdMqUAEZ-skvauGWX-yUqPGgKC7twCLcBGAs/s42/yahargul%2Bhead.png",
+    "name": "Black Hooded Iron Helm",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 10,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 13,
+      "rapidPoison": 12,
+      "frenzy": 12
+    },
+    "beasthood": 8,
+    "type": "Head",
+    "description": "\nIron helmet worn by hunters of the Unseen Village.\nThe hunters of Yahar'gul answer to the village's founders,\nthe School of Mensis. Hunters in name only, these\nkidnappers wear their black hoods low to shadow their\neyes.\nThis helm is made of metal, a rarity for hunter garb, and has\nhigh defence, but only against physical attacks."
+  },
+  "21000": {
+    "image": "https://2.bp.blogspot.com/-F3eZb9iouTg/WzBcO0ob7LI/AAAAAAAAZyw/ubMPebnO3U8DkQ8N435cJGZyHRL4i14tgCLcBGAs/s42/yahargul%2Bchest.png",
+    "name": "Yahar'gul Black Garb",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 90,
+      "thrust": 90,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 40,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 45,
+      "rapidPoison": 37,
+      "frenzy": 41
+    },
+    "beasthood": 37,
+    "type": "Chest",
+    "description": "\nThick black pullover worn by hunters of the Unseen Village.\nThe hunters of Yahar'gul answer to the village's founders,\nthe School of Mensis. Hunters in name only, these\nkidnappers blend into the night wearing this attire.\nDesigned primarily to defend from physical attacks, the\nbinding of thick rope serves both to protect its wearer, and\nrestrain his foes."
+  },
+  "22000": {
+    "image": "https://4.bp.blogspot.com/-zmlyi0IjHcI/WzBcOQKetTI/AAAAAAAAZys/k7jtPvzFJaE2OdrSXw97qNC_nsqD7_XKgCLcBGAs/s42/yahargul%2Barms.png",
+    "name": "Yahar'gul Black Gloves",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 24,
+      "rapidPoison": 20,
+      "frenzy": 22
+    },
+    "beasthood": 20,
+    "type": "Hands",
+    "description": "\nThick black gloves worn by hunters of the Unseen Village.\nThe hunters of Yahar'gul answer to the village's founders,\nthe School of Mensis. Hunters in name only, these\nkidnappers blend into the night wearing this attire.\nDesigned primarily to defend from physical attacks."
+  },
+  "23000": {
+    "image": "https://2.bp.blogspot.com/-ot_2MgA17-A/WzBcPN4ja9I/AAAAAAAAZy4/yNNXoKycy9EHZiNn0PyrrfKBfNhoz6XUgCLcBGAs/s42/yahargul%2Blegs.png",
+    "name": "Yahar'gul Black Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 26,
+      "rapidPoison": 21,
+      "frenzy": 24
+    },
+    "beasthood": 21,
+    "type": "Legs",
+    "description": "\nThick black trousers worn by hunters of the Unseen Village.\nThe hunters of Yahar'gul answer to the village's founders,\nthe School of Mensis. Hunters in name only, these\nkidnappers blend into the night wearing this attire.\nDesigned primarily to defend from physical attacks."
+  },
+  "30000": {
+    "image": "https://1.bp.blogspot.com/-GXP1FEI5_to/WzBcAN3HZTI/AAAAAAAAZvU/0T96NHV5sxAQtfh49spQoLuoOif4hsTBQCLcBGAs/s42/graveguard%2Bhead.png",
+    "name": "Graveguard Mask",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 16,
+      "rapidPoison": 16,
+      "frenzy": 32
+    },
+    "beasthood": 13,
+    "type": "Head",
+    "description": "\nMask of Dores, graveguard of the Forbidden Woods.\nHis pale countenance mimics the labyrinth watchers. \nWillem kept two loyal servants back at Byrgenwerth. Whenthey were sent into the labyrinth, they encountered theeldritch Truth, and went mad. One became the passwordgatekeeper, while Dores became a graveguard of the forest.\nBoth remained loyal, even in madness."
+  },
+  "31000": {
+    "image": "https://4.bp.blogspot.com/-yF17OEz7QcE/WzBb_-OFJwI/AAAAAAAAZvQ/WLtv9Wr6z54f2kpsvww6NE4aR2uVZLkuQCLcBGAs/s42/graveguard%2Bchest.png",
+    "name": "Graveguard Robe",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 80,
+      "thrust": 90,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 100,
+      "fire": 80,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 50,
+      "rapidPoison": 49,
+      "frenzy": 49
+    },
+    "beasthood": 40,
+    "type": "Chest",
+    "description": "\nRobe of Dores, graveguard of the Forbidden Woods.\nCountless bloodied ritual tools hang from its back.\nWillem kept two loyal servants back at Byrgenwerth. When they were sent into the labyrinth, they encountered the eldritch Truth, and went mad. One became the password gatekeeper, while Dores became a graveguard of the forest.\nBoth remained loyal, even in madness."
+  },
+  "32000": {
+    "image": "https://1.bp.blogspot.com/-3uxiomNGF18/WzBb_ch4gII/AAAAAAAAZvM/dvM4J1Aid1YDHEU3gpNG3w0dZQfFDZQcwCLcBGAs/s42/graveguard%2Barms.png",
+    "name": "Graveguard Manchettes",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 27,
+      "rapidPoison": 26,
+      "frenzy": 26
+    },
+    "beasthood": 22,
+    "type": "Hands",
+    "description": "\nManchettes of Dores, graveguard of the Forbidden Woods.\nCovered in the blood of untidy rituals.\nWillem kept two loyal servants back at Byrgenwerth. When  they were sent into the labyrinth, they encountered the  eldritch Truth, and went mad. One became the password  gatekeeper, while Dores became a graveguard of the forest.\nBoth remained loyal, even in madness."
+  },
+  "33000": {
+    "image": "https://1.bp.blogspot.com/-uPIUxV058YE/WzBcAJziSaI/AAAAAAAAZvY/Xly6CEep57EpV_KtgLNsAanjFiPqTfSfgCLcBGAs/s42/graveguard%2Blegs.png",
+    "name": "Graveguard Kilt",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 29,
+      "rapidPoison": 28,
+      "frenzy": 28
+    },
+    "beasthood": 23,
+    "type": "Legs",
+    "description": "\nLeggings of Dores, graveguard of the Forbidden Woods.\nCovered in the blood of untidy rituals.\nWillem kept two loyal servants back at Byrgenwerth. When they were sent into the labyrinth, they encountered the eldritch Truth, and went mad. One became the password gatekeeper, while Dores became a graveguard of the forest.\nBoth remained loyal, even in madness."
+  },
+  "40000": {
+    "image": "https://3.bp.blogspot.com/-46lCwhLjN_A/WzBb0_LxwSI/AAAAAAAAZsI/E2h-aT2b81o3vofEbaRSQyPYO5YKoZ3zgCLcBGAs/s42/bone%2Bash%2Bhead.png",
+    "name": "Bone Ash Mask",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 30,
+      "thrust": 40,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 9,
+      "frenzy": 14
+    },
+    "beasthood": 8,
+    "type": "Head",
+    "description": "\nA mask made of bone ash, worn by the oldest keepers.           \nThe keepers, who mind the slumbering great Ones, gained\n eternal life, preserved in ashen form in a ceremony of flame that cremated body and soul.            \nThe long, pointed hat is a symbol of the old keepers and is considered evidence of their companionship, forged in a certain sin."
+  },
+  "42000": {
+    "image": "https://1.bp.blogspot.com/-omG6IE8sb7A/WzBb0OSdjeI/AAAAAAAAZsA/v0_2eDPnQaEfkP42krUyW2OQQK2uBTfKACLcBGAs/s42/bone%2Bash%2Barms.png",
+    "name": "Bone Ash Gauntlets",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 30,
+      "thrust": 50,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 70,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 15,
+      "frenzy": 22
+    },
+    "beasthood": 13,
+    "type": "Hands",
+    "description": "\nGauntlets made of bone ash, worn by the oldest keepers.       \nThe keepers, who mind the slumbering great Ones, gainedeternal life, preserved in ashen form in  a ceremony of flame  that cremated body and soul.           \nNow, their frail armor is white and sinewy, a window into  an arcane lost art."
+  },
+  "43000": {
+    "image": "https://3.bp.blogspot.com/-st8p7U_628g/WzBb1M2VqEI/AAAAAAAAZsM/eNLPaMri31g7KpGCxo04X1m599FzwgfMgCLcBGAs/s42/bone%2Bash%2Blegs.png",
+    "name": "Bone Ash Leggings",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 80,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 17,
+      "frenzy": 24
+    },
+    "beasthood": 15,
+    "type": "Legs",
+    "description": "\nLeggings made of bone ash, worn by the oldest keepers.            \nThe keepers, who mind the slumbering great Ones, gained eternal life, preserved in ashen form in a ceremony of flame that cremated body and soul.           \nNow, their frail armor is white and sinewy, a window into an arcane lost art."
+  },
+  "50000": {
+    "image": "https://1.bp.blogspot.com/-lhCgAvF3Gek/WzBcCd4RYHI/AAAAAAAAZv0/nXd1LERoOU8HO4vxn9LJoUomlRAxq24eQCLcBGAs/s42/henryk%2Bhead.png",
+    "name": "Henryk's Hunter Cap",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 7,
+      "rapidPoison": 14,
+      "frenzy": 15
+    },
+    "beasthood": 20,
+    "type": "Head",
+    "description": "\nHunter's hat worn by Henryk, the old hunter.\nThe taciturn old hunter Henryk was once partners with \nFather Gascoigne, and though they were a fierce and gallant \nduo, their partnership led to Henryk's tragically long life.\nHenryk's unique yellow garb is resistant to bolt and will be \nof great help to any hunter who has inherited the onus of the \nhunt."
+  },
+  "51000": {
+    "image": "https://2.bp.blogspot.com/-Wa0BNgjV4RM/WzBcCGEokiI/AAAAAAAAZvw/OpK7qSl2llUBi4lvqU-hghmLYczFubEHQCLcBGAs/s42/henryk%2Bchest.png",
+    "name": "Henryk's Hunter Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 100,
+      "thrust": 80,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 100,
+      "bolt": 150
+    },
+    "resistance": {
+      "slowPoison": 21,
+      "rapidPoison": 41,
+      "frenzy": 45
+    },
+    "beasthood": 60,
+    "type": "Chest",
+    "description": "\nHunter's attire worn by Henryk, the old hunter.\nThe taciturn old hunter Henryk was once partners with \nFather Gascoigne, and though they were a fierce and gallant \nduo, their partnership led to Henryk's tragically long life.\nHenryk's unique yellow garb is resistant to bolt and will be \nof great help to any hunter who has inherited the onus of the \nhunt."
+  },
+  "52000": {
+    "image": "https://3.bp.blogspot.com/-_rF4dKdBwxU/WzBcCGbp7OI/AAAAAAAAZvs/1gnYioSimfkEHW7Tkdrr_JhucV56UFkfgCLcBGAs/s42/henryk%2Barms.png",
+    "name": "Henryk's Hunter Gloves",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 22,
+      "frenzy": 23
+    },
+    "beasthood": 32,
+    "type": "Hands",
+    "description": "\nHunter's attire worn by Henryk, the old hunter.\nThe taciturn old hunter Henryk was once partners with \nFather Gascoigne, and though they were a fierce and gallant \nduo, their partnership led to Henryk's tragically long life.\nHenryk's unique yellow garb is resistant to bolt and will be \nof great help to any hunter who has inherited the onus of the \nhunt."
+  },
+  "53000": {
+    "image": "https://3.bp.blogspot.com/-t-MK4S8OiNA/WzBcCgDWW9I/AAAAAAAAZv4/aehGaBgVsG0aL8qvTEZzoGZltY5NPD4bACLcBGAs/s42/henryk%2Blegs.png",
+    "name": "Henryk's Hunter Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 80
+    },
+    "resistance": {
+      "slowPoison": 12,
+      "rapidPoison": 24,
+      "frenzy": 25
+    },
+    "beasthood": 34,
+    "type": "Legs",
+    "description": "\nHunter's trousers worn by Henryk, the old hunter.\nThe taciturn old hunter Henryk was once partners with \nFather Gascoigne, and though they were a fierce and gallant \nduo, their partnership led to Henryk's tragically long life.\nHenryk's unique yellow garb is resistant to bolt and will be \nof great help to any hunter who has inherited the onus of the \nhunt."
+  },
+  "60000": {
+    "image": "https://4.bp.blogspot.com/-gOqawDktlCY/WzBcRoDlPoI/AAAAAAAAZzk/GBcYnhO9VLgYCukn0TtfhkuVilRl1Yh0QCLcBGAs/s42/yharnam%2Bhunter%2Bhead%2Bmale.png",
+    "name": "Yharnam Hunter Cap",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 16,
+      "rapidPoison": 13,
+      "frenzy": 14
+    },
+    "beasthood": 16,
+    "type": "Head",
+    "description": "\nLudwig, the first hunter of the Healing Church, \nonce recruited Yharnamites to serve as hunters.\nThis hunter's attire was made for new recruits, \nand has excellent straightforward defense.\nBut not nearly enough to allow an ordinary\nman to stand any real chance against the beasts."
+  },
+  "61000": {
+    "image": "https://4.bp.blogspot.com/-DZepjS09lmA/WzBcRFB2NxI/AAAAAAAAZzY/XSzyXz8WnLM7lw8bYZlh_dOLKb-lOUVDgCLcBGAs/s42/yharnam%2Bhunter%2Bchest%2Bmale.png",
+    "name": "Yharnam Hunter Garb",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 80,
+      "thrust": 90,
+      "blood": 90
+    },
+    "elementalDefense": {
+      "arcane": 80,
+      "fire": 100,
+      "bolt": 90
+    },
+    "resistance": {
+      "slowPoison": 48,
+      "rapidPoison": 40,
+      "frenzy": 41
+    },
+    "beasthood": 48,
+    "type": "Chest",
+    "description": "\nLudwig, the first hunter of the Healing Church, \nonce recruited Yharnamites to serve as hunters.\nThis hunter's attire was made for new recruits, \nand has excellent straightforward defense.\nBut not nearly enough to allow an ordinary \nman to stand any real chance against the beasts."
+  },
+  "62000": {
+    "image": "https://1.bp.blogspot.com/-h3D8OxrH3ks/WzBcSEWRSTI/AAAAAAAAZzo/P-cw7nyuY6M7GfaiHp1Kx-vEDEcaw2wmwCLcBGAs/s42/yharnam%2Bhunter%2Blegs.png",
+    "name": "Yharnam Hunter Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 27,
+      "rapidPoison": 23,
+      "frenzy": 24
+    },
+    "beasthood": 27,
+    "type": "Legs",
+    "description": "\nLudwig, the first hunter of the Healing Church, \nonce recruited Yharnamites to serve as hunters.\nThis hunter's attire was made for new recruits, \nand has excellent straightforward defense.\nBut not nearly enough to allow an ordinary \nman to stand any real chance against the beasts."
+  },
+  "63000": {
+    "image": "https://4.bp.blogspot.com/-aiLSLeO7sdc/WzBcRdkBLlI/AAAAAAAAZzc/7Fumk74AMuAj2-uJVvnFZtOMPc_C5zO2gCLcBGAs/s42/yharnam%2Bhunter%2Bgloves.png",
+    "name": "Yharnam Hunter Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 25,
+      "rapidPoison": 22,
+      "frenzy": 22
+    },
+    "beasthood": 25,
+    "type": "Hands",
+    "description": "\nLudwig, the first hunter of the Healing Church, \nonce recruited Yharnamites to serve as hunters.\nThis hunter's attire was made for new recruits, \nand has excellent straightforward defense.\nBut not nearly enough to allow an ordinary \nman to stand any real chance against the beasts.\n"
+  },
+  "70000": {
+    "image": "https://4.bp.blogspot.com/-l6EAt8UOcBA/WzBcDw69naI/AAAAAAAAZwI/YNjWMlHmSuM9IzQpy95EQ3v82fy67bYkACLcBGAs/s42/hunter%2Bhead.png",
+    "name": "Hunter Hat",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 50,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 5,
+      "rapidPoison": 11,
+      "frenzy": 14
+    },
+    "beasthood": 16,
+    "type": "Head",
+    "description": "\nOne of the standard articles of hunter attire fashioned at the \nworkshop.\nA fine piece of hunter attire that provides stable defence to \nanyone facing Yharnam's beastly threat.\nRecognizable by its withered feathers, this cap is fashioned \nafter one of the old hunters."
+  },
+  "71000": {
+    "image": "https://2.bp.blogspot.com/-pRRgz9iDsGM/WzBcC5jWzoI/AAAAAAAAZwA/8b8G3yYuMdQC4rlk-cMHsesVnin7EfPbwCLcBGAs/s42/hunter%2Bchest%2BA.png",
+    "name": "Hunter Garb (Cape)",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 110,
+      "thrust": 80,
+      "blood": 110
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 110,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 33,
+      "frenzy": 48
+    },
+    "beasthood": 44,
+    "type": "Chest",
+    "description": "\nOne of the standard articles of hunter attire fashioned at the workshop, accompanied with a short cape to wipe away  blood.\nA fine piece of hunter attire that provides stable defence to \nanyone facing Yharnam's beastly threat.\nAllows one to stalk beasts unannounced, by cover of night."
+  },
+  "72000": {
+    "image": "https://1.bp.blogspot.com/-BhGFpKApELc/WzBcCyn2LQI/AAAAAAAAZv8/iBh-kT2Aubk5zTAbRJFDPvDLEYMlnF0hgCLcBGAs/s42/hunter%2Barms.png",
+    "name": "Hunter Gloves",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 9,
+      "rapidPoison": 17,
+      "frenzy": 27
+    },
+    "beasthood": 25,
+    "type": "Hands",
+    "description": "\nOne of the standard articles of hunter attire fashioned at the \nworkshop.\nA fine piece of hunter attire the provides stable defence to \nanyone facing Yharnam's beastly threat.\nAllows one to stalk beasts unannounced, by cover of night."
+  },
+  "73000": {
+    "image": "https://2.bp.blogspot.com/-_utxHLfW0po/WzBcEG7puWI/AAAAAAAAZwM/vmH_RMo79Bw4HEQXT0KUn6EBESvdptdwACLcBGAs/s42/hunter%2Blegs.png",
+    "name": "Hunter Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 10,
+      "rapidPoison": 19,
+      "frenzy": 30
+    },
+    "beasthood": 27,
+    "type": "Legs",
+    "description": "\nOne of the standard articles of hunter attire fashioned at the \nworkshop.\nA fine piece of hunter attire that provides stable defence to \nanyone facing Yharnam's beastly threat.\nAllows one to stalk beasts unannounced, by cover of night."
+  },
+  "80000": {
+    "image": "https://3.bp.blogspot.com/-K1b-R_2u2V0/WzBcFs77tMI/AAAAAAAAZws/kIR-bjR6XCsWPnpwQ8tBf2usJCCrA-TDACLcBGAs/s42/knight%2Bhead%2Bmale.png",
+    "name": "Knight's Wig",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 30,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 14,
+      "frenzy": 13
+    },
+    "beasthood": 12,
+    "type": "Head",
+    "description": "\nAdornment prized by the knights of Cainhurst.\nResembles a ponytail of silver hair.\nThe Cainhurst way is a mix of nostalgia and bombast. Theytake great pride even in the blood-stained corpses of beasts that they leave behind, confident that they will stand as example of decadent art."
+  },
+  "81000": {
+    "image": "https://4.bp.blogspot.com/-z6v8hoflDn4/WzBcFPUg92I/AAAAAAAAZwg/xYEwK6FgaAIQ0cbGNJKz4MFw4yq0E-NgACLcBGAs/s42/knight%2Bchest%2Bmale.png",
+    "name": "Knight's Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 70,
+      "thrust": 80,
+      "blood": 140
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 50,
+      "bolt": 80
+    },
+    "resistance": {
+      "slowPoison": 26,
+      "rapidPoison": 43,
+      "frenzy": 40
+    },
+    "beasthood": 36,
+    "type": "Chest",
+    "description": "\nAttire of the knights of Cainhurst.\nA regal piece graced by intricate goldwork.\nThe Cainhurst way is a mix of nostalgia and bombast. Theytake great pride even in the blood-stained corpses of beasts that they leave behind, confident that they will stand as examples of decadent art."
+  },
+  "82000": {
+    "image": "https://1.bp.blogspot.com/-sHuDJX-1DJk/WzBcE16vTcI/AAAAAAAAZwY/3xP8VTUu5hkUpUTopf_BUn3nSO0LqWlAACLcBGAs/s42/knight%2Barms%2Bmale.png",
+    "name": "Knight's Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 13,
+      "rapidPoison": 22,
+      "frenzy": 21
+    },
+    "beasthood": 19,
+    "type": "Hands",
+    "description": "\nGloves of the knights of Cainhurst.\nA regal piece graced with goldwork on red fabric.\nThe Cainhurst way is a mix of nostalgia and bombast. They take great pride even in the blood-stained corpses of beasts that they leave behind, confident that they will stand as examples of decadent art."
+  },
+  "83000": {
+    "image": "https://3.bp.blogspot.com/-JQVMODnlz5k/WzBcF0ZXqqI/AAAAAAAAZww/Lo0Id6YVuJEY2BxMQDe86hOiawI6BFZkgCLcBGAs/s42/knight%2Blegs%2Bmale.png",
+    "name": "Knight's Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 15,
+      "rapidPoison": 24,
+      "frenzy": 23
+    },
+    "beasthood": 21,
+    "type": "Legs",
+    "description": "\nAttire of the knights of Cainhurst.\nA regal piece made with the finest leather.\nThe Cainhurst way is a mix of nostalgia and bombast.\nThey take great pride even in the blood-stained\ncorpses of beasts that they leave behind, confident\nthat they will stand as examples of decadent art."
+  },
+  "100000": {
+    "image": "https://4.bp.blogspot.com/-bwbm5uVorws/WzBb3SwXASI/AAAAAAAAZs4/qt-SJxUgqKc4VJt0HApBubA34GCW5S2ogCLcBGAs/s42/cainhurst%2Bhead.png",
+    "name": "Cainhurst Helmet",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 40,
+      "bolt": 10
+    },
+    "resistance": {
+      "slowPoison": 12,
+      "rapidPoison": 13,
+      "frenzy": 8
+    },
+    "beasthood": 7,
+    "type": "Head",
+    "description": "\n\nSilver helmet worn by the royal guards who protect\nAnnalise, Queen of the Vilebloods at Cainhurst Castle.\nThis paper-thin silver armor is said to deflect blood of ill-\nintent, and is what allows the royal guards to capture prey\nfor their beloved Queen, so that one day, she may bear a\nChild of Blood."
+  },
+  "101000": {
+    "image": "https://2.bp.blogspot.com/-fSYB5mLHJ1Y/WzBb2w4QZtI/AAAAAAAAZs0/ou3jfyGgHt86zLWvtLqpSjlaoJ821pUHACLcBGAs/s42/cainhurst%2Bchest.png",
+    "name": "Cainhurst Armor",
+    "physicalDefense": {
+      "physical": 120,
+      "blunt": 70,
+      "thrust": 110,
+      "blood": 120
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 80,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 36,
+      "rapidPoison": 40,
+      "frenzy": 26
+    },
+    "beasthood": 22,
+    "type": "Chest",
+    "description": "\nSilver armor worn by the royal guards who protect Annalise,\nQueen of the Vilebloods at Cainhurst Castle.\nThis paper-thin silver armor is said to deflect blood of ill-\nintent, and is what allows the royal guards to capture prey\nfor their beloved Queen, so that one day, she may bear a\nChild of Blood."
+  },
+  "102000": {
+    "image": "https://1.bp.blogspot.com/-O_dpsbQksxY/WzBb2xgnlLI/AAAAAAAAZsw/0QtIGDsxhRchz7CJnLqLNQ-EKAgNIVlrQCLcBGAs/s42/cainhurst%2Barms.png",
+    "name": "Cainhurst Gauntlets",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 30,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 21,
+      "frenzy": 13
+    },
+    "beasthood": 11,
+    "type": "Hands",
+    "description": "\nSilver gauntlets worn by the royal guards who protect\nAnnalise, Queen of the Vilebloods at Cainhurst Castle.\nThis paper-thin silver armor is said to deflect blood of ill-\nintent, and is what allows the royal guards to capture prey\nfor their beloved Queen, so that one day, she may bear a\nChild of Blood."
+  },
+  "103000": {
+    "image": "https://3.bp.blogspot.com/-8dUuc0eTGyg/WzBb3rX_w5I/AAAAAAAAZs8/sH1PE-yZaHoJKyRkafNX3FLrsXRqfehfQCLcBGAs/s42/cainhurst%2Blegs.png",
+    "name": "Cainhurst Leggings",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 60,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 21,
+      "rapidPoison": 23,
+      "frenzy": 15
+    },
+    "beasthood": 13,
+    "type": "Legs",
+    "description": "\nSilver leggings worn by the royal guards who protect \nAnnalise, Queen of the Vilebloods at Cainhurst Castle.\nThis paper-thin silver armor is said to deflect blood of ill-\nintent, and is what allows the royal guards to capture prey\nfor their beloved Queen, so that one day, she may bear a\nChild of Blood."
+  },
+  "110000": {
+    "image": "https://1.bp.blogspot.com/-qKRY9hDb7yc/WzBbzj7GHKI/AAAAAAAAZr0/6nmcbGIa_zMmqQ4WlOtnc0QEboMsjhOGACLcBGAs/s42/black%2Bchurch%2Bhead%2Bmale.png",
+    "name": "Black Church Hat",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 20,
+      "rapidPoison": 19,
+      "frenzy": 2
+    },
+    "beasthood": 13,
+    "type": "Head",
+    "description": "\nAttire of Healing Church hunters.\nMost Healing Church hunters are elementary doctors whounderstand the importance of early prevention of the scourge, achived by disposing of victims, and even potential victims, before signs of sickness manifest themselves.\nTheir black attire is synonymous with fear, and that peculiar Yharnam madness."
+  },
+  "111000": {
+    "image": "https://1.bp.blogspot.com/-6xcR0E81vkA/WzBby79wqjI/AAAAAAAAZro/5LWDTDYeuOAnfNBqGKTM54WRpEBK-TnvQCLcBGAs/s42/black%2Bchurch%2Bchest%2Bmale.png",
+    "name": "Black Church Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 90,
+      "thrust": 110,
+      "blood": 110
+    },
+    "elementalDefense": {
+      "arcane": 110,
+      "fire": 100,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 60,
+      "rapidPoison": 58,
+      "frenzy": 9
+    },
+    "beasthood": 40,
+    "type": "Chest",
+    "description": "\nAttire of Healing Church hunters. The Holy Shawl, symbol ofthe Healing Church, flutters proudly on their backs.\nMost Healing Church hunters are elementary doctors whounderstand the importance of early prevention of the scourge, achieved by disposing of victims, and even potentialvictims, before signs of sickness manifest themselves.\nTheir black attire is synonymous with fear, and that peculiar Yharnam madness."
+  },
+  "112000": {
+    "image": "https://1.bp.blogspot.com/-C5-ztf9d0Kg/WzBcMvS7npI/AAAAAAAAZyg/fcb_4mw-0R8Tx80qsL6zI0wh7R_dGaekgCLcBGAs/s42/white%2Bchurch%2Barms.png",
+    "name": "Surgical Long Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 32,
+      "rapidPoison": 31,
+      "frenzy": 4
+    },
+    "beasthood": 22,
+    "type": "Hands",
+    "description": "\nWhite surgical gloves. The intricate embroidery weaves a spell that protects their wearer.\nThe Church engages in the hunt in a medical capacity. \nWhen a cancer is discovered, one must pinpoint its location, reach in, and wrench it from the host's bosom."
+  },
+  "113000": {
+    "image": "https://4.bp.blogspot.com/-6B4oABu2tyo/WzBbz7_v4_I/AAAAAAAAZr8/R6RhzYQxUoscbb2nrmEiT08FrmQAO146ACLcBGAs/s42/black%2Bchurch%2Blegs%2Bmale.png",
+    "name": "Black Church Trousers/Dress",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 34,
+      "rapidPoison": 33,
+      "frenzy": 5
+    },
+    "beasthood": 23,
+    "type": "Legs",
+    "description": "\nAttire of Healing Church hunters.\nMost Healing Church hunters are elementary doctors who understand the importance of early prevention of the scourge, achived by disposing of victims, and even potential victims, before signs of sickness manifest themselves.\nTheir black attire is synonymous with fear, and that peculiar Yharnam madness."
+  },
+  "120000": {
+    "image": "https://1.bp.blogspot.com/-3EFkjJuSTBc/WzBb4wXk2zI/AAAAAAAAZtU/vsjveimVUg4S9emOqrtCyssTnQB6CvK6QCLcBGAs/s42/choir%2Bhead.png",
+    "name": "Blindfold Cap",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 15,
+      "rapidPoison": 13,
+      "frenzy": 4
+    },
+    "beasthood": 13,
+    "type": "Head",
+    "description": "Attire of the Choir, high-ranking members of the Healing Church.\nMembers of the Choir are both the highest-ranking clerics of \n  the Healing Church, and scholars who continue the work\n  that began at Byrgenwerth.\nThe eye covering indicates their debt to the teachings of\n  Master Willem, even though their paths diverged."
+  },
+  "121000": {
+    "image": "https://3.bp.blogspot.com/-vfmcyabERME/WzBb4v_nufI/AAAAAAAAZtQ/F1Zw2gP-2IIEvFkJHwiMNhCSCb5zqVwBQCLcBGAs/s42/choir%2Bchest.png",
+    "name": "Choir Garb",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 80,
+      "thrust": 80,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 150,
+      "fire": 110,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 46,
+      "rapidPoison": 38,
+      "frenzy": 16
+    },
+    "beasthood": 38,
+    "type": "Chest",
+    "description": "\nAttire of the Choir, high-ranking members of the Healing Church.\nMembers of the Choir are both the highest-ranking clerics of the Healing Church, and scholars who continue the work that began at Byrgenwerth.\nTogether with the left behind Great One, they look to the skies, in search of astral signs, that may lead them to the rediscovery of true greatness."
+  },
+  "122000": {
+    "image": "https://4.bp.blogspot.com/-z9lq_AZyOkY/WzBb4d9_wMI/AAAAAAAAZtM/kYwSvW-4BbQY-u4JZ37Bkf2_gUJktX0ZwCLcBGAs/s42/choir%2Barms.png",
+    "name": "Choir Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 60,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 24,
+      "rapidPoison": 20,
+      "frenzy": 8
+    },
+    "beasthood": 20,
+    "type": "Hands",
+    "description": "\nAttire of the Choir, high-ranking members of the Healing Church.\nMembers of the Choir are both the highest-ranking clerics of the Healing Church, and scholars who continue the work that began at Byrgenwerth.\nTogether with the left behind Great One, they look to the skies, in search of astral signs, that may lead them to the rediscovery of true greatness."
+  },
+  "123000": {
+    "image": "https://1.bp.blogspot.com/-MrbCF7b4NCA/WzBb5L7xF2I/AAAAAAAAZtc/i6gs5ewAAh05y9F5onDTHCesMvrG3MvYQCLcBGAs/s42/choir%2Blegs.png",
+    "name": "Choir Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 80,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 26,
+      "rapidPoison": 22,
+      "frenzy": 9
+    },
+    "beasthood": 22,
+    "type": "Legs",
+    "description": "\nAttire of the Choir, high-ranking members of the Healing Church.\nMembers of the Choir are both the highest-ranking clerics of the Healing Church, and scholars who continue the work that began at Byrgenwerth.\nTogether with the left behind Great One, they look to the skies, in search of astral signs, that may lead them to the rediscovery of true greatness."
+  },
+  "130000": {
+    "image": "https://4.bp.blogspot.com/-0pFwzaT_rPg/WzBg73tYkGI/AAAAAAAAZ0g/pNwRze6DkMcp-W39AfDoMUMF204WLeXawCLcBGAs/s42/Gascoigne%2Bhead.png",
+    "name": "Gascoigne's Cap",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 30,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 13,
+      "frenzy": 7
+    },
+    "beasthood": 15,
+    "type": "Head",
+    "description": "\nHunter attire worn by Father Gascoigne.\nSimilar to the hunter garb created at the workshop, only these are tainted by a pungent beastly stench that eats away at Gascoigne.\n\"Father\" is a title used for clerics in a foreign land, and there is no such rank in the Healing Church."
+  },
+  "131000": {
+    "image": "https://4.bp.blogspot.com/-BjRr_hKLsrg/WzBb-AKrRJI/AAAAAAAAZu4/6eK2G2MI27o3SkH1UrykZUbhlgDbjM_5QCLcBGAs/s42/gascoigne%2Bchest.png",
+    "name": "Gascoigne's Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 110,
+      "thrust": 100,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 110,
+      "fire": 110,
+      "bolt": 100
+    },
+    "resistance": {
+      "slowPoison": 52,
+      "rapidPoison": 40,
+      "frenzy": 23
+    },
+    "beasthood": 45,
+    "type": "Chest",
+    "description": "\nHunter attire worn by Father Gascoigne.\nThe Dingy scarf is a Holy Shawl and symbol of the HealingChurch, from which Gascoigne would eventually part ways.\n\"Father\" is a title used for clerics in a foreign land, and thereis no such rank in the Healing Church."
+  },
+  "132000": {
+    "image": "https://2.bp.blogspot.com/-F8JHhVfrBNQ/WzBb96RMr6I/AAAAAAAAZu0/A6aQzUnmUnYx97Tv73Abzdecfc1lbABRACLcBGAs/s42/gascoigne%2Barms.png",
+    "name": "Gascoigne's Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 28,
+      "rapidPoison": 21,
+      "frenzy": 12
+    },
+    "beasthood": 24,
+    "type": "Hands",
+    "description": "\nHunter attire worn by Father Gascoigne.\nSimilar to the hunter garb created at the workshop, only these are tainted by a pungent beastly stench that eats away at Gascoigne.\n\"Father\" is a title used for clerics in a foreign land, and there is no such rank in the Healing Church."
+  },
+  "133000": {
+    "image": "https://1.bp.blogspot.com/-SdcNrOS89ZY/WzBb-aBUHYI/AAAAAAAAZu8/0bjkZGoxUngwYsyEJwcepesgioG4IG9qACLcBGAs/s42/gascoigne%2Blegs.png",
+    "name": "Gascoigne's Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 32,
+      "rapidPoison": 23,
+      "frenzy": 14
+    },
+    "beasthood": 26,
+    "type": "Legs",
+    "description": "\nHunter attire worn by Father Gascoigne.\nSimilar to the hunter garb created at the workshop, only these are tainted by a pungent beastly stench that eats away at Gascoigne.\n\"Father\" is a title used for clerics in a foreign land, and there is no such rank in the Healing Church."
+  },
+  "140000": {
+    "image": "https://2.bp.blogspot.com/-gSvu9MDhxJE/WzBcJXjEVaI/AAAAAAAAZxo/rkJx1H-yiAUrmJVuJN3Cb0__o3ANGGEZQCLcBGAs/s42/prospector%2Bhead.png",
+    "name": "Tomb Prospector Hood",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 18,
+      "rapidPoison": 16,
+      "frenzy": 4
+    },
+    "beasthood": 15,
+    "type": "Head",
+    "description": "\nAttire of tomb prospectors who explore the old labyrinth on \nbehalf of the Healing Church.\nThe Healing Church traces its roots to Byrgenwerth, and is \ntherefore aware of the ruins' true importance.\nThey contain much more than mere hunter trinkets, indeed, \nthey hide the very secrets of the old Great Ones, sought after \nby those with the insight to imagine greatness."
+  },
+  "141000": {
+    "image": "https://1.bp.blogspot.com/-4SFvVlUgC58/WzBcJXk5sdI/AAAAAAAAZxs/ocrbf9-XKpkSw5be-z7cprnochOJzdwLACLcBGAs/s42/prospector%2Bchest.png",
+    "name": "Tomb Prospector Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 90,
+      "thrust": 100,
+      "blood": 90
+    },
+    "elementalDefense": {
+      "arcane": 120,
+      "fire": 100,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 55,
+      "rapidPoison": 57,
+      "frenzy": 13
+    },
+    "beasthood": 45,
+    "type": "Chest",
+    "description": "\nAttire of tomb prospectors who explore the old labyrinth on \nbehalf of the Healing Church.\nThe Healing Church traces its roots to Byrgenwerth, and is \ntherefore aware of the ruins' true importance.\nThey contain much more than mere hunter trinkets, indeed, \nthey hide the very secrets of the old Great Ones, sought after \nby those with the insight to imagine greatness."
+  },
+  "142000": {
+    "image": "https://3.bp.blogspot.com/-yTGwpabP_y4/WzBcJH3MsnI/AAAAAAAAZxk/fAnQk3nhLNQcIVZBsKLaTomIIeI6fYGBwCLcBGAs/s42/prospector%2Barms.png",
+    "name": "Tomb Prospector Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 29,
+      "rapidPoison": 27,
+      "frenzy": 6
+    },
+    "beasthood": 24,
+    "type": "Hands",
+    "description": "\nAttire of tomb prospectors who explore the old labyrinth on \nbehalf of the Healing Church.\nThe Healing Church traces its roots to Byrgenwerth, and is \ntherefore aware of the ruins' true importance.\nThey contain much more than mere hunter trinkets, indeed, \nthey hide the very secrets of the old Great Ones, sought after \nby those with the insight to imagine greatness."
+  },
+  "143000": {
+    "image": "https://4.bp.blogspot.com/-pBa69glEXBs/WzBcJskfb8I/AAAAAAAAZxw/a6PCOSxDZf0_5BiCH5463lTXeCr4olzJwCLcBGAs/s42/prospector%2Blegs.png",
+    "name": "Tomb Prospector Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 31,
+      "rapidPoison": 29,
+      "frenzy": 8
+    },
+    "beasthood": 26,
+    "type": "Legs",
+    "description": "\nAttire of tomb prospectors who explore the old labyrinth on \nbehalf of the Healing Church.\nThe Healing Church traces its roots to Byrgenwerth, and is \ntherefore aware of the ruins' true importance.\nThey contain much more than mere hunter trinkets, indeed, \nthey hide the very secrets of the old Great Ones, sought after \nby those with the insight to imagine greatness."
+  },
+  "150000": {
+    "image": "https://4.bp.blogspot.com/-Xx7Ou9agV1E/WzBb8dUlFYI/AAAAAAAAZuY/CX8cjVO-NOI7Si8OFUL6w5SemjNHrEEMwCLcBGAs/s42/executioner%2Bhead.png",
+    "name": "Gold Ardeo",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 60,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 12,
+      "rapidPoison": 15,
+      "frenzy": 13
+    },
+    "beasthood": 16,
+    "type": "Head",
+    "description": "\nThe odd helmet worn by the band of executioners\ncommanded by the martyr Logarius.\nThe conical gold helmet, symbol of the executioners,\nrepresents luminosity, ambition, and an unflagging resolve to face impurity, staring it down with stern, golden spirit.\nAs the great Logarius once said, \"Act of goodness are not\n  always wise, and acts of evil are not always foolish, butregardless, we shall always strive to be good.\""
+  },
+  "151000": {
+    "image": "https://2.bp.blogspot.com/-ABURT9tsnWk/WzBb8XFpF2I/AAAAAAAAZuU/FabjT3_HG4MssfOz3YDxQQ8j1ksnsiUPgCLcBGAs/s42/executioner%2Bchest.png",
+    "name": "Executioner Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 120,
+      "thrust": 110,
+      "blood": 100
+    },
+    "elementalDefense": {
+      "arcane": 110,
+      "fire": 90,
+      "bolt": 100
+    },
+    "resistance": {
+      "slowPoison": 53,
+      "rapidPoison": 45,
+      "frenzy": 17
+    },
+    "beasthood": 45,
+    "type": "Chest",
+    "description": "\nAttire worn by the band of executioners commanded by the martyr Logarius.\nLater became that basis for all Church attire, with its heavy draping of Holy Shawl.\nAs the great Logarius once said, \"Acts of goodness are not always wise, and acts of evil are not always foolish, butregardless, we shall always strive to be good.\""
+  },
+  "152000": {
+    "image": "https://4.bp.blogspot.com/-IPhkBExkqow/WzBb78M4DzI/AAAAAAAAZuQ/UNQBEZ-Vreci58vw61KvqGLhNZIZGQuvwCLcBGAs/s42/executioner%2Barms.png",
+    "name": "Executioner Gauntlets",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 60,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 26,
+      "rapidPoison": 24,
+      "frenzy": 9
+    },
+    "beasthood": 24,
+    "type": "Hands",
+    "description": "\nGauntlets worn by the band of executioners commanded by the martyr Logarius.\nThe brass rivets are unique to the executioners, and reflect their adoration of hand-to-hand combat.\nAs the great Logarius once said, \"Acts of goodness are not always wise, and acts of evil are not always foolish, but regardless, we shall always strive to be good.\""
+  },
+  "153000": {
+    "image": "https://3.bp.blogspot.com/-xdfjsW79WbY/WzBb8sVLT7I/AAAAAAAAZuc/EeK2lZG4Rac_sPqJB2J9FeFIsFCoNvGKgCLcBGAs/s42/executioner%2Blegs.png",
+    "name": "Executioner Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 70,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 30,
+      "rapidPoison": 26,
+      "frenzy": 10
+    },
+    "beasthood": 26,
+    "type": "Legs",
+    "description": "\nAttire worn by the band of executioners commanded by the martyr Logarius.\nLater became that basis for all Church attire.\nAs the great Logarius once said, \"Acts of goodness are not always wise, and acts of evil are not always foolish, but regardless, we shall always strive to be good.\""
+  },
+  "180000": {
+    "image": "https://2.bp.blogspot.com/-SbW2IWcT7zQ/WzBb5iMX5qI/AAAAAAAAZtk/VeTmVWLbbjE5py2vJVOUXrkzvAt4x27jwCLcBGAs/s42/crowfeather%2Bhead.png",
+    "name": "Beak Mask",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 40,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 10,
+      "frenzy": 40
+    },
+    "beasthood": 2,
+    "type": "Head",
+    "description": "\nWood-carved mask of Eileen the Crow, Hunter of Hunters.\nThe beak contains incense to mask scents of blood and \nbeast.\nHunters of Hunters dress as crows to suggest sky burial.\nThe first Hunter of Hunters came from a foreign land, and\ngave the dead a virtuous native funeral ritual, rather than\nimpose a blasphemous Yharnam burial service upon them,\nwith the hope that former compatriots might be returned to\nthe skies, and find rest in a hunter's dream."
+  },
+  "181000": {
+    "image": "https://3.bp.blogspot.com/-pnzxdwKidnY/WzBb5uddkLI/AAAAAAAAZtg/27sXl9E1XI8UIhDMAu2xGDdwsMjOeTWxwCLcBGAs/s42/crowfeather%2Bchest.png",
+    "name": "Crowfeather Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 110,
+      "thrust": 80,
+      "blood": 120
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 80,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 29,
+      "rapidPoison": 37,
+      "frenzy": 46
+    },
+    "beasthood": 21,
+    "type": "Chest",
+    "description": "\nAttire worn by Eileen the Crow, Hunter of Hunters,\nknown in particular for her crowfeather cape.\nHunters of Hunters dress as crows to suggest sky burial.\nThe first Hunter of Hunters came from a foreign land, and\ngave the dead a virtuous native funeral ritual, rather than\nimpose a blasphemous Yharnam burial service upon them,\nwith the hope that former compatriots might be returned to\nthe skies, and find rest in a hunter's dream."
+  },
+  "182000": {
+    "image": "https://2.bp.blogspot.com/-MwMy6HlCWqs/WzBb5BJgxpI/AAAAAAAAZtY/OBAshhCYQ2Mm9f-soHVha-XS75L0oCwJwCLcBGAs/s42/crowfeather%2Barms.png",
+    "name": "Crowfeather Manchettes",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 15,
+      "rapidPoison": 20,
+      "frenzy": 25
+    },
+    "beasthood": 11,
+    "type": "Hands",
+    "description": "\nAttire worn by Eileen the Crow, Hunter of Hunters.\nHunters of Hunters dress as crows to suggest sky burial.\nThe first Hunter of Hunters came from a foreign land, and\ngave the dead a virtuous native funeral ritual, rather than\nimpose a blasphemous Yharnam burial service upon them,\nwith the hope that former compatriots might be returned to\nthe skies, and find rest in a hunter's dream."
+  },
+  "183000": {
+    "image": "https://2.bp.blogspot.com/-nY7Cnr0AiIY/WzBb53OYQMI/AAAAAAAAZto/h4VCy9QHU8UYwtC58Q6bKAj_buaY6IRsACLcBGAs/s42/crowfeather%2Blegs.png",
+    "name": "Crowfeather Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 70,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 21,
+      "frenzy": 27
+    },
+    "beasthood": 12,
+    "type": "Legs",
+    "description": "\nAttire worn by Eileen the Crow, Hunter of Hunters.\nHunters of Hunters dress as crows to suggest sky burial.\nThe first Hunter of Hunters came from a foreign land, and\ngave the dead a virtuous native funeral ritual, rather than\nimpose a blasphemous Yharnam burial service upon them,\nwith the hope that former compatriots might be returned to\nthe skies, and find rest in a hunter's dream."
+  },
+  "190000": {
+    "image": "https://3.bp.blogspot.com/-OY6iM0vyFto/WzBcIYPw4mI/AAAAAAAAZxU/9sGGaYYvq58mt7qm2hv69LHWYsMVUchRwCLcBGAs/s42/mensis%2Bcage.png",
+    "name": "Mensis Cage",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 20,
+      "thrust": 10,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 20,
+      "bolt": 10
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 13,
+      "frenzy": 2
+    },
+    "beasthood": 5,
+    "type": "Head",
+    "description": "\nThe School of Mensis controls the Unseen Village.\nThis hexagonal iron cage suggests their strange ways. Thecage is a device that restrains the will of the self, allowingone to see the profane world for what it is.\nIt also serves as an antenna that facilitates contact with theGreat Ones of the dream.\nBut to an observer, the iron cage appears to be precisely\nwhat delivered them to their harrowing nightmare."
+  },
+  "191000": {
+    "image": "https://2.bp.blogspot.com/--jlOtOPtR3Q/WzBcKOpViGI/AAAAAAAAZx0/20oi1dh9c8MKKaIGk-bc3UKRtnYbb6hpwCLcBGAs/s42/student%2Bchest%2B1.png",
+    "name": "Student Uniform",
+    "physicalDefense": {
+      "physical": 70,
+      "blunt": 60,
+      "thrust": 60,
+      "blood": 90
+    },
+    "elementalDefense": {
+      "arcane": 140,
+      "fire": 60,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 42,
+      "rapidPoison": 31,
+      "frenzy": 35
+    },
+    "beasthood": 45,
+    "type": "Chest",
+    "description": "\nUniform of the students of Byrgenwerth, a bygone institute\nlearning. This alternative lacks the thick cape.\n\nThis Healing Church has its roots in Byrgenwerth, and\nnaturally borrows heavily from its uniform design.\n\nThe focus not on knowledge, or thought, but on pure\npretension would surely bring Master Willem to despair, ifonly he knew."
+  },
+  "193000": {
+    "image": "https://1.bp.blogspot.com/-_beu0o7PVR0/WzEntUmz3zI/AAAAAAAAZ0s/6RRcKw2_tmg5KcZvwLVHP5byakWaBF78wCLcBGAs/s42/student_legs.png",
+    "name": "Student Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 24,
+      "rapidPoison": 18,
+      "frenzy": 19
+    },
+    "beasthood": 19,
+    "type": "Legs",
+    "description": "\nUniform of the students of Byrgenwerth, a bygone institute  of learning. \nThe Healing Church has its roots in Byrgenwerth, and  naturally borrows heavily from its uniform design.\nThe focus not on knowledge, or thought, but on pure \npretension would surely bring Master Willem to despair, if  only he knew."
+  },
+  "200000": {
+    "image": "https://4.bp.blogspot.com/-zV3sKrZQRJQ/WzBb_CMFaiI/AAAAAAAAZvI/IAjndcL18VojwPjOj6otN-4slWKiSk42QCLcBGAs/s42/gehrman%2Bhead.png",
+    "name": "Gehrman's Hunter Cap",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 40,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 12,
+      "frenzy": 17
+    },
+    "beasthood": 15,
+    "type": "Head",
+    "description": "\nHunter attire of Gehrman, the first hunter.\nCreated before the workshop existed by making adjustments \nto everyday clothing, and later became the basis for all\nhunter's garb.\nThe hunter's emphasis on engaging beasts with speed, and\ntherefore of selecting lightweight attire, no doubt traces back\nto Gehrman's own combat style."
+  },
+  "201000": {
+    "image": "https://2.bp.blogspot.com/-gAmC9C-k-lU/WzBb-jdMAQI/AAAAAAAAZvA/TuYkeOpN_PoIeZ-xAtSpKDTOrbto4CWEwCLcBGAs/s42/gehrman%2Bchest.png",
+    "name": "Gehrman's Hunter Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 80,
+      "thrust": 80,
+      "blood": 100
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 80,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 33,
+      "rapidPoison": 37,
+      "frenzy": 52
+    },
+    "beasthood": 46,
+    "type": "Chest",
+    "description": "\nHunter attire of Gehrman, the first hunter.\nCreated before the workshop existed by making adjustments \nto everyday clothing, and later became the basis for all\nhunter's garb.\nThe hunter's emphasis on engaging beasts with speed, and\ntherefore of selecting lightweight attire, no doubt traces back\nto Gehrman's own combat style."
+  },
+  "203000": {
+    "image": "https://4.bp.blogspot.com/-_aNoD25Ffgo/WzBb_HOKyJI/AAAAAAAAZvE/WohZsqNhlfswlRD3I5Ih5Yvatpzb2ux2wCLcBGAs/s42/gehrman%2Blegs.png",
+    "name": "Gehrman's Hunter Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 21,
+      "frenzy": 29
+    },
+    "beasthood": 27,
+    "type": "Legs",
+    "description": "\nHunter attire of Gehrman, the first hunter.\nCreated before the workshop existed by making adjustments \nto everyday clothing, and later became the basis for all\nhunter's garb.\nThe hunter's emphasis on engaging beasts with speed, and\ntherefore of selecting lightweight attire, no doubt traces back\nto Gehrman's own combat style."
+  },
+  "210000": {
+    "image": "https://1.bp.blogspot.com/-cbY6nFhqwiM/WzBcGslveJI/AAAAAAAAZw8/6-3zpCV3gn4zm13sV5oo6NtyrJsm2goSQCLcBGAs/s42/madman%2Bhead.png",
+    "name": "Madman Hood",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 30,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 18,
+      "rapidPoison": 17,
+      "frenzy": 1
+    },
+    "beasthood": 9,
+    "type": "Head",
+    "description": "\nMost tomb prospectors, members of the Healing Church\nchose to explore the old labyrinth, are unable to withstandthe weight of the old knowledge, and go mad.\nThis attire is worn by those lost souls.\nTruth often resembles madness, inaccessible to the dull ofmind. Those who go mad are merely thoughtful souls whofailed to reach any conclusions."
+  },
+  "211000": {
+    "image": "https://3.bp.blogspot.com/-IuchNKIptwc/WzBcGjP_tbI/AAAAAAAAZw4/4Yei2IXL8UYc6kC4mXHfiNMs9WjXlYKTACLcBGAs/s42/madman%2Bchest.png",
+    "name": "Madman Garb",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 70,
+      "thrust": 80,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 120,
+      "fire": 110,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 59,
+      "rapidPoison": 52,
+      "frenzy": 4
+    },
+    "beasthood": 29,
+    "type": "Chest",
+    "description": "\nMost tomb prospectors, members of the Healing Church\nchose to explore the old labyrinth, are unable towithstand the weight of the old knowledge, and go mad.\nThis attire is worn by those lost souls.\nThe appendages draped across them are said to be a kind of protective charm, or at least, that is what these lost souls believe with all their hearts."
+  },
+  "212000": {
+    "image": "https://4.bp.blogspot.com/-78BGg_LPrEs/WzBcGZw4-0I/AAAAAAAAZw0/i_XzBAtw7SczdI7YmIqtbvUoQBi8d8w2gCLcBGAs/s42/madman%2Barms.png",
+    "name": "Madman Manchettes",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 29,
+      "rapidPoison": 27,
+      "frenzy": 1
+    },
+    "beasthood": 15,
+    "type": "Hands",
+    "description": "\nMost tomb prospectors, members of the Healing Church\nchose to explore the old labyrinth, are unable to withstandthe weight of the old knowledge, and go mad.\nThis attire is worn by those lost souls.\nTruth often resembles madness, inaccessible to the dull ofmind. Those who go mad are merely thoughtful souls whofailed to reach any conclusions."
+  },
+  "213000": {
+    "image": "https://4.bp.blogspot.com/-55QCdUXD25Y/WzBcG5aNUfI/AAAAAAAAZxA/rGgozLSSVsIM3FAEYrF8Oan2NVroZsWFACLcBGAs/s42/magman%2Blegs.png",
+    "name": "Madman Leggings",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 40,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 33,
+      "rapidPoison": 29,
+      "frenzy": 2
+    },
+    "beasthood": 17,
+    "type": "Legs",
+    "description": "\nMost tomb prospectors, members of the Healing Church\nchose to explore the old labyrinth, are unable to withstandthe weight of the old knowledge, and go mad.\nThis attire is worn by those lost souls.\nTruth often resembles madness, inaccessible to the dull ofmind. Those who go mad are merely thoughtful souls whofailed to reach any conclusions."
+  },
+  "220000": {
+    "image": "https://1.bp.blogspot.com/-UhWBMUxNhgg/WzBb7cIOtZI/AAAAAAAAZuE/o6Leh3GFyXommWZeFeTFvutuYiCbXbnPACLcBGAs/s42/doll%2Bhead.png",
+    "name": "Doll Hat",
+    "physicalDefense": {
+      "physical": 10,
+      "blunt": 10,
+      "thrust": 10,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 14,
+      "rapidPoison": 10,
+      "frenzy": 13
+    },
+    "beasthood": 10,
+    "type": "Head",
+    "description": "\nA discarded doll's hat, likely a spare for dress-up.\nA deep love for the doll can be surmised by the fine\ncraftsmanship of this article, and the care with which it was\nkept.\nIt borderlines on mania, and exudes a slight warmth."
+  },
+  "221000": {
+    "image": "https://2.bp.blogspot.com/-bXXEDT2PG10/WzBb7PG7MOI/AAAAAAAAZuA/sR3_RlzOtWM27N06tFaZdw5cUabIpD7wgCLcBGAs/s42/doll%2Bchest.png",
+    "name": "Doll Clothes",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 30,
+      "thrust": 30,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 50,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 42,
+      "rapidPoison": 31,
+      "frenzy": 38
+    },
+    "beasthood": 31,
+    "type": "Chest",
+    "description": "\nDiscarded doll clothing, likely a spare for dress-up.\nA deep love for the doll can be surmised by the fine \ncraftsmanship of this article, and the care with which it was \nkept.\nIt borderlines on mania, and exudes a slight warmth."
+  },
+  "222000": {
+    "image": "https://3.bp.blogspot.com/-SwH1NVt9bn0/WzBb60x5WCI/AAAAAAAAZt8/cFGZ2Lq0AxsBN-H8yvNEoSRojTPP8s28wCLcBGAs/s42/doll%2Barms.png",
+    "name": "Doll Gloves",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 30,
+      "thrust": 30,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 50,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 22,
+      "rapidPoison": 16,
+      "frenzy": 20
+    },
+    "beasthood": 16,
+    "type": "Hands",
+    "description": "\nDiscarded doll gloves, likely a spare for dress-up.\nA deep love for the doll can be surmised by the fine \ncraftsmanship of this article, and the care with which it was \nkept.\nIt borderlines on mania, and exudes a slight warmth."
+  },
+  "223000": {
+    "image": "https://3.bp.blogspot.com/-XZfZkNjdmwQ/WzBb7jgHz9I/AAAAAAAAZuI/4cjjo27baJsnRuj4hEGqPfbfI-JBMjxjQCLcBGAs/s42/doll%2Blegs.png",
+    "name": "Doll Skirt",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 24,
+      "rapidPoison": 18,
+      "frenzy": 22
+    },
+    "beasthood": 18,
+    "type": "Legs",
+    "description": "\nDiscarded doll skirt, likely a spare for dress-up.\nA deep love for the doll can be surmised by the fine \ncraftsmanship of this article, and the care with which it was \nkept.\nIt borderlines on mania, and exudes a slight warmth."
+  },
+  "230000": {
+    "image": "https://4.bp.blogspot.com/-71kOULYD68I/WzBb9oym92I/AAAAAAAAZus/bHzMGE5a7Z4Ncpf8D6U1Tryua0n7W8DDQCLcBGAs/s42/foreign%2Bhead.png",
+    "name": "Black Hood",
+    "physicalDefense": {
+      "physical": 20,
+      "blunt": 30,
+      "thrust": 20,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 6,
+      "frenzy": 8
+    },
+    "beasthood": 4,
+    "type": "Head",
+    "description": "\nHood worn upon awakening to the nightmare of blood and beasts.\nPerhaps its wearer had to stay out of sight, \nand travel by cover of darkness.\nWithout memory, who will ever know?"
+  },
+  "231000": {
+    "image": "https://1.bp.blogspot.com/-yhkqx0J-49s/WzBb9P7TPaI/AAAAAAAAZuo/m8LkkvmLjuoLbmF_SytBNlrfv-FkVLT5QCLcBGAs/s42/foreign%2Bchest%2Bmale.png",
+    "name": "Foreign Garb",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 27,
+      "rapidPoison": 19,
+      "frenzy": 27
+    },
+    "beasthood": 16,
+    "type": "Chest",
+    "description": "\nClothing worn upon awakening to the nightmare of blood and beasts.\nNot typical clothing of Yharnam, perhaps it is of foreign origin, It is said, after all, the traveller came to Yharnam  from afar.\nWithout memory, who will ever know?"
+  },
+  "232000": {
+    "image": "https://2.bp.blogspot.com/-8ODM4iR0vyA/WzBb8zODQuI/AAAAAAAAZug/i-O7oRDghmUv5uLRbTXqTuCWs64gq_gtgCLcBGAs/s42/foreign%2Barms.png",
+    "name": "Sullied Bandage",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 40,
+      "thrust": 30,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 14,
+      "rapidPoison": 10,
+      "frenzy": 14
+    },
+    "beasthood": 8,
+    "type": "Hands",
+    "description": "\nBandage worn upon awakening to the nightmare of blood and beasts. Terribly worn and unsanitary.\nA faint memory recalls blood ministration, involving the transfusion of unknown blood.\nNot long after, the nightmare began."
+  },
+  "233000": {
+    "image": "https://1.bp.blogspot.com/-NvMhkbr5AzM/WzBb9gp9IyI/AAAAAAAAZuw/HGQ-kXYG78woOVrrNUVGU8xiwE2RFumXwCLcBGAs/s42/foreign%2Blegs.png",
+    "name": "Foreign Trousers",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 40,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 16,
+      "rapidPoison": 11,
+      "frenzy": 16
+    },
+    "beasthood": 9,
+    "type": "Legs",
+    "description": "\nTrousers worn upon awakening to the nightmare of blood and beasts.\nNot typical clothing perhaps it is of foreign origin. It is said, after all, the traveller came to Yharnam from afar.\nWithout memory, who will ever know?"
+  },
+  "241000": {
+    "image": "https://2.bp.blogspot.com/-wTN4VxLRqF8/WzBbw99G7DI/AAAAAAAAZrQ/XmCRuj53qKQheywNyj3e02rlZd3C5qmbwCLcBGAs/s42/ashen%2Bhunter%2Bchest.png",
+    "name": "Ashen Hunter Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 110,
+      "thrust": 80,
+      "blood": 110
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 50,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 25,
+      "rapidPoison": 45,
+      "frenzy": 60
+    },
+    "beasthood": 70,
+    "type": "Chest",
+    "description": "\nAttire of the retired hunter Djura. \nPainted with ash in a ceremony to ward off blood.\nDjura is known through his contact with the Powder Kegs,\nthe heretics of the workshop. He is said to have been both\nuncommonly kind and dreadfully foolish.\nDjura felt defeated by the state of Old Yharnam, and\nrenounced his hunter's vows."
+  },
+  "242000": {
+    "image": "https://2.bp.blogspot.com/-c8Rv4bVB6u8/WzBbyI0xBTI/AAAAAAAAZrc/aQik80I24cg8XBpMMZwlTJ0YFx_Y1di8QCLcBGAs/s42/ashen_hunter_arms_fixed.png",
+    "name": "Ashen Hunter Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 13,
+      "rapidPoison": 24,
+      "frenzy": 28
+    },
+    "beasthood": 32,
+    "type": "Hands",
+    "description": "\nAttire of the retired hunter Djura. \nPainted with ash in a ceremony to ward off blood.\nDjura is known through his contact with the Powder Kegs,\nthe heretics of the workshop. He is said to have been both\nuncommonly kind and dreadfully foolish.\nDjura felt defeated by the state of Old Yharnam, and\nrenounced his hunter's vows."
+  },
+  "243000": {
+    "image": "https://1.bp.blogspot.com/-MPCn46pInjE/WzBbyLOEFiI/AAAAAAAAZrg/GYdOYs13UdcOhkGb3kAbbNxGQDSOQ1MlgCLcBGAs/s42/ashen_hunter_legs_fixed.png",
+    "name": "Ashen Hunter Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 15,
+      "rapidPoison": 26,
+      "frenzy": 30
+    },
+    "beasthood": 37,
+    "type": "Legs",
+    "description": "\nAttire of the retired hunter Djura. \nPainted with ash in a ceremony to ward off blood.\nDjura is known through his contact with the Powder Kegs,\nthe heretics of the workshop. He is said to have been both\nuncommonly kind and dreadfully foolish.\nDjura felt defeated by the state of Old Yharnam, and\nrenounced his hunter's vows."
+  },
+  "250000": {
+    "image": "https://4.bp.blogspot.com/-R_RXSQRsxjQ/WzBb6NqMILI/AAAAAAAAZts/h4n9r8cPXSkr7aPAzKSFcOKTAiWeSGGyQCLcBGAs/s42/crown%2Bof%2Billusions.png",
+    "name": "Crown of Illusions",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 30,
+      "thrust": 20,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 30,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 7,
+      "rapidPoison": 7,
+      "frenzy": 4
+    },
+    "beasthood": 4,
+    "type": "Head",
+    "description": "\nOne of the precious secrets of Cainhurst.\nThe old king's crown is said to reveal illusions,\nand expose a mirage that hides a secret.\nAnd so Logarius donned the crown of his own volition,\ndetermined to prevent a single soul from stumbling\nupon the vile secret.\nWhat visions did he see, sitting serenely upon his \nnew throne?"
+  },
+  "270000": {
+    "image": "https://3.bp.blogspot.com/-pPynfVbDfFU/WzBcELweaOI/AAAAAAAAZwQ/FMAzlzTnXoQN7RXWT9mUZgicyGaeRlvUACLcBGAs/s42/iron%2Bhelm.png",
+    "name": "Iron Yahar'gul Helm",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 10,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 10
+    },
+    "resistance": {
+      "slowPoison": 5,
+      "rapidPoison": 7,
+      "frenzy": 9
+    },
+    "beasthood": 12,
+    "type": "Head",
+    "description": "\nIron helmet worn by hunters of the Unseen Village.\nRemoving the hood reveals something reminiscent of awarrior of a previous age.\nThis headwear is made of metal, a rarity for hunter garb,\nand has high defence, but only against physical attacks."
+  },
+  "280000": {
+    "image": "https://3.bp.blogspot.com/-F_KDdCFK3yE/WzBcKZRJw3I/AAAAAAAAZx8/Z1vZs6ORKZsjxxOZLejeNvbQX00JWA_bgCLcBGAs/s42/top%2Bhat.png",
+    "name": "Top Hat",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 70,
+      "thrust": 40,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 14,
+      "rapidPoison": 13,
+      "frenzy": 10
+    },
+    "beasthood": 8,
+    "type": "Head",
+    "description": "\nHat worn by hunters who admire formality.\nSome hunters place an emphasis on form, as seen by the use of the threaded cane.\nFor them, formality, beauty, and justice are the very essence of our humanity, and precisely what keeps hunters from becoming something else."
+  },
+  "281000": {
+    "image": "https://4.bp.blogspot.com/-Wow0QteCal4/WzBcDjSePQI/AAAAAAAAZwE/rGsP8C6EPmID-JAnXp969m45Zl2GS-vDgCLcBGAs/s42/hunter%2Bchest%2BB.png",
+    "name": "Hunter Garb",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 100,
+      "thrust": 80,
+      "blood": 110
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 110,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 17,
+      "rapidPoison": 33,
+      "frenzy": 56
+    },
+    "beasthood": 58,
+    "type": "Chest",
+    "description": "\nOne of the standard articles of hunter attire fashioned at the workshop, accompanied with a short cape to wipe away blood.\nA fine piece of hunter attire that provides stable defence to \nanyone facing Yharnam's beastly threat.\nAllows one to stalk beasts unannounced, by cover of night."
+  },
+  "290000": {
+    "image": "https://1.bp.blogspot.com/-7VPE03JuY4Q/WzBcL5BSkMI/AAAAAAAAZyY/i1ps-2eqFfg_4d4jBJcTW9B8D8-5PLBfACLcBGAs/s42/which%2Bchurch%2Bhead%2Bmale.png",
+    "name": "White Church Hat",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 21,
+      "rapidPoison": 18,
+      "frenzy": 3
+    },
+    "beasthood": 12,
+    "type": "Head",
+    "description": "\nAttire of special Church doctors.\nThese doctors are superiors to the black preventative \nhunters, and specialists in experimentally-backed blood \nministration and the scourge of the beast.\nThey believe that medicine is not a means of treatment but \nrather a method for research, and that some knowledge can \nonly be obtained by exposing oneself to sickness."
+  },
+  "291000": {
+    "image": "https://1.bp.blogspot.com/-VvMd0-CzJrg/WzBcLhDwGEI/AAAAAAAAZyQ/j9ckml1iLGc8K09vgQ86piULizLUPbwzwCLcBGAs/s42/which%2Bchurch%2Bchest%2Bmale.png",
+    "name": "White Church Garb",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 80,
+      "thrust": 110,
+      "blood": 120
+    },
+    "elementalDefense": {
+      "arcane": 110,
+      "fire": 100,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 63,
+      "rapidPoison": 53,
+      "frenzy": 11
+    },
+    "beasthood": 36,
+    "type": "Chest",
+    "description": "\nAttire of special Church doctors.\nThese doctors are superiors to the black preventative \nhunters, and specialists in experimentally-backed blood \nministration and the scourge of the beast.\nThey believe that medicine is not a means of treatment but \nrather a method for research, and that some knowledge canonly be obtained by exposing oneself to sickness."
+  },
+  "292000": {
+    "image": "https://1.bp.blogspot.com/-C5-ztf9d0Kg/WzBcMvS7npI/AAAAAAAAZyg/fcb_4mw-0R8Tx80qsL6zI0wh7R_dGaekgCLcBGAs/s42/white%2Bchurch%2Barms.png",
+    "name": "Surgical Long Gloves",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 32,
+      "rapidPoison": 31,
+      "frenzy": 4
+    },
+    "beasthood": 22,
+    "type": "Hands",
+    "description": "\nWhite surgical gloves. The intricate embroidery weaves a spell that protects their wearer.\nThe Church engages in the hunt in a medical capacity. \nWhen a cancer is discovered, one must pinpoint its location, reach in, and wrench it from the host's bosom."
+  },
+  "293000": {
+    "image": "https://4.bp.blogspot.com/-q3n1DXszEYE/WzBcMSwIH2I/AAAAAAAAZyc/s-GQrVSu7lAK3rrwdBbrzpk9IWQdT2rhQCLcBGAs/s42/which%2Bchurch%2Blegs%2Bmale.png",
+    "name": "White Church Trousers/Dress",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 36,
+      "rapidPoison": 31,
+      "frenzy": 7
+    },
+    "beasthood": 21,
+    "type": "Legs",
+    "description": "\nAttire of special Church doctors.\nThese doctors are superiors to the black preventative \nhunters, and specialists in experimentally-backed blood \nministration and the scourge of the beast.\nThey believe that medicine is not a means of treatment but rather a method for research, and that some knowledge can only be obtained by exposing oneself to sickness."
+  },
+  "301000": {
+    "image": "https://4.bp.blogspot.com/-dT9HTWYzukc/WzBcKMq-3dI/AAAAAAAAZx4/-J7KyZy3nVc4pHUo7o9FAHbXxL8hdlm5wCLcBGAs/s42/student%2Bchest%2B2.png",
+    "name": "Student Uniform (Cape)",
+    "physicalDefense": {
+      "physical": 70,
+      "blunt": 70,
+      "thrust": 70,
+      "blood": 100
+    },
+    "elementalDefense": {
+      "arcane": 140,
+      "fire": 60,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 42,
+      "rapidPoison": 31,
+      "frenzy": 35
+    },
+    "beasthood": 35,
+    "type": "Chest",
+    "description": "\nUniform of the students of Byrgenwerth, a bygone institute of learning. Features a thick cape.\nThe Healing Church has its roots in Byrgenwerth, andnaturally borrows heavily from its uniform design.\nThe focus not on knowledge, or thought, but on pure \npretension would surely bring Master Willem to despair, ifonly he knew."
+  },
+  "311000": {
+    "image": "https://1.bp.blogspot.com/-soOtAUhqao4/WzBbw0pITXI/AAAAAAAAZrM/WkTYoGpquDkCLmd3FvrFgD2GV298x6EjwCLcBGAs/s42/arianna%2Bchest.png",
+    "name": "Noble Dress",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 40,
+      "blood": 130
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 40,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 23,
+      "rapidPoison": 31,
+      "frenzy": 27
+    },
+    "beasthood": 38,
+    "type": "Chest",
+    "description": "\nA finely tailored bordeaux dress.\nWorn by the nobles of the old bloodline that traces back tothe forsaken Castle Cainhurst."
+  },
+  "313000": {
+    "image": "https://1.bp.blogspot.com/-gkwrLZJBG6c/WzBbw3YXLPI/AAAAAAAAZrU/mrnRNn8GdfAsSAi9GkSpMuUyCt9N337AwCLcBGAs/s42/arianna%2Blegs.png",
+    "name": "Arianna's Shoes",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 14,
+      "rapidPoison": 18,
+      "frenzy": 16
+    },
+    "beasthood": 22,
+    "type": "Legs",
+    "description": "\nShoes worn by Arianna, woman of the night in the Cathedral Ward.\nInnocent and cute, in contrast with its owner."
+  },
+  "320000": {
+    "image": "https://1.bp.blogspot.com/-D7w0XGJbt6Q/WzBcQqL0sMI/AAAAAAAAZzQ/avEwl0Oo3HExkHFXKVhJEI2gL65G-hSuwCLcBGAs/s42/yharnam%2Bhead.png",
+    "name": "Rumpled Yharnam Hat",
+    "physicalDefense": {
+      "physical": 20,
+      "blunt": 20,
+      "thrust": 20,
+      "blood": 10
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 60,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 11,
+      "frenzy": 13
+    },
+    "beasthood": 8,
+    "type": "Head",
+    "description": "\nCommon Yharnam cap.\n\nWell-worn and losing its shape."
+  },
+  "321000": {
+    "image": "https://4.bp.blogspot.com/-scq5BF4Y4e0/WzBcQRcPHSI/AAAAAAAAZzM/2hgqvACk5bwe6AlmZwFjZv08Pr-tV3HEQCLcBGAs/s42/yharnam%2Bchest.png",
+    "name": "Sweaty Clothes",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 100,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 27,
+      "rapidPoison": 35,
+      "frenzy": 38
+    },
+    "beasthood": 27,
+    "type": "Chest",
+    "description": "\nCommon Yharnam clothing.\nWell-worn and damp with sweat."
+  },
+  "330000": {
+    "image": "https://2.bp.blogspot.com/-o4Q_jMakGNw/WzBb2qLLZeI/AAAAAAAAZso/6Lyhu1ebBYcEi06sE5U0DjU7vN9vNYxGgCLcBGAs/s42/butcher%2Bhead.png",
+    "name": "Butcher Mask",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 30,
+      "thrust": 50,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 30,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 20,
+      "rapidPoison": 19,
+      "frenzy": 11
+    },
+    "beasthood": 9,
+    "type": "Head",
+    "description": "\nMask of the Madaras twins, denizens of the Forbidden \nWoods, likely belonging to the older of the two. \n\nThe twins grew up in silent kinship with a poisonous snake. \nEventually they learned human ways, and became hunters. \n\nWhen they discovered vermin even in their beloved snake, \nthe younger brother is said to have murdered the older."
+  },
+  "331000": {
+    "image": "https://4.bp.blogspot.com/-m5xWUMFQuA4/WzBb2MmJXmI/AAAAAAAAZsk/phmR3M6x4xcmJtD02l1GIn__GRvgu5aHwCLcBGAs/s42/butcher%2Bchest.png",
+    "name": "Butcher Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 60,
+      "thrust": 100,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 90,
+      "fire": 70,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 53,
+      "rapidPoison": 59,
+      "frenzy": 33
+    },
+    "beasthood": 29,
+    "type": "Chest",
+    "description": "\nGarb of the Madaras twins, denizens of the Forbidden \nWoods, likely belonging to the older of the two.\n\nBoth the twins became hunters, and brought back and \ndissected their beast prey, in order to support the villagers in \ntheir forbidden research."
+  },
+  "332000": {
+    "image": "https://3.bp.blogspot.com/-_ORfgk2YpYQ/WzBb17XqzPI/AAAAAAAAZsg/tzrHh_6RcTkp_jtXWXqYZtD_IHnyoC5pQCLcBGAs/s42/butcher%2Barms.png",
+    "name": "Butcher Gloves",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 60,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 40,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 27,
+      "rapidPoison": 31,
+      "frenzy": 17
+    },
+    "beasthood": 15,
+    "type": "Hands",
+    "description": "\nGloves of the Madaras twins, denizens of the Forbidden \nWoods, likely belonging to the older of the two.\n\nBoth the twins became hunters, and brought back and \ndissected their beast prey, in order to support the villagers in\ntheir forbidden research."
+  },
+  "333000": {
+    "image": "https://4.bp.blogspot.com/-4bh3FIljK3E/WzBb2nZVqJI/AAAAAAAAZss/7ZXog3-TH-wchpcblDKDM7Suq3kAAR2AACLcBGAs/s42/butcher%2Blegs.png",
+    "name": "Butcher Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 60,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 32,
+      "rapidPoison": 34,
+      "frenzy": 19
+    },
+    "beasthood": 17,
+    "type": "Legs",
+    "description": "\nTrousers of the Madaras twins, denizens of the Forbidden \nWoods, likely belonging to the older of the two.\n\nBoth the twins became hunters, and brought back and \ndissected their beast prey, in order to support the villagers in\ntheir forbidden research."
+  },
+  "340000": {
+    "image": "https://1.bp.blogspot.com/-SbfPAfjht6I/WzBcBPVv38I/AAAAAAAAZvk/PYRoy9qkQ1gwfV5DG6IYdcU2sYNudK98ACLcBGAs/s42/harrowed%2Bhead.png",
+    "name": "Harrowed Hood",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 20,
+      "rapidPoison": 19,
+      "frenzy": 2
+    },
+    "beasthood": 18,
+    "type": "Head",
+    "description": "\nCertain Church hunters obfuscate their identities and slip \ninto the nooks and crannies of the city.\nThis is the garb that allows these harrowed individuals to go \nunnoticed.\n\nThese hunters are keen to early signs of the scourge, serving \n as a first line of defence against its outbreak.\nOr perhaps, when the time is ripe, they find signs of the \nscourge where there are none. It just goes to show, the \ncorner beggar is not always who he seems."
+  },
+  "341000": {
+    "image": "https://1.bp.blogspot.com/-MB-1X_EDVOk/WzBcAw97MPI/AAAAAAAAZvg/HJyPjfT2azYBD7lHQ_fHOX4LFrJ9XGQ6ACLcBGAs/s42/harrowed%2Bchest.png",
+    "name": "Harrowed Garb",
+    "physicalDefense": {
+      "physical": 120,
+      "blunt": 80,
+      "thrust": 90,
+      "blood": 90
+    },
+    "elementalDefense": {
+      "arcane": 110,
+      "fire": 90,
+      "bolt": 110
+    },
+    "resistance": {
+      "slowPoison": 56,
+      "rapidPoison": 58,
+      "frenzy": 9
+    },
+    "beasthood": 44,
+    "type": "Chest",
+    "description": "\nCertain Church hunters obfuscate their identities and slip \ninto the nooks and crannies of the city.\nThis is the garb that allows these harrowed individuals to go \nunnoticed.\n\nThese hunters are keen to early signs of the scourge, serving as a first line of defence against its outbreak.\nOr perhaps, when the time is ripe, they find signs of the \nscourge where there are none. It just goes to show, the \ncorner beggar is not always who he seems."
+  },
+  "342000": {
+    "image": "https://3.bp.blogspot.com/-AAdedty9Am8/WzBcAUpMCnI/AAAAAAAAZvc/4PKrAltL3egvBdkGJ-Fv4squZ38iCjORQCLcBGAs/s42/harrowed%2Barms.png",
+    "name": "Harrowed Gloves",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 35,
+      "rapidPoison": 31,
+      "frenzy": 4
+    },
+    "beasthood": 25,
+    "type": "Hands",
+    "description": "\nCertain Church hunters obfuscate their identities and slip \ninto the nooks and crannies of the city.\nThis is the garb that allows these harrowed individuals to go \nunnoticed.\n\nThese hunters are keen to early signs of the scourge, serving as a first line of defence against its outbreak.\nOr perhaps, when the time is ripe, they find signs of the \nscourge where there are none. It just goes to show, the \ncorner beggar is not always who he seems."
+  },
+  "343000": {
+    "image": "https://1.bp.blogspot.com/-7qhNxXEL70M/WzBcB8rcnyI/AAAAAAAAZvo/zewZwZ0SHtgGkVwtcJdYLuo0sDbqr7SQwCLcBGAs/s42/harrowed%2Blegs.png",
+    "name": "Harrowed Trousers",
+    "physicalDefense": {
+      "physical": 70,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 50,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 38,
+      "rapidPoison": 33,
+      "frenzy": 5
+    },
+    "beasthood": 27,
+    "type": "Legs",
+    "description": "\nCertain Church hunters obfuscate their identities and slip \ninto the nooks and crannies of the city.\nThis is the garb that allows these harrowed individuals to go \nunnoticed.\n\nThese hunters are keen to early signs of the scourge, serving as a first line of defence against its outbreak.\nOr perhaps, when the time is ripe, they find signs of the \nscourge where there are none. It just goes to show, the \ncorner beggar is not always who he seems."
+  },
+  "350000": {
+    "image": "https://1.bp.blogspot.com/-5BABvGquNck/WzBcI_ntbRI/AAAAAAAAZxg/fpBKWhyLaKwbTsd09UnVBDNFe1wpOHc4QCLcBGAs/s42/old%2Bhunter%2Bhead.png",
+    "name": "Old Hunter Cap",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 30,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 60,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 5,
+      "frenzy": 13
+    },
+    "beasthood": 19,
+    "type": "Head",
+    "description": "\nOld Hunter Cap with a wide brim that hides their sharp gaze.\n\nIn the old days, when hunters were ten a penny, this was \npart of their standard garb."
+  },
+  "351000": {
+    "image": "https://3.bp.blogspot.com/-LF8Kw6zwyBU/WzBcIqS3enI/AAAAAAAAZxc/TnRBbJ3xscwaFH7bxD260F3P4t3y19u0gCLcBGAs/s42/old%2Bhunter%2Bchest.png",
+    "name": "Old Hunter Garb",
+    "physicalDefense": {
+      "physical": 100,
+      "blunt": 70,
+      "thrust": 80,
+      "blood": 100
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 120,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 36,
+      "rapidPoison": 19,
+      "frenzy": 44
+    },
+    "beasthood": 48,
+    "type": "Chest",
+    "description": "\nOld hunter garb.\n\nOne day, the hunters disappeared, and Yharnamites began\nto whisper of the hunters' sin.\n\nDrunk with blood, chasing after beasts, they would pass on \nto the Nightmare, every last one of them."
+  },
+  "352000": {
+    "image": "https://4.bp.blogspot.com/-F1eKtRCxrmU/WzBcIf1pfWI/AAAAAAAAZxY/6gyWZ6r1eHwm7BPYaAsDiCYeCj990YoWwCLcBGAs/s42/old%2Bhunter%2Barms.png",
+    "name": " Old Hunter Gloves",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 70,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 10,
+      "frenzy": 23
+    },
+    "beasthood": 29,
+    "type": "Hands",
+    "description": "\nOld hunter gauntlets made of brass to protect their weapon-\nbearing hands.\n\nAt the time, some hunters believed that certain metals would \nward off beast blood.\nOn a night of the hunt, it is no wonder that people would \nresort to superstition."
+  },
+  "353000": {
+    "image": "https://3.bp.blogspot.com/-oZrXgr5krY4/WzErjdOSYuI/AAAAAAAAZ04/mMKRLuaPy00ZP-bntBXriUWwyLxAw046wCLcBGAs/s42/old_hunter_trousers.png",
+    "name": "Old Hunter Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 60
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 70,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 20,
+      "rapidPoison": 11,
+      "frenzy": 25
+    },
+    "beasthood": 33,
+    "type": "Legs",
+    "description": "\n\nOld hunter trousers that protected countless hunters from\nthe beasts in an older age.\n\nA widespread belief of the period was that \"beast blood crept\nup the right leg,\" and this led to the double-wrapped belt."
+  },
+  "360000": {
+    "image": "https://1.bp.blogspot.com/-1-os0IXHDaU/WzBb6WBIdJI/AAAAAAAAZt0/laoFvHGpwsMpU75DjdGw5pfj_TiVEjFtQCLcBGAs/s42/decorative%2Bhunter%2Bhead.png",
+    "name": "Old Hunter Top Hat",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 60,
+      "thrust": 40,
+      "blood": 30
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 20,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 8,
+      "rapidPoison": 5,
+      "frenzy": 17
+    },
+    "beasthood": 13,
+    "type": "Head",
+    "description": "\nOld hunter top hat, warped by blood stains.\n\nIn the old days, when hunters were ten a penny, this was \npart of their standard garb."
+  },
+  "370000": {
+    "image": "https://4.bp.blogspot.com/-UdgUb-Sx1NI/WzBcHtq-QhI/AAAAAAAAZxI/pvIikeZSeDIbK-exKo9oK1oyLDWjV7iWwCLcBGAs/s42/maria%2Bhead.png",
+    "name": "Maria Hunter Cap",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 6,
+      "rapidPoison": 17,
+      "frenzy": 10
+    },
+    "beasthood": 4,
+    "type": "Head",
+    "description": "\nAmong the first hunters, all students of Gehrman, was the \nlady hunter Maria. This was her hunter's cap, crafted in \nCainhurst.\n\nMaria is distantly related to the undead queen, but had great \nadmiration for Gehrman, unaware of his curious mania."
+  },
+  "371000": {
+    "image": "https://2.bp.blogspot.com/-NDS4rpa2zsw/WzBcHlAomKI/AAAAAAAAZxM/nga9jmtzkZg5dXF9ZagHM9drsEbp2qvPQCLcBGAs/s42/maria%2Bchest.png",
+    "name": "Maria Hunter Garb",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 70,
+      "thrust": 80,
+      "blood": 150
+    },
+    "elementalDefense": {
+      "arcane": 70,
+      "fire": 60,
+      "bolt": 80
+    },
+    "resistance": {
+      "slowPoison": 20,
+      "rapidPoison": 51,
+      "frenzy": 30
+    },
+    "beasthood": 16,
+    "type": "Chest",
+    "description": "\nAmong the first hunters, all students of Gehrman, was the \nlady hunter Maria. This was her hunter's garb, crafted in \nCainhurst.\n\nMaria is distantly related to the undead queen, but had great\nadmiration for Gehrman, unaware of his curious mania."
+  },
+  "372000": {
+    "image": "https://2.bp.blogspot.com/-n4e0Sdx1nhc/WzBcHFue4MI/AAAAAAAAZxE/1KtpJSwr9vU0O1bGhdqk87lsS0Ze3ZFNQCLcBGAs/s42/maria%2Barms.png",
+    "name": "Maria Hunter Gloves",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 10,
+      "rapidPoison": 27,
+      "frenzy": 15
+    },
+    "beasthood": 8,
+    "type": "Hands",
+    "description": "\nAmong the first hunters, all students of Gehrman, was the \nlady hunter Maria. These were her hunter's gloves, crafted in \nCainhurst.\n\nMaria is distantly related to the undead queen, but had great\nadmiration for Gehrman, unaware of his curious mania."
+  },
+  "373000": {
+    "image": "https://1.bp.blogspot.com/-ad2UKFP-OVE/WzBcH716hPI/AAAAAAAAZxQ/xTBtvthfEiEvrMjUgjH0p_nqo13hAPcCQCLcBGAs/s42/maria%2Blegs.png",
+    "name": "Maria Hunter Trousers",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 50,
+      "thrust": 60,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 50,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 30,
+      "frenzy": 17
+    },
+    "beasthood": 9,
+    "type": "Legs",
+    "description": "\nAmong the first hunters, all students of Gehrman, was the \nlady hunter Maria. These were her hunter's trousers, crafted in Cainhurst.\n\nMaria is distantly related to the undead queen, but had great\nadmiration for Gehrman, unaware of his curious mania."
+  },
+  "381000": {
+    "image": "https://3.bp.blogspot.com/-LHlwaadhrZQ/WzBcKzC-YiI/AAAAAAAAZyE/CBhRejN6c6oKvu0ww6-li2pq4UPqEh6agCLcBGAs/s42/valtr%2Bchest.png",
+    "name": "Constable's Garb",
+    "physicalDefense": {
+      "physical": 90,
+      "blunt": 100,
+      "thrust": 70,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 100,
+      "fire": 110,
+      "bolt": 120
+    },
+    "resistance": {
+      "slowPoison": 44,
+      "rapidPoison": 35,
+      "frenzy": 23
+    },
+    "beasthood": 52,
+    "type": "Chest",
+    "description": "\n\nOnce upon a time, a troupe of foreign constables chased a \nbeast all the way to Yharnam, and this is what they wore.\nThe constables became victims of the beast, except for one \nsurvivor, who in turn devoured the creature whole, all by \nhimself.\n\nThe fable is a favourite among Yharnamites, who are partial \nto any stories of pompous, intolerant foreigners who suffer \nfor their ignorance. \n\nIt makes the blood taste that much sweeter."
+  },
+  "390000": {
+    "image": "https://2.bp.blogspot.com/-9M3cYTw9tgI/WzBb1mkB78I/AAAAAAAAZsY/mQfwLqLZieAU3bV169rrs3e81MAf6YCjACLcBGAs/s42/brador%2Bhead.png",
+    "name": "Brador's Testimony",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 20,
+      "bolt": 30
+    },
+    "resistance": {
+      "slowPoison": 18,
+      "rapidPoison": 10,
+      "frenzy": 6
+    },
+    "beasthood": 56,
+    "type": "Head",
+    "description": "\nThe scalp of a horrid cleric beast, indicating that hunter \nBrador, a Healing Church assassin, had killed a compatriot.\n\nAfterward, he wore his ally's own scalp, and hid himself \naway, deep below in a cell. The Church provided him with a \nsingle, soundless bell of death, to ensure their secrets would \nbe kept."
+  },
+  "391000": {
+    "image": "https://4.bp.blogspot.com/-cYy40H7zBVI/WzBb1aixYQI/AAAAAAAAZsU/y8Pqz2bcdzoc3Xx480YI_tLebd-gvusAQCLcBGAs/s42/brador%2Bchest.png",
+    "name": "Beast Hide Garb",
+    "physicalDefense": {
+      "physical": 120,
+      "blunt": 120,
+      "thrust": 70,
+      "blood": 80
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 38,
+      "rapidPoison": 31,
+      "frenzy": 20
+    },
+    "beasthood": 66,
+    "type": "Chest",
+    "description": "\nThe bloodied hide of a horrible cleric beast, pulled over the \nback. Without the attacked beast hide this foreigner garb \nwouldn't raise anyone's eyebrows.\n\nBrador donned a compatriot's beastly scalp and hide while \nstill moist with blood. Most of the blood stains on this hide \nwere from that day."
+  },
+  "392000": {
+    "image": "https://2.bp.blogspot.com/-tZN2KI0ukH0/WzBb1DaPNlI/AAAAAAAAZsQ/Cuh6INdpyCQ9Fh3-IScs6orj3JnolosIwCLcBGAs/s42/brador%2Barms.png",
+    "name": "Bloodied Arm Bands",
+    "physicalDefense": {
+      "physical": 30,
+      "blunt": 40,
+      "thrust": 30,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 30,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 10,
+      "rapidPoison": 14,
+      "frenzy": 14
+    },
+    "beasthood": 36,
+    "type": "Hands",
+    "description": "\nBloodied arm bands.\n\nBrador donned a compatriot's beastly scalp and hide while \nstill moist with blood. Most of the blood stains on this hide \nwere from that day."
+  },
+  "393000": {
+    "image": "https://3.bp.blogspot.com/-6SIGx1AWo1g/WzBb1-HRaiI/AAAAAAAAZsc/bHdRLscBPsE24zVgZsdtIEXxu828YmAywCLcBGAs/s42/brador%2Blegs.png",
+    "name": "Bloodied Trousers",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 50,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 40,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 11,
+      "rapidPoison": 16,
+      "frenzy": 16
+    },
+    "beasthood": 46,
+    "type": "Legs",
+    "description": "\nBloodied foreign trousers.\n\nBrador donned a compatriot's beastly scalp and hide while \nstill moist with blood. Most of the blood stains on this hide \nwere from that day."
+  },
+  "400000": {
+    "image": "https://3.bp.blogspot.com/-2FAt6ZAhsAE/WzBcP9lYnII/AAAAAAAAZzE/N4tIGEZHX_E-zf2s2J51wSrq3N918EIiwCLcBGAs/s42/yamamura%2Bhead.png",
+    "name": "Yamamura Hunter Hat",
+    "physicalDefense": {
+      "physical": 50,
+      "blunt": 30,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 30,
+      "fire": 60,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 5,
+      "rapidPoison": 11,
+      "frenzy": 19
+    },
+    "beasthood": 13,
+    "type": "Head",
+    "description": "\nA standard hunter's hat, worn by Yamamura the Wanderer.\n\nThis hat and staff were given to him when he became a \nhunter and confederate of the League."
+  },
+  "401000": {
+    "image": "https://2.bp.blogspot.com/-DmB9H6UuZYE/WzBcPl-uLiI/AAAAAAAAZzA/f_jF77KLrIkM_0BTER_2rJOh06evpw_yQCLcBGAs/s42/yamamura%2Bchest.png",
+    "name": "Khaki Haori",
+    "physicalDefense": {
+      "physical": 80,
+      "blunt": 60,
+      "thrust": 70,
+      "blood": 90
+    },
+    "elementalDefense": {
+      "arcane": 80,
+      "fire": 130,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 37,
+      "rapidPoison": 34,
+      "frenzy": 25
+    },
+    "beasthood": 18,
+    "type": "Chest",
+    "description": "\nGarb of a distant Eastern land, worn by Yamamura the \nWanderer.\n\nThis Eastern warrior pursued a beast for honourable \nrevenge, then became a hunter of the League. But when he\nstared straight into impurity, it drove him mad."
+  },
+  "402000": {
+    "image": "https://2.bp.blogspot.com/-tbUTtAoi76Y/WzBcPZJriYI/AAAAAAAAZy8/BTPC3iNp-gc8NYqyZ0O8Fo4IKJjoHoyPwCLcBGAs/s42/yamamura%2Barms.png",
+    "name": "Old Hunter Arm Bands",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 40,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 90,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 17,
+      "frenzy": 12
+    },
+    "beasthood": 11,
+    "type": "Hands",
+    "description": "\nOld Hunter arm bands wound tightly to prevent infection\nwith the scourge.\n\nOf course, the idea that the scourge was infectious was pure\nhearsay."
+  },
+  "403000": {
+    "image": "https://1.bp.blogspot.com/-p4TSXKdSFPw/WzBcQOnA0dI/AAAAAAAAZzI/T71nQEwhg1UhGVIOvYPzkoHtJMtNxTIngCLcBGAs/s42/yamamura%2Blegs.png",
+    "name": "Wine Hakama",
+    "physicalDefense": {
+      "physical": 40,
+      "blunt": 40,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 90,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 21,
+      "rapidPoison": 19,
+      "frenzy": 19
+    },
+    "beasthood": 15,
+    "type": "Legs",
+    "description": "\nGarb of a distant Eastern land, worn by Yamamura the \nWanderer.\n\nThis Eastern warrior pursued a beast for honourable \nrevenge, then became a hunter of the League. But when he\nstared straight into impurity, it drove him mad."
+  },
+  "430000": {
+    "image": "https://4.bp.blogspot.com/-7wASKG8q8Iw/WzBb7tqEc6I/AAAAAAAAZuM/Tg5BCQBckukhHDaD-Io8hRb3gt5ZqamOACLcBGAs/s42/enlarged%2Bhead.png",
+    "name": "Enlarged Head",
+    "physicalDefense": {
+      "physical": 20,
+      "blunt": 60,
+      "thrust": 0,
+      "blood": 20
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 20,
+      "bolt": 20
+    },
+    "resistance": {
+      "slowPoison": 6,
+      "rapidPoison": 6,
+      "frenzy": 1
+    },
+    "beasthood": 0,
+    "type": "Head",
+    "description": "\nAn enlarged head of a patient of the Cathedral, with a cavity \nthat just happens to fit a human head, although one would \nbe mad to try it on. \n\nBut if you do, listen carefully, for the sticky sound. Drip, \ndrop. As water, seeping up from the depths, slowly, steadily."
+  }
+}

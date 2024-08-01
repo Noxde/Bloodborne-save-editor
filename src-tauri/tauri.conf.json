@@ -1,9 +1,9 @@
 {
   "build": {
-    "beforeBuildCommand": "",
-    "beforeDevCommand": "",
-    "devPath": "./ui",
-    "distDir": "./ui"
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm start",
+    "devPath": "http://localhost:3000",
+    "distDir": "../build"
   },
   "package": {
     "productName": "Bloodborne Save Editor",
