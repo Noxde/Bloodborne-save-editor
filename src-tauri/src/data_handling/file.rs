@@ -38,7 +38,7 @@ impl FileData {
         if matchs.len() == 0 {
             Err("Failed to find username in save data.")
         } else {
-            Ok(*matchs.last().unwrap())
+            Ok(*matchs.first().unwrap())
         }
     }
 
