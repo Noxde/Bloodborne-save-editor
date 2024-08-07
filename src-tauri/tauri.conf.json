@@ -1,9 +1,10 @@
 {
   "build": {
     "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm start",
+    "beforeDevCommand": "npx cross-env BROWSER=none npm start",
     "devPath": "http://localhost:3000",
-    "distDir": "../build"
+    "distDir": "../build",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "Bloodborne Save Editor",
@@ -11,7 +12,16 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "dialog": {
+        "open": true
+      },
+      "fs": {
+        "readFile": true
+      },
+      "path": {
+        "all": true
+      }
     },
     "bundle": {
       "active": true,
@@ -55,10 +65,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 650,
         "resizable": true,
-        "title": "Bloodborne Save Editor",
-        "width": 800
+        "title": "Bloodborne Save Editor v0.0.0",
+        "width": 1000
       }
     ]
   }
