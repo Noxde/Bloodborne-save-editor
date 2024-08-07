@@ -1,319 +1,224 @@
 {
   "consumables": {
-    "703": {
-      "item_name": "Blood Vial",
-      "item_desc": "Special blood used in ministration. Restores HP.\nOnce a patient has had their blood ministered, a unique but\ncommon treatment in Yharnam, successive infusions recall\nthe first, and are all the more invigorating for it.\nNo surprise that most Yharnamites are heavy users of blood.or interruptBlood Vials are common treasures in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons, while also being common item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://4.bp.blogspot.com/-WKoFpdrvpeY/VkfgWnobECI/AAAAAAAAL2M/PwJBdUwegt0/s250/01.%2BBlood%2BVial.png"
-    },
-    "706": {
-      "item_name": "Blood of Adeline",
-      "item_desc": "Blood taken from Adeline, patient of the research hall. \nRestores HP, and continues to rejuvenate HP for some time. \n\nAdeline was originally one of the Blood Saints who received \ntreatment by the Church to cultivate worthy blood. Adeline's \nwas one of the few cases that turned out favorably.",
-      "item_img": "https://2.bp.blogspot.com/-87bT8xnqYWI/VmSCNdZjPFI/AAAAAAAANMc/w-Z7-QIWkRs/s250/01.%2BBlood%2Bof%2BAdeline.png"
-    },
-    "1100": {
-      "item_name": "Antidote",
-      "item_desc": "Small medicinal tablets that counteract poison.\nUsed to treat ashen blood, the baffling sickness that ravaged \nOld Yharnam long ago.\nThese tablets only provide short-term relief. The ashen blood\nailment eventually triggered the spread of the beastly \nscourge.and FrenzyThere are none Antidote none item drops from enemies in Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-H04-za0bHHo/VkfjwupEZnI/AAAAAAAAL2o/28ynm1yH2d4/s250/4.%2BConsumables%2B-%2BAntidote.png"
-    },
-    "1110": {
-      "item_name": "Beast Blood Pellet",
-      "item_desc": "Large medicinal pellets, supposedly formed of coagulated\nbeast blood. Banned by the Healing Church due to their unclear origin. Grants a spurt of beasthood.\nRipping apart the flesh of one's enemies and being rained upon by their splattering blood invigorates one's sense of beasthood, feeding strength and euphoric feeling alike.There are none Beast Blood Pellet item drops from enemies in Preset Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-SGXJG8uCn5E/Vkfjw-7aJJI/AAAAAAAAL2s/oLoejsm5EyE/s250/5.%2BConsumables%2B-%2BBeast%2BBlood%2BPellet.png"
-    },
-    "1500": {
-      "item_name": "Madman's Knowledge",
-      "item_desc": "Skull of a mandman touched by the wisdom of the Great Ones.\nUse to gain Insight.\nMaking contact with eldritch wisdom is a blessing, for even if it drives one mad, it allows one to serve a grander purpose, \nfor posterity.rarerarerareThere are Madman's Knowledge treasures in all parts of the game (Main Story, the Old Hunters DLC, Preset & Root Dungeons), as well as item drops from enemies (Main Story, the Old Hunters DLC, Preset & Root Dungeons).",
-      "item_img": "https://2.bp.blogspot.com/-JyF1-0pY1OQ/VkfqJlfDuwI/AAAAAAAAL5c/7zBkeCTpYzY/s250/39.%2BConsumables%2B-%2BMadman%2527s%2BKnowledge.png"
-    },
-    "1501": {
-      "item_name": "Great One's Wisdom",
-      "item_desc": "Fragments of the lost wisdom of the Great Ones, beings that \nmight be described as gods.\nUse to gain Insight.\nAt Byrgenwerth, Master Willem had an epiphany:\n\"We are thinking on the basest of planes. What we need, are\nmore eyes.\"There are none Great One's Wisdom item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://3.bp.blogspot.com/-biO9zzshxec/VkfqJifOpxI/AAAAAAAAL5k/lOl6hJoog2U/s250/40.%2BConsumables%2B-%2BGreat%2BOne%2527s%2BWisdom.png"
-    },
-    "4320": {
-      "item_name": "Third Umbilical Cord",
-      "item_desc": "A great relic, also known as the Cord of the Eye. Every\n  infant Great One has this precursor to the umbilical cord.\nEvery Great One loses its child, and then yearns for a surrogate. The Third Umbilical Cord precipitated the \n  encounter with the pale moon, which beckoned the hunters\n  and conceived the hunter's dream.\nUse to gain Insight and, so they say, eyes on the inside,  although no one remembers what that truly entails.A great relic, also known as the Cord of the Eye. Every \n  infant Great One has this precursor to the umbilical cord.\nEvery Great One loses its child, and then yearns for a \n  surrogate, and Oedon, the formless Great One, is no \n  different. To think, it was corrupted blood that began this \n  eldritch liaison.\nUse to gain Insight and, so they say, eyes on the inside,  although no one remembers what that truly entails.A great relic, also known as the Cord of the Eye. Every \n  infant Great One has this precursor to the umbilical cord.\nProvost Willem sought the Cord in order to elevate his being \n  and thoughts to those of a Great One, by lining his brain \n  with eyes. The only choice, he knew, if man were to ever  match Their greatness.A great relic, also known as the Cord of the Eye. Every \n  infant Great One has this precursor to the umbilical cord.\nEvery Great One loses its child, and then yearns for a \n  surrogate. This Cord granted Mensis audience with Mergo, \n  but resulted in the stillbirth of their brains.\nUse to gain Insight and, so they say, eyes on the inside,  although no one remembers what that truly entails.wheneverThree third cords.",
-      "item_img": "https://3.bp.blogspot.com/-RcP13CIiMcE/VkfqKY-eBfI/AAAAAAAAL5w/SRef4la9r0U/s250/45.%2BConsumables%2B-%2BOne%2BThird%2Bof%2BUmbilical%2BCord.png"
-    },
-    "1101": {
-      "item_name": "Sedative",
-      "item_desc": "Liquid medicine concocted at Byrgenwerth. \nCalms the nerves.\n\nThose who delve into the arcane fall all-too-easily to  madness, and thick human blood serves to calm the frayed  nerves of these inquisitive minds. Naturally, this often leads  to a reliance on blood ministration.\nand Rapid PoisoningThere are none Sedatives item drops from enemies in Preset Dungeons.",
-      "item_img": "https://4.bp.blogspot.com/-VSzODQN8jRw/Vkfjw0WnDUI/AAAAAAAAL2w/naoJN01OmHQ/s250/6.%2BConsumables%2B-%2BSedative.png"
-    },
-    "900": {
-      "item_name": "Quicksilver Bullets",
-      "item_desc": "Special bullets used with hunter firearms.\nOrdinary bullets have no effect on beasts, and so Quicksilver Bullets, fused with the wielder's own blood, must be employed.\nThe strength of Quicksilver Bullets depends greatly upon the wielder's bloodtinge.Quicksilver Bullets are common treasures in the Main Story, Preset Dungeons & Root Dungeons, while also being common item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://4.bp.blogspot.com/-RJEjb4JcdRE/VkfjwOLirKI/AAAAAAAAL2c/86zR2bauDzw/s250/0.%2BConsumables%2B-%2BQuicksilver%2BBullets.png"
-    },
-    "1200": {
-      "item_name": "Molotov Cocktail",
-      "item_desc": "Explodes in raging flames when thrown against an object. One of the oldest hunter tools available in the workshop.\nSince the tragedy that struck Old Yharnam, fire has become a staple in beast hunts, and is thought to cleanse impurity.\nCertain types of beasts have an abnormal fear of flame.\ndataminedfire damageThere are none Molotov Cocktail none item drops from enemies in Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-oSs16s6XJsU/VkfqMU7EyRI/AAAAAAAAL64/dPyRxiSzJBo/s250/9.%2BConsumables%2B-%2BMolotov%2BCocktail.png"
-    },
-    "1201": {
-      "item_name": "Delayed Molotov",
-      "item_desc": "A special hunter tool crafted by the old Oto Workshop. \nThese molotovs wedge into the ground when thrown, and \nexplode on a timed delay. \n\nA shame that such a complex gadget must be sacrificed with \neach use of this inefficient hunter tool. Nevertheless, delayed \nmolotovs are cherished by the minority of hunters who \nprefer the tricksier kill. This creation is one of the earliest- \nknown roots of the Powder Kegs.\ndataminedfire damage",
-      "item_img": "https://1.bp.blogspot.com/-NGvGcHa1o08/VmSCNe4iALI/AAAAAAAANMg/hC21wTKq2Yo/s250/02.%2BDelayed%2BMolotov.png"
-    },
-    "1220": {
-      "item_name": "Oil Urn",
-      "item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.\nFire is commonplace on the hunt, and oil urns accentuate its effect. Sometimes, when hunters burn beasts, they appear intoxicated by the euphoria of purification.Increase Fire DMG [~x2] you takeon the leftdropped bydataminedThere are Oil Urn treasures in all parts of the game (Main Story, the Old Hunters DLC, Preset & Root Dungeons), as well as item drops from enemies (Main Story, the Old Hunters DLC, Preset & Root Dungeons).",
-      "item_img": "https://3.bp.blogspot.com/-Z_1zFjxsOME/VkfqFg0I1II/AAAAAAAAL3w/HNa6xx5JcAU/s250/11.%2BConsumables%2B-%2BOil%2BUrn.png"
-    },
-    "1230": {
-      "item_name": "Pebble",
-      "item_desc": "Small pebbles found throughout Yharnam.\nCan be thrown at foes.\nQuite thrilling.rarerarerarerareraredataminedThere are Pebble treasures in all parts of the game (Main Story, the Old Hunters DLC, Preset & Root Dungeons), as well as item drops from enemies (Main Story, the Old Hunters DLC, Preset & Root Dungeons).",
-      "item_img": "https://2.bp.blogspot.com/-qbsi3qovCYw/VkfqGhFVqiI/AAAAAAAAL4A/jr-19aZb1dY/s250/16.%2BConsumables%2B-%2BPebble.png"
-    },
-    "1242": {
-      "item_name": "Poison Knife",
-      "item_desc": "A knife slathered in poison.\nThis curved knife is as thin and sharp as a surgeon's blade.\nOften used for self-defence by special doctors in the Healing\nChurch.\nThey say that hunters traditionally avoid the use of poison,\nlikely because the poison is too slow to act in the heat of the\nhunt.dataminedThere are none Poison Knife treasures in The Old Hunters DLC and none item drops from enemies in the Main Story.",
-      "item_img": "https://1.bp.blogspot.com/-OLD1x5jXG3I/VkfqGu8KlRI/AAAAAAAAL34/Ydy6Ssr11Zk/s250/15.%2BConsumables%2B-%2BPoison%2BKnife.png"
-    },
-    "1250": {
-      "item_name": "Rope Molotov Cocktail",
-      "item_desc": "Exploding molotov cocktail that is thrown behind.\nAllows for more manoeuvring compared to an ordinary \nmolotov cocktail, and can catch foes off guard.\nSince the tragedy that struck Old Yharnam, fire has become\na staple in beast hunts, and is thought to cleanse impurity.\n\nCertain types of beasts have an abnormal fear of flame.dropped bydataminedfire damageThere are none Rope Molotov Cocktail treasures in the Main Story and The Old Hunters DLC and none item drops from enemies in the Main Story, The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://1.bp.blogspot.com/-wvRyhBa4uu4/VkfqFkYJkZI/AAAAAAAAL3s/INJZGcgV8d4/s250/10.%2BConsumables%2B-%2BRope%2BMolotov%2BCocktail.png"
-    },
-    "1251": {
-      "item_name": "Delayed Rope Molotov",
-      "item_desc": "A special hunter tool crafted by the old Oto Workshop.\nThese molotovs wedge into the ground when thrown behind \none's back, and explode on a timed delay. \n\nA shame that such a complex gadget must be sacrificed with \neach use of this inefficient hunter tool. Nevertheless, delayed \nmolotovs are cherished by the minority of hunters who \nprefer the tricksier kill. This creation is one of the earliest-\nknown roots of the Powder Kegs.\ndataminedfire damage",
-      "item_img": "https://2.bp.blogspot.com/-TGFacvHRTjE/VmSCNSfcQtI/AAAAAAAANMw/AuUnA2Pvui8/s250/03.%2BDelayed%2BRope%2BMolotov.png"
-    },
-    "1300": {
-      "item_name": "Fire Paper",
-      "item_desc": "Coarse paper that applies fire to weapons when rubbed.\nA hunter tool found in the Healing Church workshop.\nSince the tragedy that struck Old Yharnam, fire has become\na staple in beast hunts, and is thought to cleanse impurity.\nCertain types of beasts have an abnormal fear of flame.or equalThere are none Fire Paper treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC.",
-      "item_img": "https://3.bp.blogspot.com/-OWLHuEIoYfY/VkfqG9B1cJI/AAAAAAAAL4I/45HXnak08QU/s250/17.%2BConsumables%2B-%2BFire%2BPaper.png"
-    },
-    "1320": {
-      "item_name": "Bolt Paper",
-      "item_desc": "Coarse paper that applies bolt to weapons when rubbed.\nInvented by Archibald, the infamous eccentric of the Healing Church workshop. Artificially recreates the blue sparks that are said to surround darkbeasts.\nUnlike the other strange weapons created by Archibald, this one was favored by many hunters, in particular those who had even once laid eyes on a darkbeast.or equalThere are none Bolt Paper treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC.",
-      "item_img": "https://4.bp.blogspot.com/-LsLS0r3d3D8/VkfqG1VlYPI/AAAAAAAAL4E/iSkMuxh5wag/s250/18.%2BConsumables%2B-%2BBolt%2BPaper.png"
-    },
-    "1330": {
-      "item_name": "Bone Marrow Ash",
-      "item_desc": "Additional medium that strengthens Quicksilver Bullets.\nAccording to the workshop, this is a special bone marrow ash collected from Hemwick Charnel Lane.\nInvaluable to hunters with weak bloodtinge who require the use of stronger firearms.There are none Bone Marrow Ash treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://1.bp.blogspot.com/-lnWyIa5DmKY/VkfqHK5dI4I/AAAAAAAAL4M/oykY5-6qVoQ/s250/19.%2BConsumables%2B-%2BBone%2BMarrow%2BAsh.png"
-    },
-    "2030": {
-      "item_name": "Lead Elixir",
-      "item_desc": "A heavy, syrupy liquid medicine.\nTemporarily shifts weight to make deflection of attacks\neasier, but must be used with care, as it also slows\nmovement with no change to defence.\nThe recipe for this mysterious concoction is unknown, but\nsome postulate that it materializes only within the most\ndesperate nightmares.by foxyThere are none Lead Elixir treasures in Preset & Root Dungeons and none item drops from enemies in The Old Hunters DLC & Preset Dungeons.",
-      "item_img": "https://3.bp.blogspot.com/-DmXj9z4NXF0/VkfkeP7yw3I/AAAAAAAAL3Y/UFUEXMNs8jY/s250/8.%2BConsumables%2B-%2BLead%2BElixir.png"
-    },
-    "2090": {
-      "item_name": "Shaman Bone Blade",
-      "item_desc": "A blade of bone coated with gruesome spinal fluid.\nUsed by old labyrinth watchers, in particular, those presiding\nover rituals.\nWhen victim is cut by this blade, the green spinal fluid\ntemporarily numbs the senses, disturbing the target's gross\nmotor skills. The blade, never intended for battle, must cut\ndeep to be effective, and breaks.\ndataminedexcept hunter enemiesThere are none Shaman Bone Blade treasures in The Old Hunters DLC, Preset Dungeons and none item drops from enemies in The Old Hunters DLC.",
-      "item_img": "https://4.bp.blogspot.com/-oRxijsrHjiw/VkfqHLvtR5I/AAAAAAAAL4Q/WGzpTchyG_w/s250/20.%2BConsumables%2B-%2BShaman%2BBone%2BBlade.png"
-    },
-    "1516": {
-      "item_name": "Frenzied Coldblood (7)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1517": {
-      "item_name": "Frenzied Coldblood (8)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1518": {
-      "item_name": "Frenzied Coldblood (9)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1519": {
-      "item_name": "Kin Coldblood (10)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1590": {
-      "item_name": "Kin Coldblood (11)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1591": {
-      "item_name": "Kin Coldblood (12)",
-      "item_desc": "Coldblood of inhuman kin of the cosmos, brethren of theGreat Ones.\nUse to gain unspeakable Blood Echoes.\nDare not to delve into the world beyond humanity, the\neldritch Truth touched upon long ago at Byrgenwerth.rarerarerarerarerarerarerarerarerarerarerarerareThere are none Kin Coldblood (10) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (11) item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Kin Coldblood (12) treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-5EHgN2t1AbA/VkfqJNrndSI/AAAAAAAAL5Q/CYiYPMGaBEs/s250/37.%2BConsumables%2B-%2B%252812%2529%2BKin%2BColdblood.png"
-    },
-    "1592": {
-      "item_name": "Great One Coldblood",
-      "item_desc": "Relic containing the Blood Echoes of a Great One.\nUse to gain cosmically nightmarish Blood Echoes.\nLike a true revelation, this uncanny relic defies\nunderstanding.rare",
-      "item_img": "https://2.bp.blogspot.com/-hkxyF7v53es/VkfqJfctOwI/AAAAAAAAL5Y/Udowrq95Rus/s250/38.%2BConsumables%2B-%2B%252813%2529%2BGreat%2BOne%2BColdblood.png"
-    },
-    "1593": {
-      "item_name": "Old Great One Coldblood",
-      "item_desc": "Relic containing the Blood Echoes of an Old Great One.\nUse to gain cosmically nightmarish Blood Echoes.\nLike a true revelation, this uncanny relic defies\nunderstanding.",
-      "item_img": "https://1.bp.blogspot.com/-jG8dErq1YLk/WQx22Ue9RVI/AAAAAAAAQ7g/oE7bHEExW0IkVEjxalOBWxydTFcs5TC5wCLcB/s250/Old%2BGreat%2BOne%2BColdblood%2B-%2B2.png"
-    },
-    "1594": {
-      "item_name": "Revered Great One Coldblood",
-      "item_desc": "Relic containing the blood echoes of a revered Great One.\nUse to gain cosmically nightmarish Blood Echoes.\nLike a true revelation, this uncanny relic defies\nunderstanding.\"PS4 savefile editing\"",
-      "item_img": "https://1.bp.blogspot.com/-2h1NK9cuaLQ/WQvijwUq6OI/AAAAAAAAQ7I/vRfLLGqimk84BfB-fIwCkAvzSJbiq8EvwCLcB/s250/Revered%2BGreat%2BOne%2BColdblood%2B-%2B2.png"
-    },
-    "1588": {
-      "item_name": "Frenzied Coldblood",
-      "item_desc": "A rich droplet of coldblood containing Blood Echoes.\nUse to gain frenzied Blood Echoes.\nThis manifestation of madness comes from a mind teetering\non the very brink, but has a sane mind ever produced\nanything of true significance?rarerarerareThere are none Frenzied Coldblood (7) treasures in The Old Hunters DLC and none item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.There are none Frenzied Coldblood (8) item drops from enemies in the Main Story, Preset Dungeons & Root Dungeons.There are none Frenzied Coldblood (9) treasures in the Preset Dungeons and none item drops from enemies in the Main Story, the Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-ZWsUAVZgZhY/VkfqIkKAbwI/AAAAAAAAL5A/VThO8vMYpIQ/s194/32.%2BConsumables%2B-%2B%25287%2529%2BFrenzied%2BColdblood.png"
-    },
     "100": {
       "item_name": "Hunter's Mark",
-      "item_desc": "Dangling, upside-down rune etched in one's mind.\nSymbol of a hunter.\nBy focusing one's thoughts on this rune, a hunter loses all Blood Echoes, but awakens afresh, as if it were all just a bad dream.",
-      "item_img": "https://3.bp.blogspot.com/-CyyEcQa6VT4/VkfqMSDnu-I/AAAAAAAAL6w/uvNBEhvCEiA/s250/63.%2BConsumables%2B-%2BHunter%2527s%2BMark.png"
-    },
-    "700": {
-      "item_name": "Tiny Music Box",
-      "item_desc": "A small music box received from a young Yharnam girl. Plays a song shared by her mother and father.\nInside the lid is a small scrap of paper, perhaps an old message. Two names can be made out, however faintly.\nViola and Gascoigne.",
-      "item_img": "https://3.bp.blogspot.com/-6C9RujIfsNw/VkfqH6yZqhI/AAAAAAAAL4k/jDyEMUlPCSQ/s250/25.%2BConsumables%2B-%2BTiny%2BMusic%2BBox.png"
-    },
-    "704": {
-      "item_name": "Blood Dreg",
-      "item_desc": "The Vilebloods of Cainhurst, blood-lusting hunters, see these frightful things in coldblood.\nThey often appear in the blood of echo fiends, that is to say,\nthe blood of hunters. Queen Annalise partakes in these blood\ndregs offerings, so that she may one day bear the Child of \nBlood, the next Vileblood heir.",
-      "item_img": "https://1.bp.blogspot.com/-5M1YnUeP1C0/VkfqJxfCOvI/AAAAAAAAL5g/XA5ZCFuBbDI/s250/41.%2BConsumables%2B-%2BBlood%2BDreg.png"
-    },
-    "1120": {
-      "item_name": "Blue Elixir",
-      "item_desc": "Dubious liquid medicine used in strange experiments conducted by high ministers of the Healing Church. A type of anesthetic that numbs the brain.\nHunters, able to retain consciousness by force of will, make use of a secondary effect of the medicine, which dilutes their presence while standing still.There are Blue Elixir treasures in all parts of the game (Main Game, the Old Hunters DLC, Preset & Root Dungeons) as well as item drops from enemies (Main Game, the Old Hunters DLC, Preset & Root Dungeons).",
-      "item_img": "https://3.bp.blogspot.com/-9IzHYq6aChs/VkfjxLU4ZrI/AAAAAAAAL20/nW91qsH2atg/s250/7.%2BConsumables%2B-%2BBlue%2BElixer.png"
-    },
-    "1260": {
-      "item_name": "Pungent Blood Cocktail",
-      "item_desc": "Mature blood cocktail that releases a pungent odor when thrown that attracts blood-thirsty beasts.\nA precious tool in sadly short supply.\nIn Yharnam, they produce more blood than alcohol, as the former is the more intoxicating.There are none Pungent Blood Cocktail treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://1.bp.blogspot.com/-U7V5Q90rBjA/VkfqFlfeaUI/AAAAAAAAL3o/qXjBrEjLn_U/s250/12.%2BConsumables%2B-%2BPungent%2BBlood%2BCocktail.png"
-    },
-    "1270": {
-      "item_name": "Numbing Mist",
-      "item_desc": "Throw to create a mist cloud that numbs a hunter's life essence and prevents restoration of HP.\nSaid to be used by the blood hunters of Cainhurst, its recipe is a secret closely guarded by the line of nobles inhabiting the castle.dataminedThere are none Numbing Mist treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC, Preset Dungeons & Root Dungeons.",
-      "item_img": "https://2.bp.blogspot.com/-12H0Lu3riFY/VkfqF3ZJczI/AAAAAAAAL38/OxohYENihjE/s250/13.%2BConsumables%2B-%2BNumbing%2BMist.png"
-    },
-    "1400": {
-      "item_name": "Bold Hunter's Mark",
-      "item_desc": "Dangling, upside-down rune etched in the mind of a hunter.\nThe image upon this parchment allows one to envision the rune with clarity.\nAllows a hunter to awaken again without losing Blood\nEchoes, a trick that seems nearly too good to be true.(right)There are none Bold Hunter's Mark treasures in The Old Hunters DLC and none item drops from enemies in The Old Hunters DLC.",
-      "item_img": "https://2.bp.blogspot.com/-FhVQrCLKPJc/VkfqHXIkqaI/AAAAAAAAL4U/1Gto6k9hEWw/s250/21.%2BConsumables%2B-%2BBold%2BHunter%2527s%2BMark.png"
-    },
-    "1410": {
-      "item_name": "Shining Coins",
-      "item_desc": "Various coins that are particularly luminous.\nThere are very few uses for spare change during the hunt, but these will serve as guides through the darkness.\nOr, one could save them until morning, if it ever comes.(8 hours later)There are none Shining Coins treasures in The Old Hunters DLC, while common treasure in Root Dungeons (Pthumeru & Loran), and none item drops from enemies in The Old Hunters DLC.",
-      "item_img": "https://1.bp.blogspot.com/-ZJCm1O4F8tY/VkfqHWGBrtI/AAAAAAAAL4Y/FkTj2IE6KJ8/s250/22.%2BConsumables%2B-%2BShining%2BCoins.png"
-    },
-    "1411": {
-      "item_name": "Monocular",
-      "item_desc": "Monocular used to View things up close.\nNot a hunter's tool, but a simple antique, to be used as one\nsees fit.",
-      "item_img": "https://4.bp.blogspot.com/-JtvwF8fwG4I/VkfqHrFA_eI/AAAAAAAAL4c/Sc4f8g9ueUc/s250/24.%2BConsumables%2B-%2BMonocular.png"
-    },
-    "1412": {
-      "item_name": "Hand Lantern",
-      "item_desc": "Small portable lantern.\nThis hunting accessory provides light while leaving both hands free to hold weapons.\nThe torch, however, provides a stronger source of light.right",
-      "item_img": "https://3.bp.blogspot.com/-cC8NNRergE0/VkfqHjjFRUI/AAAAAAAAL4g/p5RpB9Mv3Hg/s250/23.%2BConsumables%2B-%2BHand%2BLantern.png"
-    },
-    "4301": {
-      "item_name": "Tear Stone",
-      "item_desc": "Silver-shining tear stone.\nUse to change into a droplet blood gem \nthat fortifies any weapon.\nA doll sheds neither blood nor tears, and thus its \nnature remains unknown. Whoever thinks this is \nprecious must be troubled by severe naiveté.",
-      "item_img": "https://1.bp.blogspot.com/-kQMQvSKiO2c/VkfqKdF0CnI/AAAAAAAAL50/-r-5K28xtHo/s250/44.%2BConsumables%2B-%2BTear%2BStone.png"
-    },
-    "4306": {
-      "item_name": "Red Jeweled Brooch",
-      "item_desc": "A woman's bright-red brooch, engraved with the name Viola.\nPerhaps the jewel is a gift from a hunter. Use to change into \na droplet blood gem that fortifies any weapon.\nWith the proper workshop tool, various weapons can be \nfortified.",
-      "item_img": "https://3.bp.blogspot.com/-m1ENngh6Erg/VkfqKPXttjI/AAAAAAAAL5o/CGBNUSRkOaQ/s250/42.%2BConsumables%2B-%2BRed%2BJeweled%2BBrooch.png"
-    },
-    "4001": {
-      "item_name": "Gold Pendant",
-      "item_desc": "Pendant of Vicar Amelia. Use to change into \na blood gem,which fortifies weapons.\n\nThis pendant, passed down among the vicars who \nhead the Healing Church, is a reminder of the cautionary adage, words that will open the gates of Byrgenwerth.AstralLace",
-      "item_img": "https://1.bp.blogspot.com/-9dTvm7WXgEk/VkfqKDZkfVI/AAAAAAAAL5s/goaXpjoDjOM/s250/43.%2BConsumables%2B-%2BGold%2BPendant.png"
+      "item_desc": "Sacrifice all Blood Echoes and awaken anew",
+      "item_img": "https://1.bp.blogspot.com/-bGNMqlrddEg/YASJWRmzqbI/AAAAAAAAhi8/O6KHr75eETQdFyNhG1bP5nR_FodoorjRwCLcBGAsYHQ/s64/menu_icon_00001-11-00.png"
     },
     "111": {
       "item_name": "Silencing Blank",
-      "item_desc": "Hunters are linked by the resonance of bells with special\n encoded timbres. This inaudible burst disrupts such\n resonance.\nFire to end co-operation, and prevent further co-operation.\nFiring this does not disrupt the resonance of a sinister bell.\nplayers & NPCssearching for cooperatorssearching for hostCalled Parting Shot in Alpha Tests.",
-      "item_img": "https://4.bp.blogspot.com/-V-L96da6OEE/VkfqMGJA3BI/AAAAAAAAL6s/gdovUgmr0NE/s250/62.%2BConsumables%2B-%2BSilencing%2BBlank.png"
+      "item_desc": "Fire to end ongoing, and prevent further, cooperation",
+      "item_img": "https://1.bp.blogspot.com/-qLC23eisASk/YASIyGq-ayI/AAAAAAAAhi0/kIwiv7qJZsk0bPpXlbNQH83MjLvqAJaGwCLcBGAsYHQ/s64/menu_icon_00001-09-00.png"
     },
     "120": {
       "item_name": "Notebook",
-      "item_desc": "Messengers are inhabitants of the dream who revere the \nbrave hunters. Use them to send messages to other worlds.\nLeave notes with messengers, read the notes left to \nmessengers in other worlds, and rate notes to reach out to\nhunters across planes of existance.\n  Note: Online-use only. Cannot use this item offline.",
-      "item_img": "https://2.bp.blogspot.com/-S4oujupdR6k/VkfqMfhB3YI/AAAAAAAAL60/1kjYE6PyjWk/s250/64.%2BConsumables%2B-%2BNotebook.png"
-    },
-    "200": {
-      "item_name": "Beckoning Bell",
-      "item_desc": "Great Old Bell discovered in the underground labyrinth.\n Its ring resonates across worlds, and the first hunter used it as a special signal to call hunters from other worlds to cross the gap and cooperate.\nA human must use Insight to ring this uncanny bell, but the benefits of cross-world cooperation are many.\nripples going outwardripples going inwardCalled Lulling Bell in Alpha Tests.",
-      "item_img": "https://3.bp.blogspot.com/-anKsfaeudy0/VkfqL0PhowI/AAAAAAAAL6g/SfaxUST2qUE/s250/59.%2BConsumables%2B-%2BBeckoning%2BBell.png"
-    },
-    "205": {
-      "item_name": "Small Resonant Bell",
-      "item_desc": "Small bell discovered in the old underground labyrinth.\nIts ring resonates across worlds, and the first hunter used it as a special signal to call hunters from other worlds to cross the gap and cooperate.\nThis bell resonates with its counterpart, the Beckoning Bell. Ring to help hunters in other worlds.\nNote: Online-use only. Cannot use this item offline.unless you are summoned as a nemesisripples going outwardripples going inward",
-      "item_img": "https://4.bp.blogspot.com/-Ia9-560fidg/VkfqL2_Jm6I/AAAAAAAAL6k/KUAaYioLWWM/s250/60.%2BConsumables%2B-%2BSmall%2BResonant%2BBell.png"
-    },
-    "225": {
-      "item_name": "Sinister Resonant Bell",
-      "item_desc": "A blood-stained bell discovered in the old underground\nlabyrinth.\nOne of the resonating bells that cross the gaps of worlds, but\nthis one knells for misfortune and malice.\nThe Sinister Bell is an object of dark thoughts. Ring it to\nbecome the enemy of a hunter in another world.\nNote: Online use only. Cannot use this item offline.exception are Sinister Dungeonsripples going outwardripples going inward",
-      "item_img": "https://1.bp.blogspot.com/-NuDKnO5F1MI/VkfqMEipsoI/AAAAAAAAL6o/8BMmKQN24FM/s250/61.%2BConsumables%2B-%2BSinister%2BResonant%2BBell.png"
+      "item_desc": "Leave a note using messengers, or read a note",
+      "item_img": "https://1.bp.blogspot.com/-OSGQrhWUH7o/YASJws82Y6I/AAAAAAAAhjE/x5y1CZgXoeIif_ntNkSfg2QL1D4aK1fJgCLcBGAsYHQ/s64/menu_icon_00001-10-00.png"
     },
     "130": {
       "item_name": "Vileblood Register",
-      "item_desc": "Red-leather record of the Vilebloods loyal to the covenant of \nAnnalise, Queen of the Vilebloods, at Cainhurst Castle.\nA record of the Vilebloods, blood-lusting hunters who seek\nblood dregs of their prey, kept throughout the ages.\nNote: Online use only. Cannot use this item offline.server basedup to 10 minutesi.e. gives Annalise another dreg",
-      "item_img": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxwx8hM3jSxcZfYM9jVE8jPUJ4ozrdXCZ-C98NDK8VSzbyLdChcFkQWCJz0YveEc_RHOa2MzqaTgnS1kCskpf6RVC5vX4g40SRZTmIMP1TzEvQne1KTo-pucMCI67W8LYC9BWpch4BV19cuTVeOz4ZQtGgQEOsLrgp9K7DTkfVlpLHGjHUJlvBJdFr4Xab/s660/register_current.png"
+      "item_desc": "A register listing all known Vilebloods",
+      "item_img": "https://1.bp.blogspot.com/-GZVho7nW5VE/YASCp-GfqNI/AAAAAAAAhh4/bID0h2WsY5sh6E2f4pmp4X8IiyjRTyUMgCLcBGAsYHQ/s64/menu_icon_00002-08-03.png"
     },
     "131": {
       "item_name": "League Staff",
-      "item_desc": "The League staff is the sign of a confederate.\nA directory within the hilt lists the names of fellow\nconfederates.\n\nMembers of the League brandish this staff to indicate\nthemselves to fellow members of the League.\n\nThere shall be no sympathy for those engaged in the bloody\nmission of the League. No matter that an oath must be taken\nto uphold the illusion.determined by the number of Vermin they have crushedserver basedup to 10 minutesi.e. crushes another vermin",
-      "item_img": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXzXEITAiNq_mreSfYbRkT1MTzk58zinEGejBYlq2sGdJl_2V3soC_18D3oo9vkIg4UXickMm4a9cDrNE1IUbRSOOPDj4q7gZcc4_yjPjG0EAdGR1oAstJAv1AKQTIcrYBULRokHcK8xAxHfq_jkUukCuL2TcPUY2VAJcBbQwxWiUDwdT57ypiasHlCAlC/s660/staff%20current.png"
+      "item_desc": "Hides a directory listing the names of League confederates",
+      "item_img": "https://1.bp.blogspot.com/-05_3F61drzo/YASOeMU86II/AAAAAAAAhkQ/S5MA5nqMWgokVQqnDFgr9QBSbPMvFHxTACLcBGAsYHQ/s64/menu_icon_00001-06-07.png"
     },
-    "1310": {
-      "item_name": "Empty Phantasm Shell",
-      "item_desc": "Empty invertebrate shell that is said to be a familiar of a \nGreat One. The Healing Church has discovered a great\nvariety of invertebrates, or phantasms, as they are called. \nShells with slime still harbour arcane power, and can be \nrubbed on weapons to imbue them with their strength.\nor equal",
-      "item_img": "https://3.bp.blogspot.com/-v8sTot71UhE/VkfqK7uO6XI/AAAAAAAAL6A/3MSKwTGu-4g/s250/51.%2BConsumables%2B-%2BEmpty%2BPhantasm%2BShell.png"
+    "200": {
+      "item_name": "Beckoning Bell",
+      "item_desc": "Use Insight to ring and call to other worlds for help",
+      "item_img": "https://1.bp.blogspot.com/-Eez1E8UsLKY/YASE_SCNKTI/AAAAAAAAhiM/YHjPWcajxcAoi0or17GFG_arv3wEaeVvQCLcBGAsYHQ/s64/menu_icon_00001-03-00.png"
     },
-    "2000": {
-      "item_name": "Augur of Ebrietas",
-      "item_desc": "Remnant of the eldritch Truth encountered at Byrgenwerth.\n\nUse phantasms, the invertebrates known to be augurs of the\nGreat Ones, to partially summon abandoned Ebrietas.\n\nThe initial encounter marked the start of an inquiry into the\ncosmos from within the old labyrinth, and led to the\nestablishment of the Choir.\ndatamined",
-      "item_img": "https://2.bp.blogspot.com/-wGMa-HHdCJ8/VkfqLGEUl-I/AAAAAAAAL6E/NRurYYwJwA4/s250/52.%2BConsumables%2B-%2BAugur%2Bof%2BEbrietas.png"
+    "205": {
+      "item_name": "Small Resonant Bell",
+      "item_desc": "Ring this bell to help hunters in other worlds",
+      "item_img": "https://1.bp.blogspot.com/-lcviGTP_wa8/YASGP8uie4I/AAAAAAAAhiU/VnsJdEXKzO4rUpMmcmjDK-9S4ho73lr5ACLcBGAsYHQ/s64/menu_icon_00001-05-00.png"
     },
-    "2010": {
-      "item_name": "A Call Beyond",
-      "item_desc": "One of the secrets of the Choir.\nLong ago, the Healing Church used phantasms to reach a \nlofty plane of darkness, but failed to make contact with the\nouter reaches of the cosmos.\nThe rite failed to achieve its intended purpose, but instead\ncreated a small exploding star, now a powerful part of the\nChoir's arsenal.\nAt times, failure is the mother of invention.datamined",
-      "item_img": "https://4.bp.blogspot.com/-T1JPiZuazGI/VkfqLGz3W8I/AAAAAAAAL6I/zuK-uHth1To/s250/53.%2BConsumables%2B-%2BA%2BCall%2BBeyond.png"
+    "700": {
+      "item_name": "Tiny Music Box",
+      "item_desc": "A small music box received from a young Yharnam girl",
+      "item_img": "https://1.bp.blogspot.com/-YM1jISEZ7Ms/YANAhn3_5wI/AAAAAAAAhdk/A-c5Pvm4DEModkFXLBBwVkKAvAbTX82DgCLcBGAsYHQ/s64/menu_icon_00001-06-11.png"
     },
-    "2020": {
-      "item_name": "Beast Roar",
-      "item_desc": "One of the forbidden hunter tools made by Irreverent Izzy. \nBorrow the strength of the terrible undead darkbeasts, if only for a moment, to blast surrounding foes back with the force of a roaring beast. \nThe indescribable sound is broadcast with the caster's own vocal cords, which begs the question, what terrible things lurk deep within the frames of men?",
-      "item_img": "https://2.bp.blogspot.com/-H9lwlY2dUwo/VkfqLU7WnJI/AAAAAAAAL6Q/AKtJJDW2C5w/s250/55.%2BConsumables%2B-%2BBeast%2BRoar.png"
+    "704": {
+      "item_name": "Blood Dreg",
+      "item_desc": "Awful things that Vilebloods see in coldblood",
+      "item_img": "https://1.bp.blogspot.com/-dU6-4ccd1XI/YAP6-NceO8I/AAAAAAAAhfw/VbHp1JdgK7Y8mnU5de6gZTowSgmv2niwwCLcBGAsYHQ/s64/menu_icon_00002-10-03.png"
     },
-    "2050": {
-      "item_name": "Choir Bell",
-      "item_desc": "Special hunter tool of the Choir, high-ranking member of the church. Fashioned after a bell that projects an arcane sound across planes of existence.\nThe sound of this smaller, silver version of the bell does not cross planes, but grants vigor and healing to all co-operators.",
-      "item_img": "https://1.bp.blogspot.com/-ChrmZdq6310/VkfqLVS__gI/AAAAAAAAL6M/gB16De93TL4/s250/54.%2BConsumables%2B-%2BChoir%2BBell.png"
+    "706": {
+      "item_name": "Blood of Adeline",
+      "item_desc": "Restores HP, then rejuvenates HP for some time",
+      "item_img": "https://1.bp.blogspot.com/-w-7z5HloopY/YASKvtYUzqI/AAAAAAAAhjU/gPTYWfeKLY8ASODipp2YgZ4oD0Pjz9BiwCLcBGAsYHQ/s64/menu_icon_00001-07-07.png"
     },
-    "2060": {
-      "item_name": "Old Hunter Bone",
-      "item_desc": "The bone of an old hunter whose name is lost.\nIt is said that he was an apprentice to old Gehrman, and a \npractitioner of the art of Quickening, a technique particular\nto the first hunters.\nIt is most appropriate that hunters, carriers of the torch who\nare sustained by the dream, would tease an old art from his \nremains.\"he was an apprentice to old Gehrman\"\"その狩人\"",
-      "item_img": "https://1.bp.blogspot.com/-iio3J7-kN_w/VkfqKmotT_I/AAAAAAAAL54/kfBb3HTGdoc/s250/49.%2BConsumables%2B-%2BOld%2BHunter%2BBone.png"
+    "900": {
+      "item_name": "Quicksilver Bullets",
+      "item_desc": "Bullets consumed when shooting guns",
+      "item_img": "https://1.bp.blogspot.com/-5RfYCRDvtDE/YAMFgrn7-CI/AAAAAAAAhZ8/dUVypZo28iIPYKlsoIcOu3XrNdOy4sJswCLcBGAsYHQ/s64/menu_icon_00001-01-00.png"
     },
-    "2070": {
-      "item_name": "Tiny Tonitrus",
-      "item_desc": "Tonitrus is a unique weapon crafted by Archibald, the infamous eccentric of the Healing Church workshop.\nThis is a similar morning star mace that utilizes Quicksilver Bullets. When struck into the ground, it recreates the blue sparks that are said to surround the darkbeasts.\nLike Archibald's masterpiece, this too is a superb conductor of the powerful blue sparks.datamined",
-      "item_img": "https://1.bp.blogspot.com/-Wfv79s2ie0c/VkfqK8fZ8iI/AAAAAAAAL58/P6qWJDQaOSM/s250/50.%2BConsumables%2B-%2BTiny%2BTonitrus.png"
+    "1000": {
+      "item_name": "Blood Vial",
+      "item_desc": "Special blood vial that restores HP",
+      "item_img": "https://1.bp.blogspot.com/-5ELWAUbIcmg/YAMEV2eRazI/AAAAAAAAhZ0/ZmuYOPRPmqUj6p5EM3aB1EBry7cfxEaTgCLcBGAsYHQ/s64/menu_icon_00002-02-00.png"
     },
-    "2080": {
-      "item_name": "Executioner's Gloves",
-      "item_desc": "One of the secret treasures hidden in Cainhurst.\nThe gloves of an executioner from a faraway land.\nPassed from executioner father to executioner son, these gloves can be used to summon wrathful spirits of the past by smearing them with blood.\nIt is said that the nobles found in immeasurable delight in the dances of these vengeful specters.datamined",
-      "item_img": "https://2.bp.blogspot.com/-1mOUi2hTrNs/VkfqLfF-WdI/AAAAAAAAL6U/n-hSDpTHrKg/s250/56.%2BConsumables%2B-%2BExecutioner%2527s%2BGloves.png"
+    "1100": {
+      "item_name": "Antidote",
+      "item_desc": "Medicinal pellets that counteract poison",
+      "item_img": "https://1.bp.blogspot.com/-7nYxJyEfYc8/YAMuXBfSUCI/AAAAAAAAhas/Z-ZHCqyGTf45aPoMlNb6A6qcutLZ2kfsgCLcBGAsYHQ/s64/menu_icon_00001-00-01.png"
     },
-    "2110": {
-      "item_name": "Messenger's Gift",
-      "item_desc": "A strange gift from the messengers, inhabitants of the dream who revere the brave hunters.\nUse to envelop oneself in a black nightmarish mist, then transform into a messenger. The illusion is a parlor trick, and any large movement will break the spell.\nTo preserve the guise, proceed very slowly.",
-      "item_img": "https://3.bp.blogspot.com/--dYwwYyQmRc/VkfqLn2tywI/AAAAAAAAL6Y/frNEBg8Z0U0/s250/57.%2BConsumables%2B-%2BMessenger%2527s%2BGift.png"
+    "1110": {
+      "item_name": "Beast Blood Pellet",
+      "item_desc": "Giant medicinal pellet that grants short-lived beasthood",
+      "item_img": "https://1.bp.blogspot.com/-vAiwXHzAFGo/YAMvRuDLiHI/AAAAAAAAha4/SXu2hopEzn4z4bAo4QOR_8jdHaansvTUgCLcBGAsYHQ/s64/menu_icon_00001-08-01.png"
     },
-    "2120": {
-      "item_name": "Blacksky Eye",
-      "item_desc": "Soft eye blessed by a phantasm. They were discovered through Byrgenwerth's contact with the arcane, but in the end revealed nothing. \n\nDeep within the eye lies a vast stretch of dark sky that rumbles with an endless meteor storm. \nThe slightest rub of the tiny orb, and the rock will tumble and soar.\ndatamined",
-      "item_img": "https://4.bp.blogspot.com/-w8jCysYQZi4/VmSCOR-itWI/AAAAAAAANMo/Q4l2cGUs7X4/s250/05.%2BBlacksky%2BEye.png"
+    "1120": {
+      "item_name": "Blue Elixir",
+      "item_desc": "Liquid medicine that makes still bodies undetectable",
+      "item_img": "https://1.bp.blogspot.com/-mWr0x5kYHmg/YAMwqiTjowI/AAAAAAAAhbI/LhImw9487Hg0tgQ-0blo7kC4aXYmtHNogCLcBGAsYHQ/s64/menu_icon_00001-06-01.png"
     },
-    "2130": {
-      "item_name": "Accursed Brew",
-      "item_desc": "Skull of a local from the violated fishing village. The inside\nof the skull was forcibly searched for eyes, as evidenced by \ninnumerable scratches and indentations.\n\nNo wonder the skull became stewed in curses. \n\nThey who offer baneful chants. \nWeep with them, as one in trance.\ndatamined",
-      "item_img": "https://1.bp.blogspot.com/-PScW6ESRLM4/VmSCPJdVM-I/AAAAAAAANM0/YZlnbyzIrlY/s250/07.%2BAccursed%2BBrew.png"
+    "1200": {
+      "item_name": "Molotov Cocktail",
+      "item_desc": "Explodes in raging flames when thrown against an object. One of the oldest hunter tools available in the workshop.",
+      "item_img": "https://1.bp.blogspot.com/-JZ2NGi2AGXo/YAMyfpYD-QI/AAAAAAAAhbY/o8xWxVbCDA8YCXAU5SoJ9szyfeLh89c1wCLcBGAsYHQ/s64/menu_icon_00001-00-02.png"
     },
-    "2140": {
-      "item_name": "Madaras Whistle",
-      "item_desc": "Whistle of the Madaras twins, denizens of the Forbidden Woods. The twins grew up alongside a poisonous snake, and developed a silent, inhuman kinship.\n\nThe poisonous snake grew uncontrollably, raised on a \nhealthy diet of beast entrails. Even after their deaths, it is \nsaid to respond to the call of the twins' whistle from within \nthe Nightmare.datamined",
-      "item_img": "https://1.bp.blogspot.com/-IdmymigeqnA/VmSCO4FEs9I/AAAAAAAANMs/bOAv_7SpPO8/s250/06.%2BMadaras%2BWhistle.png"
+    "1201": {
+      "item_name": "Delayed Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "https://1.bp.blogspot.com/-wq4OzHDxrro/YASLWeIP9FI/AAAAAAAAhjc/TeHUlnxXExAOWvHp6vprq3ZB_Gx9vMc3gCLcBGAsYHQ/s64/menu_icon_00001-11-10.png"
+    },
+    "1220": {
+      "item_name": "Oil Urn",
+      "item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.",
+      "item_img": "https://1.bp.blogspot.com/-FX_7r52ljX0/YAMztphnmNI/AAAAAAAAhbo/6IxgoRkzwVMfRjcxYFAGJZoImKU2BJU3QCLcBGAsYHQ/s64/menu_icon_00001-02-02.png"
+    },
+    "1230": {
+      "item_name": "Pebble",
+      "item_desc": "Small pebbles found throughout Yharnam.",
+      "item_img": "https://1.bp.blogspot.com/-s1_-zU2CX8c/YAM2oWMd0oI/AAAAAAAAhcQ/dxOHzOYzFIMKDeczT8kpp5amI7ir1MUTgCLcBGAsYHQ/s64/menu_icon_00001-09-01.png"
+    },
+    "1240": {
+      "item_name": "Throwing Knife",
+      "item_desc": "Throwing knife with a finely serrated blade.",
+      "item_img": "https://1.bp.blogspot.com/-sqE3a83xyVE/YAM1fCjSaPI/AAAAAAAAhcA/hR54uHlCHD0C9ira3nePJyr-0bEP-CRUQCLcBGAsYHQ/s64/menu_icon_00001-10-01.png"
+    },
+    "1242": {
+      "item_name": "Poison Knife",
+      "item_desc": "A knife slathered in poison.",
+      "item_img": "https://1.bp.blogspot.com/-IjNClME641Y/YAM2F30hhHI/AAAAAAAAhcI/bLTGaYsP2V8quiyuJZINNzDDKRva21-iQCLcBGAsYHQ/s64/menu_icon_00001-11-01.png"
+    },
+    "1250": {
+      "item_name": "Rope Molotov Cocktail",
+      "item_desc": "Exploding molotov cocktail that is thrown behind.",
+      "item_img": "https://1.bp.blogspot.com/-ndPQENsxzkg/YAMzHfL5RDI/AAAAAAAAhbg/y_xdx1mPhSQRPy_rooq5ctS5b2lmLShqwCLcBGAsYHQ/s64/menu_icon_00001-01-02.png"
+    },
+    "1251": {
+      "item_name": "Delayed Rope Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "https://1.bp.blogspot.com/-CauDKXcQM4w/YASLXMFQRYI/AAAAAAAAhjg/mGpQERbC_J4h8f8Fy3Z5nv6OHtksiq4oACLcBGAsYHQ/s64/menu_icon_00001-00-11.png"
+    },
+    "1260": {
+      "item_name": "Pungent Blood Cocktail",
+      "item_desc": "A mature blood cocktail, thrown to attract beasts",
+      "item_img": "https://1.bp.blogspot.com/-1HIfCq3-0Jo/YAM0TfrQnSI/AAAAAAAAhbw/5weY3OTcq4gyEtIG87yOFz7xCZckTyKYACLcBGAsYHQ/s64/menu_icon_00001-03-02.png"
+    },
+    "1270": {
+      "item_name": "Numbing Mist",
+      "item_desc": "Throw to create mist cloud that prevents HP restoration",
+      "item_img": "https://1.bp.blogspot.com/-vNUV40Jcl_Q/YAM06E4KIbI/AAAAAAAAhb4/J-krlhd5PbYs5Dav_KbsSGckAijMano0wCLcBGAsYHQ/s64/menu_icon_00001-04-02.png"
+    },
+    "1300": {
+      "item_name": "Fire Paper",
+      "item_desc": "Coarse rubbing paper that applies fire to weapon",
+      "item_img": "https://1.bp.blogspot.com/-SSaV2y0SbBI/YAM3QUrBjdI/AAAAAAAAhcY/P4QRPmNI5cgLQngJmEHQZI013ikMX9DOwCLcBGAsYHQ/s64/menu_icon_00001-02-01.png"
+    },
+    "1320": {
+      "item_name": "Bolt Paper",
+      "item_desc": "Coarse rubbing paper that applies bolt to weapon",
+      "item_img": "https://1.bp.blogspot.com/-Sz6GtHOv8Zs/YAM5MF-mNWI/AAAAAAAAhck/u2sdkEWEgKsciRB5jcjFUCB15W6KLD_NACLcBGAsYHQ/s64/menu_icon_00001-04-01.png"
+    },
+    "1330": {
+      "item_name": "Bone Marrow Ash",
+      "item_desc": "Additional medium that strengthens Quicksilver Bullets",
+      "item_img": "https://1.bp.blogspot.com/-mi25j5cddjs/YAM6FYOyvOI/AAAAAAAAhcs/QzDGRXpR5oEK7rARKNYQmv-4tkfs02dDQCLcBGAsYHQ/s64/menu_icon_00001-05-01.png"
+    },
+    "1400": {
+      "item_name": "Bold Hunter's Mark",
+      "item_desc": "Awaken anew without losing Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-aS5zof3RDBA/YAM75QwQ1oI/AAAAAAAAhc8/9IZvhT9EYHQ3y4DrCI8PnRzaJCxg7AVwQCLcBGAsYHQ/s64/menu_icon_00001-05-02.png"
+    },
+    "1410": {
+      "item_name": "Shining Coins",
+      "item_desc": "Assorted shining coins which might guide one's way",
+      "item_img": "https://1.bp.blogspot.com/-T_-YyGZ12VA/YAM9OW0C9aI/AAAAAAAAhdE/OyjqvXePctwtKTfP_kpoB-HYfUJ6PNxNQCLcBGAsYHQ/s64/menu_icon_00001-06-02.png"
+    },
+    "1411": {
+      "item_name": "Monocular",
+      "item_desc": "Monocular used to see things up close",
+      "item_img": "https://1.bp.blogspot.com/-EoNuLYsT8_A/YAM_11hBUqI/AAAAAAAAhdc/17mAnsRXS4coRwmXR1IYTAa7WBzRxteJACLcBGAsYHQ/s64/menu_icon_00001-07-02.png"
+    },
+    "1412": {
+      "item_name": "Hand Lantern",
+      "item_desc": "Use weapons in both hands while illuminating the dark",
+      "item_img": "https://1.bp.blogspot.com/-1-hhiTtrVDA/YAM929EE2GI/AAAAAAAAhdM/yzuuZJOdYZcbp31iDVA6xdI48AakOYUEQCLcBGAsYHQ/s64/menu_icon_00001-08-02.png"
+    },
+    "1500": {
+      "item_name": "Madman's Knowledge",
+      "item_desc": "Skull of an enlightened madman. Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-iil7IDTWiwc/YAP57z4uNDI/AAAAAAAAhfk/-dXm_xFcvgMDnCXq069xODRTGCovbp2hACLcBGAsYHQ/s64/menu_icon_00001-04-06.png"
+    },
+    "1501": {
+      "item_name": "Great One's Wisdom",
+      "item_desc": "Fragment of lost wisdom. Use to gain much Insight",
+      "item_img": "https://1.bp.blogspot.com/-NaMqBspHVB0/YAP57ytXXlI/AAAAAAAAhfg/tErb5wM1m0Qja-TIvkGtC-jr8XeLMHbzQCLcBGAsYHQ/s64/menu_icon_00001-05-06.png"
+    },
+    "1592": {
+      "item_name": "Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-ExZMnWk6t2Y/YAP30cNYtFI/AAAAAAAAhfI/fI8-3_t1aB49G3gxWdNk3lEJSTIxHkangCLcBGAsYHQ/s64/menu_icon_00001-08-06.png"
+    },
+    "1593": {
+      "item_name": "Old Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-birsL2A0iXM/YAP322IaszI/AAAAAAAAhfM/R7eMjYVM4as4U7JCIYmHXC7Uqx4oZrEMQCLcBGAsYHQ/s64/menu_icon_00001-09-06.png"
+    },
+    "1594": {
+      "item_name": "Revered Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-YMzSWB8k9hQ/YAP32x_89eI/AAAAAAAAhfQ/XxGtTQmg0kcOBvYHOIeweGGZupjehaqAQCLcBGAsYHQ/s64/menu_icon_00001-10-06.png"
+    },
+    "1700": {
+      "item_name": "Vermin",
+      "item_desc": "Root of man's impurity. Writhes within filth",
+      "item_img": "https://1.bp.blogspot.com/-vLsWlMrPt2c/YASMOiWokyI/AAAAAAAAhjs/KQsY6kEydo058AET2le0TN6d0z9rnYjmACLcBGAsYHQ/s64/menu_icon_00001-00-06.png"
+    },
+    "2030": {
+      "item_name": "Lead Elixir",
+      "item_desc": "Liquid medicine shifts weight to deflect attacks",
+      "item_img": "https://1.bp.blogspot.com/-umoWSn_8Nhg/YAMxcwzFk-I/AAAAAAAAhbQ/b1OqhoH9bqY2TfC10a802JzgPMG53RCsgCLcBGAsYHQ/s64/menu_icon_00001-03-03.png"
+    },
+    "2090": {
+      "item_name": "Shaman Bone Blade",
+      "item_desc": "Slash foes to cause them to lose their sense of direction",
+      "item_img": "https://1.bp.blogspot.com/-0YyqbHscL_I/YAM7WP5EZuI/AAAAAAAAhc0/GVNjlJhTRDgwzr-Xiu5-GciqfPh5oi5SgCLcBGAsYHQ/s64/menu_icon_00001-10-03.png"
+    },
+    "4320": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4321": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4322": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4323": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
     }
   },
   "materials": {
@@ -583,158 +488,6 @@
       "item_name": "Worn Messenger Top Hat",
       "item_desc": "A worn, rumpled top hat that messengers are oddly fond of.\nThe inhabitants of the stump appear to have an interest in\nadornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
       "item_img": "https://2.bp.blogspot.com/-yD0GnZ0cXBU/Vkf04ESDMFI/AAAAAAAAMCY/hcq9vHp6Xvo/s250/29.%2BStump%2BMessengers%2BWorn%2BTop%2BHat.png"
-    }
-  },
-  "chalices": {
-    "6100": {
-      "icon": "https://1.bp.blogspot.com/-8SI64xiAoXE/X6Y3CxXtYlI/AAAAAAAAgsw/CLQycK8Q9AENRYZwENbnBN8fooCaFgajgCLcBGAsYHQ/s64/Root_Pthumeru_Chalice_Icon.png",
-      "name": "Pthumeru Root Chalice",
-      "depth": "1",
-      "area": "Pthumeru"
-    },
-    "6109": {
-      "icon": "https://1.bp.blogspot.com/-DZ3wsk2uuMU/X6VOa7_3AbI/AAAAAAAAgsY/LV_Rtcept4IfRbIqVngZs2zkPWfMZnqWwCLcBGAsYHQ/s64/Pthumeru_Chalice_Icon.png",
-      "name": "Pthumeru Chalice",
-      "depth": "1",
-      "area": "Pthumeru"
-    },
-    "6200": {
-      "icon": "https://1.bp.blogspot.com/-rHZU7piuLRM/X6aQ4H8tN4I/AAAAAAAAgtA/hS4e4s5HMnIW9PoEIWI9ervH2FOEGGc2wCLcBGAsYHQ/s64/menu_icon_00001-11-04.png",
-      "name": "Central Pthumeru Root Chalice",
-      "depth": "2",
-      "area": "Pthumeru"
-    },
-    "6209": {
-      "icon": "https://1.bp.blogspot.com/-zgPhCUR9kew/X6aDp62kpcI/AAAAAAAAgs4/pA-7Kwo124c3je745pT4yvqnZ0vqZAEbQCLcBGAsYHQ/s64/menu_icon_00001-01-04.png",
-      "name": "Central Pthumeru Chalice",
-      "depth": "2",
-      "area": "Pthumeru"
-    },
-    "6210": {
-      "icon": "https://1.bp.blogspot.com/-QrniB52C_3k/X6bsBnqI3OI/AAAAAAAAgug/36N8BeLSTs0GxonvscPEz81JlD1a8vTTQCLcBGAsYHQ/s64/menu_icon_00001-00-05.png",
-      "name": "Hintertomb Root Chalice",
-      "depth": "2",
-      "area": "Hintertomb"
-    },
-    "6219": {
-      "icon": "https://1.bp.blogspot.com/-s9pTkOVaEYo/X6bqruAgBrI/AAAAAAAAguY/CvXfN9yNLf8GVh9I1F9YQiel_7bk4R_TgCLcBGAsYHQ/s64/menu_icon_00001-02-04.png",
-      "name": "Hintertomb Chalice",
-      "depth": "2",
-      "area": "Hintertomb"
-    },
-    "6300": {
-      "icon": "https://1.bp.blogspot.com/-Zg3w2EGfzxM/X6aTLmDDDFI/AAAAAAAAgtQ/Wp4dqB4CACQTfIIMYY2SRdFy29E7AZ3yQCLcBGAsYHQ/s64/menu_icon_00001-01-05.png",
-      "name": "Lower Pthumeru Root Chalice",
-      "depth": "3",
-      "area": "Pthumeru"
-    },
-    "6302": {
-      "icon": "https://1.bp.blogspot.com/-NejIan1i5Mk/X6aUHL-S2_I/AAAAAAAAgtY/jgGdiFSb-yAYtVU0W1QBgQ7bM57aS4g6ACLcBGAsYHQ/s64/menu_icon_00001-02-05.png",
-      "name": "Sinister Lower Pthumeru Root Chalice",
-      "depth": "3",
-      "area": "Pthumeru"
-    },
-    "6309": {
-      "icon": "https://1.bp.blogspot.com/-KJKBudWYxsk/X6aR6Kp0ZaI/AAAAAAAAgtI/F8fEPAe3AXYCxLruGrY8P7mFLfit5vGawCLcBGAsYHQ/s64/menu_icon_00001-03-04.png",
-      "name": "Lower Pthumeru Chalice",
-      "depth": "3",
-      "area": "Pthumeru"
-    },
-    "6310": {
-      "icon": "https://1.bp.blogspot.com/-xGdwvsK_pD8/X6btVhU-aXI/AAAAAAAAguw/Ng9XCTl-k0kjAYOwdZYSVT2GzSjl7IXowCLcBGAsYHQ/s64/menu_icon_00001-03-05.png",
-      "name": "Lower Hintertomb Root Chalice",
-      "depth": "3",
-      "area": "Hintertomb"
-    },
-    "6312": {
-      "icon": "https://1.bp.blogspot.com/-ZF5WAmfLQNA/X6buIFCCbLI/AAAAAAAAgu4/TKAXa2gHDq8B-xPK8Qr20BoJiI_UadFMACLcBGAsYHQ/s64/menu_icon_00001-04-05.png",
-      "name": "Sinister Hintertomb Root Chalice",
-      "depth": "3",
-      "area": "Hintertomb"
-    },
-    "6319": {
-      "icon": "https://1.bp.blogspot.com/-u1RWCBv6yMY/X6bsps2SyoI/AAAAAAAAguo/h_bmhjKW4k4NB6urnTehKpsDq4GmfmZtQCLcBGAsYHQ/s64/menu_icon_00001-04-04.png",
-      "name": "Lower Hintertomb Chalice",
-      "depth": "3",
-      "area": "Hintertomb"
-    },
-    "6401": {
-      "icon": "https://1.bp.blogspot.com/-ByP1f_f6sEo/X6bhl9QqSuI/AAAAAAAAgtw/ZKcKAlwvNrw0hypNhDwi4k6mOt5i8LttwCLcBGAsYHQ/s64/menu_icon_00001-05-05.png",
-      "name": "Cursed and Defiled Root Chalice",
-      "depth": "4",
-      "area": "Phumeru"
-    },
-    "6409": {
-      "icon": "https://1.bp.blogspot.com/-Uvnki9QE6i0/X6aZCSJxT4I/AAAAAAAAgto/rC6EB4hPbX4bT63ae1zQQ8QRprnrZq2FwCLcBGAsYHQ/s64/menu_icon_00001-05-04.png",
-      "name": "Defiled Chalice",
-      "depth": "4",
-      "area": "Pthumeru"
-    },
-    "6420": {
-      "icon": "https://1.bp.blogspot.com/-xxFfCEyOdfw/X6byZ9H6pGI/AAAAAAAAgvY/17Olie3rOboxE9KuwDI7CCcPxlQIUymnwCLcBGAsYHQ/s64/menu_icon_00001-06-05.png",
-      "name": "Ailing Loran Root Chalice",
-      "depth": "4",
-      "area": "Loran"
-    },
-    "6429": {
-      "icon": "https://1.bp.blogspot.com/-4LrCfROco1I/X6bxp1veOeI/AAAAAAAAgvQ/o7DvNzH9D3A8Y298a8GVhefZUTj12RS3wCLcBGAsYHQ/s64/menu_icon_00001-06-04.png",
-      "name": "Ailing Loran Chalice",
-      "depth": "4",
-      "area": "Loran"
-    },
-    "6500": {
-      "icon": "https://1.bp.blogspot.com/-AbXVfsIsQmU/X6bjkGTMl7I/AAAAAAAAguA/5_QyVxDpnHkLyv24sBOBZeJYmX-GDIolQCLcBGAsYHQ/s64/menu_icon_00001-07-05.png",
-      "name": "Pthumeru Ihyll Root Chalice",
-      "depth": "5",
-      "area": "Pthumeru"
-    },
-    "6502": {
-      "icon": "https://1.bp.blogspot.com/-pV-w6jDL1Z4/X6bnhv8k1-I/AAAAAAAAguQ/j5xlWGopLRg8IL6VVK8RVcP3YxwecONDwCLcBGAsYHQ/s64/menu_icon_00001-08-05.png",
-      "name": "Sinister Pthumeru Ihyll Root Chalice",
-      "depth": "5",
-      "area": "Phumeru"
-    },
-    "6509": {
-      "icon": "https://1.bp.blogspot.com/-NxXGKs2vKV4/X6bixcMIqyI/AAAAAAAAgt4/_X25JzxhCmQm0Xib25ExTv69R8ZDr-pEwCLcBGAsYHQ/s64/menu_icon_00001-07-04.png",
-      "name": "Great Pthumeru Ihyll Chalice",
-      "depth": "5",
-      "area": "Pthumeru"
-    },
-    "6520": {
-      "icon": "https://1.bp.blogspot.com/-mVBRKM7YCuw/X6b1G5wYGxI/AAAAAAAAgvo/654GTeBJidse2C_R494NXTqaJG3l6cL2ACLcBGAsYHQ/s64/menu_icon_00001-09-05.png",
-      "name": "Lower Ailing Loran Root Chalice",
-      "depth": "5",
-      "area": "Loran"
-    },
-    "6522": {
-      "icon": "https://1.bp.blogspot.com/-ljvIjYnKHDI/X6b2cJHkdTI/AAAAAAAAgvw/1S5gI5l2cHw1enL9_2pdVwnxS1slJblxACLcBGAsYHQ/s64/menu_icon_00001-10-05.png",
-      "name": "Sinister Lower Loran Root Chalice",
-      "depth": "5",
-      "area": "Loran"
-    },
-    "6529": {
-      "icon": "https://1.bp.blogspot.com/-HJih_HIswOI/X6bzB7kXjOI/AAAAAAAAgvg/mlDlNQvTdzcYyDUpCmJ6Z2qA3xV6DV97gCLcBGAsYHQ/s64/menu_icon_00001-08-04.png",
-      "name": "Lower Loran Chalice",
-      "depth": "5",
-      "area": "Loran"
-    },
-    "6530": {
-      "icon": "https://1.bp.blogspot.com/-LUG4mzb01bg/X6b4cbBnihI/AAAAAAAAgwE/nsqn3iUlvUoVGTrdcW8vqShRd4rOK75dwCLcBGAsYHQ/s64/menu_icon_00001-11-05.png",
-      "name": "Isz Root Chalice",
-      "depth": "5",
-      "area": "Isz"
-    },
-    "6532": {
-      "icon": "https://1.bp.blogspot.com/-mLxroTGribE/X6b5XKHHV3I/AAAAAAAAgwM/a9R_vm25kFQOX4nq6Frg4op75BIx3TcEQCLcBGAsYHQ/s64/menu_icon_00001-00-06.png",
-      "name": "Sinister Isz Root Chalice",
-      "depth": "5",
-      "area": "Isz"
-    },
-    "6539": {
-      "icon": "https://1.bp.blogspot.com/-JGPjyp1OULU/X6b3z3Mg02I/AAAAAAAAgv8/ov8GSN0QvkAtD3-GGHObaPiJTHNej4gwQCLcBGAsYHQ/s64/menu_icon_00001-09-04.png",
-      "name": "Great Isz Chalice",
-      "depth": "5",
-      "area": "Isz"
     }
   }
 }
