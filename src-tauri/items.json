@@ -1,0 +1,493 @@
+{
+  "consumables": {
+    "100": {
+      "item_name": "Hunter's Mark",
+      "item_desc": "Sacrifice all Blood Echoes and awaken anew",
+      "item_img": "https://1.bp.blogspot.com/-bGNMqlrddEg/YASJWRmzqbI/AAAAAAAAhi8/O6KHr75eETQdFyNhG1bP5nR_FodoorjRwCLcBGAsYHQ/s64/menu_icon_00001-11-00.png"
+    },
+    "111": {
+      "item_name": "Silencing Blank",
+      "item_desc": "Fire to end ongoing, and prevent further, cooperation",
+      "item_img": "https://1.bp.blogspot.com/-qLC23eisASk/YASIyGq-ayI/AAAAAAAAhi0/kIwiv7qJZsk0bPpXlbNQH83MjLvqAJaGwCLcBGAsYHQ/s64/menu_icon_00001-09-00.png"
+    },
+    "120": {
+      "item_name": "Notebook",
+      "item_desc": "Leave a note using messengers, or read a note",
+      "item_img": "https://1.bp.blogspot.com/-OSGQrhWUH7o/YASJws82Y6I/AAAAAAAAhjE/x5y1CZgXoeIif_ntNkSfg2QL1D4aK1fJgCLcBGAsYHQ/s64/menu_icon_00001-10-00.png"
+    },
+    "130": {
+      "item_name": "Vileblood Register",
+      "item_desc": "A register listing all known Vilebloods",
+      "item_img": "https://1.bp.blogspot.com/-GZVho7nW5VE/YASCp-GfqNI/AAAAAAAAhh4/bID0h2WsY5sh6E2f4pmp4X8IiyjRTyUMgCLcBGAsYHQ/s64/menu_icon_00002-08-03.png"
+    },
+    "131": {
+      "item_name": "League Staff",
+      "item_desc": "Hides a directory listing the names of League confederates",
+      "item_img": "https://1.bp.blogspot.com/-05_3F61drzo/YASOeMU86II/AAAAAAAAhkQ/S5MA5nqMWgokVQqnDFgr9QBSbPMvFHxTACLcBGAsYHQ/s64/menu_icon_00001-06-07.png"
+    },
+    "200": {
+      "item_name": "Beckoning Bell",
+      "item_desc": "Use Insight to ring and call to other worlds for help",
+      "item_img": "https://1.bp.blogspot.com/-Eez1E8UsLKY/YASE_SCNKTI/AAAAAAAAhiM/YHjPWcajxcAoi0or17GFG_arv3wEaeVvQCLcBGAsYHQ/s64/menu_icon_00001-03-00.png"
+    },
+    "205": {
+      "item_name": "Small Resonant Bell",
+      "item_desc": "Ring this bell to help hunters in other worlds",
+      "item_img": "https://1.bp.blogspot.com/-lcviGTP_wa8/YASGP8uie4I/AAAAAAAAhiU/VnsJdEXKzO4rUpMmcmjDK-9S4ho73lr5ACLcBGAsYHQ/s64/menu_icon_00001-05-00.png"
+    },
+    "700": {
+      "item_name": "Tiny Music Box",
+      "item_desc": "A small music box received from a young Yharnam girl",
+      "item_img": "https://1.bp.blogspot.com/-YM1jISEZ7Ms/YANAhn3_5wI/AAAAAAAAhdk/A-c5Pvm4DEModkFXLBBwVkKAvAbTX82DgCLcBGAsYHQ/s64/menu_icon_00001-06-11.png"
+    },
+    "704": {
+      "item_name": "Blood Dreg",
+      "item_desc": "Awful things that Vilebloods see in coldblood",
+      "item_img": "https://1.bp.blogspot.com/-dU6-4ccd1XI/YAP6-NceO8I/AAAAAAAAhfw/VbHp1JdgK7Y8mnU5de6gZTowSgmv2niwwCLcBGAsYHQ/s64/menu_icon_00002-10-03.png"
+    },
+    "706": {
+      "item_name": "Blood of Adeline",
+      "item_desc": "Restores HP, then rejuvenates HP for some time",
+      "item_img": "https://1.bp.blogspot.com/-w-7z5HloopY/YASKvtYUzqI/AAAAAAAAhjU/gPTYWfeKLY8ASODipp2YgZ4oD0Pjz9BiwCLcBGAsYHQ/s64/menu_icon_00001-07-07.png"
+    },
+    "900": {
+      "item_name": "Quicksilver Bullets",
+      "item_desc": "Bullets consumed when shooting guns",
+      "item_img": "https://1.bp.blogspot.com/-5RfYCRDvtDE/YAMFgrn7-CI/AAAAAAAAhZ8/dUVypZo28iIPYKlsoIcOu3XrNdOy4sJswCLcBGAsYHQ/s64/menu_icon_00001-01-00.png"
+    },
+    "1000": {
+      "item_name": "Blood Vial",
+      "item_desc": "Special blood vial that restores HP",
+      "item_img": "https://1.bp.blogspot.com/-5ELWAUbIcmg/YAMEV2eRazI/AAAAAAAAhZ0/ZmuYOPRPmqUj6p5EM3aB1EBry7cfxEaTgCLcBGAsYHQ/s64/menu_icon_00002-02-00.png"
+    },
+    "1100": {
+      "item_name": "Antidote",
+      "item_desc": "Medicinal pellets that counteract poison",
+      "item_img": "https://1.bp.blogspot.com/-7nYxJyEfYc8/YAMuXBfSUCI/AAAAAAAAhas/Z-ZHCqyGTf45aPoMlNb6A6qcutLZ2kfsgCLcBGAsYHQ/s64/menu_icon_00001-00-01.png"
+    },
+    "1110": {
+      "item_name": "Beast Blood Pellet",
+      "item_desc": "Giant medicinal pellet that grants short-lived beasthood",
+      "item_img": "https://1.bp.blogspot.com/-vAiwXHzAFGo/YAMvRuDLiHI/AAAAAAAAha4/SXu2hopEzn4z4bAo4QOR_8jdHaansvTUgCLcBGAsYHQ/s64/menu_icon_00001-08-01.png"
+    },
+    "1120": {
+      "item_name": "Blue Elixir",
+      "item_desc": "Liquid medicine that makes still bodies undetectable",
+      "item_img": "https://1.bp.blogspot.com/-mWr0x5kYHmg/YAMwqiTjowI/AAAAAAAAhbI/LhImw9487Hg0tgQ-0blo7kC4aXYmtHNogCLcBGAsYHQ/s64/menu_icon_00001-06-01.png"
+    },
+    "1200": {
+      "item_name": "Molotov Cocktail",
+      "item_desc": "Explodes in raging flames when thrown against an object. One of the oldest hunter tools available in the workshop.",
+      "item_img": "https://1.bp.blogspot.com/-JZ2NGi2AGXo/YAMyfpYD-QI/AAAAAAAAhbY/o8xWxVbCDA8YCXAU5SoJ9szyfeLh89c1wCLcBGAsYHQ/s64/menu_icon_00001-00-02.png"
+    },
+    "1201": {
+      "item_name": "Delayed Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "https://1.bp.blogspot.com/-wq4OzHDxrro/YASLWeIP9FI/AAAAAAAAhjc/TeHUlnxXExAOWvHp6vprq3ZB_Gx9vMc3gCLcBGAsYHQ/s64/menu_icon_00001-11-10.png"
+    },
+    "1220": {
+      "item_name": "Oil Urn",
+      "item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.",
+      "item_img": "https://1.bp.blogspot.com/-FX_7r52ljX0/YAMztphnmNI/AAAAAAAAhbo/6IxgoRkzwVMfRjcxYFAGJZoImKU2BJU3QCLcBGAsYHQ/s64/menu_icon_00001-02-02.png"
+    },
+    "1230": {
+      "item_name": "Pebble",
+      "item_desc": "Small pebbles found throughout Yharnam.",
+      "item_img": "https://1.bp.blogspot.com/-s1_-zU2CX8c/YAM2oWMd0oI/AAAAAAAAhcQ/dxOHzOYzFIMKDeczT8kpp5amI7ir1MUTgCLcBGAsYHQ/s64/menu_icon_00001-09-01.png"
+    },
+    "1240": {
+      "item_name": "Throwing Knife",
+      "item_desc": "Throwing knife with a finely serrated blade.",
+      "item_img": "https://1.bp.blogspot.com/-sqE3a83xyVE/YAM1fCjSaPI/AAAAAAAAhcA/hR54uHlCHD0C9ira3nePJyr-0bEP-CRUQCLcBGAsYHQ/s64/menu_icon_00001-10-01.png"
+    },
+    "1242": {
+      "item_name": "Poison Knife",
+      "item_desc": "A knife slathered in poison.",
+      "item_img": "https://1.bp.blogspot.com/-IjNClME641Y/YAM2F30hhHI/AAAAAAAAhcI/bLTGaYsP2V8quiyuJZINNzDDKRva21-iQCLcBGAsYHQ/s64/menu_icon_00001-11-01.png"
+    },
+    "1250": {
+      "item_name": "Rope Molotov Cocktail",
+      "item_desc": "Exploding molotov cocktail that is thrown behind.",
+      "item_img": "https://1.bp.blogspot.com/-ndPQENsxzkg/YAMzHfL5RDI/AAAAAAAAhbg/y_xdx1mPhSQRPy_rooq5ctS5b2lmLShqwCLcBGAsYHQ/s64/menu_icon_00001-01-02.png"
+    },
+    "1251": {
+      "item_name": "Delayed Rope Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "https://1.bp.blogspot.com/-CauDKXcQM4w/YASLXMFQRYI/AAAAAAAAhjg/mGpQERbC_J4h8f8Fy3Z5nv6OHtksiq4oACLcBGAsYHQ/s64/menu_icon_00001-00-11.png"
+    },
+    "1260": {
+      "item_name": "Pungent Blood Cocktail",
+      "item_desc": "A mature blood cocktail, thrown to attract beasts",
+      "item_img": "https://1.bp.blogspot.com/-1HIfCq3-0Jo/YAM0TfrQnSI/AAAAAAAAhbw/5weY3OTcq4gyEtIG87yOFz7xCZckTyKYACLcBGAsYHQ/s64/menu_icon_00001-03-02.png"
+    },
+    "1270": {
+      "item_name": "Numbing Mist",
+      "item_desc": "Throw to create mist cloud that prevents HP restoration",
+      "item_img": "https://1.bp.blogspot.com/-vNUV40Jcl_Q/YAM06E4KIbI/AAAAAAAAhb4/J-krlhd5PbYs5Dav_KbsSGckAijMano0wCLcBGAsYHQ/s64/menu_icon_00001-04-02.png"
+    },
+    "1300": {
+      "item_name": "Fire Paper",
+      "item_desc": "Coarse rubbing paper that applies fire to weapon",
+      "item_img": "https://1.bp.blogspot.com/-SSaV2y0SbBI/YAM3QUrBjdI/AAAAAAAAhcY/P4QRPmNI5cgLQngJmEHQZI013ikMX9DOwCLcBGAsYHQ/s64/menu_icon_00001-02-01.png"
+    },
+    "1320": {
+      "item_name": "Bolt Paper",
+      "item_desc": "Coarse rubbing paper that applies bolt to weapon",
+      "item_img": "https://1.bp.blogspot.com/-Sz6GtHOv8Zs/YAM5MF-mNWI/AAAAAAAAhck/u2sdkEWEgKsciRB5jcjFUCB15W6KLD_NACLcBGAsYHQ/s64/menu_icon_00001-04-01.png"
+    },
+    "1330": {
+      "item_name": "Bone Marrow Ash",
+      "item_desc": "Additional medium that strengthens Quicksilver Bullets",
+      "item_img": "https://1.bp.blogspot.com/-mi25j5cddjs/YAM6FYOyvOI/AAAAAAAAhcs/QzDGRXpR5oEK7rARKNYQmv-4tkfs02dDQCLcBGAsYHQ/s64/menu_icon_00001-05-01.png"
+    },
+    "1400": {
+      "item_name": "Bold Hunter's Mark",
+      "item_desc": "Awaken anew without losing Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-aS5zof3RDBA/YAM75QwQ1oI/AAAAAAAAhc8/9IZvhT9EYHQ3y4DrCI8PnRzaJCxg7AVwQCLcBGAsYHQ/s64/menu_icon_00001-05-02.png"
+    },
+    "1410": {
+      "item_name": "Shining Coins",
+      "item_desc": "Assorted shining coins which might guide one's way",
+      "item_img": "https://1.bp.blogspot.com/-T_-YyGZ12VA/YAM9OW0C9aI/AAAAAAAAhdE/OyjqvXePctwtKTfP_kpoB-HYfUJ6PNxNQCLcBGAsYHQ/s64/menu_icon_00001-06-02.png"
+    },
+    "1411": {
+      "item_name": "Monocular",
+      "item_desc": "Monocular used to see things up close",
+      "item_img": "https://1.bp.blogspot.com/-EoNuLYsT8_A/YAM_11hBUqI/AAAAAAAAhdc/17mAnsRXS4coRwmXR1IYTAa7WBzRxteJACLcBGAsYHQ/s64/menu_icon_00001-07-02.png"
+    },
+    "1412": {
+      "item_name": "Hand Lantern",
+      "item_desc": "Use weapons in both hands while illuminating the dark",
+      "item_img": "https://1.bp.blogspot.com/-1-hhiTtrVDA/YAM929EE2GI/AAAAAAAAhdM/yzuuZJOdYZcbp31iDVA6xdI48AakOYUEQCLcBGAsYHQ/s64/menu_icon_00001-08-02.png"
+    },
+    "1500": {
+      "item_name": "Madman's Knowledge",
+      "item_desc": "Skull of an enlightened madman. Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-iil7IDTWiwc/YAP57z4uNDI/AAAAAAAAhfk/-dXm_xFcvgMDnCXq069xODRTGCovbp2hACLcBGAsYHQ/s64/menu_icon_00001-04-06.png"
+    },
+    "1501": {
+      "item_name": "Great One's Wisdom",
+      "item_desc": "Fragment of lost wisdom. Use to gain much Insight",
+      "item_img": "https://1.bp.blogspot.com/-NaMqBspHVB0/YAP57ytXXlI/AAAAAAAAhfg/tErb5wM1m0Qja-TIvkGtC-jr8XeLMHbzQCLcBGAsYHQ/s64/menu_icon_00001-05-06.png"
+    },
+    "1592": {
+      "item_name": "Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-ExZMnWk6t2Y/YAP30cNYtFI/AAAAAAAAhfI/fI8-3_t1aB49G3gxWdNk3lEJSTIxHkangCLcBGAsYHQ/s64/menu_icon_00001-08-06.png"
+    },
+    "1593": {
+      "item_name": "Old Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-birsL2A0iXM/YAP322IaszI/AAAAAAAAhfM/R7eMjYVM4as4U7JCIYmHXC7Uqx4oZrEMQCLcBGAsYHQ/s64/menu_icon_00001-09-06.png"
+    },
+    "1594": {
+      "item_name": "Revered Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-YMzSWB8k9hQ/YAP32x_89eI/AAAAAAAAhfQ/XxGtTQmg0kcOBvYHOIeweGGZupjehaqAQCLcBGAsYHQ/s64/menu_icon_00001-10-06.png"
+    },
+    "1700": {
+      "item_name": "Vermin",
+      "item_desc": "Root of man's impurity. Writhes within filth",
+      "item_img": "https://1.bp.blogspot.com/-vLsWlMrPt2c/YASMOiWokyI/AAAAAAAAhjs/KQsY6kEydo058AET2le0TN6d0z9rnYjmACLcBGAsYHQ/s64/menu_icon_00001-00-06.png"
+    },
+    "2030": {
+      "item_name": "Lead Elixir",
+      "item_desc": "Liquid medicine shifts weight to deflect attacks",
+      "item_img": "https://1.bp.blogspot.com/-umoWSn_8Nhg/YAMxcwzFk-I/AAAAAAAAhbQ/b1OqhoH9bqY2TfC10a802JzgPMG53RCsgCLcBGAsYHQ/s64/menu_icon_00001-03-03.png"
+    },
+    "2090": {
+      "item_name": "Shaman Bone Blade",
+      "item_desc": "Slash foes to cause them to lose their sense of direction",
+      "item_img": "https://1.bp.blogspot.com/-0YyqbHscL_I/YAM7WP5EZuI/AAAAAAAAhc0/GVNjlJhTRDgwzr-Xiu5-GciqfPh5oi5SgCLcBGAsYHQ/s64/menu_icon_00001-10-03.png"
+    },
+    "4320": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4321": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4322": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    },
+    "4323": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
+    }
+  },
+  "materials": {
+    "3000": {
+      "item_name": "Blood Stone Shard",
+      "item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop. these bloodstones are embedded in\nweapons to fortify them.",
+      "item_img": "https://1.bp.blogspot.com/-NabA16pvRvc/Vkfv9HHmTCI/AAAAAAAAL9Y/RmHUuxYfeGM/s250/01.%2BMaterials%2B-%2BBlood%2BStone%2BShard.png"
+    },
+    "3010": {
+      "item_name": "Twin Blood Stone Shards",
+      "item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop, these bloodstones are embedded in\nweapons to fortify them.",
+      "item_img": "https://3.bp.blogspot.com/-_yFfE8QkpFo/Vkfv9ES_-YI/AAAAAAAAL9U/jGu95Qqkiu0/s250/02.%2BMaterials%2B-%2BTwin%2BBlood%2BStone%2BShards.png"
+    },
+    "3020": {
+      "item_name": "Blood Stone Chunk",
+      "item_desc": "A solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nA chunk will never appear in the blood of an ordinary\nhuman. Seek deadlier foes if bloodstone chunks are needed.",
+      "item_img": "https://2.bp.blogspot.com/-f8AAHicnahM/Vkfv9LqYhKI/AAAAAAAAL9c/i-NWxjHo2WE/s250/03.%2BMaterials%2B-%2BBlood%2BStone%2BChunk.png"
+    },
+    "3030": {
+      "item_name": "Blood Rock",
+      "item_desc": "A large solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nThis is no mere chunk, it is nearly a boulder.\n\nFew blood stones of such size have ever been discovered,\neven considering the combined experience of all the hunters.",
+      "item_img": "https://2.bp.blogspot.com/-IIhuBgEu0hk/Vkfv9afA3UI/AAAAAAAAL9g/am_9Q3zsvcU/s250/04.%2BMaterials%2B-%2BBlood%2BRock.png"
+    },
+    "7000": {
+      "item_name": "Ritual Blood",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nOne of the basic ingredients used to satiate a Holy Chalice is this incoagulable blood.\nWhen all is melted in blood, all is reborn.\n",
+      "item_img": "https://2.bp.blogspot.com/-GVOno-7bgTw/WyT5rD3p86I/AAAAAAAAZRo/Lgu6ttln0jYTNZuRcq_leylsK_qeMAT2wCLcBGAs/s42/Ritual%2BBlood%2B1.png"
+    },
+    "7012": {
+      "item_name": "Coldblood Flowerbud",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long ago abandoned.\n",
+      "item_img": "https://4.bp.blogspot.com/-LwqXmla7jEU/WyT5qakekfI/AAAAAAAAZRU/zzMwkjKj0KsbQNbyMXT3erDGJ0BW4T_GQCLcBGAs/s42/Coldblood%2BFlowerbud.png"
+    },
+    "7013": {
+      "item_name": "Coldblood Flower Bulb",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long abandoned, said to mature slowly in close\nproximity to death, and eventually bloom.\n",
+      "item_img": "https://1.bp.blogspot.com/-dNDNXL-yyDI/WyT5phDVuTI/AAAAAAAAZRQ/FIn4OwPYg546U3TP8vJWRt8b69HcyTBxQCLcBGAs/s42/Coldblood%2BFlower%2BBulb.png"
+    },
+    "7014": {
+      "item_name": "Blooming Coldblood Flower",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nPale vegetation that commonly grows on coldblood in a \nplace long abandoned, that has bloomed into a bright red\nstygian flower.\n",
+      "item_img": "https://4.bp.blogspot.com/-ZYwGAExQCz8/WyT5ph1dobI/AAAAAAAAZRI/LJZA0AIIFHwriq84QK9QsVlOazQePmdfQCLcBGAs/s42/Blooming%2BColdblood%2BFlower.png"
+    },
+    "7020": {
+      "item_name": "Tomb Mold",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nMold that grows from rotten flesh and blood inside the old\nlabyrinth. Matures to bear giant spores.\n",
+      "item_img": "https://2.bp.blogspot.com/-PoNdW_lZbl8/WyT5s9dDqoI/AAAAAAAAZSE/Ef9ZsaK_CKont8fEBg5XOq38EgFFIQfhACLcBGAs/s42/Tomb%2BMold%2B1.png"
+    },
+    "7050": {
+      "item_name": "Arcane Haze",
+      "item_desc": "\nMaterial used in a Holy Chalice rite.\nThe tiny smatterings of haze that are found in certain ritual materials. Sometimes required for special rites.\n\nThe additional rite Sinister Bell makes the bell-ringing\nwoman appear, and when she rings a sinister bell, hunters\nfrom other worlds will be beckoned as adversaries.\n",
+      "item_img": "https://2.bp.blogspot.com/-RJmQ4lcD7Y0/WyT5nydPM5I/AAAAAAAAZRA/x7IdFn4B_GY6vxNe6dTYR1rvN9eTiDoewCLcBGAs/s42/Arcane%2BHaze.png"
+    },
+    "7100": {
+      "item_name": "Pearl Slug",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nOf the all the strange lifeforms that reside in the nooks and  crannies of the old labyrinth, the slugs are clear signs of the  left-behind Great Ones.\n",
+      "item_img": "https://2.bp.blogspot.com/-2Ua_vHXhqKw/WyT5rC0H2mI/AAAAAAAAZRg/BRVO9Ifx_PAk9DVj0v2CVrpZKYoaFbFngCLcBGAs/s42/Pearl%2BSlug.png"
+    },
+    "7110": {
+      "item_name": "Red Jelly",
+      "item_desc": "\nMaterial used in a Holy Chalice ritual.\nStillborn infants born of a creature of unknown origin, of the\ntype found in some corners of the old labyrinth.\n",
+      "item_img": "https://1.bp.blogspot.com/-JcDWWvKqqs4/WyT5rFWbfhI/AAAAAAAAZRk/UvLC1p6r5rYIidzf9N8fjKJ_ytQWAcGogCLcBGAs/s42/Red%2BJelly.png"
+    },
+    "7120": {
+      "item_name": "Sage's Wrist",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nA body part of a saint, sacrificed by the Healing Church in\ntheir search for Truth.\nThe additional rite Fetid Offering invigorates the Watchers,\nmaking them more treacherous than normal, but also making\nthem worthy prey for a special hunt.\n",
+      "item_img": "https://2.bp.blogspot.com/-YF6bgXyvIks/VkfwAaXgKaI/AAAAAAAAL-s/n7J3FHBpX_M/s250/23.%2BMaterials%2B-%2BSage%2527s%2BWrist.png"
+    },
+    "7121": {
+      "item_name": "Sage's Hair",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nA body part of a saint, sacrificed by the Healing Church in\ntheir search for Truth.\nThe additional rite Fetid Offering invigorates the Watchers,\nmaking them more treacherous than normal, but also making \nthem worthy prey for a special hunt.",
+      "item_img": "https://2.bp.blogspot.com/-uNwwIrb1M9k/VkfwAoQgKEI/AAAAAAAAL-4/rBznMvzQebE/s250/24.%2BMaterials%2B-%2BSage%2527s%2BHair.png"
+    },
+    "7130": {
+      "item_name": "Inflicted Organ",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nSpecial body parts collected by the Healing Church.\nWhat was this gruesome bait used to lure?\nThe additional rite Rotted Offering beckons ungodly forces,\nnormally terrifying things, but also worthy prey for a special\nhunt.\n",
+      "item_img": "https://1.bp.blogspot.com/-oGpg456jFPU/WyT5qv_263I/AAAAAAAAZRY/6slLTrEH9AIp6LiT55XwfoQKoaeXDISpgCLcBGAs/s42/Inflicted%2BOrgan.png"
+    },
+    "7131": {
+      "item_name": "Yellow Backbone",
+      "item_desc": "\nSpecial material used in a Holy Chalice rite.\nSpecial body parts collected by the Healing Church.\nWhat was this gruesome bait used to lure?\n  \nThe additional rite Rotted Offering beckons ungodly forces,\nnormally terrifying things, but also worthy prey for a special\nhunt.\n",
+      "item_img": "https://1.bp.blogspot.com/-f1uqtKK0ul0/WyT5tt3qKvI/AAAAAAAAZSY/8ro2X388zlsuYxQT2aYbGt0xQc-gBR1OACLcBGAs/s42/Yellow%2BBackbone.png"
+    },
+    "7140": {
+      "item_name": "Bastard of Loran",
+      "item_desc": "\nSpecial material used in a Holy Chalice ritual.\nRemains of Loran infant infected by the scourge.\nA harbinger of curses and symbol of defilement.\nThe additional rite Curse defiles dungeons in which hunters'\nHP is greatly eroded, but what better place to seek cursed\nblood gems but in the midst of defilement?\n",
+      "item_img": "https://4.bp.blogspot.com/-PxSGdeC9EN0/WyT5n4PRvcI/AAAAAAAAZRE/JtUmPYME7tsfgPQOGIlmHIB-26agVibkQCLcBGAs/s42/Bastard%2Bof%2BLoran.png"
+    },
+    "7150": {
+      "item_name": "Bloodshot Eyeball",
+      "item_desc": "\nMaterial used in a Holy Chalice rite.\nAn exquisite eyeball removed quickly after death, or perhaps even before. Used to unlock the seal of the old labyrinth hintertombs.\n",
+      "item_img": "https://3.bp.blogspot.com/-9rvLTJpnYAM/WyT5ppCYuqI/AAAAAAAAZRM/daBAL7EluEQo_-2blB8cQ0vS8z8ayM8nQCLcBGAs/s42/Bloodshot%2BEyeball.png"
+    },
+    "7200": {
+      "item_name": "Living String",
+      "item_desc": "\nSpecial material used in a holy chalice ritual.\nThe immense brain that Mensis retrieved from the nightmare\nwas indeed lined with eyes on the inside, but they were of\nan evil sort, and the brain itself was terrible rotten.\nBut even still, it was a legitimate Great One, and left a relic.\nA living relic, at that, which is a precious thing indeed. \n",
+      "item_img": "https://3.bp.blogspot.com/-_Cdpxe2aoa0/WyT5q3_YZdI/AAAAAAAAZRc/UaPs60Bdr8cu4dHbk80etvKZiNPE1OJTgCLcBGAs/s42/Living%2BString.png"
+    }
+  },
+  "key": {
+    "4000": {
+      "item_name": "Oedon Tomb Key",
+      "item_desc": "Key to the gate that blocks the Tomb of Oedon. \nBeyond the tomb, Oedon Chapel can be found in the center \nof the Cathedral Ward.  \n\nOnly today the church is abandoned, and some say that the \nresidents of Oedon have all gone mad.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://2.bp.blogspot.com/-t2NfuxhqwlE/Vkf006JS-qI/AAAAAAAAMAw/tBrrLPZRDG0/s250/01.%2BOedon%2BTomb%2BKey.png"
+    },
+    "4003": {
+      "item_name": "Cainhurst Summons",
+      "item_desc": "An old blood-stained summons, inviting an honored guest\nto the forsaken Castle Cainhurst.\nRather bafflingly, it is addressed to you.\nDo not hesitate; the stagecoach leaves from Hemwick  \ncrossing.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://3.bp.blogspot.com/-adLM2-E5XaY/Vkf016UGHiI/AAAAAAAAMBE/6Li4V9rJVd4/s250/08.%2BCainhurst%2BSummons.png"
+    },
+    "4009": {
+      "item_name": "Iron Door Key",
+      "item_desc": "Of the three great bridges that link the two cathedral\ncradles, this key opens the iron door that leads to the \nmidlevel bridge.\nThere are no thieves in the nightmare. Then, why lock a \ndoor? Be warned, there must be a very, very good reason.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://3.bp.blogspot.com/-GJnPTaC7xvY/Vkf01StkqvI/AAAAAAAAMA4/DnxrXJckZg0/s250/06.%2BIron%2BDoor%2BKey.png"
+    },
+    "4011": {
+      "item_name": "Hunter Chief Emblem",
+      "item_desc": "A cloth emblem that belonged to the captain of the Church\nhunters long ago. Opens the main gate that leads to the\nround plaza of the Great Cathedral.\n\nThe main gate is shut tight on nights of the hunt, and could\nonly be opened from the other side with this emblem. In\nother words, the captain's return, and this\nemblem, determined the end of the hunt.chief among them a Holy Chaliceexcept for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://4.bp.blogspot.com/-fQkhZo8B4cs/Vkf01kiCH_I/AAAAAAAAMBA/jbqtahcH4fg/s250/07.%2BHunter%2BChief%2BEmblem.png"
+    },
+    "4012": {
+      "item_name": "Lecture Theatre Key",
+      "item_desc": "Key to the Lecture Theatre in the Lecture Building.\nToday, the two-story Lecture Building is adrift in the\nnightmare, but once it was a place of reflection, where\nscholars learned of history and archaeology.\nPerhaps it still is, as the students in the lecture theatre\nappear to await the return of their professor.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://1.bp.blogspot.com/-ONUddR7udys/Vkf005hOMCI/AAAAAAAAMAs/YmVPwVEl4LQ/s250/03.%2BLecture%2BTheatre%2BKey.png"
+    },
+    "4013": {
+      "item_name": "Lunarium Key",
+      "item_desc": "Key to the lunarium facing the lake on the second floor of \nByrgenwerth College. \nIn his final years, Master Willem was fond of the lookout, \nand the rocking chair that he kept there for meditation. \nIn the end, it is said, he left his secret with the lake.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Yharnam Stone",
+      "item_img": "https://1.bp.blogspot.com/-TU9H5knYWS4/Vkf0073E7kI/AAAAAAAAMAo/ZGD-37mP1nk/s250/02.%2BLunarium%2BKey.png"
+    },
+    "4014": {
+      "item_name": "Laurence's Skull",
+      "item_desc": "Skull of Laurence, first vicar of the Healing Church. \nIn reality he became the first cleric beast, and his human \nskull only exists within the Nightmare. \n\nThe skull is a symbol of Laurence's past, and what he failed\nto protect. He is destined to seek his skull, but even if he \nfound it, it could never restore his memories.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-oxGPkZDrt-g/VmSEs02jBoI/AAAAAAAANN0/Di3yU-9MDLc/s250/05.%2BLaurence%2527s%2BSkull.png"
+    },
+    "4017": {
+      "item_name": "Eye Pendant",
+      "item_desc": "An eye pendant which unlocks the surgery altar. \n\nThere are two cathedrals in the Hunter's Dream. One lies \npast the River of Blood, and another contains the private \nresearch hall of the Healing Church.\n\nOnly chosen members of the Healing Church, or their \nlamentable patients, can enter the research hall, using this \neye.\n\nGrant eyes to the surgery altar skull.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-Jj4e2B7Ip1o/VmSEs8VEuMI/AAAAAAAANN4/rFGcJJtkpRI/s250/06.%2BEye%2BPendant.png"
+    },
+    "4019": {
+      "item_name": "Balcony Key",
+      "item_desc": "Key to the balcony on the first floor of the Research Hall. \n\nLady Maria of the Astral Clocktower gave this to the patient, \nAdeline. \n\nMaria had hoped Adeline would find comfort in the faint \nbreeze that carried the scent of flowers from the outside, but \nAdeline couldn't fathom her intentions.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-vBqZ2VgOyD4/VmSEsWEgG1I/AAAAAAAANNk/VdVqmG9wimE/s250/02.%2BBalcony%2BKey.png"
+    },
+    "4020": {
+      "item_name": "Astral Clocktower Key",
+      "item_desc": "Key to the Astral Clocktower at the top of the Grand \nCathedral. \n\nThe caretaker of the tower's numerous patients, known to \nthem only as Lady Maria, made her home behind the giant \nstar-interpreting clock.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-dcPTR4ZYehg/VmSEsiiV_NI/AAAAAAAANNs/Iv_gG2_dOEQ/s250/03.%2BAstral%2BClocktower%2BKey.png"
+    },
+    "4021": {
+      "item_name": "Celestial Dial",
+      "item_desc": "A celestial dial that functions with the giant Astral Clock in \nthe Grand Cathedral.\n\nWhen the dial is held up towards the Astral Clock, the clock \nwill come to life, and reveal a secret to its curious interloper.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-Kx0npu5DR1M/VmSEtL2N9LI/AAAAAAAANN8/rAW3GkBK7gE/s250/07.%2BCelestial%2BDial.png"
+    },
+    "4102": {
+      "item_name": "Workshop Haze Extractor",
+      "item_desc": "A misplace workshop tool from the Hunter's Dream.\nThe hunter who retrieves this can extract Arcance Haze from ritual materials.\nBut alas, spent materials are lost.except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-YKZuqFn2QSA/Vkf024IOjuI/AAAAAAAAMBs/XBoaiTM8sBg/s250/17.%2BWorkshop%2BHaze%2BExtractor.png"
+    },
+    "4103": {
+      "item_name": "Blood Gem Workshop Tool",
+      "item_desc": "A misplaced workshop tool from the Hunter's Dream.\nThe hunter who retrieves this can fortify weapons by\nkneading blood gems into them.\nBlood gems add properties to weapons when used to fortify them, as blood defines an organism.except for Badges, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://4.bp.blogspot.com/-rX38f80plwI/Vkf02hzzMCI/AAAAAAAAMBg/cxhEjy-yrq8/s250/15.%2BBlood%2BGem%2BWorkshop%2BTool.png"
+    },
+    "4104": {
+      "item_name": "Rune Workshop Tool",
+      "item_desc": "Runesmith Caryll, student of Byrgenwerth, transcribed the\ninhuman utterings of the Great Ones into what are now\ncalled Caryll Runes.\n\nThe hunter who retrieves this workshop tool can etch Caryll\nRunes into the mind to attain their wondrous strength.\n\nProvost Willem would have been proud of Caryll's runes, as\nthey do not rely upon blood in any measure.except for Badges, Blood Gem Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-h0YgigAg_oo/Vkf02m3hP_I/AAAAAAAAMBk/Bm-WVL7sHcU/s250/16.%2BRune%2BWorkshop%2BTool.png"
+    },
+    "4110": {
+      "item_name": "Saw Hunter Badge",
+      "item_desc": "Badge crafted long ago at the Workshop. Attests to one's \nprowess as a hunter of beasts.\nThe Workshop is gone, and no group recognises this \nmeaningless badge, except the messengers in the bath, who \nunderstand its profundity.\nCertain things can only be entrusted with a hunter in \npossession of this badge, or so they believe.except for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-pOy_u-OlnN0/Vkf02zVjjII/AAAAAAAAMBo/RfnOTEWtiEA/s250/18.%2BSaw%2BHunter%2BBadge.png"
+    },
+    "4112": {
+      "item_name": "Powder Keg Hunter Badge",
+      "item_desc": "Badge crafted by the Powder Kegs, the heretics of the\nWorkshop.\nThe Powder Kegs aboration of complex design and big\nbooms culminated in weapon designs that contrast with\nthose traditionally of the Workshop.\nThe late Powder Kegs, bless their souls, had a motto:\n\"If a weapon ain't got kick, it just ain't worth it.\"have to at least encounter Darkbeast Paarlexcept for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-3cj7iHR7KbA/Vkf03ItmwLI/AAAAAAAAMBw/Q3GXFyFBZoc/s250/19.%2BPowder%2BKeg%2BHunter%2BBadge.png"
+    },
+    "4113": {
+      "item_name": "Old Hunter Badge",
+      "item_desc": "This hunter's badge, crafted in Gehrman's time, has no\npractical purpose, except perhaps to assist in romanticising\nabout the past.\nThe badge was a special privilege for the hunters of the past,\nand should not be dishonoured.\nIt should be left in peace, unless one is truly prepared to\nassume the will of those gone before.except for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-7I29n-D1pEM/Vkf03Jk6vVI/AAAAAAAAMB0/RZ6obfqr1-A/s250/20.%2BOld%2BHunter%2BBadge.png"
+    },
+    "4114": {
+      "item_name": "Sword Hunter Badge",
+      "item_desc": "One of the badges crafted by the Healing Church. \nThe silver sword is a symbol of a Church hunter.\nLudwig was the first of many Healing Church hunters to \ncome, many of whom were clerics. As it was, clerics \ntransformed into the most hideous beasts.except for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-jNggLK_QylU/Vkf03a4SqtI/AAAAAAAAMCA/6y5fN20RuPc/s250/23.%2BSword%2BHunter%2BBadge.png"
+    },
+    "4115": {
+      "item_name": "Radiant Sword Hunter Badge",
+      "item_desc": "One of the badges crafted by the Healing Church.\nThe radiant sword indicates the heirs to the will of Ludwig.\nThese hunters, also known as Holy Blades, are what remains\nof an ancient line of heroes that date back to a very early\nage of honour and chivalry.required only onceexcept for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-igBOht-xtsY/Vkf03qQlNgI/AAAAAAAAMCE/t5w1CbfAjaw/s250/24.%2BRadiant%2BSword%2BHunter%2BBadge.png"
+    },
+    "4116": {
+      "item_name": "Wheel Hunter Badge",
+      "item_desc": "Martyr Logarius led a band of Executioners, and this badge\nwas crafted at their dedicated workshop. The wheel\nsymbolizes righteous destiny.\nTheir workshop was a secretive enclave of mystical beliefs\nand heady fanaticism which served as the backbone of the\nExecutioners' unique brand of justice.except for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-IGqHYCffo9o/Vkf03vy41HI/AAAAAAAAMCI/G0Kb3ePml0Y/s250/25.%2BWheel%2BHunter%2BBadge.png"
+    },
+    "4117": {
+      "item_name": "Cainhurst Badge",
+      "item_desc": "Badge of the royal guards of Cainhurst, loyal guardians of\nthe Vileblood Queen Annalise.\nThe Vilebloods are hunters of blood, and hunt prey as they \nsearch for blood dregs. The hunter who joins them is faced\nwith a decision: to merely borrow their strength, or to\nbecome one of them, heart and soul.required only onceexcept for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-Qwt5qXy9MXc/Vkf031yovAI/AAAAAAAAMCQ/IyLtbzMGDTU/s250/27.%2BCainhurst%2BBadge.png"
+    },
+    "4118": {
+      "item_name": "Spark Hunter Badge",
+      "item_desc": "Badge crafted in secret by Archibald, the infamous eccentric\nof the Healing Church, for his friends.\nArchibald was fascinated by the blue sparks that emanate\nfrom the hides of the darkbeasts, and dedicated his life to its\nartificial reproduction, in a style of inquiry that, incidentally,\nclosely followed the methodology of Byrgenwerth.required only onceexcept for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-EM7rTn2UV9U/Vkf03T5BZPI/AAAAAAAAMB8/mlE1sZjqlRo/s250/22.%2BSpark%2BHunter%2BBadge.png"
+    },
+    "4119": {
+      "item_name": "Cosmic Eye Watcher Badge",
+      "item_desc": "Badge of a member of the Choir, elites of the Healing Church.\nThe eye signifies the very cosmos.\nThe Choir stumbled upon an epiphany, very suddenly and\nquite by accident. Here we stand, feet planted in the earth,\nbut might the cosmos be very near us, only just above our\nheads?required only onceexcept for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-FzmCp17WFgE/Vkf0350HwVI/AAAAAAAAMCM/JJjfNLsIUkY/s250/26.%2BCosmic%2BEye%2BWatcher%2BBadge.png"
+    },
+    "4120": {
+      "item_name": "Firing Hammer Badge",
+      "item_desc": "Badge crafted by the Oto Workshop, precursor to the \nworkshop of the heretical Powder Kegs.\n\nThe Powder Kegs were driven by singular ideas, and crafted \nstrange weapons of great intricacy.\nIt is clear that the philosophy of the Powder Kegs was \nalready established at this time.except for other Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-5RjyP7ystwE/VmSEtehxXtI/AAAAAAAANOE/AijXwSxkLAA/s250/09.%2BFiring%2BHammer%2BBadge.png"
+    },
+    "4311": {
+      "item_name": "Eye of a Blood-drunk Hunter",
+      "item_desc": "The eye of a blood-drunk hunter. Its pupil is collapsed and \nturned to mush, indicating the onset of the scourge of beasts.\n\nA hunter who goes drunk with blood is said to be taken by \nthe Nightmare, destined to wander forever, engaged in an \nendless hunt. It is a fate that no hunter can escape.\"The Eye of a Blood-drunk Hunter beckons hunters to the Hunter's Nightmare. A deformed creature will whisk you away outside Oedon Chapel.\"except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-CUvmJ7_K7g8/VmSEtMa7TDI/AAAAAAAANOA/cfHnt5LTBBY/s250/08.%2BEye%2Bof%2Ba%2BBlood-drunk%2BHunter.png"
+    },
+    "4900": {
+      "item_name": "Yharnam Messenger Hat",
+      "item_desc": "Hat that messengers are oddly fond of.\nCommonly called a Yharnam hat.\nThe inhabitants of the stump appear to have an interest\nin adornment. Why not let them be happy, and revel as \nbabes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-wqecLmPOoiY/VlB4obZRySI/AAAAAAAAMg0/mavHo3dKqp8/s250/yharnam%2Bmessenger%2Bhat%2Bbig.png"
+    },
+    "4902": {
+      "item_name": "Messenger Head Bandage",
+      "item_desc": "Accessory adored by naїve messengers imitating the\nbandages of scourge victims, unaware of their meaning.\nThe inhabitants of the stump appear to have an interest in adornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://4.bp.blogspot.com/-sboUhgDIKE4/Vkf04Qa6w7I/AAAAAAAAMCg/-9jADcAUgo0/s250/31.%2BStump%2BMessengers%2BHead%2BBandage.png"
+    },
+    "4903": {
+      "item_name": "White Messenger Ribbon",
+      "item_desc": "White ribbon that messengers are oddly fond of.\nA ribbon made of fine lace that shines remarkably, more suited to pretty young girls than silly old messengers.return the Red Messenger Ribbon to the older sisterexcept for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-gl0wfw8AIsQ/Vkf04xuyoxI/AAAAAAAAMCw/-1Lc08MbHk8/s250/35.%2BStump%2BMessengers%2BWhite%2BRibbon.png"
+    },
+    "4904": {
+      "item_name": "Red Messenger Ribbon",
+      "item_desc": "Red ribbon that messengers are oddly fond of.\nThe thick, pungent red was drawn from the organs\nof some unfortunate victim.\nA strange choice indeed, but perhaps for the messengers\nwearing this accessory constitutes a form of mourning.after revisiting the areaexcept for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-rj6V-1Kkjmw/Vkf0400rKkI/AAAAAAAAMCs/V3-txgMWNjE/s250/34.%2BStump%2BMessengers%2BRed%2BRibbon.png"
+    },
+    "4905": {
+      "item_name": "Messenger Top Hat",
+      "item_desc": "Hat that messengers are oddly fond of.\nA nice top hat rounds out any Yharnam gentleman.\nThe inhabitants of the stump appear to have an interest in \nadornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-6pVaQyzlbl0/Vkf04Pnw1lI/AAAAAAAAMCU/mq2Hb85ShmY/s250/28.%2BStump%2BMessengers%2BTop%2BHat.png"
+    },
+    "4906": {
+      "item_name": "Black Messenger Hat",
+      "item_desc": "Hat that messengers are oddly fond of.\nSymbol of the preventative hunters of the Healing Church.\nThe inhabitants of the stump appear to have an interest in adornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://3.bp.blogspot.com/-sbvjzIwZo1E/Vkf04YnEueI/AAAAAAAAMCc/nMzdsNK5LZM/s250/30.%2BStump%2BMessengers%2BBlack%2BHat.png"
+    },
+    "4907": {
+      "item_name": "Bloody Messenger Head Bandage",
+      "item_desc": "Accessory adored by naive messengers imitating the bandages of scourge victims, unaware of their meaning. The spatters of blood give it a particularly nice touch.\nThe inhabitants of the stomp appear to have an interest in adornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://1.bp.blogspot.com/-pze6e54RyRY/Vkf04oJM-aI/AAAAAAAAMCk/GKPTJLtZTgg/s250/32.%2BStump%2BMessengers%2BBloody%2BHead%2BBandage.png"
+    },
+    "4908": {
+      "item_name": "Messenger Urn Festival",
+      "item_desc": "Accessory adored by naїve messengers.\nThe messengers wear the urns, filled with incense that wards\noff beasts, on their heads upside-down, suggesting a \npredilection to the dark.\nThe inhabitants of the stump appear to have an interest in\nadornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://4.bp.blogspot.com/-Y90wafRYRKA/Vkf04lQuOTI/AAAAAAAAMCo/9vrE78zDYew/s250/33.%2BStump%2BMessengers%2BUrn%2BFestival.png"
+    },
+    "4901": {
+      "item_name": "Worn Messenger Top Hat",
+      "item_desc": "A worn, rumpled top hat that messengers are oddly fond of.\nThe inhabitants of the stump appear to have an interest in\nadornment. Why not let them be happy, and revel as babes?except for Badges, Blood Gem Workshop Tool, Rune Workshop Tool, Short Ritual Root Chalice, Workshop Haze Extractor, Yharnam Stone and Ring of Betrothal",
+      "item_img": "https://2.bp.blogspot.com/-yD0GnZ0cXBU/Vkf04ESDMFI/AAAAAAAAMCY/hcq9vHp6Xvo/s250/29.%2BStump%2BMessengers%2BWorn%2BTop%2BHat.png"
+    }
+  }
+}
