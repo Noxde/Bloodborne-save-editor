@@ -1,16 +1,16 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{self, Value};
 use super::{enums::{ArticleType, Error}, file::FileData};
 use std::{fs::File, io::BufReader};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ItemInfo {
     pub item_name: String,
     pub item_desc: String,
     pub item_img: String,
 }
 
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct Article {
     // pub name: String,
     pub index: u8,
@@ -113,7 +113,7 @@ impl Article {
     }
 }
 
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct Inventory {
     pub articles: Vec<Article>,
 }

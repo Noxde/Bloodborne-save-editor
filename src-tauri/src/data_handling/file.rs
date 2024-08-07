@@ -1,9 +1,12 @@
+use serde::Serialize;
+
 use super::enums::Error;
 use std::{
     fs,
     io::{self, Read},
 };
 
+#[derive(Serialize)]
 pub struct FileData {
     pub bytes: Vec<u8>,
     pub username_offset: usize,

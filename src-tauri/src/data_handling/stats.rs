@@ -1,10 +1,10 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::file::FileData;
 use std::fs::File;
 use std::io::{self, BufReader};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Stat {
     pub name: String,
     pub rel_offset: isize,

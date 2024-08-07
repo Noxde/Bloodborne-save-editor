@@ -1,4 +1,5 @@
 use std::{fmt, io};
+use serde::Serialize;
 use serde_json::Error as JsonError;
 
 #[derive(Debug)]
@@ -20,7 +21,7 @@ impl fmt::Display for Error {
 
 impl std::error::Error for Error {}
 
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub enum ArticleType {
     Armor,
     Item,
