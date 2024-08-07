@@ -1,31 +1,67 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: "Reim";
+  src: url("../public/fonts/A-OTF-ReimPr6-Medium.otf");
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-image: url("/public/assets/bg.png");
+  background-size: cover;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  height: 1px;
+  font-family: "Reim";
+  font-size: calc(18px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  /* display: flex; */
+  height: calc(100% - 129px);
+}
+
+#sideBar {
+  padding-top: 3rem;
+  text-align: center;
+  background-color: #00000054;
+  height: 100%;
+  ul {
+    list-style: none;
+    li {
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.nav {
+  background-color: #000000a1;
+  padding: 2rem;
+  width: 100%;
+  position: block;
+  top: 0;
+  left: 0;
+  display: flex;
+  color: #9d9d9d;
+  justify-content: space-between;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: "Reim";
+  color: inherit;
+  font-size: calc(18px + 2vmin);
 }
 
 @keyframes App-logo-spin {
@@ -34,5 +70,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
   }
 }

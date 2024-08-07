@@ -1,0 +1,500 @@
+{
+	"rightHand": {
+		"2000000": {
+			"name": "Chikage",
+			"image": "https://1.bp.blogspot.com/-kkaOdZrxO-g/X6o0wyavN_I/AAAAAAAAg1Y/jk4m1jAF1XUiZtFXOXG1oQijFatsx78oQCLcBGAsYHQ/s64/menu_icon_02002-01-09.png",
+			"description": "Foreign-made weapon wielded by the royal guards who\nprotect Annalise, Queen of the Vilebloods at Cainhurst\nCastle.\nWhen the intricate, rippled engraving that spans the\nChikage's blade is imbrued with blood, the sword sings in \nscarlet hues.\nHowever, the rite eats away at the wielder's very essence.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "92",
+				"blood": "92",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"4000000": {
+			"name": "Blade of Mercy",
+			"image": "https://1.bp.blogspot.com/-imraRgrQKvs/X6ovPH8-8dI/AAAAAAAAg04/AAuCtw2HjsoYNRhGy_R7KWWizmyk-lptACLcBGAsYHQ/s64/menu_icon_02002-02-09.png",
+			"description": "A special trick weapon passed down amongst hunters of hunters. One of the oldest weapons of the workshop.\nSplits into two when activated. The weapon's warped blades are forged with siderite, a rare mineral of the heavens. Most effective swift attacks, such as after a quick-stepping.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "60",
+				"blood": "-",
+				"arcane": "30",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"5000000": {
+			"name": "Hunter Axe",
+			"image": "https://1.bp.blogspot.com/-z0Usz70RLBA/X6osdGFjP2I/AAAAAAAAg0g/-TsNz4L7Mz4mDkqGUJL8fJ8H5aDI0xGhACLcBGAsYHQ/s64/menu_icon_02002-03-09.png",
+			"description": "One of the trick weapons of the workshop, commonly used on the hunt. \nRetains the qualities of an axe, but offers wider palette of attacks by transforming. Boasts a heavy blunt attack, leading to high rally potential.\nNo matter their pasts, beasts are no more than beasts. Some choose this axe to play the part of executioner.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "98",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"5100000": {
+			"name": "Burial Blade",
+			"image": "https://1.bp.blogspot.com/-Srg9etqQ318/X6ougPR1SWI/AAAAAAAAg0w/XN7-eXkvZNMwoq8mf6hA90vA98Djl4teQCLcBGAsYHQ/s64/menu_icon_02002-04-09.png",
+			"description": "Trick weapon wielded by Gehrman, the first hunter.\nA masterpiece that defined the entire array of weapons\ncrafted at the workshop. Its blade is forged with siderite, \nsaid to have fallen from the heavens.\nGehrman surely saw the hunt as a dirge of farewell, wishing\nonly that his prey might rest in peace, never again to awaken \nto another harrowing nightmare.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "80",
+				"blood": "-",
+				"arcane": "30",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"7000000": {
+			"name": "Saw Cleaver",
+			"image": "https://1.bp.blogspot.com/-prx__EFRecU/X6opWfbHOiI/AAAAAAAAg0Q/Jwi70vUnASAPiOvceoZ-beNYUj4zyMChQCLcBGAsYHQ/s64/menu_icon_02002-07-09_CLEAN.png",
+			"description": "One of the trick weapons of the workshop, commonly\nused in the hunting business.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a long cleaver that makes use of\ncentrifugal force.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\nthe more grotesquely transformed the beast.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "90",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"7100000": {
+			"name": "Saw Spear",
+			"image": "https://1.bp.blogspot.com/-hVcKwAqM4ls/X6orM3HgZTI/AAAAAAAAg0Y/ZgG6UV2WFyEkRoxzCS3WhmAhj2edY4gMQCLcBGAsYHQ/s64/menu_icon_02002-08-09.png",
+			"description": "One of the trick weapons of the workshop, commonly\nused by those who dedicate themselves to the hunt.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a medium-range spear.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\n  the more grotesquely transformed the beast.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "85",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"8000000": {
+			"name": "Kirkhammer",
+			"image": "https://1.bp.blogspot.com/-TXr_BgUrHt0/X6owPRekpTI/AAAAAAAAg1A/YwXgsYeQ1wIZapanBWkAWHeZWvOyFCRtwCLcBGAsYHQ/s64/menu_icon_02002-09-09.png",
+			"description": "A trick weapon typically used by Healing Church hunters.\nOn the one side, an easily handled silver sword.\nOn the other, a giant obtuse stone weapon, characterized  by a blunt strike and extreme force of impact.\nThe Church takes a heavy-handed, merciless stance \ntoward the plague of beasts, an irony not lost upon\nthe wielders of this most symbolic weapon.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "105",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"8100000": {
+			"name": "Ludwig's Holy Blade",
+			"image": "https://1.bp.blogspot.com/-tO9XUJxesKk/X6oyYz1fVcI/AAAAAAAAg1I/ooUglh9-584DYZGFVdGXsWga_YFdU9wAQCLcBGAsYHQ/s64/menu_icon_02002-10-09.png",
+			"description": "A trick weapon typically used by Healing Church hunters.\nIt is said that the silver sword was employed by Ludwig, \nthe first hunter of the church. When transformed,\nit combines with its sheath to form a greatsword. \nIt exhibits several departures from the workshop's \ndesign, suggesting that the Church anticipated  \nmuch larger inhuman beasts.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "100",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"9000000": {
+			"name": "Beast Claw",
+			"image": "https://1.bp.blogspot.com/-Px3ve_GhWmE/X6pEz1f-0jI/AAAAAAAAg2E/04XlqpAQVTMjMlkj4ScrVT1R6rOMeWQhgCLcBGAsYHQ/s64/menu_icon_02002-11-09.png",
+			"description": "Beastly weapon wielded by Irreverent Izzy.\nCrafted by chiseling the long bones of an undead darkbeast\nand fastening them to the weapon. The bones are still alive,\nand when unleashed, grant its wielder a spurt of beastly\npower.\nAs flesh is flayed and blood is sprayed, the beast within\nawakens, and in time, the wielder of this weapon surges with\nboth strength and feverish reverie.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "75",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"10000000": {
+			"name": "Rifle Spear",
+			"image": "https://1.bp.blogspot.com/-zgCp9_1TalM/X6o1e7_ognI/AAAAAAAAg1g/0PEEb-DznFIwCPsxuo4AI2-RnvnWFWhvACLcBGAsYHQ/s64/menu_icon_02002-00-10.png",
+			"description": "A trick weapon crafted by the workshop heretics, the\n  Powder Kegs.\nA prototype weapon serving as a simple firearm and spear, possibly created in imitation of a lost Cainhurst weapon.\nLacks any notable functions, saving that it is the only trick weapon with an attached gun.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "85",
+				"blood": "85",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"10100000": {
+			"name": "Reiterpallasch",
+			"image": "https://1.bp.blogspot.com/-SjvQ2f9H680/X6oz3O-cF7I/AAAAAAAAg1Q/QHGjt2WN55cjqarf8sXt7iPbf-Sl3CZ5gCLcBGAsYHQ/s64/menu_icon_02002-01-10.png",
+			"description": "Weapon wielded by the Knights of Cainhurst.\nCombines an elegant knight's sword with the peculiar \nfirearm wielded by the Cainhurst order.\nThe old nobles, long-time imbibers of blood, are no strangers \nto the sanguine plague,and the disposal of beasts was a \ndiscrete task left to their servants, or knights, as they were \ncalled for the sake of appearances.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "75",
+				"blood": "75",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"11000000": {
+			"name": "Stake Driver",
+			"image": "https://1.bp.blogspot.com/-FtfspOIQU5I/X6pCATYBLLI/AAAAAAAAg1o/WK2YvryrvLYMcwJSPBBjiIZFzAZqrYLpACLcBGAsYHQ/s64/menu_icon_02002-02-10.png",
+			"description": "A trick weapon fashioned by the workshop heretics, the  Powder Kegs. \nFavored by the retired hunter Djura. \nThe stake driver, with its queerly complex design, violently drives thick stakes into the flesh of foes. \nThe stake driver allows for high-damage critical attacks, but is difficult to use and leaves its wielder wide open, but none of this should bother a mere Powder Keg.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "85",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"12000000": {
+			"name": "Logarius' Wheel",
+			"image": "https://1.bp.blogspot.com/-lq3iP0eu3I4/X6pD0ji2GHI/AAAAAAAAg18/gq1p8I50BgE-e6nPBjCQy-Nmn7yRbQzHACLcBGAsYHQ/s64/menu_icon_02002-03-10.png",
+			"description": "Weapon wielded by martyr Logarius' band of executioners.\nUsed to slaughter the Vilebloods in Cainhurst. Bathed in \npools of their blood, and forever steeped in their ire.\nTransform to release the power of the wheel and manifest\ntheir lingering rage in a show of utter brilliance.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "100",
+				"blood": "-",
+				"arcane": "25",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"13000000": {
+			"name": "Tonitrus",
+			"image": "https://1.bp.blogspot.com/-KqMtpZHJi44/X6pCzgcRsaI/AAAAAAAAg1w/ODA2slgwXD8gSLMo6kd6iSrfSNxl4qbEACLcBGAsYHQ/s64/menu_icon_02002-04-10.png",
+			"description": "A unique trick weapon contrived by Archibald, the infamous\neccentric of the Healing Church workshop.\nStriking this peculiar iron morning star flail like a match\ngenerates the same blue sparks that blanket a darkbeast.\nUnfortunately, for reasons untold, the hunters of Archibald's\ntime did not fully take to the device.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "80",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "40"
+			}
+		},
+		"22000000": {
+			"name": "Threaded Cane",
+			"image": "https://1.bp.blogspot.com/-8SXVntMCuCw/X6otyeywDvI/AAAAAAAAg0o/pAWrBcZHO1wkIIXJCZJn6Gtca94J6lGhwCLcBGAsYHQ/s64/menu_icon_02002-00-11.png",
+			"description": "One of the trick weapons of the workshop, commonly used\nby hunters on their duties. \nSufficiently deadly as a rigid bladed cane, but also serves as \na whip when its blade is split into many.\nConcealing the weapon inside the cane and flogging the\nbeasts with the whip is partly an act of ceremony, an \nattempt to demonstrate to oneself that the bloodlust of the \nhunt will never encroach upon the soul.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "78",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"23000000": {
+			"name": "Beasthunter Saif",
+			"image": "https://1.bp.blogspot.com/-s3dJPKxATQM/X6qYkBVazcI/AAAAAAAAg3c/5CTxHhqN8R0Emch9RSD-0NxROWkfFmKEgCLcBGAsYHQ/s64/menu_icon_02002-02-11.png",
+			"description": "A trick weapon used by the old hunters. \n\nA second blade is found inside the curve of the main one. In \nits initial form, the saif can be wielded like a long curved \nsword, but when transformed, its blade is contracted, \nallowing for quick, repeated stabs. \n\nAlthough this trick weapon allows for adaptive combat, it \nwas later replaced by saws and similar weapons that were \nmore effective at disposing of beasts.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "90",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"24000000": {
+			"name": "Beast Cutter",
+			"image": "https://1.bp.blogspot.com/-YuhagmLBSn4/X6qZSPqnA3I/AAAAAAAAg3k/2rgd1zAafE0PzTal_HFVtmEknROPEtunQCLcBGAsYHQ/s64/menu_icon_02002-03-11.png",
+			"description": "A trick weapon wielded by the old hunters. \n\nThis thick iron cleaver slices through the toughest of beast \nhides, and when transformed the blade splits into sections, \nallowing one to lash it int he fashion of a heavy whip. \n\nThe crude weapon relies on brute force and is regrettably \ninelegant, suggesting that the hunts of the earliest hunters \nmade for horrific affairs, painted in sanguine blacks and\nreds.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "92",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"26000000": {
+			"name": "Holy Moonlight Sword",
+			"image": "https://1.bp.blogspot.com/-GcSY9rBrLzc/X6qakW1WbFI/AAAAAAAAg30/HM8oEGaRqDMSGt2g418Z-zposp5PY6f4wCLcBGAsYHQ/s64/menu_icon_02002-05-11.png",
+			"description": "An arcane sword discovered long ago by Ludwig. \nWhen blue moonlight dances around the sword, and it \nchannels the abyssal cosmos, its great blade will hurl a \nshadowy lightwave. \n\nThe Holy Moonlight Sword is synonymous with Ludwig, the \nHoly Blade, but few have ever set eyes on the great blade, \nand whatever guidance it has to offer, it seems to be of a \nvery private, elusive sort.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "90",
+				"blood": "-",
+				"arcane": "50",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"27000000": {
+			"name": "Rakuyo",
+			"image": "https://1.bp.blogspot.com/-XGJRkuczJiE/X6qcQTTXG0I/AAAAAAAAg4E/eGOuMcKLev41XIpKplvwLJHv_adunMOEQCLcBGAsYHQ/s64/menu_icon_02002-06-11.png",
+			"description": "Hunter weapon wielded by Lady Maria of the Astral \nClocktower. \nA trick sword originated in the same country as the \nCainhurst Chikage, only this sword feeds not off blood, but \ninstead demands great dexterity. \nLady Maria was fond of this aspect of the Rakuyo, as she \nfrowned upon blood blades, despite being a distant relative \nof the queen. \nBut one day, she abandoned her beloved Rakuyo, casting it into a dark well, when she could stomach its presence no longer.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "82",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"28000000": {
+			"name": "Boom Hammer",
+			"image": "https://1.bp.blogspot.com/-mrhkqC1gDs8/X6qemsFAIuI/AAAAAAAAg4U/xBcFu32TlA8-oJ-pEOfuCeaE5MZpksSdwCLcBGAsYHQ/s64/menu_icon_02002-07-11.png",
+			"description": "A trick weapon used by the old hunters, and crafted by the \nworkshop heretics, the Powder Kegs. \n\nA giant hammer equipped with a miniature furnace. When \nignited and fired, it emits a volley of flame that explodes \nfuriously upon impact. \n\nCrush the beasts, then burn them - the brute simplicity of the \nBoom Hammer was favored by hunters with an acute \ndistaste for beasts.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "90",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "60",
+				"bolt": "-"
+			}
+		},
+		"29000000": {
+			"name": "Bloodletter",
+			"image": "https://1.bp.blogspot.com/-VPRPbhR2bfo/X6qfxtHPx9I/AAAAAAAAg4k/XptStzoKZWknBj-kX-A77hHx2xbnFOYYACLcBGAsYHQ/s64/menu_icon_02002-08-11.png",
+			"description": "The demented hunter weapon brandished by Brador, the Healing Church assassin.\n\nThe Bloodletter assumes its true and terrifying form after it\ndraws upon blood from the inner reaches of one's body and \nsoul.\n\nThis is the only effective means of expelling tainted blood, or \nso Brador, isolated in his cell, continued to believe.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "90",
+				"blood": "90",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"30000000": {
+			"name": "Church Pick",
+			"image": "https://1.bp.blogspot.com/-pRP0cGYIYfg/X6qZ7WCBcPI/AAAAAAAAg3s/t6nH-6TA7zIkL3t34KG2JEqV3NnRgK3mwCLcBGAsYHQ/s64/menu_icon_02002-09-11.png",
+			"description": "One of the old trick weapons of the Healing Church, a \nhunting weapon formed from one of the giant picks that \nappears in the old beast tales. \n\nThe Church Pick initially serves as a large sword, but when \ntransformed, functions as an extended war pick. In spite of \nits origins, it is a highly practical weapon.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "88",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"31000000": {
+			"name": "Whirligig Saw",
+			"image": "https://1.bp.blogspot.com/-wL8kP680jgc/X6qfMDLDXAI/AAAAAAAAg4c/pgOwwiHICqccln_BWRaxr5b16RjqpzqOACLcBGAsYHQ/s64/menu_icon_02002-10-11.png",
+			"description": "A trick weapon crafted by the workshop heretics, the \nPowder Kegs, and weapon of choice for the old hunter Valtr, \nthe Beast Eater. \n\nThis weapon pummels beasts in its mace form, but its true \nstrength lies in its attached mechanical saws. \nThese discs, lined with serrated teeth, spin rapidly, trashing \nthe flesh of beasts into fine shreds.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "95",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"32000000": {
+			"name": "Simon's Bowblade",
+			"image": "https://1.bp.blogspot.com/--TMS9j4EQx4/X6qbK6DDlZI/AAAAAAAAg38/ujlVAK_f0tcsPlSjHl4N80F6JSFP5Y33wCLcBGAsYHQ/s64/menu_icon_02002-11-11.png",
+			"description": "Choice weapon of Simon, one of the first Healing Church\nhunters.\n\nSimon despised firearms, and so the Church workshop had \nthis specially fashioned to his liking. The large curved blade \nserves as a bow when transformed.\n\nBut aside from a few close friends, Simon was scoffed at for \nhis choice of arms, for who would dare face the beasts with \na measly bow?",
+			"qsUse": "1",
+			"damage": {
+				"physical": "80",
+				"blood": "80",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"38000000": {
+			"name": "Kos Parasite",
+			"image": "https://1.bp.blogspot.com/-iIVOI6PbJIo/X6qhFHsLZXI/AAAAAAAAg40/Ju3QqdE_HC0ZibmUSmUWWz0u1sqBgo5HQCLcBGAsYHQ/s64/menu_icon_02002-11-03.png",
+			"description": "When the carcass of Kos washed up on the coast, its insides \nwere teeming with tiny parasites, unlike any found in \nhumans.\n\nThis atypical weapon can only be clasped tight and swung, \nbut a Kos Parasite is said to stimulate phantasms inhabiting \na lumenwood.",
+			"qsUse": "2",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "30",
+				"fire": "-",
+				"bolt": "-"
+			}
+		}
+	},
+	"leftHand": {
+		"6100000": {
+			"name": "Ludwig's Rifle",
+			"image": "https://1.bp.blogspot.com/-Xte5Kq-Wg9w/X6qDuhCNupI/AAAAAAAAg2k/NZJxRRCBnBYRiZnRF2aEdBbvf43Doy9OgCLcBGAsYHQ/s64/menu_icon_02002-06-09.png",
+			"description": "A rifle typically used by Healing Church hunters. \nIt is said that this rifle was employed by Ludwig, \nthe first hunter of the Church. Its long, heavy barrel \nmakes up in range for what it lacks in reload speed. \nLudwig's Rifle exhibits several departures from the \nworkshop's design, suggesting that the Church \nanticipated much larger inhuman beasts.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "20",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"14000000": {
+			"name": "Hunter Pistol",
+			"image": "https://1.bp.blogspot.com/-ojgXhzczZ_0/X6pFk0PjCaI/AAAAAAAAg2M/Vy5h8jxN7dMUCwSmuakBAhH4EsS0wibVQCLcBGAsYHQ/s64/menu_icon_02002-05-10.png",
+			"description": "Pistol made at the workshop, for hunters stalking beasts.\nHunter firearms are specially crafted to employ Quicksilver  Bullets fused with the wielder's own blood, boosting damage  against beasts.\nThe pistol is a quicker draw than the blunderbuss, allowing  for speedier responses to attacks.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "70",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"14100000": {
+			"name": "Evelyn",
+			"image": "https://1.bp.blogspot.com/-zIFAcKDX1AI/X6qR9oUvXRI/AAAAAAAAg2s/CORqy9FYPmoQnWB8NeitxHsW1YUdklR8wCLcBGAsYHQ/s64/menu_icon_02002-06-10.png",
+			"description": "Special pistol used by Cainhurst knights.\nThe Evelyn uses Quicksilver Bullets, just as any workshop\nfirearm, but the Cainhurst variant relies more on bloodtinge.\nLovingly named after a woman and graced with an intricate\ndesign, Evelyns were adored by Cainhurst knights.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "60",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"14200000": {
+			"name": "Repeating Pistol",
+			"image": "https://1.bp.blogspot.com/-kICx5YOBus8/X6pH8zmuAmI/AAAAAAAAg2c/4BpbtVJnCew8CenqvPMPNsxoV_lCN4PUACLcBGAsYHQ/s64/menu_icon_02002-07-10_CLEANED.png",
+			"description": "Repeating pistol typically used by Healing Church hunters.\nCrafted with mostly metal parts and exhibiting a complex design, the repeating pistol fires two shots at once, making it a ravenous consumer of Quicksilver Bullets.\nShould be used sparingly compared to its workshop counterpart, as the trump card in one's arsenal.",
+			"qsUse": "2",
+			"damage": {
+				"physical": "-",
+				"blood": "90",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"15000000": {
+			"name": "Cannon",
+			"image": "https://1.bp.blogspot.com/-N_v0W6m69bU/X6qTCNrJ9EI/AAAAAAAAg20/xVWruvP_DhcVasbHCJVyZCg3AxgtTE3QACLcBGAsYHQ/s64/menu_icon_02002-08-10.png",
+			"description": "Large prototype firearms fashioned by the workshop \nheretics, the Powder Kegs. \nUse of this weapon is equivalent to toting a mounted \ncannon, complete with its ridiculous weight, staggering \nkick, and lavish use of Quicksilver Bullets, into battle. \nSuch a monstrosity was doomed from the start, and \nindeed its development was cut short. Yet, against \nimpossibly gigantic foes, it might be just the thing.",
+			"qsUse": "12",
+			"damage": {
+				"physical": "-",
+				"blood": "200",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"18000000": {
+			"name": "Rosmarinus",
+			"image": "https://1.bp.blogspot.com/-lyyK1DVSYdw/X6qVwSzjnNI/AAAAAAAAg3E/I-GPrjfa97s7LWNxC_LHvTf9HQQDOHtnwCLcBGAsYHQ/s64/menu_icon_02002-09-10.png",
+			"description": "A special weapon used by the Choir, high-ranking members of the Healing Church.\nSprays a cloud of sacred mist, created by using blood-imbued Quicksilver Bullets as a special medium.\nArias are heard wherever sacred mist is seen, proving that the mist is a heavenly blessing.\n\"Oh, fair maiden, why is it that you weep?\"",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "30",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"18100000": {
+			"name": "Flamesprayer",
+			"image": "https://1.bp.blogspot.com/-AeiADdEMPr4/X6qU5XFNmtI/AAAAAAAAg28/X1ETH4MkCug-e4IHK2j6SddTr7FzmHJNQCLcBGAsYHQ/s64/menu_icon_02002-01-11.png",
+			"description": "A special weapon used by certain members of the Healing \nChurch. \nSpits searing flames by using blood-imbued Quicksilver \nBullets as a special medium.\nNot the most efficient weapon by any stretch, but sometimes \na sea of flame is just what the doctor ordered. \nBesides, the beasts of Yharnam can always use a good\ncleansing.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "45",
+				"bolt": "-"
+			}
+		},
+		"19100000": {
+			"name": "Loch Shield",
+			"image": "https://1.bp.blogspot.com/-6aYkMTIBDCk/X6qkl7qSwEI/AAAAAAAAg5g/fG__USbe250xCQN3Lz0Ns0YPXscm7hE5gCLcBGAsYHQ/s64/menu_icon_02002-10-03.png",
+			"description": "An artisanal shield crafted with blue glass. \n\nOriginally used to safeguard the leader presiding over a \nsacred Healing Church ceremony, and later supplied to tomb \nprospectors, in particular those exploring the labyrinth of \nIsz. \n\nThe blue is fashioned after a lake, and the shield greatly \nreduces all forms of non-physical damage.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"20000000": {
+			"name": "Hunter's Torch",
+			"image": "https://1.bp.blogspot.com/-gWxdKzc5_P0/X6qWdgVObLI/AAAAAAAAg3M/QXMnwZS9Aq0SX2hhmhnkGT-aOAAZQ2ixACLcBGAsYHQ/s64/menu_icon_02002-11-10.png",
+			"description": "A torch formed by wrapping a pine resin-drenched cloth \naround the end of a long stick. Once used in Old Yharnam.\nDesigned to incinerate beasts and victims touched by the\nscourge.\nIts fire damage is highly effective against beasts.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "50",
+				"bolt": "-"
+			}
+		},
+		"20100000": {
+			"name": "Torch",
+			"image": "https://1.bp.blogspot.com/-gWxdKzc5_P0/X6qWdgVObLI/AAAAAAAAg3M/QXMnwZS9Aq0SX2hhmhnkGT-aOAAZQ2ixACLcBGAsYHQ/s64/menu_icon_02002-11-10.png",
+			"description": "A common torch formed by wrapping a pine resin-drenched\ncloth around the end of a long stick.\nHunters choose torches not only because the hunt leads\nthem to the darkest nooks, but also because certain creatures\nthey encounter are possessed of a deathly fear of flame.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "-",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "25",
+				"bolt": "-"
+			}
+		},
+		"33000000": {
+			"name": "Gatling Gun",
+			"image": "https://1.bp.blogspot.com/-h6CGwS2jSLo/X6qiY3lgsZI/AAAAAAAAg5E/tgS3l1c_yBYkr_YV9t9aSOE9WvS3N4D8wCLcBGAsYHQ/s64/menu_icon_02002-00-06.png",
+			"description": "This is a highly-customized, portable version of the \nstationary gatling gun operated by the old hunter Djura in \nOld Yharnam. It was the weapon of choice of the youngest \nof Djura's three companions. \n\nThe Gatling Gun boasts exceptional rapid-firing \nfunctionality, but is considered a cumbersome weapon, due \nto its excessive weight and insatiable consumption of \nQuicksilver Bullets.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "80",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"34000000": {
+			"name": "Fist of Gratia",
+			"image": "https://1.bp.blogspot.com/-1SROnZXuUGk/X6qkBmaJQFI/AAAAAAAAg5Y/_cAzS2bBOEouIGmbinXiJVEYFeyUhKBFwCLcBGAsYHQ/s64/menu_icon_02002-01-06.png",
+			"description": "A chunk of iron fitted with finger holes. \n\nThe hulking hunter woman Simple Gratia, ever hopeless \nwhen handling hunter firearms, preferred to knock the lights \nout of the beasts with this hunk of iron, which incidentally \ncaused heavy stagger. \n\nGratia was a fearsome hunter, and to onlookers, her \nunrelenting pummeling appeared oddly heroic. No wonder \nthe weapon later assumed her name.",
+			"qsUse": "-",
+			"damage": {
+				"physical": "60",
+				"blood": "-",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		},
+		"36000000": {
+			"name": "Piercing Rifle",
+			"image": "https://1.bp.blogspot.com/-OZWQDoa7xuM/X6qhw-LginI/AAAAAAAAg48/QEHn_SQUr80Qyf158GCmI4V4xyod4LhGgCLcBGAsYHQ/s64/menu_icon_02002-09-03.png",
+			"description": "A rifle engineered by the Oto Workshop, the precursor to \nthe workshop of the heretical Powder Kegs. \n\nDesigned for hunting on narrow streets, this rifle has been \noptimized to cause perforation wounds, but is unfit for \nreliably countering attacks.",
+			"qsUse": "1",
+			"damage": {
+				"physical": "-",
+				"blood": "80",
+				"arcane": "-",
+				"fire": "-",
+				"bolt": "-"
+			}
+		}
+	}
+}
