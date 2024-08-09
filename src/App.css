@@ -24,9 +24,28 @@
 
 main {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  /* display: flex; */
+  grid-template-columns: 300px 810px 1fr;
   height: calc(100% - 129px);
+}
+
+canvas {
+  cursor: pointer;
+}
+
+.editButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  button {
+    background-color: gray;
+  }
+
+  .editQuantity {
+    display: flex;
+    button {
+      padding: 0.2rem 1rem;
+    }
+  }
 }
 
 #sideBar {
