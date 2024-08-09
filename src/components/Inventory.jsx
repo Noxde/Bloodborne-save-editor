@@ -66,11 +66,7 @@ function Inventory() {
           <input
             type="number"
             value={quantity || 0}
-            disabled={
-              selected === null || selected.article_type !== "Item"
-                ? true
-                : false
-            }
+            disabled={selected?.article_type !== "Item" ? true : false}
             onChange={(e) => {
               setQuantity(parseInt(e.target.value));
             }}
@@ -101,7 +97,7 @@ function Inventory() {
               setSave(editedSave);
             }}
             disabled={
-              selected.article_type === "Item" && quantity > 0 ? false : true
+              selected?.article_type === "Item" && quantity > 0 ? false : true
             }
           >
             Set
