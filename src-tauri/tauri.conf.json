@@ -14,7 +14,8 @@
     "allowlist": {
       "all": false,
       "dialog": {
-        "open": true
+        "open": true,
+        "save": true
       },
       "fs": {
         "readFile": true
