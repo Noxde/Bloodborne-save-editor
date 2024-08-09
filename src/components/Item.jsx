@@ -88,11 +88,11 @@ function Item({ item }) {
 
   return (
     <canvas
-      data-item-id={id}
+      data-item={JSON.stringify(item)}
       width={795}
       height={90}
       ref={canvasRef}
-      style={{ display: drawn ? "block" : "none" }}
+      style={{ display: drawn ? "block" : "none", marginBottom: "1px" }}
     ></canvas>
   );
 }
@@ -154,7 +154,7 @@ async function drawArmor(ctx, armor, img) {
   ctx.fillText(fire, margin * 6 + 37, 77);
   ctx.fillText(bolt, margin * 7 + 37, 77);
 
-  const hover = await loadImage(process.env.PUBLIC_URL + "/assets/hover.png");
+  // const hover = await loadImage(process.env.PUBLIC_URL + "/assets/hover.png");
 
   // Set up text
   ctx.shadowBlur = 3;
@@ -163,7 +163,7 @@ async function drawArmor(ctx, armor, img) {
   ctx.shadowColor = "black";
   ctx.fillStyle = "#ab9e87";
   ctx.fillText(name, 107, 28);
-  ctx.drawImage(hover, 0, 0);
+  // ctx.drawImage(hover, 0, 0);
 }
 
 async function drawWeapon(ctx, weapon, img) {
