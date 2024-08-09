@@ -1,8 +1,6 @@
 import "./App.css";
 
-import { invoke, dialog, fs } from "@tauri-apps/api";
-import { useEffect, useRef, useState, useContext } from "react";
-import Item from "./components/Item";
+import { useState } from "react";
 import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import Inventory from "./components/Inventory";
