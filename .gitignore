@@ -15,7 +15,7 @@ src-tauri/Cargo.lock
 
 # Ignore backup files
 *.bak
-src-tauri/*.tags 
+src-tauri/*/*.tags 
 
 node_modules/
 build/
