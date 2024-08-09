@@ -4,7 +4,7 @@ use super::file::FileData;
 use std::fs::File;
 use std::io::{self, BufReader};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Stat {
     pub name: String,
     pub rel_offset: isize,

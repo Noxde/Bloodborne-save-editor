@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use super::enums::Error;
 use std::{
@@ -6,7 +6,7 @@ use std::{
     io::{self, Read},
 };
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct FileData {
     pub bytes: Vec<u8>,
     pub username_offset: usize,

@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use super::{
     enums::Error,
@@ -7,7 +7,7 @@ use super::{
     stats::{self, Stat},
 };
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SaveData {
     pub file: FileData,
     pub stats: Vec<Stat>,
