@@ -13,6 +13,7 @@ pub struct FileData {
 }
 
 impl FileData {
+    ///Searches the username in the file and, if found, returns it's index minus one.
     fn search_username(username: &str, save_data: &Vec<u8>) -> Result<usize, &'static str> {
         let mut matchs: Vec<usize> = Vec::new();
         let mut encoded_username = Vec::new();
@@ -92,5 +93,37 @@ impl FileData {
 
     pub fn save(&self, path: &str) -> Result<(), io::Error> {
         fs::write(path, &self.bytes)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_search_username() {
+        //testsave0
+        let file_data = FileData::build("saves/testsave0", "Proyectito").unwrap();
+        assert_eq!(file_data.username_offset, 34679);
+        //Test with invalid path
+        let file_data = FileData::build("invalid", "invalid");
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "I/0 error: No such file or directory (os error 2)");
+        }
+        //Test with invalid username
+        let file_data = FileData::build("saves/testsave0", "invalid");
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "Save error: Failed to find username in save data.");
+        }
+
+        //testsave1
+        let file_data = FileData::build("saves/testsave1", "Toe Taster").unwrap();
+        assert_eq!(file_data.username_offset, 43051);
+
+        //testsave2
+        let file_data = FileData::build("saves/testsave2", "I'm Here To Help").unwrap();
+        assert_eq!(file_data.username_offset, 43119);
     }
 }
