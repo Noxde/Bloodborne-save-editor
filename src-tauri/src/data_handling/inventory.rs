@@ -270,11 +270,9 @@ pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Error> {
 
 #[cfg(test)]
 mod tests {
-    use crate::data_handling::inventory;
-
     use super::*;
 
-    const TEST_SAVE_PATH: &str = "testsave";
+    const TEST_SAVE_PATH: &str = "saves/testsave0";
     const TEST_SAVE_USERNAME: &str = "Proyectito";
 
     fn build_file_data() -> FileData {
@@ -298,10 +296,10 @@ mod tests {
         let mut inventory = build(&file_data);
 
         let article = &mut inventory.articles[8];
-        assert!(check_bytes(&file_data, 1155868, 
+        assert!(check_bytes(&file_data, 35276, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
         article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).unwrap();
-        assert!(check_bytes(&file_data, 1155868, 
+        assert!(check_bytes(&file_data, 35276, 
             &[0x48,0x80,0xCF,0xA8,0xAA,0xBB,0xCC,0xB0,0xAA,0xBB,0xCC,0x40,0x01,0,0,0]));
         assert_eq!(article.id, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0xAA,0xBB,0xCC,0xB0]));
@@ -321,14 +319,14 @@ mod tests {
         let mut inventory = build(&file_data);
 
         let article = &mut inventory.articles[0];
-        assert!(check_bytes(&file_data, 1155740, 
+        assert!(check_bytes(&file_data, 35148, 
             &[0x40,0xF0,0xFF,0xFF,0x4B,0,0x80,0x80,0x40,0x42,0x0F,0,1,0,0,0]));
-        assert!(check_bytes(&file_data, 1121756, 
+        assert!(check_bytes(&file_data, 1164, 
             &[0x4B,0,0x80,0x80,0x40,0x42,0x0F,0]));
         article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]).unwrap();
-        assert!(check_bytes(&file_data, 1155740, 
+        assert!(check_bytes(&file_data, 35148, 
             &[0x40,0xF0,0xFF,0xFF,0x4B,0,0x80,0x80,0xAA,0xBB,0xCC,0xDD,1,0,0,0]));
-        assert!(check_bytes(&file_data, 1121756, 
+        assert!(check_bytes(&file_data, 1164, 
             &[0x4B,0,0x80,0x80,0xAA,0xBB,0xCC,0xDD]));
         assert_eq!(article.id, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x4B,0,0x80,0x80]));
@@ -346,10 +344,10 @@ mod tests {
     fn inventory_edit_item() {
         let mut file_data = build_file_data();
         let mut inventory = build(&file_data);
-        assert!(check_bytes(&file_data, 1155868, 
+        assert!(check_bytes(&file_data, 35276, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
         inventory.edit_item(&mut file_data, 0x48, 0xAABBCCDD);
-        assert!(check_bytes(&file_data, 1155868, 
+        assert!(check_bytes(&file_data, 35276, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
         assert_eq!(inventory.articles[8].amount, 0xAABBCCDD);
     }
