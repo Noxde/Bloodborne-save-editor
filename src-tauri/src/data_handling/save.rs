@@ -15,8 +15,8 @@ pub struct SaveData {
 }
 
 impl SaveData {
-    pub fn build(path: &str, username: &str) -> Result<SaveData, Error> {
-        let file = FileData::build(path, username)?;
+    pub fn build(path: &str) -> Result<SaveData, Error> {
+        let file = FileData::build(path)?;
 
         let stats = stats::new(&file).unwrap();
         let inventory = inventory::build(&file);

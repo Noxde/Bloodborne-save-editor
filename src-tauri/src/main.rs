@@ -23,8 +23,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 #[tauri::command]
-fn make_save(path: &str, name: &str, state_save: tauri::State<MutexSave>) -> Option<SaveData> {
-    if let Ok(s) = SaveData::build(path, name) {
+fn make_save(path: &str, state_save: tauri::State<MutexSave>) -> Option<SaveData> {
+    if let Ok(s) = SaveData::build(path) {
         let mut data = state_save.data.lock().unwrap();
         *data = Some(s.clone());
         Some(s)

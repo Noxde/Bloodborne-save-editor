@@ -273,10 +273,9 @@ mod tests {
     use super::*;
 
     const TEST_SAVE_PATH: &str = "saves/testsave0";
-    const TEST_SAVE_USERNAME: &str = "Proyectito";
 
     fn build_file_data() -> FileData {
-        FileData::build(TEST_SAVE_PATH, TEST_SAVE_USERNAME).unwrap()
+        FileData::build(TEST_SAVE_PATH).unwrap()
     }
 
     fn check_bytes(file_data: &FileData,index: usize,bytes: &[u8]) -> bool {
