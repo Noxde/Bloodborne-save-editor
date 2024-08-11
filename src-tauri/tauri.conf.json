@@ -66,10 +66,13 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 650,
+        "height": 660,
+        "width": 1320,
+        "minHeight": 660,
+        "minWidth": 1320,
+        "center": true,
         "resizable": true,
-        "title": "Bloodborne Save Editor v0.0.0",
-        "width": 1000
+        "title": "Bloodborne Save Editor v0.0.0"
       }
     ]
   }
