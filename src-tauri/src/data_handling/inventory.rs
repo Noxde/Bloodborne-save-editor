@@ -54,7 +54,7 @@ impl Article {
                     self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
                     
                     //INFO
-                    self.info = get_info(self.id)?;
+                    self.info = get_info(self.id, &self.article_type)?;
                     return Ok(())
                 }
             }
@@ -86,7 +86,7 @@ impl Article {
                     self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
                     
                     //INFO
-                    self.info = get_info(self.id)?;
+                    self.info = get_info(self.id, &self.article_type)?;
 
                     //Search for the query above the inventory (where the article appears with its gems)
                     let mut found = false;
@@ -158,7 +158,7 @@ impl Inventory {
             id: u32::from_le_bytes(endian_id),
             first_part: 213,
             second_part: 1233,
-            info: get_info(id).unwrap(),
+            info: get_info(id, &ArticleType::Item).unwrap(),
             amount: quantity,
             article_type: ArticleType::Item,
         };
@@ -210,15 +210,14 @@ pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
             break;
         }
 
-        
-        let info = get_info(id).unwrap();
-
         let article_type = match (file_data.bytes[i+7],file_data.bytes[i+11]) {
             (0xB0,0x40) => ArticleType::Item,
             (_,0x10) => ArticleType::Armor,
             _ => ArticleType::Weapon,
         };
 
+        let info = get_info(id, &article_type).unwrap();
+        
         articles.push(Article {
             index,
             id,
