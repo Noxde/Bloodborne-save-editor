@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use serde_json::{self, Value};
+use serde_json::{self, json, Value};
 use super::{enums::{ArticleType, Error}, file::FileData};
 use std::{fs::File, io::BufReader};
 
@@ -8,6 +8,7 @@ pub struct ItemInfo {
     pub item_name: String,
     pub item_desc: String,
     pub item_img: String,
+    pub extra_info: Option<Value>
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -232,36 +233,61 @@ pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
     articles
 }
 
-pub fn get_info(id: u32) -> Result<Option<ItemInfo>, Error> {
-    let json_file = File::open("items.json").map_err(Error::IoError)?;
-    let reader = BufReader::new(json_file);
-    let items: Value = serde_json::from_reader(reader).unwrap();
+pub fn get_info(id: u32, tipo: &ArticleType) -> Result<Option<ItemInfo>, Error> {
 
-    if let Some(object) = items.as_object() {
-        for (_, category) in object {
-            if let Some(category) = category.as_object() {
-                if let Some((_, value)) = category
-                    .iter()
-                    .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
-                {
-                    let item_info: ItemInfo = serde_json::from_value(value.clone()).map_err(Error::JsonError)?;
-                    return Ok(Some(item_info));
-                }
+    match tipo {
+        ArticleType::Item => {
+            let json_file = File::open("items.json").map_err(Error::IoError)?;
+            let reader = BufReader::new(json_file);
+            let items: Value = serde_json::from_reader(reader).unwrap();
+            let items = items.as_object().unwrap();
+            
+              // Can add the category to the info later
+            for (category, category_items) in items {
+                match category_items.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
+                    Some(found) => return Ok(Some(serde_json::from_value(category_items[found].clone()).unwrap())),
+                    None => ()
+                }   
             }
-        }
-    }
+        },
+        ArticleType::Weapon => {
+            let json_file = File::open("weapons.json").map_err(Error::IoError)?;
+            let reader = BufReader::new(json_file);
+            let weapons: Value = serde_json::from_reader(reader).unwrap();
+            let weapons = weapons.as_object().unwrap();
+        
+            for (category, category_weapons) in weapons {
+                match category_weapons.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
+                    Some(found) => {
+                        let mut info: ItemInfo = serde_json::from_value(category_weapons[found].clone()).unwrap();
+                        info.extra_info = Some(json!({
+                            "damage": &category_weapons[found]["damage"]
+                        }));
+                        return Ok(Some(info))
+                    },
+                    None => ()
+                }   
+            }
+        },
+        ArticleType::Armor => {
+            let json_file = File::open("armors.json").map_err(Error::IoError)?;
+            let reader = BufReader::new(json_file);
+            let armors: Value = serde_json::from_reader(reader).unwrap();
+            let armors = armors.as_object().unwrap();
 
-    if let Some(consumables) = items["consumables"].as_object() {
-        for (_, category) in consumables {
-            if let Some(category) = category.as_object() {
-                if let Some((_, value)) = category
-                    .iter()
-                    .find(|(key, _)| key.parse::<u32>().ok() == Some(id))
-                {
-                    let item_info: ItemInfo = serde_json::from_value(value.clone()).map_err(Error::JsonError)?;
-                    return Ok(Some(item_info));
-                }
-            }
+            match armors.keys().find(|x| x.parse::<u32>().unwrap() == id) {
+                Some(found) => {
+                    let mut info: ItemInfo = serde_json::from_value(armors[found].clone()).unwrap();
+                    info.extra_info = Some(json!({
+                        "physicalDefense": &armors[found]["physicalDefense"],
+                        "elementalDefense": &armors[found]["elementalDefense"],
+                        "resistance": &armors[found]["resistance"],
+                        "beasthood": &armors[found]["beasthood"]
+                    }));
+                    return Ok(Some(info))
+                },
+                None => ()
+            }  
         }
     }
 
