@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error}, file::FileData};
+use super::{enums::{ArticleType, Error}, file::FileData, constants::USERNAME_TO_KEY_INV_OFFSET};
 use std::{fs::File, io::BufReader};
-
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ItemInfo {
     pub item_name: String,
@@ -193,6 +192,10 @@ pub fn inventory_offset(file_data: &FileData) -> (usize, usize) {
     matches
 }
 
+pub fn key_inventory_offset(file_data: &FileData) -> usize {
+    file_data.username_offset + USERNAME_TO_KEY_INV_OFFSET
+}
+
 pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
     let mut articles = Vec::new();
     let (inventory_start, _) = inventory_offset(file_data);
@@ -374,5 +377,28 @@ mod tests {
         assert!(check_bytes(&file_data, 35276, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
         assert_eq!(inventory.articles[8].amount, 0xAABBCCDD);
+    }
+
+    #[test]
+    fn test_key_inventory_offset() {
+        //testsave0
+        let file_data = FileData::build("saves/testsave0").unwrap();
+        assert_eq!(key_inventory_offset(&file_data), 66880);
+
+        //testsave1
+        let file_data = FileData::build("saves/testsave1").unwrap();
+        assert_eq!(key_inventory_offset(&file_data), 75252);
+
+        //testsave2
+        let file_data = FileData::build("saves/testsave2").unwrap();
+        assert_eq!(key_inventory_offset(&file_data), 75320);
+
+        //testsave3
+        let file_data = FileData::build("saves/testsave3").unwrap();
+        assert_eq!(key_inventory_offset(&file_data), 78396);
+
+        //testsave4
+        let file_data = FileData::build("saves/testsave4").unwrap();
+        assert_eq!(key_inventory_offset(&file_data), 83496);
     }
 }
