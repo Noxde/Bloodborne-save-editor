@@ -1,1 +1,1 @@
-cargo tarpaulin --target-dir target/tarpaulin/artifacts --skip-clean --exclude-files src/main.rs target/debug/build/cssparser-0eb67bfae25d66d9/out/* target/debug/build/html5ever-732bd3e4f8142e5e/out/* target/debug/build/cssparser-d4e50443f19e266e/out/* target/debug/build/html5ever-cb314c4f81e02c58/out/*
+cargo tarpaulin --target-dir target/tarpaulin/artifacts --skip-clean  --exclude-files src/main.rs "target/debug/**/*"
