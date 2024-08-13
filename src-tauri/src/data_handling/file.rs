@@ -1,12 +1,10 @@
 use serde::{Deserialize, Serialize};
-use super::enums::Error;
+use super::{enums::Error, constants::USERNAME_TO_INV_OFFSET};
 use std::{
     fs,
     io::{self, Read},
 };
 
-//Distance between the username and the beginning of the inventory
-const USERNAME_TO_INV_OFFSET: usize = 469;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FileData {
