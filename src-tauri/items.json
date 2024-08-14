@@ -299,6 +299,11 @@
     }
   },
   "key": {
+    "4000": {
+      "item_name": "Oedon Tomb Key",
+      "item_desc": "Key to the gate that blocks the Tomb of Oedon.",
+      "item_img": "https://1.bp.blogspot.com/-Q-irGzvagz4/X90PZYRNgnI/AAAAAAAAhS4/x60sjBHE5KQh4-DwhXwHu259UOpQJtauwCLcBGAsYHQ/s64/menu_icon_00001-03-09.png"
+    },
     "4018": {
       "item_name": "Underground Cell Key",
       "item_desc": "Key to the cell below the Grand Cathedral.",
@@ -413,6 +418,11 @@
       "item_name": "Tonsil Stone",
       "item_desc": "A latticed, deformed rock",
       "item_img": "https://1.bp.blogspot.com/-wSagmr_Y3K8/X90Y9PblLCI/AAAAAAAAhUQ/OoQbYmdnZ_kBYNJz3VsJWbGXb1wrrOOKQCLcBGAsYHQ/s64/menu_item_img_00002-11-03.png"
+    },
+    "4011": {
+      "item_name": "Hunter Chief Emblem",
+      "item_desc": "A cloth emblem that belonged to the captain of the Church hunters long ago.",
+      "item_img": "https://1.bp.blogspot.com/-uN6YwpL5u4o/X90Utl3GfYI/AAAAAAAAhTo/F8xSfxXqsMMtJ1nFVr4eu090HOyhcoznwCLcBGAsYHQ/s64/menu_icon_00001-06-00.png"
     },
     "4312": {
       "item_name": "Old Hunter Bell",
