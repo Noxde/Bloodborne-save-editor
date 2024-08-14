@@ -178,8 +178,10 @@ impl Inventory {
 }
 
 pub fn build(file_data: &FileData) -> Inventory {
+    let mut articles = parse_articles(file_data);
+    articles.append(&mut parse_key_inventory(file_data));
     Inventory {
-        articles: parse_articles(file_data),
+        articles,
     }
 }
 
@@ -246,6 +248,42 @@ pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
         });
     }
 
+    articles
+}
+
+pub fn parse_key_inventory(file_data: &FileData) -> Vec<Article> {
+    let mut articles = Vec::new();
+    let inventory_start = key_inventory_offset(file_data);
+    for i in (inventory_start..file_data.bytes.len()).step_by(16) {
+        let index = file_data.bytes[i] + 1;
+        let id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
+        let first_part =
+            u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
+        let second_part =
+            u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], file_data.bytes[i + 11]]);
+        let amount =
+            u32::from_le_bytes([file_data.bytes[i + 12], file_data.bytes[i + 13], file_data.bytes[i + 14], file_data.bytes[i + 15]]);
+
+        if first_part == 0 && second_part == u32::MAX && amount == 0 {
+            break; //The last article is discarded
+        }
+        let article_type = ArticleType::Item;
+        let info = get_info(id, &article_type).unwrap();
+
+        articles.push(Article {
+            index,
+            id,
+            first_part,
+            second_part,
+            amount,
+            info,
+            article_type,
+        });
+    }
+    //The index of the first article needs to be set manually
+    if let Some(art) = articles.get_mut(0) {
+        art.index = 0;
+    }
     articles
 }
 
@@ -414,5 +452,66 @@ mod tests {
         //testsave4
         let file_data = FileData::build("saves/testsave4").unwrap();
         assert_eq!(key_inventory_offset(&file_data), 83496);
+    }
+
+    #[test]
+    fn test_parse_key_inventory() {
+        let file_data = FileData::build("saves/testsave0").unwrap();
+        let articles = parse_key_inventory(&file_data);
+        assert_eq!(articles.len(), 6);
+
+        //Item N0
+        assert_eq!(articles[0].index, 0);
+        assert_eq!(articles[0].id, u32::from_le_bytes([0x12, 0x10, 0x00, 0x00]));
+        assert_eq!(articles[0].first_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0xb0]));
+        assert_eq!(articles[0].second_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0x40]));
+        assert_eq!(articles[0].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        assert!(articles[0].info.is_some());
+        assert_eq!(articles[0].article_type, ArticleType::Item);
+
+        //Item N1
+        assert_eq!(articles[1].index, 1);
+        assert_eq!(articles[1].id, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x00]));
+        assert_eq!(articles[1].first_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0xb0]));
+        assert_eq!(articles[1].second_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x40]));
+        assert_eq!(articles[1].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        assert!(articles[1].info.is_some());
+        assert_eq!(articles[1].article_type, ArticleType::Item);
+
+        //Item N2
+        assert_eq!(articles[2].index, 2);
+        assert_eq!(articles[2].id, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x00]));
+        assert_eq!(articles[2].first_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0xb0]));
+        assert_eq!(articles[2].second_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x40]));
+        assert_eq!(articles[2].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        assert!(articles[2].info.is_some());
+        assert_eq!(articles[2].article_type, ArticleType::Item);
+
+        //Item N3
+        assert_eq!(articles[3].index, 3);
+        assert_eq!(articles[3].id, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x00]));
+        assert_eq!(articles[3].first_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0xb0]));
+        assert_eq!(articles[3].second_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x40]));
+        assert_eq!(articles[3].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        //assert!(articles[3].info.is_some());  //TODO
+        assert_eq!(articles[3].article_type, ArticleType::Item);
+
+        //Item N4
+        assert_eq!(articles[4].index, 4);
+        assert_eq!(articles[4].id, u32::from_le_bytes([0x07, 0x10, 0x00, 0x00]));
+        assert_eq!(articles[4].first_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0xb0]));
+        assert_eq!(articles[4].second_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0x40]));
+        assert_eq!(articles[4].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        assert!(articles[4].info.is_some());
+        assert_eq!(articles[4].article_type, ArticleType::Item);
+
+        //Item N5
+        assert_eq!(articles[5].index, 5);
+        assert_eq!(articles[5].id, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x00]));
+        assert_eq!(articles[5].first_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0xb0]));
+        assert_eq!(articles[5].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
+        assert_eq!(articles[5].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        //assert!(articles[5].info.is_some()); //TODO
+        assert_eq!(articles[5].article_type, ArticleType::Item);
     }
 }
