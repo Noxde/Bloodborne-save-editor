@@ -23,9 +23,13 @@ pub struct Article {
 }
 
 impl Article {
-    pub fn transform(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
+    pub fn transform(&mut self, file_data: &mut FileData, new_id: u32) -> Result<(), Error>{
+        let mut new_id = new_id.to_le_bytes().to_vec();
         match self.article_type {
-            ArticleType::Item => self.transform_item(file_data, new_id),
+            ArticleType::Item => {
+                new_id.pop();
+                self.transform_item(file_data, new_id)
+            },
             ArticleType::Armor | ArticleType::Weapon => self.transform_armor_or_weapon(file_data, new_id),
         }
     }
@@ -51,7 +55,7 @@ impl Article {
                     
                     //ID
                     self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
-                    
+
                     //INFO
                     self.info = get_info(self.id, &self.article_type)?;
                     return Ok(())
@@ -71,19 +75,26 @@ impl Article {
 
                     //Take the first and second part to search later
                     let mut query = Vec::with_capacity(8);
+                    let mut byte_count = 4;
+                    
                     for j in 4..=11 {
                         query.push(file_data.bytes[i+j]);
                     }
                     
+                    if self.article_type == ArticleType::Armor {
+                        self.second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x10]);
+                        byte_count = 3;
+                    } else {
+                        self.second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
+                    }
                     //SECOND PART
-                    for j in i+8..=i+11 {
+                    for j in i+8..i+8+byte_count {
                         file_data.bytes[j] = new_id[j-i-8];
                     }
-                    self.second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
                     
                     //ID
-                    self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
-                    
+                    self.id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
+
                     //INFO
                     self.info = get_info(self.id, &self.article_type)?;
 
@@ -101,7 +112,7 @@ impl Article {
                         return Err(Error::CustomError("ERROR: The Article was not found above the inventory."))
                     } else {
                         //Update the article id 
-                        for j in index+4..=index+7 {
+                        for j in index+4..index+4+byte_count {
                             file_data.bytes[j] = new_id[j-index-4];
                         }
                     }
@@ -201,7 +212,7 @@ pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
     let (inventory_start, _) = inventory_offset(file_data);
     for i in (inventory_start..file_data.bytes.len()).step_by(16) {
         let index = file_data.bytes[i];
-        let id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
+        let mut id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
         let first_part =
             u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
         let second_part =
@@ -216,7 +227,10 @@ pub fn parse_articles(file_data: &FileData) -> Vec<Article> {
         let article_type = match (file_data.bytes[i+7],file_data.bytes[i+11]) {
             (0xB0,0x40) => ArticleType::Item,
             (_,0x10) => ArticleType::Armor,
-            _ => ArticleType::Weapon,
+            _ => {
+                id = second_part;
+                ArticleType::Weapon
+            },
         };
 
         let info = get_info(id, &article_type).unwrap();
