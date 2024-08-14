@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error}, file::FileData, constants::USERNAME_TO_KEY_INV_OFFSET};
+use super::{enums::{ArticleType, Error}, 
+            file::FileData, 
+            constants::{USERNAME_TO_KEY_INV_OFFSET, USERNAME_TO_INV_OFFSET}};
 use std::{fs::File, io::BufReader};
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ItemInfo {
@@ -187,18 +189,13 @@ pub fn build(file_data: &FileData) -> Inventory {
 
 pub fn inventory_offset(file_data: &FileData) -> (usize, usize) {
     let mut matches: (usize, usize) = (0, 0);
-    for i in file_data.username_offset..file_data.bytes.len() - 4 {
-        let mut buffer = [0; 4];
-        buffer[..4].copy_from_slice(&file_data.bytes[i..i + 4]);
-        let current = u32::from_le_bytes(buffer);
-        let t = 0xfffff040 as u32;
-        let e = 0xffffffff as u32;
-        if t == current {
-            if matches.0 == 0 {
-                matches.0 = i;
-            }
-        } else if e == current && matches.0 != 0 {
-            matches.1 = i + 7;
+    matches.0 = file_data.username_offset + USERNAME_TO_INV_OFFSET;
+    let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
+    let mut buffer = [0; 12];
+    for i in (matches.0 .. file_data.bytes.len()).step_by(16) {
+        buffer.copy_from_slice(&file_data.bytes[i + 4 ..= i + 15]);
+        if end == buffer {
+            matches.1 = i + 15;
             break;
         }
     }
@@ -452,6 +449,29 @@ mod tests {
         //testsave4
         let file_data = FileData::build("saves/testsave4").unwrap();
         assert_eq!(key_inventory_offset(&file_data), 83496);
+    }
+
+    #[test]
+    fn test_inventory_offset() {
+        //testsave0
+        let file_data = FileData::build("saves/testsave0").unwrap();
+        assert_eq!(inventory_offset(&file_data), (0x894c, 0x8cdb));
+
+        //testsave1
+        let file_data = FileData::build("saves/testsave1").unwrap();
+        assert_eq!(inventory_offset(&file_data), (0xaa00, 0xb6af));
+
+        //testsave2
+        let file_data = FileData::build("saves/testsave2").unwrap();
+        assert_eq!(inventory_offset(&file_data), (0xaa44, 0xb643));
+
+        //testsave3
+        let file_data = FileData::build("saves/testsave3").unwrap();
+        assert_eq!(inventory_offset(&file_data), (0xb648, 0xc8b7));
+
+        //testsave4
+        let file_data = FileData::build("saves/testsave4").unwrap();
+        assert_eq!(inventory_offset(&file_data), (0xca34, 0xcfc3));
     }
 
     #[test]
