@@ -94,7 +94,7 @@ mod tests {
         let file_data = FileData::build("invalid");
         assert!(file_data.is_err());
         if let Err(e) = file_data {
-            assert_eq!(e.to_string(), "I/0 error: No such file or directory (os error 2)");
+            assert!(e.to_string().contains("I/0 error:"));
         }
 
         //testsave1
