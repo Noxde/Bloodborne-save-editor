@@ -77,7 +77,7 @@
     },
     "1200": {
       "item_name": "Molotov Cocktail",
-      "item_desc": "Explodes in raging flames when thrown against an object. One of the oldest hunter tools available in the workshop.",
+      "item_desc": "Explodes in raging flames when thrown against an object.",
       "item_img": "https://1.bp.blogspot.com/-JZ2NGi2AGXo/YAMyfpYD-QI/AAAAAAAAhbY/o8xWxVbCDA8YCXAU5SoJ9szyfeLh89c1wCLcBGAsYHQ/s64/menu_icon_00001-00-02.png"
     },
     "1201": {
@@ -170,6 +170,66 @@
       "item_desc": "Fragment of lost wisdom. Use to gain much Insight",
       "item_img": "https://1.bp.blogspot.com/-NaMqBspHVB0/YAP57ytXXlI/AAAAAAAAhfg/tErb5wM1m0Qja-TIvkGtC-jr8XeLMHbzQCLcBGAsYHQ/s64/menu_icon_00001-05-06.png"
     },
+    "1510": {
+      "item_name": "Coldblood Dew (1)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-AKnEKXiDW7I/YAPzksdNE-I/AAAAAAAAhd0/FLiNoC-qqKkPCzULxDRccGk_UnI393D4ACLcBGAsYHQ/s64/menu_icon_00001-00-04.png"
+    },
+    "1511": {
+      "item_name": "Coldblood Dew (2)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-39opiCes9MY/YAPzklprUmI/AAAAAAAAhds/he4wbMFkSAUVL63aXrENGdhsBpfxtUpRgCLcBGAsYHQ/s64/menu_icon_00001-01-04.png"
+    },
+    "1512": {
+      "item_name": "Coldblood Dew (3)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-NNc4gQPcQek/YAPzkhL9DqI/AAAAAAAAhdw/ckPTfoMo-F0iJ3ZR87_f3bgy88omRvk6QCLcBGAsYHQ/s64/menu_icon_00001-02-04.png"
+    },
+    "1513": {
+      "item_name": "Thick Coldblood (4)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-oAOmOLjMYhU/YAP0nBMzxrI/AAAAAAAAheI/VjC_enY15Y82E6WkiWCNOHpCBWi6J67KwCLcBGAsYHQ/s64/menu_icon_00001-03-04.png"
+    },
+    "1514": {
+      "item_name": "Thick Coldblood (5)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-rqvRrAnTHjo/YAP0nDGzsGI/AAAAAAAAheE/rVM2W1SS9LoycK5XrUu2L7l3_N4tQHJMgCLcBGAsYHQ/s64/menu_icon_00001-04-04.png"
+    },
+    "1515": {
+      "item_name": "Thick Coldblood (6)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-Z9e_xkrXgXo/YAP0nF9b_9I/AAAAAAAAheA/bSwdvFyCihAEe4-l9w9DrEhiazusoqlNACLcBGAsYHQ/s64/menu_icon_00001-05-04.png"
+    },
+    "1516": {
+      "item_name": "Frenzied Coldblood (7)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-SSZ59Osa3V8/YAP1maq7zOI/AAAAAAAAheY/jsOCNqnQix8zrC0L0AU-qwIvD7BjtMJYQCLcBGAsYHQ/s64/menu_icon_00001-06-04.png"
+    },
+    "1517": {
+      "item_name": "Frenzied Coldblood (8)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-LT5-hI2Iado/YAP1mZobe9I/AAAAAAAAhec/2WK2s6u41k0H5NiFio_bQRgyh75hC94pQCLcBGAsYHQ/s64/menu_icon_00001-07-04.png"
+    },
+    "1518": {
+      "item_name": "Frenzied Coldblood (9)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-3UWN6K2HyiI/YAP1n1uWMvI/AAAAAAAAheg/zB74YBy4DtAxWxFcABU4RdUSb_Hv8x2wwCLcBGAsYHQ/s64/menu_icon_00001-08-04.png"
+    },
+    "1519": {
+      "item_name": "Kin Coldblood (10)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-RKGnaxhkOrE/YAP2huWuEyI/AAAAAAAAhew/UvdUiNVs6Es1Ywh7dZfwplWVF1iP3EFeACLcBGAsYHQ/s64/menu_icon_00001-09-04.png"
+    },
+    "1590": {
+      "item_name": "Kin Coldblood (11)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-bnbAN3P7_Cg/YAP2jdg6PYI/AAAAAAAAhe0/uNkkwr7rcJYcRPzjyDfzPZFYu0F50vXiACLcBGAsYHQ/s64/menu_icon_00001-06-06.png"
+    },
+    "1591": {
+      "item_name": "Kin Coldblood (12)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "https://1.bp.blogspot.com/-72jvWZLpdRE/YAP2jTas2CI/AAAAAAAAhe4/KHgYHtB7uGMQ2N2mDAGtCEf-DKWJj8Q6ACLcBGAsYHQ/s64/menu_icon_00001-07-06.png"
+    },
     "1592": {
       "item_name": "Great One Coldblood",
       "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
@@ -227,6 +287,26 @@
       "item_desc": "Material used in a Holy Chalice ritual.",
       "item_img": "https://1.bp.blogspot.com/-WfIoNq_SDxc/X6hAQN0-mlI/AAAAAAAAgw8/ax-arV4u9lAUDEQLb36JI3gl-Y9QoHFqACLcBGAsYHQ/s64/menu_icon_00001-03-07.png"
     },
+    "7001": {
+      "item_name": "Ritual Blood (2)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-3YqUnlQ_oDY/X6hAjbTMasI/AAAAAAAAgxE/LOEZDDZm2zk76m521QArmahV-EIH1pwTgCLcBGAsYHQ/s64/menu_icon_00001-04-07.png"
+    },
+    "7002": {
+      "item_name": "Ritual Blood (3)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-VwANa_BQdvM/X6hA1xlRqDI/AAAAAAAAgxM/eP1HPyCe9SoKn6GEzY45tV4w9TCm4BVwwCLcBGAsYHQ/s64/menu_icon_00001-05-07.png"
+    },
+    "7003": {
+      "item_name": "Ritual Blood (4)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-jBSMPCXILCs/X6hBKQVmqNI/AAAAAAAAgxU/-XCXXYzWhzsSX5sdhz60n-zSpD8duNg9gCLcBGAsYHQ/s64/menu_icon_00002-04-00.png"
+    },
+    "7004": {
+      "item_name": "Ritual Blood (5)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-z4vrNAZKRKo/X6hBa9SQrtI/AAAAAAAAgxc/JflMVY9ROW4DGuCGVLDX5CgZjvjroufKgCLcBGAsYHQ/s64/menu_icon_00002-05-00.png"
+    },
     "7012": {
       "item_name": "Coldblood Flowerbud",
       "item_desc": "Material used in a Holy Chalice ritual.",
@@ -246,6 +326,26 @@
       "item_name": "Tomb Mold (1)",
       "item_desc": "Material used in a Holy Chalice ritual.",
       "item_img": "https://1.bp.blogspot.com/-uT3e-GCIUCM/X6hCnJgfIYI/AAAAAAAAgxk/v__sSSNGnG0QTlCFHgJK6kVo3jEdTCNmQCLcBGAsYHQ/s64/menu_icon_00001-09-07.png"
+    },
+    "7021": {
+      "item_name": "Tomb Mold (2)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-Zw8DlKkZXWs/X6hC9puDK9I/AAAAAAAAgxs/i5_oymEUhQIRmybud0F5j2khsabOQZ6awCLcBGAsYHQ/s64/menu_icon_00001-10-07.png"
+    },
+    "7022": {
+      "item_name": "Tomb Mold (3)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-XKQ60tk1sY0/X6hDNfrMFRI/AAAAAAAAgx0/b2UhghPYvPEMRWTKd_dlYlDS6TmrKqRfQCLcBGAsYHQ/s64/menu_icon_00001-11-07.png"
+    },
+    "7023": {
+      "item_name": "Tomb Mold (4)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-9_934hZC9gI/X6hDeXeO37I/AAAAAAAAgx8/RmP6KMvhjjI8vSsTIlO2rPISxT98naaEACLcBGAsYHQ/s64/menu_icon_00002-00-01.png"
+    },
+    "7024": {
+      "item_name": "Tomb Mold (5)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "https://1.bp.blogspot.com/-QrMg-RqMrwk/X6hDvtdEl6I/AAAAAAAAgyE/oRi3RfVBtVAcrWMaeKH0cu6W8DzsQ7aFQCLcBGAsYHQ/s64/menu_icon_00002-01-01.png"
     },
     "7050": {
       "item_name": "Arcane Haze",
@@ -408,6 +508,11 @@
       "item_name": "Queenly Flesh",
       "item_desc": "The remains of Annalise, Vileblood Queen of Cainhurst.",
       "item_img": "https://1.bp.blogspot.com/-qYMLAu_AfyI/X90YaLqHyaI/AAAAAAAAhUI/vbLoow62MlMkcvbT1h0z5VsuNlUxVFl6gCLcBGAsYHQ/s64/menu_item_img_00002-06-03.png"
+    },
+    "4306": {
+      "item_name": "Red Jeweled Brooch",
+      "item_desc": "A woman's bright-red brooch, engraved with the name Viola.",
+      "item_img": "https://1.bp.blogspot.com/-6sRob8OL_y0/YAP7gRH186I/AAAAAAAAhf4/7Lq0ffIvh-g0IH8OtjPIzOQEUoPMRrcIQCLcBGAsYHQ/s64/menu_icon_00002-07-03.png"
     },
     "4308": {
       "item_name": "Unopened Summons",
