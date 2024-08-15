@@ -1,5 +1,5 @@
 {
-  "consumables": {
+  "consumable": {
     "100": {
       "item_name": "Hunter's Mark",
       "item_desc": "Sacrifice all Blood Echoes and awaken anew",
@@ -281,7 +281,7 @@
       "item_img": "https://1.bp.blogspot.com/-qw28_fo3gts/YAR7PGW9tdI/AAAAAAAAhgg/A4b0OM4x1-QhgnmFdCm9ofhOPmyK7Y0PwCLcBGAsYHQ/s64/menu_icon_00001-03-05.png"
     }
   },
-  "materials": {
+  "material": {
     "7000": {
       "item_name": "Ritual Blood (1)",
       "item_desc": "Material used in a Holy Chalice ritual.",
@@ -580,7 +580,7 @@
       "item_img": "https://1.bp.blogspot.com/-VmhYtdrypZQ/X92fec71EmI/AAAAAAAAhW4/9y1pL-cg44QRJnwWqUo9nIwue6_Lygh3gCLcBGAsYHQ/s64/menu_item_img_00001-09-05.png"
     }
   },
-  "chalices": {
+  "chalice": {
     "6100": {
       "item_img": "https://1.bp.blogspot.com/-8SI64xiAoXE/X6Y3CxXtYlI/AAAAAAAAgsw/CLQycK8Q9AENRYZwENbnBN8fooCaFgajgCLcBGAsYHQ/s64/Root_Pthumeru_Chalice_item_img.png",
       "item_name": "Pthumeru Root Chalice",

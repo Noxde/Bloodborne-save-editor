@@ -37,10 +37,10 @@ pub enum ArticleType {
 impl ArticleType {
     pub fn from_string(string: &str) -> ArticleType {
         match string {
-            "consumables" => ArticleType::Consumable,
-            "materials" => ArticleType::Material,
+            "consumable" => ArticleType::Consumable,
+            "material" => ArticleType::Material,
             "key" => ArticleType::Key,
-            "chalices" => ArticleType::Chalice,
+            "chalice" => ArticleType::Chalice,
             "rightHand" => ArticleType::RightHand,
             "leftHand" => ArticleType::LeftHand,
             "armor" => ArticleType::Armor,
