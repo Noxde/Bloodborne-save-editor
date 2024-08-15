@@ -1,10 +1,18 @@
+import { Link } from "react-router-dom";
+
 function SideBar() {
   return (
     <div id="sideBar">
       <ul>
-        <li>Inventory</li>
-        <li>Stats</li>
-        <li>Character</li>
+        <li>
+          <Link to={"/"}>Inventory</Link>
+        </li>
+        <li>
+          <Link to={"/stats"}>Stats</Link>
+        </li>
+        <li>
+          <Link to={"/character"}>Character</Link>
+        </li>
       </ul>
     </div>
   );

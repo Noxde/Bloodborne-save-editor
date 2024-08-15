@@ -5,27 +5,33 @@ import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import Inventory from "./components/Inventory";
 import { SaveContext } from "./context/context";
+import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
+import Stats from "./components/Stats";
+import Character from "./components/Character";
 
 function App() {
   const [save, setSave] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /**
-   * <nav/>
-   * <main/> routes; sidebar
-   */
-
   return (
     <div className="App">
-      <Nav setLoading={setLoading} save={save} setSave={setSave} />
-      <main>
-        <SideBar />
-        <SaveContext.Provider value={{ save, setSave }}>
-          {loading ? <div>Loading</div> : null}
+      <Router>
+        <Nav setLoading={setLoading} save={save} setSave={setSave} />
+        <main>
+          <SideBar />
+          <SaveContext.Provider value={{ save, setSave }}>
+            {loading ? <div>Loading</div> : null}
 
-          {save != null ? <Inventory /> : null}
-        </SaveContext.Provider>
-      </main>
+            {save != null ? (
+              <Routes>
+                <Route path="/" element={<Inventory />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/character" element={<Character />} />
+              </Routes>
+            ) : null}
+          </SaveContext.Provider>
+        </main>
+      </Router>
     </div>
   );
 }
