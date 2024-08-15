@@ -1,13 +1,67 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a {
+  text-decoration: none;
+  color: white;
 }
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: "Reim";
+  color: inherit;
+  font-size: calc(18px + 2vmin);
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+input {
+  font-family: "Reim";
+  background: #00000081;
+  color: white;
+  /* min-width: 0; */
+  font-size: 16px;
+  border: none;
+  &:disabled {
+    color: #fcfcfc4e;
+  }
+}
+
+/* General scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track - the background of the scrollbar */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 1px solid #6f634b;
+}
+
+/* Thumb - the draggable part of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 248, 223, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Thumb on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #777;
+} */

@@ -12,59 +12,21 @@
 }
 
 .App {
+  position: relative;
   background-image: url("/public/assets/bg.png");
   background-size: cover;
+  background-position: center;
   min-height: 100vh;
   height: 100vh;
   height: 1px;
   font-family: "Reim";
-  font-size: calc(18px + 2vmin);
+  font-size: calc(16px + 2vmin);
   color: white;
-}
-
-main {
-  display: grid;
-  grid-template-columns: 300px 810px 1fr;
-  height: calc(100% - 129px);
-}
-
-canvas {
-  cursor: pointer;
-}
-
-.editButtons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  button {
-    background-color: gray;
-  }
-
-  .editQuantity {
-    display: flex;
-    button {
-      padding: 0.2rem 1rem;
-    }
-  }
-}
-
-#sideBar {
-  padding-top: 3rem;
-  text-align: center;
-  background-color: #00000054;
-  height: 100%;
-  ul {
-    list-style: none;
-    li {
-      cursor: pointer;
-      margin-bottom: 1rem;
-    }
-  }
 }
 
 .nav {
   background-color: #000000a1;
-  padding: 2rem;
+  padding: 1.5rem;
   width: 100%;
   position: block;
   top: 0;
@@ -74,26 +36,24 @@ canvas {
   justify-content: space-between;
 }
 
-button {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-family: "Reim";
-  color: inherit;
-  font-size: calc(18px + 2vmin);
+main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 200px 805px 1fr;
+  height: calc(100% - 111px);
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+#sideBar {
+  padding-top: 3rem;
+  text-align: center;
+  background-color: #000000a2;
+  height: 100%;
+  ul {
+    list-style: none;
+    li {
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
   }
 }
