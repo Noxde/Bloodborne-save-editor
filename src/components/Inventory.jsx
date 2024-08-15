@@ -1,12 +1,17 @@
+import "./inventory.css";
 import { useEffect, useRef, useState, useContext } from "react";
 import { SaveContext } from "../context/context";
 import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
+import ReplaceScreen from "./ReplaceScreen";
+import { getType } from "../utils/drawCanvas";
 
 function Inventory() {
   const inventoryRef = useRef(null);
   const [selected, setSelected] = useState(null);
+  const selectedRef = useRef(null);
   const [quantity, setQuantity] = useState(0);
+  const [replaceScreen, setReplaceScreen] = useState(false);
   const { save, setSave } = useContext(SaveContext);
 
   useEffect(() => {
@@ -40,6 +45,14 @@ function Inventory() {
 
   return (
     <>
+      {replaceScreen ? (
+        <ReplaceScreen
+          setSelected={setSelected}
+          selected={selected}
+          selectedRef={selectedRef}
+          setReplaceScreen={setReplaceScreen}
+        />
+      ) : null}
       <div
         ref={inventoryRef}
         style={{ position: "relative", overflowY: "scroll" }}
