@@ -173,8 +173,11 @@ impl Inventory {
         let (start, _) = inventory_offset(&file_data);
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
-            if (k == &ArticleType::Consumable) | (k == &ArticleType::Material) | (k == &ArticleType::Chalice) {
+            if (k == &ArticleType::Consumable) | (k == &ArticleType::Material) | (k == &ArticleType::Chalice) | (k == &ArticleType::Key) {
                 if let Some(item) = v.iter_mut().find(|item| item.index == index) {
+                    if k == &ArticleType::Key {
+                        return Err(Error::CustomError("ERROR: Key items cannot be edited."));
+                    }
                     item.amount = value;
                     found = true;
                     break;
@@ -492,11 +495,19 @@ mod tests {
         let mut inventory = build(&file_data);
         assert!(check_bytes(&file_data, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
+        //Try to edit a key item
         let result = inventory.edit_item(&mut file_data, 0x00, 0xAABBCCDD);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Key items cannot be edited.");
+        }
+        //Try wrong index
+        let result = inventory.edit_item(&mut file_data, 0xFF, 0xAABBCCDD);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
         }
+
         assert!(inventory.edit_item(&mut file_data, 0x48, 0xAABBCCDD).is_ok());
         assert!(check_bytes(&file_data, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
