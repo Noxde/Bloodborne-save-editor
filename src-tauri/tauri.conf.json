@@ -39,7 +39,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.bloodborne.editor",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -67,11 +67,10 @@
       {
         "fullscreen": false,
         "height": 660,
-        "width": 1320,
-        "minHeight": 660,
-        "minWidth": 1320,
+        "width": 1230,
         "center": true,
-        "resizable": true,
+        "resizable": false,
+        "maximizable": false,
         "title": "Bloodborne Save Editor v0.0.0"
       }
     ]
