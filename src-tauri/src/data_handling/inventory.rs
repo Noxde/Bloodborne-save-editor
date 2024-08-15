@@ -346,8 +346,16 @@ pub fn get_info_item(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
 
     for (category, category_items) in items {
         match category_items.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
-            Some(found) => return Ok((serde_json::from_value(category_items[found].clone()).unwrap(),
-                ArticleType::from_string(&category))),
+            Some(found) => {
+                let mut info: ItemInfo = serde_json::from_value(category_items[found].clone()).unwrap(); 
+                if category == "chalice" {
+                    info.extra_info = Some(json!({
+                        "depth": &category_items[found]["depth"],
+                        "area": &category_items[found]["area"],
+                    }));
+                }
+                return Ok((info, ArticleType::from_string(&category)))
+            },
             None => ()
         }
     }
