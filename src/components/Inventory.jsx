@@ -11,9 +11,13 @@ function Inventory() {
   const [selected, setSelected] = useState(null);
   const selectedRef = useRef(null);
   const [quantity, setQuantity] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState(null);
+
   const { save, setSave } = useContext(SaveContext);
 
+  let index = 0;
   useEffect(() => {
     function manageSelect(e) {
       const {
@@ -22,12 +26,17 @@ function Inventory() {
       } = e;
       console.log(nodeName);
       if (nodeName === "CANVAS") {
-        // console.log(target.dataset.itemId);
-        const { item: itemRaw } = target.dataset;
+        const { item: itemRaw, index } = target.dataset;
         const item = JSON.parse(itemRaw);
+        setHoverIndex(index);
+        console.log(item);
 
+        selectedRef.current = target;
         setSelected(item);
         setQuantity(item.amount);
+      } else if (nodeName === "BUTTON") {
+        const { index } = target.dataset;
+        setSelectedFilter(index);
       }
     }
 
@@ -57,29 +66,115 @@ function Inventory() {
         ref={inventoryRef}
         style={{ position: "relative", overflowY: "scroll" }}
       >
-        <div
-          className="filters"
-          style={{
-            position: "sticky",
-            top: 0,
-            width: "795px",
-            height: "90px",
-            background: "grey",
-            textAlign: "center",
-          }}
-        >
-          {selected?.id}
+        <div className="filters">
+          <div
+            id="filterHover"
+            style={{
+              left: `${5}px`, // Still need to use selectedFilter
+            }}
+          ></div>
+          {/* Could be changed with a component that builds the buttons */}
+          {/* Should change the naming scheme to be iterable */}
+          <button
+            data-index={1}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/consumables.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={2}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/materials.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={3}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/key.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={4}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/right_hand.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={5}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/left_hand.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={6}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/armor.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={7}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/gems.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={8}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/runes.png"
+              })`,
+            }}
+          ></button>
+          <button
+            data-index={9}
+            className="filters-button"
+            style={{
+              background: `url(${
+                process.env.PUBLIC_URL + "/assets/filters/chalices.png"
+              })`,
+            }}
+          ></button>
         </div>
-        {save.inventory.articles.map((x) => (
-          <Item key={x.index} item={x} />
-        ))}
+        <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
+        {Object.keys(save.inventory.articles)
+          .map((x) =>
+            save.inventory.articles[x].map((y) => {
+              return <Item key={index++} index={index + 1} item={y} />;
+            })
+          )
+          .flat()}
       </div>
       <div className="editButtons">
         <div className="editQuantity">
           <input
             type="number"
             value={quantity || 0}
-            disabled={selected?.article_type !== "Item" ? true : false}
+            max={99}
+            min={0}
+            style={{ width: "120px" }}
+            disabled={getType(selected?.article_type) !== "item" ? true : false}
             onChange={(e) => {
               setQuantity(parseInt(e.target.value));
             }}
@@ -91,9 +186,10 @@ function Inventory() {
                 index: selected.index,
                 value: quantity,
               });
+              setSave(editedSave);
 
               const canvas = document.querySelector(
-                `canvas[data-item='${JSON.stringify(selected)}']`
+                `canvas[data-item-id='${selected.id}']`
               );
               console.log(canvas);
               console.log(selected);
@@ -106,17 +202,25 @@ function Inventory() {
 
               ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
               await drawItem(ctx, selected.info, quantity, itemImage);
-
-              setSave(editedSave);
             }}
             disabled={
-              selected?.article_type === "Item" && quantity > 0 ? false : true
+              getType(selected?.article_type) === "item" && quantity > 0
+                ? false
+                : true
             }
           >
             Set
           </button>
         </div>
-        <button>test</button>
+        <button
+          disabled={!!!selected}
+          onClick={async () => {
+            setReplaceScreen(true);
+          }}
+          style={{ width: "200px", backgroundSize: "100% 100%" }}
+        >
+          Replace
+        </button>
       </div>
     </>
   );
