@@ -1,4 +1,4 @@
-import { invoke, dialog, fs } from "@tauri-apps/api";
+import { invoke, dialog } from "@tauri-apps/api";
 import { basename } from "@tauri-apps/api/path";
 import { useState } from "react";
 
@@ -14,20 +14,18 @@ function Nav({ setLoading, setSave, save }) {
       if (!selectedPath) return;
       setLoading(true);
 
-      const fileContents = await fs.readBinaryFile(selectedPath);
       const parsedSave = await invoke("make_save", {
         path: selectedPath,
-        name: "Control",
       });
       setLoading(false);
       setSave(parsedSave);
       setName(await basename(selectedPath));
 
       console.log(selectedPath);
-      console.log(fileContents);
       console.log(parsedSave);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }
 
