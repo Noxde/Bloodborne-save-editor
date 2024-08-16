@@ -1,33 +1,73 @@
 use serde::{Deserialize, Serialize};
-use super::{enums::Error, constants::USERNAME_TO_INV_OFFSET};
+use super::{enums::Error, 
+            constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET}};
 use std::{
     fs,
     io::{self, Read},
 };
 
+#[derive(Serialize, Deserialize, Clone)]
+pub struct Offsets {
+    pub username: usize, //Beginning
+    pub inventory: (usize, usize), //Beginning and end
+    pub key_inventory: (usize, usize), //Beginning and end
+}
+
+impl Offsets {
+    //Searches the username and inventories offsets
+    fn build(bytes: &Vec<u8>) -> Result<Offsets, Error> {
+        let mut username_offset = 0;
+        let mut inventory_offset = (0, 0);
+        let mut key_inventory_offset = (0, 0);
+        let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
+        let inv_start_bytes_len = inv_start_bytes.len();
+
+        //Searches for the inv_start_bytes
+        for i in 0..(bytes.len() - inv_start_bytes_len) {
+            if *inv_start_bytes == bytes[i..(i + inv_start_bytes_len)] {
+                //If the beginning of the inventory is found we calculate the username_offset
+                //and the beginning of the key_inventory
+                inventory_offset.0 = i;
+                username_offset = i - USERNAME_TO_INV_OFFSET;
+                key_inventory_offset.0 = username_offset + USERNAME_TO_KEY_INV_OFFSET;
+                break;
+            }
+        }
+
+        if inventory_offset.0 == 0 {
+            return Err(Error::CustomError("Failed to find username in save data."));
+        }
+
+        //Find the end of the inventories
+        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
+        let find_end = |start: usize| -> Result<usize, Error> {
+            let mut buffer = [0; 12];
+            for i in (start .. bytes.len()).step_by(16) {
+                buffer.copy_from_slice(&bytes[i + 4 ..= i + 15]);
+                if end == buffer {
+                    return Ok(i + 15);
+                }
+            }
+            Err(Error::CustomError("Failed to find the end of the inventory."))
+        };
+        inventory_offset.1 = find_end(inventory_offset.0)?;
+        key_inventory_offset.1 = find_end(key_inventory_offset.0)?;
+
+        Ok(Offsets {
+            username: username_offset,
+            inventory: inventory_offset,
+            key_inventory: key_inventory_offset,
+        })
+    }
+}
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FileData {
     pub bytes: Vec<u8>,
-    pub username_offset: usize,
+    pub offsets: Offsets,
 }
 
 impl FileData {
-    ///Searches the username in the file and, if found, returns it's index minus one.
-    fn search_username(save_data: &Vec<u8>) -> Result<usize, &'static str> {
-        let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
-
-        let inv_start_bytes_len = inv_start_bytes.len();
-
-        //Searches for the inv_start_bytes
-        for i in 0..(save_data.len() - inv_start_bytes_len) {
-            if *inv_start_bytes == save_data[i..(i + inv_start_bytes_len)] {
-                    return Ok(i-USERNAME_TO_INV_OFFSET);
-            }
-        }
-        Err("Failed to find username in save data.")
-    }
-
     pub fn build(path: &str) -> Result<FileData, Error> {
         // Open the save file
         let mut file = fs::File::open(path).map_err(Error::IoError)?;
@@ -40,18 +80,18 @@ impl FileData {
         let mut bytes = Vec::new();
         file.read_to_end(&mut bytes).map_err(Error::IoError)?;
 
-        let username_offset =
-            FileData::search_username(&bytes).map_err(Error::CustomError)?;
+        //Search the offsets
+        let offsets = Offsets::build(&bytes)?;
 
         Ok(FileData {
             bytes,
-            username_offset,
+            offsets,
         })
     }
 
     //offset_from_username is value_offset-username_offset
     pub fn get_number(&self, offset_from_username: isize, length: usize) -> u32 {
-        let value_offset = (self.username_offset as isize + offset_from_username) as usize;
+        let value_offset = (self.offsets.username as isize + offset_from_username) as usize;
         let value_bytes = &self.bytes[value_offset..value_offset + length];
 
         let mut value: u32 = 0;
@@ -66,7 +106,7 @@ impl FileData {
 
     pub fn edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {
         let value_bytes = value.to_le_bytes();
-        let from_offset = (self.username_offset as isize + rel_offset) as usize;
+        let from_offset = (self.offsets.username as isize + rel_offset) as usize;
 
         for i in 0..times {
             let offset = i * 4;
@@ -86,10 +126,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_search_username() {
-        //testsave0
-        let file_data = FileData::build("saves/testsave0").unwrap();
-        assert_eq!(file_data.username_offset, 34679);
+    fn offsets_build() {
         //Test with invalid path
         let file_data = FileData::build("invalid");
         assert!(file_data.is_err());
@@ -97,20 +134,34 @@ mod tests {
             assert!(e.to_string().contains("I/0 error:"));
         }
 
+        //testsave0
+        let file_data = FileData::build("saves/testsave0").unwrap();
+        assert_eq!(file_data.offsets.username, 0x8777);
+        assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cdb));
+        assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
+
         //testsave1
         let file_data = FileData::build("saves/testsave1").unwrap();
-        assert_eq!(file_data.username_offset, 43051);
+        assert_eq!(file_data.offsets.username, 0xa82b);
+        assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6af));
+        assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
 
         //testsave2
         let file_data = FileData::build("saves/testsave2").unwrap();
-        assert_eq!(file_data.username_offset, 43119);
+        assert_eq!(file_data.offsets.username, 0xa86f);
+        assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb643));
+        assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
 
         //testsave3
         let file_data = FileData::build("saves/testsave3").unwrap();
-        assert_eq!(file_data.username_offset, 46195);
+        assert_eq!(file_data.offsets.username, 0xb473);
+        assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8b7));
+        assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
 
         //testsave4
         let file_data = FileData::build("saves/testsave4").unwrap();
-        assert_eq!(file_data.username_offset, 51295);
+        assert_eq!(file_data.offsets.username, 0xc85f);
+        assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
+        assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
     }
 }

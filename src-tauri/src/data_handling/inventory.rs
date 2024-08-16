@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error},
-            file::FileData,
-            constants::{USERNAME_TO_KEY_INV_OFFSET, USERNAME_TO_INV_OFFSET}};
+use super::{enums::{ArticleType, Error}, file::FileData};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap};
@@ -42,7 +40,7 @@ impl Article {
         if new_id.len()!=3 {
             Err(Error::CustomError("ERROR: 'new_id' argument must be 3B long."))
         } else {
-            let (start, finish) = inventory_offset(&file_data);
+            let (start, finish) = file_data.offsets.inventory;
             for i in (start..finish).step_by(16) {
                 if self.index == file_data.bytes[i] {
 
@@ -97,7 +95,7 @@ impl Article {
         if new_id.len()!=4 {
             Err(Error::CustomError("ERROR: 'new_id' argument must be 4B long."))
         } else {
-            let (start, finish) = inventory_offset(&file_data);
+            let (start, finish) = file_data.offsets.inventory;
             for i in (start..finish).step_by(16) {
                 if self.index == file_data.bytes[i] {
 
@@ -178,7 +176,7 @@ impl Inventory {
     ///Modifies the amount of an article
     pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, value: u32) -> Result<(), Error> {
         let value_endian = u32::to_le_bytes(value);
-        let (start, _) = inventory_offset(&file_data);
+        let (start, _) = file_data.offsets.inventory;
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
             if (k == &ArticleType::Consumable) || (k == &ArticleType::Material) || (k == &ArticleType::Chalice) || (k == &ArticleType::Key) {
@@ -207,7 +205,7 @@ impl Inventory {
     }
 
     pub fn _add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32) -> Result<(), Error> {
-        let (_, inventory_end) = inventory_offset(file_data);
+        let (_, inventory_end) = file_data.offsets.inventory;
         let endian_id = u32::to_le_bytes(id);
         let endian_quantity = u32::to_le_bytes(quantity);
 
@@ -252,28 +250,9 @@ pub fn build(file_data: &FileData) -> Inventory {
     }
 }
 
-pub fn inventory_offset(file_data: &FileData) -> (usize, usize) {
-    let mut matches: (usize, usize) = (0, 0);
-    matches.0 = file_data.username_offset + USERNAME_TO_INV_OFFSET;
-    let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
-    let mut buffer = [0; 12];
-    for i in (matches.0 .. file_data.bytes.len()).step_by(16) {
-        buffer.copy_from_slice(&file_data.bytes[i + 4 ..= i + 15]);
-        if end == buffer {
-            matches.1 = i + 15;
-            break;
-        }
-    }
-    matches
-}
-
-pub fn key_inventory_offset(file_data: &FileData) -> usize {
-    file_data.username_offset + USERNAME_TO_KEY_INV_OFFSET
-}
-
 pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>> {
     let mut articles = HashMap::new();
-    let (inventory_start, _) = inventory_offset(file_data);
+    let (inventory_start, _) = file_data.offsets.inventory;
     for i in (inventory_start..file_data.bytes.len()).step_by(16) {
         let index = file_data.bytes[i];
         let mut id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
@@ -316,7 +295,7 @@ pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>
 
 pub fn parse_key_inventory(file_data: &FileData) -> Vec<Article> {
     let mut articles = Vec::new();
-    let inventory_start = key_inventory_offset(file_data);
+    let (inventory_start, _) = file_data.offsets.key_inventory;
     for i in (inventory_start..file_data.bytes.len()).step_by(16) {
         let index = file_data.bytes[i] + 1;
         let id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
@@ -532,52 +511,6 @@ mod tests {
         assert!(check_bytes(&file_data, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
         assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap()[0].amount, 0xAABBCCDD);
-    }
-
-    #[test]
-    fn test_key_inventory_offset() {
-        //testsave0
-        let file_data = FileData::build("saves/testsave0").unwrap();
-        assert_eq!(key_inventory_offset(&file_data), 66880);
-
-        //testsave1
-        let file_data = FileData::build("saves/testsave1").unwrap();
-        assert_eq!(key_inventory_offset(&file_data), 75252);
-
-        //testsave2
-        let file_data = FileData::build("saves/testsave2").unwrap();
-        assert_eq!(key_inventory_offset(&file_data), 75320);
-
-        //testsave3
-        let file_data = FileData::build("saves/testsave3").unwrap();
-        assert_eq!(key_inventory_offset(&file_data), 78396);
-
-        //testsave4
-        let file_data = FileData::build("saves/testsave4").unwrap();
-        assert_eq!(key_inventory_offset(&file_data), 83496);
-    }
-
-    #[test]
-    fn test_inventory_offset() {
-        //testsave0
-        let file_data = FileData::build("saves/testsave0").unwrap();
-        assert_eq!(inventory_offset(&file_data), (0x894c, 0x8cdb));
-
-        //testsave1
-        let file_data = FileData::build("saves/testsave1").unwrap();
-        assert_eq!(inventory_offset(&file_data), (0xaa00, 0xb6af));
-
-        //testsave2
-        let file_data = FileData::build("saves/testsave2").unwrap();
-        assert_eq!(inventory_offset(&file_data), (0xaa44, 0xb643));
-
-        //testsave3
-        let file_data = FileData::build("saves/testsave3").unwrap();
-        assert_eq!(inventory_offset(&file_data), (0xb648, 0xc8b7));
-
-        //testsave4
-        let file_data = FileData::build("saves/testsave4").unwrap();
-        assert_eq!(inventory_offset(&file_data), (0xca34, 0xcfc3));
     }
 
     #[test]
