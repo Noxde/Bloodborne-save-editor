@@ -72,6 +72,14 @@ impl Article {
                     }
                     let second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x40]);
 
+                    //Set amount to 1 if the item is a key or a chalice
+                    if (article_type == ArticleType::Key) || (article_type == ArticleType::Chalice) {
+                        let amount = vec![0x01, 0x00, 0x00, 0x00];
+                        for j in i+12..=i+15 {
+                            file_data.bytes[j] = amount[j-i-12];
+                        }
+                        self.amount = 1;
+                    }
 
                     self.first_part = first_part;
                     self.second_part = second_part;
@@ -173,7 +181,7 @@ impl Inventory {
         let (start, _) = inventory_offset(&file_data);
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
-            if (k == &ArticleType::Consumable) | (k == &ArticleType::Material) | (k == &ArticleType::Chalice) | (k == &ArticleType::Key) {
+            if (k == &ArticleType::Consumable) || (k == &ArticleType::Material) || (k == &ArticleType::Chalice) || (k == &ArticleType::Key) {
                 if let Some(item) = v.iter_mut().find(|item| item.index == index) {
                     if k == &ArticleType::Key {
                         return Err(Error::CustomError("ERROR: Key items cannot be edited."));
@@ -435,7 +443,7 @@ mod tests {
         let mut inventory = build(&file_data);
 
         let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x89cc, 
+        assert!(check_bytes(&file_data, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
         let result = article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]);
         assert!(result.is_err());
@@ -443,17 +451,29 @@ mod tests {
             assert_eq!(error.to_string(), "Save error: ERROR: Failed to find info for the item.");
         }
         article.transform_item(&mut file_data, vec![0x64,0x1B,0x00]).unwrap();
-        assert!(check_bytes(&file_data, 0x89cc, 
+        assert!(check_bytes(&file_data, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0x1B,0x00,0xB0,0x64,0x1B,0x00,0x40,0x01,0,0,0]));
         assert_eq!(article.id, u32::from_le_bytes([0x64,0x1B,0x00,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x64,0x1B,0x00,0xB0]));
         assert_eq!(article.second_part, u32::from_le_bytes([0x64,0x1B,0x00,0x40]));
+        assert_eq!(article.article_type, ArticleType::Material);
 
         //error tests
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB]).is_err());
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]).is_err());
         article.index = 255;
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+
+        //test transforming a Consumable into a Key
+        let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[1];
+        assert_eq!(article.amount, 20);
+        assert!(check_bytes(&file_data, 0x89FC,
+            &[0x4B,0x00,0xFD,0x7F,0x84,0x03,0x00,0xB0,0x84,0x03,0x00,0x40,0x14,0x00,0x00,0x00]));
+        article.transform_item(&mut file_data, vec![0xA0,0x0F,0x00]).unwrap();
+        assert!(check_bytes(&file_data, 0x89FC,
+            &[0x4B,0x00,0xFD,0x7F,0xA0,0x0F,0x00,0xB0,0xA0,0x0F,0x00,0x40,0x01,0x00,0x00,0x00]));
+        assert_eq!(article.article_type, ArticleType::Key);
+        assert_eq!(article.amount, 1);
     }
 
     #[test]
