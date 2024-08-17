@@ -121,4 +121,26 @@ mod tests {
             value: 99,
         });
     }
+
+    #[test]
+    fn stat_edit() {
+        //testsave0
+        let mut file_data = FileData::build("saves/testsave0").unwrap();
+        let mut stats = new(&file_data).unwrap();
+        assert_eq!(stats[0].value, 1900);
+        assert_eq!(stats[1].value, 91);
+        assert_eq!(stats[2].value, 9987417);
+        assert_eq!(stats[3].value, 231);
+        assert_eq!(stats[4].value, 594);
+        stats[0].edit(10, &mut file_data);
+        stats[1].edit(20, &mut file_data);
+        stats[2].edit(30, &mut file_data);
+        stats[3].edit(40, &mut file_data);
+        stats[4].edit(50, &mut file_data);
+        assert_eq!(stats[0].value, 10);
+        assert_eq!(stats[1].value, 20);
+        assert_eq!(stats[2].value, 30);
+        assert_eq!(stats[3].value, 40);
+        assert_eq!(stats[4].value, 50);
+    }
 }

@@ -424,12 +424,12 @@ mod tests {
         let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[0];
         assert!(check_bytes(&file_data, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
-        let result = article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]);
+        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Failed to find info for the item.");
         }
-        article.transform_item(&mut file_data, vec![0x64,0x1B,0x00]).unwrap();
+        article.transform(&mut file_data, u32::from_le_bytes([0x64,0x1B,0x00,0x00])).unwrap();
         assert!(check_bytes(&file_data, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0x1B,0x00,0xB0,0x64,0x1B,0x00,0x40,0x01,0,0,0]));
         assert_eq!(article.id, u32::from_le_bytes([0x64,0x1B,0x00,0x00]));
@@ -439,7 +439,7 @@ mod tests {
 
         //error tests
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB]).is_err());
-        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]).is_err());
+        assert!(article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD])).is_err());
         article.index = 255;
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
 
@@ -448,7 +448,7 @@ mod tests {
         assert_eq!(article.amount, 20);
         assert!(check_bytes(&file_data, 0x89FC,
             &[0x4B,0x00,0xFD,0x7F,0x84,0x03,0x00,0xB0,0x84,0x03,0x00,0x40,0x14,0x00,0x00,0x00]));
-        article.transform_item(&mut file_data, vec![0xA0,0x0F,0x00]).unwrap();
+        article.transform(&mut file_data, u32::from_le_bytes([0xA0,0x0F,0x00,0x00])).unwrap();
         assert!(check_bytes(&file_data, 0x89FC,
             &[0x4B,0x00,0xFD,0x7F,0xA0,0x0F,0x00,0xB0,0xA0,0x0F,0x00,0x40,0x01,0x00,0x00,0x00]));
         assert_eq!(article.article_type, ArticleType::Key);
@@ -465,12 +465,12 @@ mod tests {
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x80,0x9f,0xd5,0x00,0x01,0x00,0x00,0x00]));
         assert!(check_bytes(&file_data, 0x5f8, 
             &[0x80,0x9f,0xd5,0x00]));
-        let result = article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]);
+        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]));
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Failed to find info for the article.");
         }
-        article.transform_armor_or_weapon(&mut file_data, vec![0x40,0x4b,0x4c,0x00]).unwrap();
+        article.transform(&mut file_data, u32::from_le_bytes([0x40,0x4b,0x4c,0x00])).unwrap();
 
         assert!(check_bytes(&file_data, 0x89ec, 
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x40,0x4b,0x4c,0x00,0x01,0x00,0x00,0x00]));

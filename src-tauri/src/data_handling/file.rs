@@ -42,7 +42,7 @@ impl Offsets {
         let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
         let find_end = |start: usize| -> Result<usize, Error> {
             let mut buffer = [0; 12];
-            for i in (start .. bytes.len()).step_by(16) {
+            for i in (start .. bytes.len() - 15).step_by(16) {
                 buffer.copy_from_slice(&bytes[i + 4 ..= i + 15]);
                 if end == buffer {
                     return Ok(i + 15);
@@ -79,6 +79,10 @@ impl FileData {
         // Read the entire file into a vector of bytes
         let mut bytes = Vec::new();
         file.read_to_end(&mut bytes).map_err(Error::IoError)?;
+
+        if bytes.is_empty() {
+            return Err(Error::CustomError("The selected file is empty."));
+        }
 
         //Search the offsets
         let offsets = Offsets::build(&bytes)?;
@@ -132,6 +136,27 @@ mod tests {
         assert!(file_data.is_err());
         if let Err(e) = file_data {
             assert!(e.to_string().contains("I/0 error:"));
+        }
+
+        //Test with empty save
+        let file_data = FileData::build("saves/emptysave");
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "Save error: The selected file is empty.");
+        }
+
+        //Test with a save that has no inventory
+        let file_data = FileData::build("saves/no_inv_save");
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "Save error: Failed to find username in save data.");
+        }
+
+        //Test a save in which the inventory has no end
+        let file_data = FileData::build("saves/no_inv_end_save");
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "Save error: Failed to find the end of the inventory.");
         }
 
         //testsave0
