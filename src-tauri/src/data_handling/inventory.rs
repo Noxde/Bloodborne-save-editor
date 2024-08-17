@@ -204,7 +204,7 @@ impl Inventory {
         Ok(())
     }
 
-    pub fn _add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32) -> Result<(), Error> {
+    pub fn add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32) -> Result<(), Error> {
         let (_, inventory_end) = file_data.offsets.inventory;
         let endian_id = u32::to_le_bytes(id);
         let endian_quantity = u32::to_le_bytes(quantity);
@@ -218,7 +218,7 @@ impl Inventory {
         }
         file_data.bytes[inventory_end + 3] = 0xB0;
         file_data.bytes[inventory_end + 7] = 0x40;
-        file_data.bytes[inventory_end + 12] = file_data.bytes[inventory_end - 4] + 1;
+        (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
 
         let id = u32::from_le_bytes(endian_id);
 
@@ -461,9 +461,9 @@ mod tests {
         let mut inventory = build(&file_data);
 
         let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x89ec, 
+        assert!(check_bytes(&file_data, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x80,0x9f,0xd5,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8, 
+        assert!(check_bytes(&file_data, 0x5f8,
             &[0x80,0x9f,0xd5,0x00]));
         let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]));
         assert!(result.is_err());
@@ -472,20 +472,41 @@ mod tests {
         }
         article.transform(&mut file_data, u32::from_le_bytes([0x40,0x4b,0x4c,0x00])).unwrap();
 
-        assert!(check_bytes(&file_data, 0x89ec, 
+        assert!(check_bytes(&file_data, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x40,0x4b,0x4c,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8, 
+        assert!(check_bytes(&file_data, 0x5f8,
             &[0x40,0x4b,0x4c,0x00]));
         assert_eq!(article.id, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x51,0x00,0x80,0x80]));
         assert_eq!(article.second_part, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]));
+
+        //transform an armor
+        let article = &mut inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
+        assert!(check_bytes(&file_data, 0x898c,
+            &[0x44,0xf0,0xff,0xff,0x48,0x00,0x80,0x90,0x70,0x82,0x03,0x10,0x01,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x3dc,
+            &[0x70,0x82,0x03,0x10]));
+
+        article.transform(&mut file_data, u32::from_le_bytes([0x60,0x5b,0x03,0x00])).unwrap();
+
+        assert!(check_bytes(&file_data, 0x898c,
+            &[0x44,0xf0,0xff,0xff,0x48,0x00,0x80,0x90,0x60,0x5b,0x03,0x10,0x01,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x3dc,
+            &[0x60,0x5b,0x03,0x10]));
+        assert_eq!(article.id, u32::from_le_bytes([0x60,0x5b,0x03,0x00]));
+        assert_eq!(article.first_part, u32::from_le_bytes([0x48,0x00,0x80,0x90]));
+        assert_eq!(article.second_part, u32::from_le_bytes([0x60,0x5b,0x03,0x10]));
 
         //error tests
         assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
         assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD,0xEE]).is_err());
 
         article.index = 255;
-        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+        let result = article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD]);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
+        }
     }
 
     #[test]
@@ -566,5 +587,37 @@ mod tests {
         assert_eq!(articles[5].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
         assert_eq!(articles[5].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(articles[5].article_type, ArticleType::Key);
+    }
+
+    #[test]
+    fn inventory_add_item() {
+        let mut file_data = build_file_data();
+        let mut inventory = build(&file_data);
+        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 15);
+        assert!(check_bytes(&file_data, 0x8cdb, 
+            &[0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00]));
+        //Try to add an invalid item
+        let result = inventory.add_item(&mut file_data, 0x00, 0x00);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: failed to find info for the item.");
+        }
+
+        inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32).unwrap();
+        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 16);
+        assert!(check_bytes(&file_data, 0x8cdb, 
+            &[0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));
+
+        //let file_data = build_file_data();
+        //let inventory = build(&file_data);
+        //let consumables = inventory.articles.get(&ArticleType::Consumable).unwrap();
+        //let new_item = consumables.last().unwrap();
+        //assert_eq!(consumables.len(), 16);
+        //assert_eq!(new_item.index, 5);
+        //assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
+        //assert_eq!(new_item.first_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0xb0]));
+        //assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
+        //assert_eq!(new_item.amount, u32::from_le_bytes([0x20, 0x00, 0x00, 0x00]));
+        //assert_eq!(new_item.article_type, ArticleType::Consumable);
     }
 }
