@@ -28,7 +28,7 @@ impl Article {
     pub fn transform(&mut self, file_data: &mut FileData, new_id: u32) -> Result<(), Error>{
         let mut new_id = new_id.to_le_bytes().to_vec();
         match self.article_type {
-            ArticleType::Consumable | ArticleType::Material | ArticleType::Chalice => {
+            ArticleType::Consumable | ArticleType::Material | ArticleType::Chalice | ArticleType::Key => {
                 new_id.pop();
                 self.transform_item(file_data, new_id)
             },
@@ -38,57 +38,72 @@ impl Article {
     }
     fn transform_item(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
         if new_id.len()!=3 {
-            Err(Error::CustomError("ERROR: 'new_id' argument must be 3B long."))
-        } else {
-            let (start, finish) = file_data.offsets.inventory;
-            for i in (start..finish).step_by(16) {
-                if self.index == file_data.bytes[i] {
-
-                    //ID
-                    let id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
-
-                    let info;
-                    let article_type;
-                    //INFO & ARTICLE_TYPE
-                    if let Ok((new_info, new_article_type)) = get_info_item(id) {
-                        info = new_info;
-                        article_type = new_article_type;
-                    } else {
-                        return Err(Error::CustomError("ERROR: Failed to find info for the item."));
-                    }
-
-                    //Only update data if the item is valid
-                    //FIRST PART
-                    for j in i+4..=i+6 {
-                        file_data.bytes[j] = new_id[j-i-4];
-                    }
-                    let first_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0xB0]);
-
-                    //SECOND PART
-                    for j in i+8..=i+10 {
-                        file_data.bytes[j] = new_id[j-i-8];
-                    }
-                    let second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x40]);
-
-                    //Set amount to 1 if the item is a key or a chalice
-                    if (article_type == ArticleType::Key) || (article_type == ArticleType::Chalice) {
-                        let amount = vec![0x01, 0x00, 0x00, 0x00];
-                        for j in i+12..=i+15 {
-                            file_data.bytes[j] = amount[j-i-12];
-                        }
-                        self.amount = 1;
-                    }
-
-                    self.first_part = first_part;
-                    self.second_part = second_part;
-                    self.info = info;
-                    self.article_type = article_type;
-                    self.id = id;
-                    return Ok(())
-                }
-            }
-            Err(Error::CustomError("ERROR: The Article was not found in the inventory."))
+            return Err(Error::CustomError("ERROR: 'new_id' argument must be 3B long."));
         }
+
+        //ID
+        let id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0]);
+
+        let info;
+        let article_type;
+        //INFO & ARTICLE_TYPE
+        if let Ok((new_info, new_article_type)) = get_info_item(id) {
+            info = new_info;
+            article_type = new_article_type;
+        } else {
+            return Err(Error::CustomError("ERROR: Failed to find info for the item."));
+        }
+
+        let found = |offset| -> bool {
+            self.index == file_data.bytes[offset]
+        };
+
+        //Search for the article in the inventory
+        let mut i = file_data.offsets.inventory.0;
+        while (i <= file_data.offsets.inventory.1 - 16) && (!found(i)) {
+            i+=16;
+        }
+
+        //If the article is an item, and it wasnt found, search for it in the key inventory
+        if (!found(i)) && ((article_type == ArticleType::Consumable) || (article_type == ArticleType::Material) || (article_type == ArticleType::Key) || (article_type == ArticleType::Chalice)) {
+            i = file_data.offsets.key_inventory.0;
+            while (i <= file_data.offsets.key_inventory.1 - 16) && (!found(i)) {
+                i+=16;
+            }
+        }
+
+        if !found(i) {
+            return Err(Error::CustomError("ERROR: The Article was not found in the inventory."));
+        }
+
+        //Only update data if the item is valid
+        //FIRST PART
+        for j in i+4..=i+6 {
+            file_data.bytes[j] = new_id[j-i-4];
+        }
+        let first_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0xB0]);
+
+        //SECOND PART
+        for j in i+8..=i+10 {
+            file_data.bytes[j] = new_id[j-i-8];
+        }
+        let second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x40]);
+
+        //Set amount to 1 if the item is a key or a chalice
+        if (article_type == ArticleType::Key) || (article_type == ArticleType::Chalice) {
+            let amount = vec![0x01, 0x00, 0x00, 0x00];
+            for j in i+12..=i+15 {
+                file_data.bytes[j] = amount[j-i-12];
+            }
+            self.amount = 1;
+        }
+
+        self.first_part = first_part;
+        self.second_part = second_part;
+        self.info = info;
+        self.article_type = article_type;
+        self.id = id;
+        Ok(())
     }
 
     fn transform_armor_or_weapon(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
@@ -297,7 +312,7 @@ pub fn parse_key_inventory(file_data: &FileData) -> Vec<Article> {
     let mut articles = Vec::new();
     let (inventory_start, _) = file_data.offsets.key_inventory;
     for i in (inventory_start..file_data.bytes.len()).step_by(16) {
-        let index = file_data.bytes[i] + 1;
+        let index = file_data.bytes[i];
         let id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
         let first_part =
             u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
@@ -323,7 +338,7 @@ pub fn parse_key_inventory(file_data: &FileData) -> Vec<Article> {
     }
     //The index of the first article needs to be set manually
     if let Some(art) = articles.get_mut(0) {
-        art.index = 0;
+        art.index = 0xff;
     }
     articles
 }
@@ -413,6 +428,12 @@ mod tests {
                 break;
             }
         }
+        if equal == false {
+            println!("check_bytes failed:");
+            for (i, byte) in bytes.iter().enumerate() {
+                println!("File byte: {:#02x}, test byte: {:#02x}", file_data.bytes[index+i], *byte);
+            }
+        }
         equal
     }
 
@@ -441,7 +462,11 @@ mod tests {
         assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB]).is_err());
         assert!(article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD])).is_err());
         article.index = 255;
-        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB,0xCC]).is_err());
+        let result = article.transform(&mut file_data, u32::from_le_bytes([0x64,0x1B,0x00,0x00]));
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
+        }
 
         //test transforming a Consumable into a Key
         let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[1];
@@ -453,6 +478,19 @@ mod tests {
             &[0x4B,0x00,0xFD,0x7F,0xA0,0x0F,0x00,0xB0,0xA0,0x0F,0x00,0x40,0x01,0x00,0x00,0x00]));
         assert_eq!(article.article_type, ArticleType::Key);
         assert_eq!(article.amount, 1);
+
+        //Transform an item in the key inventory
+        let article = &mut inventory.articles.get_mut(&ArticleType::Key).unwrap()[2];
+        assert_eq!(article.id, u32::from_le_bytes([0xd8, 0x10, 0x00,0x00]));
+        assert_eq!(article.amount, 1);
+        assert!(check_bytes(&file_data, 0x10550,
+            &[0x00,0xc0,0x07,0xa6,0xd8,0x10,0x00,0xb0,0xd8,0x10,0x00,0x40,0x01,0x00,0x00,0x00]));
+        article.transform(&mut file_data, u32::from_le_bytes([0xea,0x10,0x00,0x00])).unwrap();
+        assert!(check_bytes(&file_data, 0x10550,
+            &[0x00,0xc0,0x07,0xa6,0xea,0x10,0x00,0xb0,0xea,0x10,0x00,0x40,0x01,0x00,0x00,0x00]));
+        assert_eq!(article.article_type, ArticleType::Key);
+        assert_eq!(article.amount, 1);
+        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
     }
 
     #[test]
@@ -522,7 +560,7 @@ mod tests {
             assert_eq!(error.to_string(), "Save error: ERROR: Key items cannot be edited.");
         }
         //Try wrong index
-        let result = inventory.edit_item(&mut file_data, 0xFF, 0xAABBCCDD);
+        let result = inventory.edit_item(&mut file_data, 0xAA, 0xAABBCCDD);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
@@ -541,7 +579,7 @@ mod tests {
         assert_eq!(articles.len(), 6);
 
         //Item N0
-        assert_eq!(articles[0].index, 0);
+        assert_eq!(articles[0].index, 0xff);
         assert_eq!(articles[0].id, u32::from_le_bytes([0x12, 0x10, 0x00, 0x00]));
         assert_eq!(articles[0].first_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0xb0]));
         assert_eq!(articles[0].second_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0x40]));
@@ -549,7 +587,7 @@ mod tests {
         assert_eq!(articles[0].article_type, ArticleType::Key);
 
         //Item N1
-        assert_eq!(articles[1].index, 1);
+        assert_eq!(articles[1].index, 0);
         assert_eq!(articles[1].id, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x00]));
         assert_eq!(articles[1].first_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0xb0]));
         assert_eq!(articles[1].second_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x40]));
@@ -557,7 +595,7 @@ mod tests {
         assert_eq!(articles[1].article_type, ArticleType::Key);
 
         //Item N2
-        assert_eq!(articles[2].index, 2);
+        assert_eq!(articles[2].index, 1);
         assert_eq!(articles[2].id, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x00]));
         assert_eq!(articles[2].first_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0xb0]));
         assert_eq!(articles[2].second_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x40]));
@@ -565,7 +603,7 @@ mod tests {
         assert_eq!(articles[2].article_type, ArticleType::Key);
 
         //Item N3
-        assert_eq!(articles[3].index, 3);
+        assert_eq!(articles[3].index, 2);
         assert_eq!(articles[3].id, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x00]));
         assert_eq!(articles[3].first_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0xb0]));
         assert_eq!(articles[3].second_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x40]));
@@ -573,7 +611,7 @@ mod tests {
         assert_eq!(articles[3].article_type, ArticleType::Key);
 
         //Item N4
-        assert_eq!(articles[4].index, 4);
+        assert_eq!(articles[4].index, 3);
         assert_eq!(articles[4].id, u32::from_le_bytes([0x07, 0x10, 0x00, 0x00]));
         assert_eq!(articles[4].first_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0xb0]));
         assert_eq!(articles[4].second_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0x40]));
@@ -581,7 +619,7 @@ mod tests {
         assert_eq!(articles[4].article_type, ArticleType::Key);
 
         //Item N5
-        assert_eq!(articles[5].index, 5);
+        assert_eq!(articles[5].index, 4);
         assert_eq!(articles[5].id, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x00]));
         assert_eq!(articles[5].first_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0xb0]));
         assert_eq!(articles[5].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
