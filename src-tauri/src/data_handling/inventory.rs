@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error}, file::FileData};
+use super::{enums::{ArticleType, Error, TypeFamily}, file::FileData};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap};
@@ -22,18 +22,19 @@ pub struct Article {
     pub amount: u32,
     pub info: ItemInfo,
     pub article_type: ArticleType,
+    pub type_family: TypeFamily,
 }
 
 impl Article {
     pub fn transform(&mut self, file_data: &mut FileData, new_id: u32) -> Result<(), Error>{
         let mut new_id = new_id.to_le_bytes().to_vec();
-        match self.article_type {
-            ArticleType::Consumable | ArticleType::Material | ArticleType::Chalice | ArticleType::Key => {
+        match self.type_family {
+            TypeFamily::Item => {
                 new_id.pop();
                 self.transform_item(file_data, new_id)
             },
-            ArticleType::Armor | ArticleType::RightHand | ArticleType::LeftHand => self.transform_armor_or_weapon(file_data, new_id),
-            _ => Err(Error::CustomError("ERROR: This type of article cannot be transformed.")),
+            TypeFamily::Armor | TypeFamily::Weapon => self.transform_armor_or_weapon(file_data, new_id),
+            TypeFamily::Upgrade => Err(Error::CustomError("ERROR: Upgrades cannot be transformed.")),
         }
     }
     fn transform_item(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
@@ -46,10 +47,12 @@ impl Article {
 
         let info;
         let article_type;
+        let type_family;
         //INFO & ARTICLE_TYPE
         if let Ok((new_info, new_article_type)) = get_info_item(id) {
             info = new_info;
             article_type = new_article_type;
+            type_family = article_type.into();
         } else {
             return Err(Error::CustomError("ERROR: Failed to find info for the item."));
         }
@@ -65,7 +68,7 @@ impl Article {
         }
 
         //If the article is an item, and it wasnt found, search for it in the key inventory
-        if (!found(i)) && ((article_type == ArticleType::Consumable) || (article_type == ArticleType::Material) || (article_type == ArticleType::Key) || (article_type == ArticleType::Chalice)) {
+        if (!found(i)) && (type_family == TypeFamily::Item) {
             i = file_data.offsets.key_inventory.0;
             while (i <= file_data.offsets.key_inventory.1 - 16) && (!found(i)) {
                 i+=16;
@@ -102,6 +105,7 @@ impl Article {
         self.second_part = second_part;
         self.info = info;
         self.article_type = article_type;
+        self.type_family = type_family;
         self.id = id;
         Ok(())
     }
@@ -128,6 +132,7 @@ impl Article {
                     let second_part;
                     let info;
                     let article_type;
+                    let type_family;
 
                     if self.article_type == ArticleType::Armor {
                         second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x10]);
@@ -142,6 +147,7 @@ impl Article {
                     if let Ok((new_info, new_article_type)) = result {
                         info = new_info;
                         article_type = new_article_type;
+                        type_family = article_type.into();
                     } else {
                         return Err(Error::CustomError("ERROR: Failed to find info for the article."));
                     }
@@ -174,11 +180,24 @@ impl Article {
                     self.info = info;
                     self.second_part = second_part;
                     self.article_type = article_type;
+                    self.type_family = type_family;
                     return Ok(())
                 }
             }
             Err(Error::CustomError("ERROR: The Article was not found in the inventory."))
         }
+    }
+
+    pub fn is_armor(&self) -> bool {
+        self.type_family == TypeFamily::Armor
+    }
+
+    pub fn is_item(&self) -> bool {
+        self.type_family == TypeFamily::Item
+    }
+
+    pub fn is_weapon(&self) -> bool {
+        self.type_family == TypeFamily::Weapon
     }
 }
 
@@ -194,7 +213,8 @@ impl Inventory {
         let (start, _) = file_data.offsets.inventory;
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
-            if (k == &ArticleType::Consumable) || (k == &ArticleType::Material) || (k == &ArticleType::Chalice) || (k == &ArticleType::Key) {
+            let family: TypeFamily = k.to_owned().into();
+            if family == TypeFamily::Item {
                 if let Some(item) = v.iter_mut().find(|item| item.index == index) {
                     if k == &ArticleType::Key {
                         return Err(Error::CustomError("ERROR: Key items cannot be edited."));
@@ -246,6 +266,7 @@ impl Inventory {
                 info,
                 amount: quantity,
                 article_type,
+                type_family: article_type.into(),
             };
             self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
             return Ok(());
@@ -300,6 +321,7 @@ pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>
                 amount,
                 info,
                 article_type,
+                type_family: article_type.into(),
             };
             let category = articles.entry(article_type).or_insert(Vec::new());
             category.push(article);
@@ -333,6 +355,7 @@ pub fn parse_key_inventory(file_data: &FileData) -> Vec<Article> {
                 amount,
                 info,
                 article_type,
+                type_family: article_type.into(),
             });
         };
     }
@@ -359,7 +382,7 @@ pub fn get_info_item(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
                         "area": &category_items[found]["area"],
                     }));
                 }
-                return Ok((info, ArticleType::from_string(&category)))
+                return Ok((info, ArticleType::from(category.as_str())))
             },
             None => ()
         }
@@ -402,7 +425,7 @@ pub fn get_info_weapon(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
                 info.extra_info = Some(json!({
                     "damage": &category_weapons[found]["damage"]
                 }));
-                return Ok((info, ArticleType::from_string(&category)))
+                return Ok((info, ArticleType::from(category.as_str())))
             },
             None => ()
         }
@@ -490,7 +513,6 @@ mod tests {
             &[0x00,0xc0,0x07,0xa6,0xea,0x10,0x00,0xb0,0xea,0x10,0x00,0x40,0x01,0x00,0x00,0x00]));
         assert_eq!(article.article_type, ArticleType::Key);
         assert_eq!(article.amount, 1);
-        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]));
     }
 
     #[test]
@@ -657,5 +679,20 @@ mod tests {
         //assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
         //assert_eq!(new_item.amount, u32::from_le_bytes([0x20, 0x00, 0x00, 0x00]));
         //assert_eq!(new_item.article_type, ArticleType::Consumable);
+    }
+
+    #[test]
+    fn article_is_type_family() {
+        let file_data = build_file_data();
+        let inventory = build(&file_data);
+        let armor = inventory.articles.get(&ArticleType::Armor).unwrap()[0].clone();
+        let weapon = inventory.articles.get(&ArticleType::LeftHand).unwrap()[0].clone();
+        let item = inventory.articles.get(&ArticleType::Material).unwrap()[0].clone();
+        assert!(armor.is_armor());
+        assert!(weapon.is_weapon());
+        assert!(item.is_item());
+        assert!(!armor.is_weapon());
+        assert!(!weapon.is_item());
+        assert!(!item.is_armor());
     }
 }

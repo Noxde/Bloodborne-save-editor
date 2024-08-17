@@ -34,8 +34,23 @@ pub enum ArticleType {
     Rune,
 }
 
-impl ArticleType {
-    pub fn from_string(string: &str) -> ArticleType {
+impl Into<TypeFamily> for ArticleType {
+    fn into(self) -> TypeFamily {
+        match self {
+            Self::Consumable => TypeFamily::Item,
+            Self::Material => TypeFamily::Item,
+            Self::Key => TypeFamily::Item,
+            Self::Chalice => TypeFamily::Item,
+            Self::RightHand => TypeFamily::Weapon,
+            Self::LeftHand => TypeFamily::Weapon,
+            Self::Armor => TypeFamily::Armor,
+            Self::Gem => TypeFamily::Upgrade,
+            Self::Rune => TypeFamily::Upgrade,
+        }
+    }
+}
+impl From<&str> for ArticleType {
+    fn from(string: &str) -> ArticleType {
         match string {
             "consumable" => ArticleType::Consumable,
             "material" => ArticleType::Material,
@@ -49,4 +64,12 @@ impl ArticleType {
             _ => panic!("ERROR: Invalid category."),
         }
     }
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy)]
+pub enum TypeFamily {
+    Armor,
+    Item,
+    Upgrade,
+    Weapon,
 }
