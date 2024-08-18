@@ -14,7 +14,7 @@ function Inventory() {
   const [quantity, setQuantity] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState("0");
 
   const { save, setSave } = useContext(SaveContext);
 
@@ -36,7 +36,12 @@ function Inventory() {
         setQuantity(item.amount);
       } else if (nodeName === "BUTTON") {
         const { index } = target.dataset;
-        setSelectedFilter(index);
+
+        setSelected(null);
+        setHoverIndex(0);
+        selectedRef.current = null;
+
+        setSelectedFilter((prev) => (prev === index ? "0" : index));
       }
     }
 
