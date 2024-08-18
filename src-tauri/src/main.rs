@@ -20,7 +20,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             return_weapons,
             return_armors,
             return_items,
-            transform_item
+            transform_item,
+            edit_stat,
             ])
         .run(tauri::generate_context!())?;
 
@@ -28,23 +29,29 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 #[tauri::command]
-fn make_save(path: &str, state_save: tauri::State<MutexSave>) -> Result<SaveData, String> {
+fn make_save(path: &str, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     if let Ok(s) = SaveData::build(path) {
         let mut data = state_save.data.lock().unwrap();
         *data = Some(s.clone());
-        Ok(s)
+        Ok(serde_json::json!({
+            "inventory": &s.inventory,
+            "stats": &s.stats
+        }))
     } else {
         Err("Failed to load save, make sure its a decrypted character.".to_string())
     }
 }
 
 #[tauri::command]
-fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexSave>) -> Result<SaveData, ()> {
+fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexSave>) -> Result<Value, ()> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
     match save.inventory.edit_item(&mut save.file, index, id, value) {
-        Ok(_) => Ok(save.clone()),
+        Ok(_) => Ok(serde_json::json!({
+            "inventory": &save.inventory,
+            "stats": &save.stats
+        })),
         Err(_) => Err(())
     }
 }
@@ -88,14 +95,25 @@ fn return_items() -> Value {
 }
 
 #[tauri::command]
-fn transform_item(id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<SaveData, &str> {
+fn transform_item(id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
     let category = save.inventory.articles.get_mut(&article_type).unwrap();
     let item = category.iter_mut().find(|x| x.id == id).unwrap();
     match item.transform(&mut save.file, new_id) {
-        Ok(_) => Ok(save.clone()),
+        Ok(_) => Ok(serde_json::json!({
+            "inventory": &save.inventory,
+            "stats": &save.stats
+        })),
         Err(_) => Err("Failed to transform item")
     }
+}
+
+#[tauri::command]
+fn edit_stat(rel_offset: isize, length: usize, times: usize, value: u32, state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.edit(rel_offset, length, times, value);
 }
