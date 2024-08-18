@@ -57,26 +57,10 @@ impl Article {
             return Err(Error::CustomError("ERROR: Failed to find info for the item."));
         }
 
-        let found = |offset| -> bool {
-            self.index == file_data.bytes[offset]
-        };
-
-        //Search for the article in the inventory
-        let mut i = file_data.offsets.inventory.0;
-        while (i <= file_data.offsets.inventory.1 - 16) && (!found(i)) {
-            i+=16;
-        }
-
-        //If the article is an item, and it wasnt found, search for it in the key inventory
-        if (!found(i)) && (type_family == TypeFamily::Item) {
-            i = file_data.offsets.key_inventory.0;
-            while (i <= file_data.offsets.key_inventory.1 - 16) && (!found(i)) {
-                i+=16;
-            }
-        }
-
-        if !found(i) {
-            return Err(Error::CustomError("ERROR: The Article was not found in the inventory."));
+        let i;
+        match file_data.find_article_offset(self.index, self.id) {
+            Some(offset) => i = offset,
+            None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
 
         //Only update data if the item is valid
@@ -112,80 +96,80 @@ impl Article {
 
     fn transform_armor_or_weapon(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{
         if new_id.len()!=4 {
-            Err(Error::CustomError("ERROR: 'new_id' argument must be 4B long."))
-        } else {
-            let (start, finish) = file_data.offsets.inventory;
-            for i in (start..finish).step_by(16) {
-                if self.index == file_data.bytes[i] {
-
-                    //Take the first and second part to search later
-                    let mut query = Vec::with_capacity(8);
-                    let mut byte_count = 4;
-
-                    for j in 4..=11 {
-                        query.push(file_data.bytes[i+j]);
-                    }
-
-                    //ID
-                    let id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
-                    let result;
-                    let second_part;
-                    let info;
-                    let article_type;
-                    let type_family;
-
-                    if self.article_type == ArticleType::Armor {
-                        second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x10]);
-                        byte_count = 3;
-                        result = get_info_armor(id);
-                    } else {
-                        second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
-                        result = get_info_weapon(id);
-                    }
-
-                    //INFO & ARTICLE_TYPE
-                    if let Ok((new_info, new_article_type)) = result {
-                        info = new_info;
-                        article_type = new_article_type;
-                        type_family = article_type.into();
-                    } else {
-                        return Err(Error::CustomError("ERROR: Failed to find info for the article."));
-                    }
-                    //Update data only if the article is valid
-
-                    //SECOND PART
-                    for j in i+8..i+8+byte_count {
-                        file_data.bytes[j] = new_id[j-i-8];
-                    }
-
-                    //Search for the query above the inventory (where the article appears with its gems)
-                    let mut found = false;
-                    let mut index = 0;
-                    for j in (0..(start - 8)).rev() {
-                        if query == file_data.bytes[j..=(j + 7)] {
-                            found = true;
-                            index = j;
-                            break;
-                        }
-                    }
-                    if !found {
-                        return Err(Error::CustomError("ERROR: The Article was not found above the inventory."))
-                    } else {
-                        //Update the article id
-                        for j in index+4..index+4+byte_count {
-                            file_data.bytes[j] = new_id[j-index-4];
-                        }
-                    }
-                    self.id = id;
-                    self.info = info;
-                    self.second_part = second_part;
-                    self.article_type = article_type;
-                    self.type_family = type_family;
-                    return Ok(())
-                }
-            }
-            Err(Error::CustomError("ERROR: The Article was not found in the inventory."))
+            return Err(Error::CustomError("ERROR: 'new_id' argument must be 4B long."));
         }
+
+        let i;
+        match file_data.find_article_offset(self.index, self.id) {
+            Some(offset) => i = offset,
+            None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
+        }
+        //Take the first and second part to search later
+        let mut query = Vec::with_capacity(8);
+        let mut byte_count = 4;
+
+        for j in 4..=11 {
+            query.push(file_data.bytes[i+j]);
+        }
+
+        //ID
+        let id = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
+        let result;
+        let second_part;
+        let info;
+        let article_type;
+        let type_family;
+
+        if self.article_type == ArticleType::Armor {
+            second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x10]);
+            byte_count = 3;
+            result = get_info_armor(id);
+        } else {
+            second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
+            result = get_info_weapon(id);
+        }
+
+        //INFO & ARTICLE_TYPE
+        if let Ok((new_info, new_article_type)) = result {
+            info = new_info;
+            article_type = new_article_type;
+            type_family = article_type.into();
+        } else {
+            return Err(Error::CustomError("ERROR: Failed to find info for the article."));
+        }
+        //Update data only if the article is valid
+
+        //SECOND PART
+        for j in i+8..i+8+byte_count {
+            file_data.bytes[j] = new_id[j-i-8];
+        }
+
+        //Search for the query above the inventory (where the article appears with its gems)
+        let mut found = false;
+        let mut index = 0;
+        for j in (0..(file_data.offsets.inventory.0 - 8)).rev() {
+            if query == file_data.bytes[j..=(j + 7)] {
+                found = true;
+                index = j;
+                break;
+            }
+        }
+
+        if !found {
+            return Err(Error::CustomError("ERROR: The Article was not found above the inventory."))
+        } else {
+            //Update the article id
+            for j in index+4..index+4+byte_count {
+                file_data.bytes[j] = new_id[j-index-4];
+            }
+        }
+
+        self.id = id;
+        self.info = info;
+        self.second_part = second_part;
+        self.article_type = article_type;
+        self.type_family = type_family;
+        return Ok(())
     }
 
     pub fn is_armor(&self) -> bool {
@@ -208,9 +192,8 @@ pub struct Inventory {
 
 impl Inventory {
     ///Modifies the amount of an article
-    pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, value: u32) -> Result<(), Error> {
+    pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, id: u32, value: u32) -> Result<(), Error> {
         let value_endian = u32::to_le_bytes(value);
-        let (start, _) = file_data.offsets.inventory;
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
             let family: TypeFamily = k.to_owned().into();
@@ -225,17 +208,18 @@ impl Inventory {
                 }
             }
         }
-        if !found {
-            return Err(Error::CustomError("ERROR: The Article was not found in the inventory."));
-        }
-        for i in (start..file_data.bytes.len()).step_by(16) {
-            if index == file_data.bytes[i] {
-                for (i, b) in file_data.bytes[i + 12..i + 16].iter_mut().enumerate() {
-                    *b = value_endian[i];
-                }
-                break;
+
+        let opt = file_data.find_article_offset(index, id);
+        if let Some(offset) = opt {
+            for (i, o) in (offset+12 .. offset+16).enumerate() {
+                file_data.bytes[o] = value_endian[i];
             }
         }
+
+        if opt.is_none() || !found {
+            return Err(Error::CustomError("ERROR: The Article was not found in the inventory."));
+        }
+
         Ok(())
     }
 
@@ -576,19 +560,19 @@ mod tests {
         assert!(check_bytes(&file_data, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
         //Try to edit a key item
-        let result = inventory.edit_item(&mut file_data, 0x00, 0xAABBCCDD);
+        let result = inventory.edit_item(&mut file_data, 0x00, 0xAAAAAAAA, 0xAABBCCDD);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Key items cannot be edited.");
         }
         //Try wrong index
-        let result = inventory.edit_item(&mut file_data, 0xAA, 0xAABBCCDD);
+        let result = inventory.edit_item(&mut file_data, 0xAA, 0xAAAAAAAA, 0xAABBCCDD);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
         }
 
-        assert!(inventory.edit_item(&mut file_data, 0x48, 0xAABBCCDD).is_ok());
+        inventory.edit_item(&mut file_data, 0x48, 0x64, 0xAABBCCDD).unwrap();
         assert!(check_bytes(&file_data, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
         assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap()[0].amount, 0xAABBCCDD);

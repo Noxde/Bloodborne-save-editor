@@ -123,6 +123,35 @@ impl FileData {
     pub fn save(&self, path: &str) -> Result<(), io::Error> {
         fs::write(path, &self.bytes)
     }
+
+    pub fn find_article_offset(&self, index: u8, id: u32) -> Option<usize> {
+        let found = |offset| -> bool {
+            let current_id = u32::from_le_bytes([self.bytes[offset+8],
+                                                     self.bytes[offset+9],
+                                                     self.bytes[offset+10],
+                                                     0x00]);
+            (index == self.bytes[offset]) && (id == current_id)
+        };
+
+        //Search for the article in the inventory
+        let mut i = self.offsets.inventory.0;
+        while (i <= self.offsets.inventory.1 - 16) && (!found(i)) {
+            i+=16;
+        }
+
+        //If the article wasnt found, search for it in the key inventory
+        if !found(i) {
+            i = self.offsets.key_inventory.0;
+            while (i <= self.offsets.key_inventory.1 - 16) && (!found(i)) {
+                i+=16;
+            }
+        }
+
+        match found(i) {
+            true => Some(i),
+            false => None,
+        }
+    }
 }
 
 #[cfg(test)]

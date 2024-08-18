@@ -38,13 +38,12 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>) -> Result<SaveData
     }
 }
 
-// Lags a bit
 #[tauri::command]
-fn edit_quantity(index: u8, value: u32, state_save: tauri::State<MutexSave>) -> Result<SaveData, ()> {
+fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexSave>) -> Result<SaveData, ()> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    match save.inventory.edit_item(&mut save.file, index, value) {
+    match save.inventory.edit_item(&mut save.file, index, id, value) {
         Ok(_) => Ok(save.clone()),
         Err(_) => Err(())
     }
