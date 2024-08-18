@@ -1,6 +1,5 @@
 async function drawCanvas(ctx, item, isSmall = false) {
   const { article_type, amount, info } = item;
-  console.log(item);
   const type = getType(article_type);
 
   if (isSmall) {
@@ -64,7 +63,7 @@ async function drawChalice(ctx, chalice, img) {
     extra_info: { depth, area },
   } = chalice;
 
-  const thumbnail = await loadImage(image);
+  const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
@@ -99,7 +98,7 @@ async function drawArmor(ctx, armor, img) {
   const { physical, blunt, thrust, blood } = physicalDefense;
   const { arcane, fire, bolt } = elementalDefense;
 
-  const thumbnail = await loadImage(image);
+  const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
@@ -142,7 +141,7 @@ async function drawWeapon(ctx, weapon, img) {
   } = weapon;
   const { physical, blood, arcane, fire, bolt } = damage;
 
-  const thumbnail = await loadImage(image);
+  const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
@@ -175,7 +174,7 @@ async function drawItem(ctx, item, amount, img) {
   const size = 73;
   const { item_name: name, item_img: image, item_desc: note } = item;
 
-  const thumbnail = await loadImage(image);
+  const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
@@ -191,7 +190,7 @@ async function drawItem(ctx, item, amount, img) {
   ctx.fillText(note, 104, 69);
 
   ctx.font = "24px Reim";
-  ctx.fillStyle = "#FFFF";
+  ctx.fillStyle = "#dbd9d5";
   if (amount > 9) {
     ctx.fillText(amount, 60, 85);
   } else {
