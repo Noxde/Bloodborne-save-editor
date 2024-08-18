@@ -5,6 +5,7 @@ import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
 import ReplaceScreen from "./ReplaceScreen";
 import { getType } from "../utils/drawCanvas";
+import FilterButtons from "./FilterButtons";
 
 function Inventory() {
   const inventoryRef = useRef(null);
@@ -66,97 +67,7 @@ function Inventory() {
         ref={inventoryRef}
         style={{ position: "relative", overflowY: "scroll" }}
       >
-        <div className="filters">
-          <div
-            id="filterHover"
-            style={{
-              left: `${5}px`, // Still need to use selectedFilter
-            }}
-          ></div>
-          {/* Could be changed with a component that builds the buttons */}
-          {/* Should change the naming scheme to be iterable */}
-          <button
-            data-index={1}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/consumables.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={2}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/materials.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={3}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/key.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={4}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/right_hand.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={5}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/left_hand.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={6}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/armor.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={7}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/gems.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={8}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/runes.png"
-              })`,
-            }}
-          ></button>
-          <button
-            data-index={9}
-            className="filters-button"
-            style={{
-              background: `url(${
-                process.env.PUBLIC_URL + "/assets/filters/chalices.png"
-              })`,
-            }}
-          ></button>
-        </div>
+        <FilterButtons selectedFilter={selectedFilter} />
         <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
         {Object.keys(save.inventory.articles)
           .map((x) =>
