@@ -1,4 +1,4 @@
-import { useEffect, useRef, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
 import { drawCanvas, getType } from "../utils/drawCanvas";
@@ -14,11 +14,8 @@ function ReplaceScreen({
   const [replacement, setReplacement] = useState(null);
   const [hoverIndex, setHoverIndex] = useState(0);
   const { setSave } = useContext(SaveContext);
-  // const toReplaceRef = useRef(null);
 
   useEffect(() => {
-    // const canvas = document.querySelector("")
-
     switch (getType(selected.article_type)) {
       case "weapon":
         invoke("return_weapons").then((weps) => {
@@ -28,7 +25,7 @@ function ReplaceScreen({
                 return Object.keys(weps[x]).map((y) => {
                   return {
                     id: parseInt(y),
-                    article_type: x,
+                    article_type: `${x.at(0).toUpperCase() + x.slice(1)}`,
                     info: {
                       item_name: weps[x][y]["item_name"],
                       item_img: weps[x][y]["item_img"],
@@ -52,15 +49,24 @@ function ReplaceScreen({
             Object.keys(items)
               .map((x) => {
                 return Object.keys(items[x]).map((y) => {
-                  return {
+                  let item = {
                     id: parseInt(y),
-                    article_type: x,
+                    article_type: `${x.at(0).toUpperCase() + x.slice(1)}`,
                     info: {
                       item_name: items[x][y]["item_name"],
                       item_img: items[x][y]["item_img"],
                       item_desc: items[x][y]["item_desc"],
                     },
                   };
+
+                  if (getType(selected.article_type) == "chalice") {
+                    item.info.extra_info = {
+                      depth: items[x][y]["depth"],
+                      area: items[x][y]["area"],
+                    };
+                  }
+
+                  return item;
                 });
               })
               .flat()
