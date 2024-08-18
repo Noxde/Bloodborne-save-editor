@@ -9,7 +9,7 @@ body {
 
 a {
   text-decoration: none;
-  color: white;
+  color: #dbd9d5;
 }
 
 button {
@@ -17,7 +17,7 @@ button {
   background: none;
   border: none;
   font-family: "Reim";
-  color: inherit;
+  color: #dbd9d5;
   font-size: calc(18px + 2vmin);
 
   &:disabled {
@@ -26,15 +26,27 @@ button {
   }
 }
 
+button.buttonBg {
+  background: url("../public/assets/button2.png");
+  /* background-size: cover; */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 input {
   font-family: "Reim";
   background: #00000081;
-  color: white;
-  /* min-width: 0; */
+  color: #dbd9d5;
   font-size: 16px;
   border: none;
   &:disabled {
     color: #fcfcfc4e;
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
 
@@ -65,3 +77,16 @@ input {
 /* ::-webkit-scrollbar-thumb:hover {
   background: #777;
 } */
+
+.btn-underline::before {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  content: "";
+  background: url("../public/assets/botoncito.png");
+  background-repeat: no-repeat;
+  background-size: 100% 10px;
+  background-position: 50% 90%;
+  width: 120%;
+  height: 100%;
+}

@@ -7,15 +7,6 @@ canvas {
   flex-direction: column;
   align-items: center;
 
-  button {
-    background: url("../../public/assets/button2.png");
-    /* background-size: cover; */
-    background-size: contain;
-    background-position: center;
-    color: #9d9d9d;
-    background-repeat: no-repeat;
-  }
-
   .editQuantity {
     display: flex;
     align-items: center;
