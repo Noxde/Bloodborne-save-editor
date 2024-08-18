@@ -19,17 +19,17 @@ function Inventory() {
   const { save, setSave } = useContext(SaveContext);
 
   useEffect(() => {
+    const invCurrent = inventoryRef.current;
     function manageSelect(e) {
       const {
         target,
         srcElement: { nodeName },
       } = e;
-      console.log(nodeName);
+
       if (nodeName === "CANVAS") {
         const { item: itemRaw, index } = target.dataset;
         const item = JSON.parse(itemRaw);
         setHoverIndex(index);
-        console.log(item);
 
         selectedRef.current = target;
         setSelected(item);
@@ -46,13 +46,12 @@ function Inventory() {
     }
 
     if (save) {
-      console.log(inventoryRef?.current);
       inventoryRef?.current?.addEventListener("click", manageSelect);
     }
 
     return () => {
-      if (inventoryRef.current) {
-        inventoryRef.current.removeEventListener("click", manageSelect); // Change to variable
+      if (invCurrent) {
+        invCurrent.removeEventListener("click", manageSelect);
       }
     };
   }, [inventoryRef, save]);
@@ -89,10 +88,11 @@ function Inventory() {
             }}
           />
           <button
+            className="buttonBg"
             onClick={async () => {
               const editedSave = await invoke("edit_quantity", {
-                save: JSON.stringify(save),
                 index: selected.index,
+                id: selected.id,
                 value: quantity,
               });
               setSave(editedSave);
@@ -100,9 +100,6 @@ function Inventory() {
               const canvas = document.querySelector(
                 `canvas[data-item-id='${selected.id}']`
               );
-              console.log(canvas);
-              console.log(selected);
-              console.log(quantity);
               const ctx = canvas.getContext("2d");
 
               const itemImage = await loadImage(
@@ -122,6 +119,7 @@ function Inventory() {
           </button>
         </div>
         <button
+          className="buttonBg"
           disabled={!!!selected}
           onClick={async () => {
             setReplaceScreen(true);
