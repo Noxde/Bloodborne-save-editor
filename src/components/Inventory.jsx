@@ -1,11 +1,11 @@
 import "./inventory.css";
 import { useEffect, useRef, useState, useContext } from "react";
 import { SaveContext } from "../context/context";
-import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
 import ReplaceScreen from "./ReplaceScreen";
 import { getType } from "../utils/drawCanvas";
 import FilterButtons from "./FilterButtons";
+import FilterComponent from "./FilterComponent";
 
 function Inventory() {
   const inventoryRef = useRef(null);
@@ -18,7 +18,6 @@ function Inventory() {
 
   const { save, setSave } = useContext(SaveContext);
 
-  let index = 0;
   useEffect(() => {
     function manageSelect(e) {
       const {
@@ -69,13 +68,7 @@ function Inventory() {
       >
         <FilterButtons selectedFilter={selectedFilter} />
         <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
-        {Object.keys(save.inventory.articles)
-          .map((x) =>
-            save.inventory.articles[x].map((y) => {
-              return <Item key={index++} index={index + 1} item={y} />;
-            })
-          )
-          .flat()}
+        <FilterComponent selectedFilter={selectedFilter} />
       </div>
       <div className="editButtons">
         <div className="editQuantity">
