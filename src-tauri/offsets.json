@@ -75,5 +75,26 @@
     "length": 1,
     "times": 1,
     "value": 0
+  },
+  {
+    "name": "Gender",
+    "rel_offset": 36,
+    "length": 1,
+    "times": 1,
+    "value": 0
+  },
+  {
+    "name": "Voice",
+    "rel_offset": 37,
+    "length": 1,
+    "times": 1,
+    "value": 0
+  },
+  {
+    "name": "Origin",
+    "rel_offset": 40,
+    "length": 1,
+    "times": 1,
+    "value": 0
   }
 ]
