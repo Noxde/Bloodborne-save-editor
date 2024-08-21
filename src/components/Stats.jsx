@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SaveContext } from "../context/context";
 import Stat from "./Stat";
 import { invoke } from "@tauri-apps/api";
@@ -82,9 +82,8 @@ function Stats() {
 
               setSave(JSON.parse(JSON.stringify(editedStats)));
             } catch (error) {
-              console.log(error);
+              console.error(error);
             }
-            console.log(editedStats);
           }}
         >
           Confirm

@@ -78,21 +78,21 @@
   },
   {
     "name": "Gender",
-    "rel_offset": 36,
+    "rel_offset": 35,
     "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Voice",
-    "rel_offset": 37,
+    "rel_offset": 36,
     "length": 1,
     "times": 1,
     "value": 0
   },
   {
     "name": "Origin",
-    "rel_offset": 40,
+    "rel_offset": 39,
     "length": 1,
     "times": 1,
     "value": 0

@@ -5,7 +5,7 @@ function Stat({ stat, editedStats, setEditedStats }) {
 
   useEffect(() => {
     setValue(stat.value);
-  }, [stat]);
+  }, [stat, editedStats]);
 
   return (
     <div
@@ -36,7 +36,6 @@ function Stat({ stat, editedStats, setEditedStats }) {
         <input
           type="number"
           style={{
-            width: "8rem",
             textAlign: "right",
             background: "none",
           }}

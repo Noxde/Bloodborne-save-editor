@@ -5,12 +5,12 @@ function FilterButtons({ selectedFilter }) {
       <div
         id="filterHover"
         style={{
+          display: selectedFilter == 0 ? "none" : "block",
           left: `${
             spaceBetween + (80 + spaceBetween) * (selectedFilter - 1) - 2
-          }px`, // Still need to use selectedFilter
+          }px`,
         }}
       ></div>
-      {/* Could be changed with a component that builds the buttons */}
       {/* Should change the naming scheme to be iterable */}
       <button
         data-index={1}

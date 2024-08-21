@@ -1,0 +1,14 @@
+select {
+  background-color: #00000081;
+  color: #dbd9d5;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 5px 5px;
+  margin-right: 2px;
+  border: none;
+  cursor: pointer;
+}
+
+option {
+  cursor: pointer;
+}
