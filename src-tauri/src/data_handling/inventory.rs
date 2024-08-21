@@ -18,21 +18,21 @@ pub struct WeaponMods {
     imprint: Imprint,
 }
 
-impl From<u32> for WeaponMods {
-    fn from(second_part: u32) -> WeaponMods {
+impl TryFrom<u32> for WeaponMods {
+    type Error = Error;
+    fn try_from(second_part: u32) -> Result<Self, Self::Error> {
         let substract = second_part % 10000;
         let upgrade_level = (substract / 100) as u8;
-
         let imprint = match (second_part % 100000) - substract {
             0 => Imprint::Chikage,
             10000 => Imprint::Uncanny,
             20000 => Imprint::Lost,
-            _ => panic!("ERROR: Invalid second_part"),
+            _ => return Err(Error::CustomError("ERROR: Invalid second_part")),
         };
-        WeaponMods {
+        Ok(WeaponMods {
             upgrade_level,
             imprint,
-        }
+        })
     }
 }
 
@@ -426,12 +426,16 @@ pub fn get_info_weapon(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
     let weapons: Value = serde_json::from_reader(reader).unwrap();
     let weapons = weapons.as_object().unwrap();
 
+    let weapon_mods = WeaponMods::try_from(id)?;
+    let id = (id / 100000) * 100000; //Remove the weapon mods to be able to find its info
     for (category, category_weapons) in weapons {
         match category_weapons.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
             Some(found) => {
                 let mut info: ItemInfo = serde_json::from_value(category_weapons[found].clone()).unwrap();
                 info.extra_info = Some(json!({
-                    "damage": &category_weapons[found]["damage"]
+                    "damage": &category_weapons[found]["damage"],
+                    "upgrade_level": weapon_mods.upgrade_level,
+                    "imprint": weapon_mods.imprint,
                 }));
                 return Ok((info, ArticleType::from(category.as_str())))
             },
@@ -707,22 +711,22 @@ mod tests {
     #[test]
     fn weapon_mods_from() {
         //Uncanny Chikage +1
-        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xF4, 0xAB, 0x1E, 0x00]));
+        let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xF4, 0xAB, 0x1E, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 1);
         assert_eq!(weapon_mods.imprint, Imprint::Uncanny);
 
         //Chikage Saw Cleaver +5
-        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xB4, 0xD1, 0x6A, 0x00]));
+        let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xB4, 0xD1, 0x6A, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 5);
         assert_eq!(weapon_mods.imprint, Imprint::Chikage);
 
         //Lost Saw Cleaver +0
-        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xE0, 0x1D, 0x6B, 0x00]));
+        let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xE0, 0x1D, 0x6B, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 0);
         assert_eq!(weapon_mods.imprint, Imprint::Lost);
 
         //Lost Holy Moonlight Sword +9
-        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0x24, 0x0C, 0x8D, 0x01]));
+        let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0x24, 0x0C, 0x8D, 0x01])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 9);
         assert_eq!(weapon_mods.imprint, Imprint::Lost);
     }
