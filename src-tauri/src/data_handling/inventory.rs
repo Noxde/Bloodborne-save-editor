@@ -390,17 +390,40 @@ pub fn get_info_weapon(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
         match category_weapons.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
             Some(found) => {
                 let mut info: ItemInfo = serde_json::from_value(category_weapons[found].clone()).unwrap();
-                info.extra_info = Some(json!({
+                let mut extra_info = json!({
                     "damage": &category_weapons[found]["damage"],
                     "upgrade_level": weapon_mods.upgrade_level,
                     "imprint": weapon_mods.imprint,
-                }));
+                });
+                if weapon_mods.upgrade_level > 0 {
+                    scale_weapon_info(&mut extra_info);
+                }
+                info.extra_info = Some(extra_info);
                 return Ok((info, ArticleType::from(category.as_str())))
             },
             None => ()
         }
     }
     Err(Error::CustomError("ERROR: Failed to find info for the weapon."))
+}
+
+pub fn scale_weapon_info(extra_info: &mut Value) {
+    let upgrade_level: u32 = serde_json::from_value(extra_info["upgrade_level"].clone()).unwrap();
+    for (k, v) in extra_info["damage"].as_object_mut().unwrap() {
+        //Get the damage for the current type
+        let damage: String = serde_json::from_value(v.clone()).unwrap();
+        let mut damage: u32 = match damage.parse::<u32>() {
+            Ok(num) => num,
+            Err(_) => continue, //If the damage is "-" (n/a), skip
+        };
+
+        if upgrade_level == 10 {
+            damage *= 2;
+        } else {
+            damage += (damage / 10) * upgrade_level;
+        }
+        *v = json!(damage.to_string());
+    }
 }
 
 #[cfg(test)]
@@ -696,5 +719,45 @@ mod tests {
         let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0x24, 0x0C, 0x8D, 0x01])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 9);
         assert_eq!(weapon_mods.imprint, Imprint::Lost);
+    }
+
+    #[test]
+    fn test_scale_weapon_info() {
+        let file_data = FileData::build("saves/weaponmods0").unwrap();
+        let articles = parse_articles(&file_data);
+        let right_hands = articles.get(&ArticleType::RightHand).unwrap();
+        assert_eq!(right_hands.len(), 7);
+
+        //Lost Holy Moonlight Sword +9
+        let right_hand0 = right_hands[0].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("171"));
+        assert_eq!(right_hand0["damage"]["arcane"], Value::from("95"));
+
+        //Chikage Saw Cleaver +5
+        let right_hand0 = right_hands[1].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("135"));
+
+        //Lost Saw Cleaver
+        let right_hand0 = right_hands[2].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("90"));
+
+        //Chikage Ludwig's Holy Blade +2
+        let right_hand0 = right_hands[3].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("120"));
+
+        //Chikage Rifle Spear +6
+        let right_hand0 = right_hands[4].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("133"));
+        assert_eq!(right_hand0["damage"]["blood"], Value::from("133"));
+
+        //Uncanny Chikage +1
+        let right_hand0 = right_hands[5].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("101"));
+        assert_eq!(right_hand0["damage"]["blood"], Value::from("101"));
+
+        //Chikage Lugarius' Wheel +7
+        let right_hand0 = right_hands[6].info.extra_info.clone().unwrap();
+        assert_eq!(right_hand0["damage"]["physical"], Value::from("170"));
+        assert_eq!(right_hand0["damage"]["arcane"], Value::from("39"));
     }
 }
