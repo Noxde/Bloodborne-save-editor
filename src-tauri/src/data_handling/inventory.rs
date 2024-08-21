@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error, TypeFamily}, file::FileData};
+use super::{enums::{Imprint, ArticleType, Error, TypeFamily}, file::FileData};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap};
@@ -10,6 +10,30 @@ pub struct ItemInfo {
     pub item_desc: String,
     pub item_img: String,
     pub extra_info: Option<Value>
+}
+
+//Describes the imprint and the upgrade level of a weapon
+pub struct WeaponMods {
+    upgrade_level: u8,
+    imprint: Imprint,
+}
+
+impl From<u32> for WeaponMods {
+    fn from(second_part: u32) -> WeaponMods {
+        let substract = second_part % 10000;
+        let upgrade_level = (substract / 100) as u8;
+
+        let imprint = match (second_part % 100000) - substract {
+            0 => Imprint::Chikage,
+            10000 => Imprint::Uncanny,
+            20000 => Imprint::Lost,
+            _ => panic!("ERROR: Invalid second_part"),
+        };
+        WeaponMods {
+            upgrade_level,
+            imprint,
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -678,5 +702,28 @@ mod tests {
         assert!(!armor.is_weapon());
         assert!(!weapon.is_item());
         assert!(!item.is_armor());
+    }
+
+    #[test]
+    fn weapon_mods_from() {
+        //Uncanny Chikage +1
+        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xF4, 0xAB, 0x1E, 0x00]));
+        assert_eq!(weapon_mods.upgrade_level, 1);
+        assert_eq!(weapon_mods.imprint, Imprint::Uncanny);
+
+        //Chikage Saw Cleaver +5
+        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xB4, 0xD1, 0x6A, 0x00]));
+        assert_eq!(weapon_mods.upgrade_level, 5);
+        assert_eq!(weapon_mods.imprint, Imprint::Chikage);
+
+        //Lost Saw Cleaver +0
+        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0xE0, 0x1D, 0x6B, 0x00]));
+        assert_eq!(weapon_mods.upgrade_level, 0);
+        assert_eq!(weapon_mods.imprint, Imprint::Lost);
+
+        //Lost Holy Moonlight Sword +9
+        let weapon_mods = WeaponMods::from(u32::from_le_bytes([0x24, 0x0C, 0x8D, 0x01]));
+        assert_eq!(weapon_mods.upgrade_level, 9);
+        assert_eq!(weapon_mods.imprint, Imprint::Lost);
     }
 }
