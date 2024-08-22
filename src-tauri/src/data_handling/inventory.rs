@@ -333,7 +333,7 @@ pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>
 }
 
 pub fn get_info_item(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file =  File::open(format!("{resources_path}/items.json")).map_err(Error::IoError)?;
+    let json_file =  File::open(format!("{resources_path}\\items.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let items: Value = serde_json::from_reader(reader).unwrap();
     let items = items.as_object().unwrap();
@@ -357,7 +357,7 @@ pub fn get_info_item(id: u32, resources_path: &str) -> Result<(ItemInfo, Article
 }
 
 pub fn get_info_armor(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file =  File::open(format!("{resources_path}/armors.json")).map_err(Error::IoError)?;
+    let json_file =  File::open(format!("{resources_path}\\armors.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let armors: Value = serde_json::from_reader(reader).unwrap();
     let armors = armors.as_object().unwrap();
@@ -379,7 +379,7 @@ pub fn get_info_armor(id: u32, resources_path: &str) -> Result<(ItemInfo, Articl
 }
 
 pub fn get_info_weapon(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file =  File::open(format!("{resources_path}/weapons.json")).map_err(Error::IoError)?;
+    let json_file =  File::open(format!("{resources_path}\\weapons.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let weapons: Value = serde_json::from_reader(reader).unwrap();
     let weapons = weapons.as_object().unwrap();

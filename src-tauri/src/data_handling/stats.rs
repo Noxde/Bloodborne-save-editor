@@ -22,7 +22,7 @@ impl Stat {
 }
 
 pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
-    let json_file = File::open(format!("{}/offsets.json", file.resources_path))?;
+    let json_file = File::open(format!("{}\\offsets.json", file.resources_path))?;
     let reader = BufReader::new(json_file);
 
     // Read the JSON contents of the file as Vec<Stat>.

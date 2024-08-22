@@ -13,11 +13,13 @@
 - [3. License](#3-license)
 
 ## 1. Features
+
 - Add and modify items.
 - Transform a weapon or an armor into a different one.
 - Modify character data and stats.
 
 ## 2. Build from source
+
 Currently, there are no releases. If you want to try the app you can follow these steps:
 
 1. Clone the repository:
@@ -36,17 +38,12 @@ Currently, there are no releases. If you want to try the app you can follow thes
 
    ```bash
    $ npm install
-   $ cargo install tauri-cli
    ```
 
 4. Launch the application:
 
    ```bash
    $ npm run dev
-   ```
-   or:
-   ```bash
-   $ cargo tauri dev
    ```
 
 ## 3. License
