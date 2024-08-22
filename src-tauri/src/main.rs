@@ -29,8 +29,13 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 #[tauri::command]
-fn make_save(path: &str, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
-    if let Ok(s) = SaveData::build(path) {
+fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Result<Value, String> {
+   let resource_path = handle.path_resolver()
+      .resolve_resource("resources")
+      .expect("failed to resolve resource");
+   let resource_path = resource_path.to_str().unwrap();
+
+    if let Ok(s) = SaveData::build(path, resource_path) {
         let mut data = state_save.data.lock().unwrap();
         *data = Some(s.clone());
         Ok(serde_json::json!({
@@ -68,8 +73,11 @@ fn save(path: String, state_save: tauri::State<MutexSave>) -> Result<&str, &str>
 }
 
 #[tauri::command]
-fn return_weapons() -> Value {
-    let json_file = File::open("weapons.json").unwrap();
+fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().unwrap();
+    let resources_path = save.file.resources_path.as_str();
+    let json_file =  File::open(format!("{resources_path}/weapons.json")).unwrap();
     let reader = BufReader::new(json_file);
     let weapons: Value = serde_json::from_reader(reader).unwrap();
 
@@ -77,8 +85,11 @@ fn return_weapons() -> Value {
 }
 
 #[tauri::command]
-fn return_armors() -> Value {
-    let json_file = File::open("armors.json").unwrap();
+fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().unwrap();
+    let resources_path = save.file.resources_path.as_str();
+    let json_file =  File::open(format!("{resources_path}/armors.json")).unwrap();
     let reader = BufReader::new(json_file);
     let armors: Value = serde_json::from_reader(reader).unwrap();
 
@@ -86,8 +97,11 @@ fn return_armors() -> Value {
 }
 
 #[tauri::command]
-fn return_items() -> Value {
-    let json_file = File::open("items.json").unwrap();
+fn return_items(state_save: tauri::State<MutexSave>) -> Value {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().unwrap();
+    let resources_path = save.file.resources_path.as_str();
+    let json_file =  File::open(format!("{resources_path}/items.json")).unwrap();
     let reader = BufReader::new(json_file);
     let items: Value = serde_json::from_reader(reader).unwrap();
 

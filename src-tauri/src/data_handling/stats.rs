@@ -22,7 +22,7 @@ impl Stat {
 }
 
 pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
-    let json_file = File::open("offsets.json")?;
+    let json_file = File::open(format!("{}/offsets.json", file.resources_path))?;
     let reader = BufReader::new(json_file);
 
     // Read the JSON contents of the file as Vec<Stat>.
@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn test_new() {
         //testsave0
-        let file_data = FileData::build("saves/testsave0").unwrap();
+        let file_data = FileData::build("saves/testsave0", "resources").unwrap();
         let stats = new(&file_data).unwrap();
         assert_eq!(stats[0], Stat {
             name: "Health".to_string(),
@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn stat_edit() {
         //testsave0
-        let mut file_data = FileData::build("saves/testsave0").unwrap();
+        let mut file_data = FileData::build("saves/testsave0", "resources").unwrap();
         let mut stats = new(&file_data).unwrap();
         assert_eq!(stats[0].value, 1900);
         assert_eq!(stats[1].value, 91);

@@ -73,7 +73,7 @@ impl Article {
         let article_type;
         let type_family;
         //INFO & ARTICLE_TYPE
-        if let Ok((new_info, new_article_type)) = get_info_item(id) {
+        if let Ok((new_info, new_article_type)) = get_info_item(id, file_data.resources_path.as_str()) {
             info = new_info;
             article_type = new_article_type;
             type_family = article_type.into();
@@ -147,10 +147,10 @@ impl Article {
         if self.article_type == ArticleType::Armor {
             second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],0x10]);
             byte_count = 3;
-            result = get_info_armor(id);
+            result = get_info_armor(id, file_data.resources_path.as_str());
         } else {
             second_part = u32::from_le_bytes([new_id[0],new_id[1],new_id[2],new_id[3]]);
-            result = get_info_weapon(id);
+            result = get_info_weapon(id, file_data.resources_path.as_str());
         }
 
         //INFO & ARTICLE_TYPE
@@ -265,7 +265,7 @@ impl Inventory {
 
         let id = u32::from_le_bytes(endian_id);
 
-        if let Ok((info, article_type)) = get_info_item(id) {
+        if let Ok((info, article_type)) = get_info_item(id, file_data.resources_path.as_str()) {
             let new_item = Article {
                 index: file_data.bytes[inventory_end + 12],
                 id,
@@ -303,11 +303,11 @@ pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>
                 u32::from_le_bytes([file_data.bytes[i + 12], file_data.bytes[i + 13], file_data.bytes[i + 14], file_data.bytes[i + 15]]);
 
             let result = match (file_data.bytes[i+7],file_data.bytes[i+11]) {
-                (0xB0,0x40) => get_info_item(id),
-                (_,0x10) => get_info_armor(id),
+                (0xB0,0x40) => get_info_item(id, file_data.resources_path.as_str()),
+                (_,0x10) => get_info_armor(id, file_data.resources_path.as_str()),
                 _ => {
                     id = second_part;
-                    get_info_weapon(id)
+                    get_info_weapon(id, file_data.resources_path.as_str())
                 },
             };
 
@@ -332,8 +332,8 @@ pub fn parse_articles(file_data: &FileData) -> HashMap<ArticleType, Vec<Article>
     articles
 }
 
-pub fn get_info_item(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file = File::open("items.json").map_err(Error::IoError)?;
+pub fn get_info_item(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
+    let json_file =  File::open(format!("{resources_path}/items.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let items: Value = serde_json::from_reader(reader).unwrap();
     let items = items.as_object().unwrap();
@@ -356,8 +356,8 @@ pub fn get_info_item(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
     Err(Error::CustomError("ERROR: Failed to find info for the item."))
 }
 
-pub fn get_info_armor(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file = File::open("armors.json").map_err(Error::IoError)?;
+pub fn get_info_armor(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
+    let json_file =  File::open(format!("{resources_path}/armors.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let armors: Value = serde_json::from_reader(reader).unwrap();
     let armors = armors.as_object().unwrap();
@@ -378,8 +378,8 @@ pub fn get_info_armor(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
     Err(Error::CustomError("ERROR: Failed to find info for the armor."))
 }
 
-pub fn get_info_weapon(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
-    let json_file = File::open("weapons.json").map_err(Error::IoError)?;
+pub fn get_info_weapon(id: u32, resources_path: &str) -> Result<(ItemInfo, ArticleType), Error> {
+    let json_file =  File::open(format!("{resources_path}/weapons.json")).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
     let weapons: Value = serde_json::from_reader(reader).unwrap();
     let weapons = weapons.as_object().unwrap();
@@ -409,7 +409,7 @@ pub fn get_info_weapon(id: u32) -> Result<(ItemInfo, ArticleType), Error> {
 
 pub fn scale_weapon_info(extra_info: &mut Value) {
     let upgrade_level: u32 = serde_json::from_value(extra_info["upgrade_level"].clone()).unwrap();
-    for (k, v) in extra_info["damage"].as_object_mut().unwrap() {
+    for (_, v) in extra_info["damage"].as_object_mut().unwrap() {
         //Get the damage for the current type
         let damage: String = serde_json::from_value(v.clone()).unwrap();
         let mut damage: u32 = match damage.parse::<u32>() {
@@ -433,7 +433,7 @@ mod tests {
     const TEST_SAVE_PATH: &str = "saves/testsave0";
 
     fn build_file_data() -> FileData {
-        FileData::build(TEST_SAVE_PATH).unwrap()
+        FileData::build(TEST_SAVE_PATH, "resources").unwrap()
     }
 
     fn check_bytes(file_data: &FileData,index: usize,bytes: &[u8]) -> bool {
@@ -589,7 +589,7 @@ mod tests {
 
     #[test]
     fn test_parse_key_inventory() {
-        let file_data = FileData::build("saves/testsave0").unwrap();
+        let file_data = FileData::build("saves/testsave0", "resources").unwrap();
         let articles = parse_articles(&file_data);
         let keys = articles.get(&ArticleType::Key).unwrap();
         assert_eq!(keys.len(), 7);
@@ -723,7 +723,7 @@ mod tests {
 
     #[test]
     fn test_scale_weapon_info() {
-        let file_data = FileData::build("saves/weaponmods0").unwrap();
+        let file_data = FileData::build("saves/weaponmods0", "resources").unwrap();
         let articles = parse_articles(&file_data);
         let right_hands = articles.get(&ArticleType::RightHand).unwrap();
         assert_eq!(right_hands.len(), 7);
