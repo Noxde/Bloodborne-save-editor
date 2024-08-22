@@ -15,7 +15,7 @@ pub struct ItemInfo {
 //Describes the imprint and the upgrade level of a weapon
 pub struct WeaponMods {
     upgrade_level: u8,
-    imprint: Imprint,
+    imprint: Option<Imprint>,
 }
 
 impl TryFrom<u32> for WeaponMods {
@@ -24,9 +24,9 @@ impl TryFrom<u32> for WeaponMods {
         let substract = second_part % 10000;
         let upgrade_level = (substract / 100) as u8;
         let imprint = match (second_part % 100000) - substract {
-            0 => Imprint::Chikage,
-            10000 => Imprint::Uncanny,
-            20000 => Imprint::Lost,
+            0 => None,
+            10000 => Some(Imprint::Uncanny),
+            20000 => Some(Imprint::Lost),
             _ => return Err(Error::CustomError("ERROR: Invalid second_part")),
         };
         Ok(WeaponMods {
@@ -703,22 +703,22 @@ mod tests {
         //Uncanny Chikage +1
         let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xF4, 0xAB, 0x1E, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 1);
-        assert_eq!(weapon_mods.imprint, Imprint::Uncanny);
+        assert_eq!(weapon_mods.imprint, Some(Imprint::Uncanny));
 
         //Chikage Saw Cleaver +5
         let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xB4, 0xD1, 0x6A, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 5);
-        assert_eq!(weapon_mods.imprint, Imprint::Chikage);
+        assert_eq!(weapon_mods.imprint, None);
 
         //Lost Saw Cleaver +0
         let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0xE0, 0x1D, 0x6B, 0x00])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 0);
-        assert_eq!(weapon_mods.imprint, Imprint::Lost);
+        assert_eq!(weapon_mods.imprint, Some(Imprint::Lost));
 
         //Lost Holy Moonlight Sword +9
         let weapon_mods = WeaponMods::try_from(u32::from_le_bytes([0x24, 0x0C, 0x8D, 0x01])).unwrap();
         assert_eq!(weapon_mods.upgrade_level, 9);
-        assert_eq!(weapon_mods.imprint, Imprint::Lost);
+        assert_eq!(weapon_mods.imprint, Some(Imprint::Lost));
     }
 
     #[test]
