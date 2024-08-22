@@ -137,10 +137,14 @@ async function drawWeapon(ctx, weapon, img) {
   const {
     item_name: name,
     item_img: image,
-    extra_info: { damage },
+    extra_info: { damage, upgrade_level: upgrade, imprint },
   } = weapon;
   const { physical, blood, arcane, fire, bolt } = damage;
+  const finalName = `${imprint ? imprint + " " : ""}${name}${
+    upgrade > 0 ? " +" + upgrade : ""
+  }`;
 
+  console.log(finalName);
   const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
@@ -162,7 +166,7 @@ async function drawWeapon(ctx, weapon, img) {
   ctx.shadowOffsetY = 2;
   ctx.shadowColor = "black";
   ctx.fillStyle = "#ab9e87";
-  ctx.fillText(name, 107, 28);
+  ctx.fillText(finalName, 107, 28);
 }
 
 async function drawItem(ctx, item, amount, img) {
