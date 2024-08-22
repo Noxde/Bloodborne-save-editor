@@ -48,9 +48,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [
-        "resources/*"
-      ],
+      "resources": ["resources/*"],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -73,7 +71,7 @@
         "center": true,
         "resizable": false,
         "maximizable": false,
-        "title": "Bloodborne Save Editor v0.0.0"
+        "title": "Bloodborne Save Editor v0.1.0"
       }
     ]
   }
