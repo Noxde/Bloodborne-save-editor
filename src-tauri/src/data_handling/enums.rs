@@ -76,7 +76,6 @@ pub enum TypeFamily {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy)]
 pub enum Imprint {
-    Chikage,
     Uncanny,
     Lost,
 }

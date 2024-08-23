@@ -73,7 +73,6 @@ impl FileData {
         // Open the save file
         let mut file = fs::File::open(path).map_err(Error::IoError)?;
 
-        println!("{resources_path}");
         // Create a backup
         let backup_path = format!("{}.bak", path);
         fs::copy(path, backup_path).map_err(Error::IoError)?;

@@ -207,6 +207,72 @@ impl Article {
     pub fn is_weapon(&self) -> bool {
         self.type_family == TypeFamily::Weapon
     }
+
+    pub fn set_imprint_and_upgrade(&mut self, file_data: &mut FileData, imprint: Option<Option<Imprint>>, upgrade_level: Option<u8>) -> Result<(), Error> {
+        if !self.is_weapon() {
+            return Err(Error::CustomError("ERROR: The article must be a weapon."));
+        }
+        let mut weapon_mods = match WeaponMods::try_from(self.second_part) {
+            Ok(wm) => wm,
+            Err(_) => return Err(Error::CustomError("ERROR: Invalid second_part")),
+        };
+
+        let mut new_second_part = (self.second_part / 100000) * 100000;
+        if let Some(extra_info) = &mut self.info.extra_info {
+            if let Some(imp) = imprint {
+                extra_info["imprint"] = json!(imp);
+                weapon_mods.imprint = imp;
+            }
+            if let Some(upg) = upgrade_level {
+                if upg > 10 {
+                    return Err(Error::CustomError("ERROR: Upgrade level cannot be bigger than 10."));
+                }
+                extra_info["upgrade_level"] = json!(upg);
+                weapon_mods.upgrade_level = upg;
+            }
+            scale_weapon_info(extra_info);
+        } else {
+            return Err(Error::CustomError("ERROR: The weapon has no extrainfo."));
+        }
+        new_second_part += match weapon_mods.imprint {
+            None => 0,
+            Some(Imprint::Uncanny) => 10000,
+            Some(Imprint::Lost) => 20000,
+        };
+        new_second_part += 100 * (weapon_mods.upgrade_level as u32);
+        let new_second_part_array = new_second_part.to_le_bytes();
+        let second_part_array = self.second_part.to_le_bytes();
+
+        //Update the second part in the inventory
+        let mut index;
+        match file_data.find_article_offset(self.index, self.id) {
+            Some(offset) => index = offset,
+            None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
+        }
+        for i in index+8 ..= index+11 {
+            file_data.bytes[i] = new_second_part_array[i-index-8];
+        }
+
+        //Update the second part above the inventory
+        let mut found = false;
+        for i in (0..(file_data.offsets.inventory.0 - 8)).rev() {
+            if second_part_array == file_data.bytes[i+8 ..= i+11] {
+                found = true;
+                index = i;
+                for i in index+8 ..= index+11 {
+                    file_data.bytes[i] = new_second_part_array[i-index-8];
+                }
+                break;
+            }
+        }
+        if !found {
+            return Err(Error::CustomError("ERROR: The weapon was not found above the inventory."))
+        }
+
+        self.id = new_second_part;
+        self.second_part = new_second_part;
+        Ok(())
+    }
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
