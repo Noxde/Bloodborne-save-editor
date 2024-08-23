@@ -826,4 +826,68 @@ mod tests {
         assert_eq!(right_hand0["damage"]["physical"], Value::from("170"));
         assert_eq!(right_hand0["damage"]["arcane"], Value::from("39"));
     }
+
+    #[test]
+    fn article_set_imprint_and_upgrade() {
+        let mut file_data = build_file_data();
+        let mut inventory = build(&file_data);
+
+        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        assert!(check_bytes(&file_data, 0x89ec,
+            &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x80,0x9f,0xd5,0x00,0x01,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x5f8,
+            &[0x80,0x9f,0xd5,0x00]));
+        let extra_info = article.info.extra_info.clone().unwrap();
+        assert_eq!(extra_info["imprint"], Value::Null);
+        assert_eq!(extra_info["upgrade_level"], Value::from(0));
+        // 0xD59F80 + 20800 = 0xD5F0C0
+        article.set_imprint_and_upgrade(&mut file_data, Some(Some(Imprint::Lost)), Some(8)).unwrap();
+        assert!(check_bytes(&file_data, 0x89ec,
+            &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0xC0,0xF0,0xD5,0x00,0x01,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x5f8,
+            &[0xC0,0xF0,0xD5,0x00]));
+        assert_eq!(article.id, u32::from_le_bytes([0xC0,0xF0,0xD5,0x00]));
+        assert_eq!(article.first_part, u32::from_le_bytes([0x51,0x00,0x80,0x80]));
+        assert_eq!(article.second_part, u32::from_le_bytes([0xC0,0xF0,0xD5,0x00]));
+        let extra_info = article.info.extra_info.clone().unwrap();
+        assert_eq!(extra_info["imprint"], json!(Some(Imprint::Lost)));
+        assert_eq!(extra_info["upgrade_level"], Value::from(8));
+
+        //Test errors
+        let article = &mut inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
+        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The article must be a weapon.");
+        }
+
+        let article = &mut inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[0];
+        let result = article.set_imprint_and_upgrade(&mut file_data, None, Some(11));
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Upgrade level cannot be bigger than 10.");
+        }
+
+        article.info.extra_info = None;
+        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The weapon has no extrainfo.");
+        }
+
+        article.second_part = u32::MAX;
+        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Invalid second_part");
+        }
+
+        let article = &mut inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[1];
+        article.index = 0xEE;
+        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
+        }
+    }
 }
