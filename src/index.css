@@ -20,6 +20,10 @@ button {
   color: #dbd9d5;
   font-size: calc(18px + 2vmin);
 
+  &:active {
+    opacity: 0.7;
+  }
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -28,7 +32,6 @@ button {
 
 button.buttonBg {
   background: url("../public/assets/button2.png");
-  /* background-size: cover; */
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -42,6 +45,9 @@ input {
   border: none;
   &:disabled {
     color: #fcfcfc4e;
+  }
+  &:focus {
+    outline: none;
   }
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

@@ -74,6 +74,7 @@ canvas {
 #hoverReplacement {
   position: absolute;
   background: url("../../public/assets/hover.png");
+  background-size: 100% 100%;
   width: 526px;
   height: 90px;
   z-index: 1;
