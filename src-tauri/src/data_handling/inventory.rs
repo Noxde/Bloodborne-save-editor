@@ -83,7 +83,7 @@ impl Article {
         }
 
         let i;
-        match file_data.find_article_offset(self.index, self.id) {
+        match file_data.find_article_offset(self.index, self.id, self.type_family) {
             Some(offset) => i = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -125,7 +125,7 @@ impl Article {
         }
 
         let i;
-        match file_data.find_article_offset(self.index, self.id) {
+        match file_data.find_article_offset(self.index, self.id, self.type_family) {
             Some(offset) => i = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -246,7 +246,7 @@ impl Article {
 
         //Update the second part in the inventory
         let mut index;
-        match file_data.find_article_offset(self.index, self.id) {
+        match file_data.find_article_offset(self.index, self.id, self.type_family) {
             Some(offset) => index = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -300,7 +300,7 @@ impl Inventory {
             }
         }
 
-        let opt = file_data.find_article_offset(index, id);
+        let opt = file_data.find_article_offset(index, id, TypeFamily::Item);
         if let Some(offset) = opt {
             for (i, o) in (offset+12 .. offset+16).enumerate() {
                 file_data.bytes[o] = value_endian[i];

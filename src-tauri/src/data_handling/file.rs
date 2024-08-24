@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
-use super::{enums::Error, 
-            constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET}};
+use super::{constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET}, enums::{Error, TypeFamily}};
 use std::{
     fs,
     io::{self, Read},
@@ -127,12 +126,17 @@ impl FileData {
         fs::write(path, &self.bytes)
     }
 
-    pub fn find_article_offset(&self, index: u8, id: u32) -> Option<usize> {
+    pub fn find_article_offset(&self, index: u8, id: u32, type_family: TypeFamily) -> Option<usize> {
         let found = |offset| -> bool {
+            let last_byte = match type_family {
+                TypeFamily::Armor | TypeFamily::Item => 0x00,
+                TypeFamily::Weapon => self.bytes[offset+11],
+                TypeFamily::Upgrade => panic!("ERROR: Article cannot be an upgrade."),
+            };
             let current_id = u32::from_le_bytes([self.bytes[offset+8],
                                                      self.bytes[offset+9],
                                                      self.bytes[offset+10],
-                                                     0x00]);
+                                                     last_byte]);
             (index == self.bytes[offset]) && (id == current_id)
         };
 
