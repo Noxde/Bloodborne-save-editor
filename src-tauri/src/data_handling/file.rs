@@ -4,6 +4,7 @@ use super::{enums::Error,
 use std::{
     fs,
     io::{self, Read},
+    path::PathBuf,
 };
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -65,11 +66,11 @@ impl Offsets {
 pub struct FileData {
     pub bytes: Vec<u8>,
     pub offsets: Offsets,
-    pub resources_path: String, //This is here for convenience
+    pub resources_path: PathBuf, //This is here for convenience
 }
 
 impl FileData {
-    pub fn build(path: &str, resources_path: &str) -> Result<FileData, Error> {
+    pub fn build(path: &str, resources_path: PathBuf) -> Result<FileData, Error> {
         // Open the save file
         let mut file = fs::File::open(path).map_err(Error::IoError)?;
 
@@ -88,7 +89,6 @@ impl FileData {
         //Search the offsets
         let offsets = Offsets::build(&bytes)?;
 
-        let resources_path = resources_path.to_string();
         Ok(FileData {
             bytes,
             offsets,
@@ -164,59 +164,59 @@ mod tests {
     #[test]
     fn offsets_build() {
         //Test with invalid path
-        let file_data = FileData::build("invalid", "resources");
+        let file_data = FileData::build("invalid", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
             assert!(e.to_string().contains("I/0 error:"));
         }
 
         //Test with empty save
-        let file_data = FileData::build("saves/emptysave", "resources");
+        let file_data = FileData::build("saves/emptysave", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
             assert_eq!(e.to_string(), "Save error: The selected file is empty.");
         }
 
         //Test with a save that has no inventory
-        let file_data = FileData::build("saves/no_inv_save", "resources");
+        let file_data = FileData::build("saves/no_inv_save", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
             assert_eq!(e.to_string(), "Save error: Failed to find username in save data.");
         }
 
         //Test a save in which the inventory has no end
-        let file_data = FileData::build("saves/no_inv_end_save", "resources");
+        let file_data = FileData::build("saves/no_inv_end_save", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
             assert_eq!(e.to_string(), "Save error: Failed to find the end of the inventory.");
         }
 
         //testsave0
-        let file_data = FileData::build("saves/testsave0", "resources").unwrap();
+        let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0x8777);
         assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cdb));
         assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
 
         //testsave1
-        let file_data = FileData::build("saves/testsave1", "resources").unwrap();
+        let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa82b);
         assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6af));
         assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
 
         //testsave2
-        let file_data = FileData::build("saves/testsave2", "resources").unwrap();
+        let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa86f);
         assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb643));
         assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
 
         //testsave3
-        let file_data = FileData::build("saves/testsave3", "resources").unwrap();
+        let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xb473);
         assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8b7));
         assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
 
         //testsave4
-        let file_data = FileData::build("saves/testsave4", "resources").unwrap();
+        let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xc85f);
         assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));

@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use std::path::PathBuf;
+
 use super::{
     enums::Error,
     file::FileData,
@@ -15,7 +17,7 @@ pub struct SaveData {
 }
 
 impl SaveData {
-    pub fn build(save_path: &str, resources_path: &str) -> Result<SaveData, Error> {
+    pub fn build(save_path: &str, resources_path: PathBuf) -> Result<SaveData, Error> {
         let file = FileData::build(save_path, resources_path)?;
         let stats = stats::new(&file).unwrap();
         let inventory = inventory::build(&file);
