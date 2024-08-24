@@ -8,6 +8,7 @@ import { SaveContext } from "./context/context";
 import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 import Stats from "./components/Stats";
 import Character from "./components/Character";
+import { ItemsProvider } from "./context/itemsContext";
 
 function App() {
   const [save, setSave] = useState(null);
@@ -22,14 +23,21 @@ function App() {
           <SaveContext.Provider value={{ save, setSave }}>
             {loading ? <div>Loading</div> : null}
 
-            {save != null ? (
-              <Routes>
-                <Route path="/" element={<Inventory />} />
-                <Route path="/stats" element={<Stats />} />
-                <Route path="/character" element={<Character />} />
-              </Routes>
-            ) : null}
-          </SaveContext.Provider>
+              {save != null ? (
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <ItemsProvider>
+                        <Inventory />
+                      </ItemsProvider>
+                    }
+                  />
+                  <Route path="/stats" element={<Stats />} />
+                  <Route path="/character" element={<Character />} />
+                </Routes>
+              ) : null}
+            </SaveContext.Provider>
         </main>
       </Router>
     </div>
