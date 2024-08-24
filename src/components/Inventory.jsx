@@ -84,7 +84,12 @@ function Inventory() {
             style={{ width: "120px" }}
             disabled={getType(selected?.article_type) !== "item" ? true : false}
             onChange={(e) => {
-              setQuantity(parseInt(e.target.value));
+              const { value } = e.target;
+              if (value > 99) {
+                setQuantity(99);
+              } else {
+                setQuantity(parseInt(value));
+              }
             }}
           />
           <button
