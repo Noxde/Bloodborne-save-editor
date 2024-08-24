@@ -70,20 +70,20 @@ function Stats() {
           }}
           onClick={async () => {
             const { stats } = editedStats;
-            try {
-              stats.forEach(async ({ rel_offset, length, times, value }) => {
+            stats.forEach(async ({ rel_offset, length, times, value }) => {
+              try {
                 await invoke("edit_stat", {
                   relOffset: rel_offset,
                   length,
                   times,
                   value: parseInt(value),
                 });
-              });
+              } catch (error) {
+                console.error(error);
+              }
+            });
 
-              setSave(JSON.parse(JSON.stringify(editedStats)));
-            } catch (error) {
-              console.error(error);
-            }
+            setSave(JSON.parse(JSON.stringify(editedStats)));
           }}
         >
           Confirm
