@@ -25,7 +25,7 @@ impl TryFrom<u32> for WeaponMods {
         let substract = second_part % 10000;
         let upgrade_level = (substract / 100) as u8;
         let imprint = match (second_part % 100000) - substract {
-            0 => None,
+            0 | 80000 => None,
             10000 => Some(Imprint::Uncanny),
             20000 => Some(Imprint::Lost),
             _ => return Err(Error::CustomError("ERROR: Invalid second_part")),
