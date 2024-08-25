@@ -12,6 +12,7 @@ function Nav({ setLoading, setSave, save }) {
         title: "Character data",
       });
       if (!selectedPath) return;
+      if (save) setSave(null);
       setLoading(true);
 
       const parsedSave = await invoke("make_save", {
