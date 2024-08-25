@@ -182,6 +182,19 @@
         "bolt": "-"
       }
     },
+    "12080000": {
+      "item_name": "Bloody Logarius' Wheel",
+      "item_img": "",
+      "item_desc": "",
+      "qsUse": "-",
+      "damage": {
+        "physical": "-",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "13000000": {
       "item_name": "Tonitrus",
       "item_img": "tonitrus.png",
