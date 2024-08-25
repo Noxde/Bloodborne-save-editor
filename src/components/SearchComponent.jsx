@@ -27,7 +27,9 @@ function SearchComponent({ selected, setReplacement }) {
   useEffect(() => {
     switch (getType(selected.article_type)) {
       case "weapon":
-        setReplacements(weapons);
+        setReplacements(
+          weapons.filter((y) => y.article_type == selected.article_type)
+        );
         setBack(weapons);
         break;
       case "chalice":
