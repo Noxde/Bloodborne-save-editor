@@ -144,7 +144,6 @@ async function drawWeapon(ctx, weapon, img) {
     upgrade > 0 ? " +" + upgrade : ""
   }`;
 
-  console.log(finalName);
   const thumbnail = await loadImage("/assets/itemImages/" + image);
 
   ctx.font = "18px Reim";
@@ -206,6 +205,10 @@ function loadImage(url) {
   return new Promise((resolve) => {
     let imageObj = new Image();
     imageObj.onload = () => resolve(imageObj);
+    imageObj.onerror = () => {
+      // If the image fails to load, use the default image
+      imageObj.src = "/assets/itemImages/empty.png";
+    };
     imageObj.src = url;
   });
 }
