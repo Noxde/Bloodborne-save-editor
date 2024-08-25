@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import Inventory from "./components/Inventory";
@@ -14,6 +14,10 @@ function App() {
   const [save, setSave] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+  }, []);
+
   return (
     <div className="App">
       <Router>
@@ -23,21 +27,21 @@ function App() {
           <SaveContext.Provider value={{ save, setSave }}>
             {loading ? <div>Loading</div> : null}
 
-              {save != null ? (
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <ItemsProvider>
-                        <Inventory />
-                      </ItemsProvider>
-                    }
-                  />
-                  <Route path="/stats" element={<Stats />} />
-                  <Route path="/character" element={<Character />} />
-                </Routes>
-              ) : null}
-            </SaveContext.Provider>
+            {save != null ? (
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ItemsProvider>
+                      <Inventory />
+                    </ItemsProvider>
+                  }
+                />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/character" element={<Character />} />
+              </Routes>
+            ) : null}
+          </SaveContext.Provider>
         </main>
       </Router>
     </div>
