@@ -108,12 +108,12 @@ fn return_items(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
-fn transform_item(id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
+fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
     let category = save.inventory.articles.get_mut(&article_type).unwrap();
-    let item = category.iter_mut().find(|x| x.id == id).unwrap();
+    let item = category.iter_mut().find(|x| x.id == id && x.index == index).unwrap();
     match item.transform(&mut save.file, new_id) {
         Ok(_) => Ok(serde_json::json!({
             "inventory": &save.inventory,

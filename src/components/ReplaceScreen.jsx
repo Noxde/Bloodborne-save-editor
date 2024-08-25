@@ -17,6 +17,7 @@ function ReplaceScreen({
   async function handleConfirm() {
     try {
       const edited = await invoke("transform_item", {
+        index: selected.index,
         id: selected.id,
         newId: parseInt(replacement.id),
         articleType: selected.article_type,
@@ -24,7 +25,6 @@ function ReplaceScreen({
 
       setSave(edited);
 
-      console.log(selected.index);
       const newJson = {
         index: selected.index,
         amount: selected.amount,
@@ -39,7 +39,6 @@ function ReplaceScreen({
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       await drawCanvas(ctx, newJson);
 
-      console.log(replacement);
       setReplaceScreen(false);
     } catch (error) {
       console.log(error);
