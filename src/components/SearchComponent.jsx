@@ -11,7 +11,6 @@ function SearchComponent({ selected, setReplacement }) {
   const { weapons, items, armors } = useContext(ItemsContext);
 
   useEffect(() => {
-    console.log(search);
     setReplacement(null);
     setHoverIndex(null);
     if (search) {
@@ -26,7 +25,6 @@ function SearchComponent({ selected, setReplacement }) {
   }, [search]);
 
   useEffect(() => {
-    console.log(getType(selected.article_type));
     switch (getType(selected.article_type)) {
       case "weapon":
         setReplacements(weapons);

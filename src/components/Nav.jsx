@@ -20,9 +20,6 @@ function Nav({ setLoading, setSave, save }) {
       setLoading(false);
       setSave(parsedSave);
       setName(await basename(selectedPath));
-
-      console.log(selectedPath);
-      console.log(parsedSave);
     } catch (error) {
       console.error(error);
       setLoading(false);
