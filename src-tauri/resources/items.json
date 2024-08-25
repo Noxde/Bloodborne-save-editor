@@ -1,780 +1,780 @@
 {
-	"consumable": {
-		"100": {
-			"item_name": "Hunter's Mark",
-			"item_desc": "Sacrifice all Blood Echoes and awaken anew",
-			"item_img": "hunter's_mark.png"
-		},
-		"111": {
-			"item_name": "Silencing Blank",
-			"item_desc": "Fire to end ongoing, and prevent further, cooperation",
-			"item_img": "silencing_blank.png"
-		},
-		"120": {
-			"item_name": "Notebook",
-			"item_desc": "Leave a note using messengers, or read a note",
-			"item_img": "notebook.png"
-		},
-		"130": {
-			"item_name": "Vileblood Register",
-			"item_desc": "A register listing all known Vilebloods",
-			"item_img": "vileblood_register.png"
-		},
-		"131": {
-			"item_name": "League Staff",
-			"item_desc": "Hides a directory listing the names of League confederates",
-			"item_img": "league_staff.png"
-		},
-		"200": {
-			"item_name": "Beckoning Bell",
-			"item_desc": "Use Insight to ring and call to other worlds for help",
-			"item_img": "beckoning_bell.png"
-		},
-		"205": {
-			"item_name": "Small Resonant Bell",
-			"item_desc": "Ring this bell to help hunters in other worlds",
-			"item_img": "small_resonant_bell.png"
-		},
-		"700": {
-			"item_name": "Tiny Music Box",
-			"item_desc": "A small music box received from a young Yharnam girl",
-			"item_img": "tiny_music_box.png"
-		},
-		"704": {
-			"item_name": "Blood Dreg",
-			"item_desc": "Awful things that Vilebloods see in coldblood",
-			"item_img": "blood_dreg.png"
-		},
-		"706": {
-			"item_name": "Blood of Adeline",
-			"item_desc": "Restores HP, then rejuvenates HP for some time",
-			"item_img": "blood_of_adeline.png"
-		},
-		"900": {
-			"item_name": "Quicksilver Bullets",
-			"item_desc": "Bullets consumed when shooting guns",
-			"item_img": "quicksilver_bullets.png"
-		},
-		"1000": {
-			"item_name": "Blood Vial",
-			"item_desc": "Special blood vial that restores HP",
-			"item_img": "blood_vial.png"
-		},
-		"1100": {
-			"item_name": "Antidote",
-			"item_desc": "Medicinal pellets that counteract poison",
-			"item_img": "antidote.png"
-		},
-		"1110": {
-			"item_name": "Beast Blood Pellet",
-			"item_desc": "Giant medicinal pellet that grants short-lived beasthood",
-			"item_img": "beast_blood_pellet.png"
-		},
-		"1120": {
-			"item_name": "Blue Elixir",
-			"item_desc": "Liquid medicine that makes still bodies undetectable",
-			"item_img": "blue_elixir.png"
-		},
-		"1200": {
-			"item_name": "Molotov Cocktail",
-			"item_desc": "Explodes in raging flames when thrown against an object.",
-			"item_img": "molotov_cocktail.png"
-		},
-		"1201": {
-			"item_name": "Delayed Molotov",
-			"item_desc": "A special hunter tool crafted by the old Oto Workshop.",
-			"item_img": "delayed_molotov.png"
-		},
-		"1220": {
-			"item_name": "Oil Urn",
-			"item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.",
-			"item_img": "oil_urn.png"
-		},
-		"1230": {
-			"item_name": "Pebble",
-			"item_desc": "Small pebbles found throughout Yharnam.",
-			"item_img": "pebble.png"
-		},
-		"1240": {
-			"item_name": "Throwing Knife",
-			"item_desc": "Throwing knife with a finely serrated blade.",
-			"item_img": "throwing_knife.png"
-		},
-		"1242": {
-			"item_name": "Poison Knife",
-			"item_desc": "A knife slathered in poison.",
-			"item_img": "poison_knife.png"
-		},
-		"1250": {
-			"item_name": "Rope Molotov Cocktail",
-			"item_desc": "Exploding molotov cocktail that is thrown behind.",
-			"item_img": "rope_molotov_cocktail.png"
-		},
-		"1251": {
-			"item_name": "Delayed Rope Molotov",
-			"item_desc": "A special hunter tool crafted by the old Oto Workshop.",
-			"item_img": "delayed_rope_molotov.png"
-		},
-		"1260": {
-			"item_name": "Pungent Blood Cocktail",
-			"item_desc": "A mature blood cocktail, thrown to attract beasts",
-			"item_img": "pungent_blood_cocktail.png"
-		},
-		"1270": {
-			"item_name": "Numbing Mist",
-			"item_desc": "Throw to create mist cloud that prevents HP restoration",
-			"item_img": "numbing_mist.png"
-		},
-		"1300": {
-			"item_name": "Fire Paper",
-			"item_desc": "Coarse rubbing paper that applies fire to weapon",
-			"item_img": "fire_paper.png"
-		},
-		"1320": {
-			"item_name": "Bolt Paper",
-			"item_desc": "Coarse rubbing paper that applies bolt to weapon",
-			"item_img": "bolt_paper.png"
-		},
-		"1330": {
-			"item_name": "Bone Marrow Ash",
-			"item_desc": "Additional medium that strengthens Quicksilver Bullets",
-			"item_img": "bone_marrow_ash.png"
-		},
-		"1400": {
-			"item_name": "Bold Hunter's Mark",
-			"item_desc": "Awaken anew without losing Blood Echoes",
-			"item_img": "bold_hunter's_mark.png"
-		},
-		"1410": {
-			"item_name": "Shining Coins",
-			"item_desc": "Assorted shining coins which might guide one's way",
-			"item_img": "shining_coins.png"
-		},
-		"1411": {
-			"item_name": "Monocular",
-			"item_desc": "Monocular used to see things up close",
-			"item_img": "monocular.png"
-		},
-		"1412": {
-			"item_name": "Hand Lantern",
-			"item_desc": "Use weapons in both hands while illuminating the dark",
-			"item_img": "hand_lantern.png"
-		},
-		"1500": {
-			"item_name": "Madman's Knowledge",
-			"item_desc": "Skull of an enlightened madman. Use to gain Insight",
-			"item_img": "madman's_knowledge.png"
-		},
-		"1501": {
-			"item_name": "Great One's Wisdom",
-			"item_desc": "Fragment of lost wisdom. Use to gain much Insight",
-			"item_img": "great_one's_wisdom.png"
-		},
-		"1510": {
-			"item_name": "Coldblood Dew (1)",
-			"item_desc": "Use to gain Blood Echoes",
-			"item_img": "coldblood_dew_(1).png"
-		},
-		"1511": {
-			"item_name": "Coldblood Dew (2)",
-			"item_desc": "Use to gain Blood Echoes",
-			"item_img": "coldblood_dew_(2).png"
-		},
-		"1512": {
-			"item_name": "Coldblood Dew (3)",
-			"item_desc": "Use to gain Blood Echoes",
-			"item_img": "coldblood_dew_(3).png"
-		},
-		"1513": {
-			"item_name": "Thick Coldblood (4)",
-			"item_desc": "Use to gain a larger amount of Blood Echoes",
-			"item_img": "thick_coldblood_(4).png"
-		},
-		"1514": {
-			"item_name": "Thick Coldblood (5)",
-			"item_desc": "Use to gain a larger amount of Blood Echoes",
-			"item_img": "thick_coldblood_(5).png"
-		},
-		"1515": {
-			"item_name": "Thick Coldblood (6)",
-			"item_desc": "Use to gain a larger amount of Blood Echoes",
-			"item_img": "thick_coldblood_(6).png"
-		},
-		"1516": {
-			"item_name": "Frenzied Coldblood (7)",
-			"item_desc": "Use to gain frenzied Blood Echoes",
-			"item_img": "frenzied_coldblood_(7).png"
-		},
-		"1517": {
-			"item_name": "Frenzied Coldblood (8)",
-			"item_desc": "Use to gain frenzied Blood Echoes",
-			"item_img": "frenzied_coldblood_(8).png"
-		},
-		"1518": {
-			"item_name": "Frenzied Coldblood (9)",
-			"item_desc": "Use to gain frenzied Blood Echoes",
-			"item_img": "frenzied_coldblood_(9).png"
-		},
-		"1519": {
-			"item_name": "Kin Coldblood (10)",
-			"item_desc": "Use to gain unspeakable Blood Echoes",
-			"item_img": "kin_coldblood_(10).png"
-		},
-		"1590": {
-			"item_name": "Kin Coldblood (11)",
-			"item_desc": "Use to gain unspeakable Blood Echoes",
-			"item_img": "kin_coldblood_(11).png"
-		},
-		"1591": {
-			"item_name": "Kin Coldblood (12)",
-			"item_desc": "Use to gain unspeakable Blood Echoes",
-			"item_img": "kin_coldblood_(12).png"
-		},
-		"1592": {
-			"item_name": "Great One Coldblood",
-			"item_desc": "Use to gain cosmically nightmarish Blood Echoes",
-			"item_img": "great_one_coldblood.png"
-		},
-		"1593": {
-			"item_name": "Old Great One Coldblood",
-			"item_desc": "Use to gain cosmically nightmarish Blood Echoes",
-			"item_img": "old_great_one_coldblood.png"
-		},
-		"1594": {
-			"item_name": "Revered Great One Coldblood",
-			"item_desc": "Use to gain cosmically nightmarish Blood Echoes",
-			"item_img": "revered_great_one_coldblood.png"
-		},
-		"1700": {
-			"item_name": "Vermin",
-			"item_desc": "Root of man's impurity. Writhes within filth",
-			"item_img": "vermin.png"
-		},
-		"2030": {
-			"item_name": "Lead Elixir",
-			"item_desc": "Liquid medicine shifts weight to deflect attacks",
-			"item_img": "lead_elixir.png"
-		},
-		"2090": {
-			"item_name": "Shaman Bone Blade",
-			"item_desc": "Slash foes to cause them to lose their sense of direction",
-			"item_img": "shaman_bone_blade.png"
-		},
-		"4320": {
-			"item_name": "Third Umbilical Cord",
-			"item_desc": "Use to gain Insight",
-			"item_img": "third_umbilical_cord.png"
-		},
-		"4321": {
-			"item_name": "Third Umbilical Cord",
-			"item_desc": "Use to gain Insight",
-			"item_img": "third_umbilical_cord.png"
-		},
-		"4322": {
-			"item_name": "Third Umbilical Cord",
-			"item_desc": "Use to gain Insight",
-			"item_img": "third_umbilical_cord.png"
-		},
-		"4323": {
-			"item_name": "Third Umbilical Cord",
-			"item_desc": "Use to gain Insight",
-			"item_img": "third_umbilical_cord.png"
-		}
-	},
-	"material": {
-		"3000": {
-			"item_name": "Blood Stone Shard",
-			"item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop. these bloodstones are embedded in\nweapons to fortify them.",
-			"item_img": "blood_stone_shard.png"
-		},
-		"3010": {
-			"item_name": "Twin Blood Stone Shards",
-			"item_desc": "A solid shard that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a bloodstone.\n\nAt the workshop, these bloodstones are embedded in\nweapons to fortify them.",
-			"item_img": "twin_blood_stone_shards.png"
-		},
-		"3020": {
-			"item_name": "Blood Stone Chunk",
-			"item_desc": "A solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nA chunk will never appear in the blood of an ordinary\nhuman. Seek deadlier foes if bloodstone chunks are needed.",
-			"item_img": "blood_stone_chunk.png"
-		},
-		"3030": {
-			"item_name": "Blood Rock",
-			"item_desc": "A large solid chunk that forms in coldblood.\n\nAfter death, a substance in the blood hardens, and that\nwhich does not crystalize is called a blood stone.\n\nThis is no mere chunk, it is nearly a boulder.\n\nFew blood stones of such size have ever been discovered,\neven considering the combined experience of all the hunters.",
-			"item_img": "blood_rock.png"
-		},
-		"7000": {
-			"item_name": "Ritual Blood (1)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "ritual_blood_(1).png"
-		},
-		"7001": {
-			"item_name": "Ritual Blood (2)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "ritual_blood_(2).png"
-		},
-		"7002": {
-			"item_name": "Ritual Blood (3)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "ritual_blood_(3).png"
-		},
-		"7003": {
-			"item_name": "Ritual Blood (4)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "ritual_blood_(4).png"
-		},
-		"7004": {
-			"item_name": "Ritual Blood (5)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "ritual_blood_(5).png"
-		},
-		"7012": {
-			"item_name": "Coldblood Flowerbud",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "coldblood_flowerbud.png"
-		},
-		"7013": {
-			"item_name": "Coldblood Flower Bulb",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "coldblood_flower_bulb.png"
-		},
-		"7014": {
-			"item_name": "Blooming Coldblood Flower",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "blooming_coldblood_flower.png"
-		},
-		"7020": {
-			"item_name": "Tomb Mold (1)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "tomb_mold_(1).png"
-		},
-		"7021": {
-			"item_name": "Tomb Mold (2)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "tomb_mold_(2).png"
-		},
-		"7022": {
-			"item_name": "Tomb Mold (3)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "tomb_mold_(3).png"
-		},
-		"7023": {
-			"item_name": "Tomb Mold (4)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "tomb_mold_(4).png"
-		},
-		"7024": {
-			"item_name": "Tomb Mold (5)",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "tomb_mold_(5).png"
-		},
-		"7050": {
-			"item_name": "Arcane Haze",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "arcane_haze.png"
-		},
-		"7100": {
-			"item_name": "Pearl Slug",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "pearl_slug.png"
-		},
-		"7110": {
-			"item_name": "Red Jelly",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "red_jelly.png"
-		},
-		"7120": {
-			"item_name": "Sage's Wrist",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "sage's_wrist.png"
-		},
-		"7121": {
-			"item_name": "Sage's Hair",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "sage's_hair.png"
-		},
-		"7130": {
-			"item_name": "Inflicted Organ",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "inflicted_organ.png"
-		},
-		"7131": {
-			"item_name": "Yellow Backbone",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "yellow_backbone.png"
-		},
-		"7140": {
-			"item_name": "Bastard of Loran",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "bastard_of_loran.png"
-		},
-		"7150": {
-			"item_name": "Bloodshot Eyeball",
-			"item_desc": "Material used in a Holy Chalice ritual.",
-			"item_img": "bloodshot_eyeball.png"
-		},
-		"7200": {
-			"item_name": "Living String",
-			"item_desc": "Special material used in a Holy Chalice ritual.",
-			"item_img": "living_string.png"
-		}
-	},
-	"key": {
-		"4000": {
-			"item_name": "Oedon Tomb Key",
-			"item_desc": "Key to the gate that blocks the Tomb of Oedon.",
-			"item_img": "oedon_tomb_key.png"
-		},
-		"4011": {
-			"item_name": "Hunter Chief Emblem",
-			"item_desc": "A cloth emblem that belonged to the captain of the Church hunters long ago.",
-			"item_img": "hunter_chief_emblem.png"
-		},
-		"4018": {
-			"item_name": "Underground Cell Key",
-			"item_desc": "Key to the cell below the Grand Cathedral.",
-			"item_img": "underground_cell_key.png"
-		},
-		"4019": {
-			"item_name": "Balcony Key",
-			"item_desc": "Key to the balcony on the first floor of the Research Hall.",
-			"item_img": "balcony_key.png"
-		},
-		"4020": {
-			"item_name": "Astral Clocktower Key",
-			"item_desc": "Key to Astral Clocktower, atop the Grand Cathedral",
-			"item_img": "astral_clocktower_key.png"
-		},
-		"4021": {
-			"item_name": "Celestial Dial",
-			"item_desc": "Dial for the great Astral Clock of the Grand Cathedral",
-			"item_img": "celestial_dial.png"
-		},
-		"4102": {
-			"item_name": "Workshop Haze Extractor",
-			"item_desc": "New option at the Workshop",
-			"item_img": "workshop_haze_extractor.png"
-		},
-		"4103": {
-			"item_name": "Blood Gem Workshop Tool",
-			"item_desc": "New option in the Workshop",
-			"item_img": "blood_gem_workshop_tool.png"
-		},
-		"4104": {
-			"item_name": "Rune Workshop Tool",
-			"item_desc": "Bath Messengers [Hunter's Dream]",
-			"item_img": "rune_workshop_tool.png"
-		},
-		"4105": {
-			"item_name": "Short Ritual Root Chalice",
-			"item_desc": "Quickly search and join a Chalice Dungeon",
-			"item_img": "short_ritual_root_chalice.png"
-		},
-		"4110": {
-			"item_name": "Saw Hunter Badge",
-			"item_desc": "Badge of a Workshop-sanctioned hunter",
-			"item_img": "saw_hunter_badge.png"
-		},
-		"4112": {
-			"item_name": "Powder Keg Hunter Badge",
-			"item_desc": "Badge of a Powder Keg hunter, crafted by Powder Kegs",
-			"item_img": "powder_keg_hunter_badge.png"
-		},
-		"4113": {
-			"item_name": "Old Hunter Badge",
-			"item_desc": "Hunter badge crafted in the age of old Gehrman",
-			"item_img": "old_hunter_badge.png"
-		},
-		"4114": {
-			"item_name": "Sword Hunter Badge",
-			"item_desc": "Badge of a swordsman hunters under Church's blessing",
-			"item_img": "sword_hunter_badge.png"
-		},
-		"4115": {
-			"item_name": "Radiant Sword Hunter Badge",
-			"item_desc": "Radiant sword hunter badge, for Ludwig's successors",
-			"item_img": "radiant_sword_hunter_badge.png"
-		},
-		"4116": {
-			"item_name": "Wheel Hunter Badge",
-			"item_desc": "Wheel hunter badge, from the Church's secret workshop",
-			"item_img": "wheel_hunter_badge.png"
-		},
-		"4117": {
-			"item_name": "Cainhurst Badge",
-			"item_desc": "Badge of the royal guards of Cainhurst",
-			"item_img": "cainhurst_badge.png"
-		},
-		"4118": {
-			"item_name": "Spark Hunter Badge",
-			"item_desc": "Badge for friends of Archibald, Church workshop eccentric",
-			"item_img": "spark_hunter_badge.png"
-		},
-		"4119": {
-			"item_name": "Cosmic Eye Watcher Badge",
-			"item_desc": "Badge of the Choir, Healing Church elites",
-			"item_img": "cosmic_eye_watcher_badge.png"
-		},
-		"4120": {
-			"item_name": "Firing Hammer Badge",
-			"item_desc": "Firing Hammer Badge, of the old Oto Workshop.",
-			"item_img": "firing_hammer_badge.png"
-		},
-		"4300": {
-			"item_name": "Small Hair Oritem_nament",
-			"item_desc": "A small, very ordinary hair oritem_nament.",
-			"item_img": "small_hair_oritem_nament.png"
-		},
-		"4304": {
-			"item_name": "Ring of Betrothal",
-			"item_desc": "Wedlock ring given special meaning by the Great Ones",
-			"item_img": "ring_of_betrothal.png"
-		},
-		"4305": {
-			"item_name": "Queenly Flesh",
-			"item_desc": "The remains of Annalise, Vileblood Queen of Cainhurst.",
-			"item_img": "queenly_flesh.png"
-		},
-		"4306": {
-			"item_name": "Red Jeweled Brooch",
-			"item_desc": "A woman's bright-red brooch, engraved with the name Viola.",
-			"item_img": "red_jeweled_brooch.png"
-		},
-		"4308": {
-			"item_name": "Unopened Summons",
-			"item_desc": "Old unopened summons, calling someone to Cainhurst",
-			"item_img": "unopened_summons.png"
-		},
-		"4310": {
-			"item_name": "Tonsil Stone",
-			"item_desc": "A latticed, deformed rock",
-			"item_img": "tonsil_stone.png"
-		},
-		"4312": {
-			"item_name": "Old Hunter Bell",
-			"item_desc": "Consume Insight to ring and call to old hunters for help",
-			"item_img": "old_hunter_bell.png"
-		},
-		"4330": {
-			"item_name": "Yharnam Stone",
-			"item_desc": "Sacred heirloom of Yharnam, Pthumerian Queen",
-			"item_img": "yharnam_stone.png"
-		},
-		"4900": {
-			"item_name": "Yharnam Messenger Hat",
-			"item_desc": "Hat that messengers are oddly fond of",
-			"item_img": "yharnam_messenger_hat.png"
-		},
-		"4902": {
-			"item_name": "Messenger Head Bandage",
-			"item_desc": "Accessory adored by naїve messengers",
-			"item_img": "messenger_head_bandage.png"
-		},
-		"4903": {
-			"item_name": "White Messenger Ribbon",
-			"item_desc": "White ribbon that messengers are oddly fond of",
-			"item_img": "white_messenger_ribbon.png"
-		},
-		"4904": {
-			"item_name": "Red Messenger Ribbon",
-			"item_desc": "Red ribbon that the messengers are oddly fond of",
-			"item_img": "red_messenger_ribbon.png"
-		},
-		"4905": {
-			"item_name": "Messenger Top Hat",
-			"item_desc": "Hat that the messengers are oddly fond of",
-			"item_img": "messenger_top_hat.png"
-		},
-		"4906": {
-			"item_name": "Black Messenger Hat",
-			"item_desc": "Hat that the messengers are oddly fond of",
-			"item_img": "black_messenger_hat.png"
-		},
-		"4907": {
-			"item_name": "Bloody Messenger Head Bandage",
-			"item_desc": "Accessory adored by naїve messengers",
-			"item_img": "bloody_messenger_head_bandage.png"
-		},
-		"4908": {
-			"item_name": "Messenger Urn Festival",
-			"item_desc": "Accessory worn by messengers playing make-believe",
-			"item_img": "messenger_urn_festival.png"
-		}
-	},
-	"chalice": {
-		"6100": {
-			"item_img": "pthumeru_root_chalice.png",
-			"item_name": "Pthumeru Root Chalice",
-			"item_desc": "",
-			"depth": "1",
-			"area": "Pthumeru"
-		},
-		"6109": {
-			"item_img": "pthumeru_chalice.png",
-			"item_name": "Pthumeru Chalice",
-			"item_desc": "",
-			"depth": "1",
-			"area": "Pthumeru"
-		},
-		"6200": {
-			"item_img": "central_pthumeru_root_chalice.png",
-			"item_name": "Central Pthumeru Root Chalice",
-			"item_desc": "",
-			"depth": "2",
-			"area": "Pthumeru"
-		},
-		"6209": {
-			"item_img": "central_pthumeru_chalice.png",
-			"item_name": "Central Pthumeru Chalice",
-			"item_desc": "",
-			"depth": "2",
-			"area": "Pthumeru"
-		},
-		"6210": {
-			"item_img": "hintertomb_root_chalice.png",
-			"item_name": "Hintertomb Root Chalice",
-			"item_desc": "",
-			"depth": "2",
-			"area": "Hintertomb"
-		},
-		"6219": {
-			"item_img": "hintertomb_chalice.png",
-			"item_name": "Hintertomb Chalice",
-			"item_desc": "",
-			"depth": "2",
-			"area": "Hintertomb"
-		},
-		"6300": {
-			"item_img": "lower_pthumeru_root_chalice.png",
-			"item_name": "Lower Pthumeru Root Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Pthumeru"
-		},
-		"6302": {
-			"item_img": "sinister_lower_pthumeru_root_chalice.png",
-			"item_name": "Sinister Lower Pthumeru Root Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Pthumeru"
-		},
-		"6309": {
-			"item_img": "lower_pthumeru_chalice.png",
-			"item_name": "Lower Pthumeru Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Pthumeru"
-		},
-		"6310": {
-			"item_img": "lower_hintertomb_root_chalice.png",
-			"item_name": "Lower Hintertomb Root Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Hintertomb"
-		},
-		"6312": {
-			"item_img": "sinister_hintertomb_root_chalice.png",
-			"item_name": "Sinister Hintertomb Root Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Hintertomb"
-		},
-		"6319": {
-			"item_img": "lower_hintertomb_chalice.png",
-			"item_name": "Lower Hintertomb Chalice",
-			"item_desc": "",
-			"depth": "3",
-			"area": "Hintertomb"
-		},
-		"6401": {
-			"item_img": "cursed_and_defiled_root_chalice.png",
-			"item_name": "Cursed and Defiled Root Chalice",
-			"item_desc": "",
-			"depth": "4",
-			"area": "Phumeru"
-		},
-		"6409": {
-			"item_img": "defiled_chalice.png",
-			"item_name": "Defiled Chalice",
-			"item_desc": "",
-			"depth": "4",
-			"area": "Pthumeru"
-		},
-		"6420": {
-			"item_img": "ailing_loran_root_chalice.png",
-			"item_name": "Ailing Loran Root Chalice",
-			"item_desc": "",
-			"depth": "4",
-			"area": "Loran"
-		},
-		"6429": {
-			"item_img": "ailing_loran_chalice.png",
-			"item_name": "Ailing Loran Chalice",
-			"item_desc": "",
-			"depth": "4",
-			"area": "Loran"
-		},
-		"6500": {
-			"item_img": "pthumeru_ihyll_root_chalice.png",
-			"item_name": "Pthumeru Ihyll Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Pthumeru"
-		},
-		"6502": {
-			"item_img": "sinister_pthumeru_ihyll_root_chalice.png",
-			"item_name": "Sinister Pthumeru Ihyll Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Phumeru"
-		},
-		"6509": {
-			"item_img": "great_pthumeru_ihyll_chalice.png",
-			"item_name": "Great Pthumeru Ihyll Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Pthumeru"
-		},
-		"6520": {
-			"item_img": "lower_ailing_loran_root_chalice.png",
-			"item_name": "Lower Ailing Loran Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Loran"
-		},
-		"6522": {
-			"item_img": "sinister_lower_loran_root_chalice.png",
-			"item_name": "Sinister Lower Loran Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Loran"
-		},
-		"6529": {
-			"item_img": "lower_loran_chalice.png",
-			"item_name": "Lower Loran Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Loran"
-		},
-		"6530": {
-			"item_img": "isz_root_chalice.png",
-			"item_name": "Isz Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Isz"
-		},
-		"6532": {
-			"item_img": "sinister_isz_root_chalice.png",
-			"item_name": "Sinister Isz Root Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Isz"
-		},
-		"6539": {
-			"item_img": "great_isz_chalice.png",
-			"item_name": "Great Isz Chalice",
-			"item_desc": "",
-			"depth": "5",
-			"area": "Isz"
-		}
-	}
+  "consumable": {
+    "100": {
+      "item_name": "Hunter's Mark",
+      "item_desc": "Sacrifice all Blood Echoes and awaken anew",
+      "item_img": "hunter's_mark.png"
+    },
+    "111": {
+      "item_name": "Silencing Blank",
+      "item_desc": "Fire to end ongoing, and prevent further, cooperation",
+      "item_img": "silencing_blank.png"
+    },
+    "120": {
+      "item_name": "Notebook",
+      "item_desc": "Leave a note using messengers, or read a note",
+      "item_img": "notebook.png"
+    },
+    "130": {
+      "item_name": "Vileblood Register",
+      "item_desc": "A register listing all known Vilebloods",
+      "item_img": "vileblood_register.png"
+    },
+    "131": {
+      "item_name": "League Staff",
+      "item_desc": "Hides a directory listing the names of League confederates",
+      "item_img": "league_staff.png"
+    },
+    "200": {
+      "item_name": "Beckoning Bell",
+      "item_desc": "Use Insight to ring and call to other worlds for help",
+      "item_img": "beckoning_bell.png"
+    },
+    "205": {
+      "item_name": "Small Resonant Bell",
+      "item_desc": "Ring this bell to help hunters in other worlds",
+      "item_img": "small_resonant_bell.png"
+    },
+    "700": {
+      "item_name": "Tiny Music Box",
+      "item_desc": "A small music box received from a young Yharnam girl",
+      "item_img": "tiny_music_box.png"
+    },
+    "704": {
+      "item_name": "Blood Dreg",
+      "item_desc": "Awful things that Vilebloods see in coldblood",
+      "item_img": "blood_dreg.png"
+    },
+    "706": {
+      "item_name": "Blood of Adeline",
+      "item_desc": "Restores HP, then rejuvenates HP for some time",
+      "item_img": "blood_of_adeline.png"
+    },
+    "900": {
+      "item_name": "Quicksilver Bullets",
+      "item_desc": "Bullets consumed when shooting guns",
+      "item_img": "quicksilver_bullets.png"
+    },
+    "1000": {
+      "item_name": "Blood Vial",
+      "item_desc": "Special blood vial that restores HP",
+      "item_img": "blood_vial.png"
+    },
+    "1100": {
+      "item_name": "Antidote",
+      "item_desc": "Medicinal pellets that counteract poison",
+      "item_img": "antidote.png"
+    },
+    "1110": {
+      "item_name": "Beast Blood Pellet",
+      "item_desc": "Giant medicinal pellet that grants short-lived beasthood",
+      "item_img": "beast_blood_pellet.png"
+    },
+    "1120": {
+      "item_name": "Blue Elixir",
+      "item_desc": "Liquid medicine that makes still bodies undetectable",
+      "item_img": "blue_elixir.png"
+    },
+    "1200": {
+      "item_name": "Molotov Cocktail",
+      "item_desc": "Explodes in raging flames when thrown against an object.",
+      "item_img": "molotov_cocktail.png"
+    },
+    "1201": {
+      "item_name": "Delayed Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "delayed_molotov.png"
+    },
+    "1220": {
+      "item_name": "Oil Urn",
+      "item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.",
+      "item_img": "oil_urn.png"
+    },
+    "1230": {
+      "item_name": "Pebble",
+      "item_desc": "Small pebbles found throughout Yharnam.",
+      "item_img": "pebble.png"
+    },
+    "1240": {
+      "item_name": "Throwing Knife",
+      "item_desc": "Throwing knife with a finely serrated blade.",
+      "item_img": "throwing_knife.png"
+    },
+    "1242": {
+      "item_name": "Poison Knife",
+      "item_desc": "A knife slathered in poison.",
+      "item_img": "poison_knife.png"
+    },
+    "1250": {
+      "item_name": "Rope Molotov Cocktail",
+      "item_desc": "Exploding molotov cocktail that is thrown behind.",
+      "item_img": "rope_molotov_cocktail.png"
+    },
+    "1251": {
+      "item_name": "Delayed Rope Molotov",
+      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_img": "delayed_rope_molotov.png"
+    },
+    "1260": {
+      "item_name": "Pungent Blood Cocktail",
+      "item_desc": "A mature blood cocktail, thrown to attract beasts",
+      "item_img": "pungent_blood_cocktail.png"
+    },
+    "1270": {
+      "item_name": "Numbing Mist",
+      "item_desc": "Throw to create mist cloud that prevents HP restoration",
+      "item_img": "numbing_mist.png"
+    },
+    "1300": {
+      "item_name": "Fire Paper",
+      "item_desc": "Coarse rubbing paper that applies fire to weapon",
+      "item_img": "fire_paper.png"
+    },
+    "1320": {
+      "item_name": "Bolt Paper",
+      "item_desc": "Coarse rubbing paper that applies bolt to weapon",
+      "item_img": "bolt_paper.png"
+    },
+    "1330": {
+      "item_name": "Bone Marrow Ash",
+      "item_desc": "Additional medium that strengthens Quicksilver Bullets",
+      "item_img": "bone_marrow_ash.png"
+    },
+    "1400": {
+      "item_name": "Bold Hunter's Mark",
+      "item_desc": "Awaken anew without losing Blood Echoes",
+      "item_img": "bold_hunter's_mark.png"
+    },
+    "1410": {
+      "item_name": "Shining Coins",
+      "item_desc": "Assorted shining coins which might guide one's way",
+      "item_img": "shining_coins.png"
+    },
+    "1411": {
+      "item_name": "Monocular",
+      "item_desc": "Monocular used to see things up close",
+      "item_img": "monocular.png"
+    },
+    "1412": {
+      "item_name": "Hand Lantern",
+      "item_desc": "Use weapons in both hands while illuminating the dark",
+      "item_img": "hand_lantern.png"
+    },
+    "1500": {
+      "item_name": "Madman's Knowledge",
+      "item_desc": "Skull of an enlightened madman. Use to gain Insight",
+      "item_img": "madman's_knowledge.png"
+    },
+    "1501": {
+      "item_name": "Great One's Wisdom",
+      "item_desc": "Fragment of lost wisdom. Use to gain much Insight",
+      "item_img": "great_one's_wisdom.png"
+    },
+    "1510": {
+      "item_name": "Coldblood Dew (1)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "coldblood_dew_(1).png"
+    },
+    "1511": {
+      "item_name": "Coldblood Dew (2)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "coldblood_dew_(2).png"
+    },
+    "1512": {
+      "item_name": "Coldblood Dew (3)",
+      "item_desc": "Use to gain Blood Echoes",
+      "item_img": "coldblood_dew_(3).png"
+    },
+    "1513": {
+      "item_name": "Thick Coldblood (4)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "thick_coldblood_(4).png"
+    },
+    "1514": {
+      "item_name": "Thick Coldblood (5)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "thick_coldblood_(5).png"
+    },
+    "1515": {
+      "item_name": "Thick Coldblood (6)",
+      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_img": "thick_coldblood_(6).png"
+    },
+    "1516": {
+      "item_name": "Frenzied Coldblood (7)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "frenzied_coldblood_(7).png"
+    },
+    "1517": {
+      "item_name": "Frenzied Coldblood (8)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "frenzied_coldblood_(8).png"
+    },
+    "1518": {
+      "item_name": "Frenzied Coldblood (9)",
+      "item_desc": "Use to gain frenzied Blood Echoes",
+      "item_img": "frenzied_coldblood_(9).png"
+    },
+    "1519": {
+      "item_name": "Kin Coldblood (10)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "kin_coldblood_(10).png"
+    },
+    "1590": {
+      "item_name": "Kin Coldblood (11)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "kin_coldblood_(11).png"
+    },
+    "1591": {
+      "item_name": "Kin Coldblood (12)",
+      "item_desc": "Use to gain unspeakable Blood Echoes",
+      "item_img": "kin_coldblood_(12).png"
+    },
+    "1592": {
+      "item_name": "Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "great_one_coldblood.png"
+    },
+    "1593": {
+      "item_name": "Old Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "old_great_one_coldblood.png"
+    },
+    "1594": {
+      "item_name": "Revered Great One Coldblood",
+      "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
+      "item_img": "revered_great_one_coldblood.png"
+    },
+    "1700": {
+      "item_name": "Vermin",
+      "item_desc": "Root of man's impurity. Writhes within filth",
+      "item_img": "vermin.png"
+    },
+    "2030": {
+      "item_name": "Lead Elixir",
+      "item_desc": "Liquid medicine shifts weight to deflect attacks",
+      "item_img": "lead_elixir.png"
+    },
+    "2090": {
+      "item_name": "Shaman Bone Blade",
+      "item_desc": "Slash foes to cause them to lose their sense of direction",
+      "item_img": "shaman_bone_blade.png"
+    },
+    "4320": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "third_umbilical_cord.png"
+    },
+    "4321": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "third_umbilical_cord.png"
+    },
+    "4322": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "third_umbilical_cord.png"
+    },
+    "4323": {
+      "item_name": "Third Umbilical Cord",
+      "item_desc": "Use to gain Insight",
+      "item_img": "third_umbilical_cord.png"
+    }
+  },
+  "material": {
+    "3000": {
+      "item_name": "Blood Stone Shard",
+      "item_desc": "A solid shard that forms in coldblood.",
+      "item_img": "blood_stone_shard.png"
+    },
+    "3010": {
+      "item_name": "Twin Blood Stone Shards",
+      "item_desc": "A solid shard that forms in coldblood.",
+      "item_img": "twin_blood_stone_shards.png"
+    },
+    "3020": {
+      "item_name": "Blood Stone Chunk",
+      "item_desc": "A solid chunk that forms in coldblood.",
+      "item_img": "blood_stone_chunk.png"
+    },
+    "3030": {
+      "item_name": "Blood Rock",
+      "item_desc": "A large solid chunk that forms in coldblood.",
+      "item_img": "blood_rock.png"
+    },
+    "7000": {
+      "item_name": "Ritual Blood (1)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "ritual_blood_(1).png"
+    },
+    "7001": {
+      "item_name": "Ritual Blood (2)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "ritual_blood_(2).png"
+    },
+    "7002": {
+      "item_name": "Ritual Blood (3)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "ritual_blood_(3).png"
+    },
+    "7003": {
+      "item_name": "Ritual Blood (4)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "ritual_blood_(4).png"
+    },
+    "7004": {
+      "item_name": "Ritual Blood (5)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "ritual_blood_(5).png"
+    },
+    "7012": {
+      "item_name": "Coldblood Flowerbud",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "coldblood_flowerbud.png"
+    },
+    "7013": {
+      "item_name": "Coldblood Flower Bulb",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "coldblood_flower_bulb.png"
+    },
+    "7014": {
+      "item_name": "Blooming Coldblood Flower",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "blooming_coldblood_flower.png"
+    },
+    "7020": {
+      "item_name": "Tomb Mold (1)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "tomb_mold_(1).png"
+    },
+    "7021": {
+      "item_name": "Tomb Mold (2)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "tomb_mold_(2).png"
+    },
+    "7022": {
+      "item_name": "Tomb Mold (3)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "tomb_mold_(3).png"
+    },
+    "7023": {
+      "item_name": "Tomb Mold (4)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "tomb_mold_(4).png"
+    },
+    "7024": {
+      "item_name": "Tomb Mold (5)",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "tomb_mold_(5).png"
+    },
+    "7050": {
+      "item_name": "Arcane Haze",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "arcane_haze.png"
+    },
+    "7100": {
+      "item_name": "Pearl Slug",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "pearl_slug.png"
+    },
+    "7110": {
+      "item_name": "Red Jelly",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "red_jelly.png"
+    },
+    "7120": {
+      "item_name": "Sage's Wrist",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "sage's_wrist.png"
+    },
+    "7121": {
+      "item_name": "Sage's Hair",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "sage's_hair.png"
+    },
+    "7130": {
+      "item_name": "Inflicted Organ",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "inflicted_organ.png"
+    },
+    "7131": {
+      "item_name": "Yellow Backbone",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "yellow_backbone.png"
+    },
+    "7140": {
+      "item_name": "Bastard of Loran",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "bastard_of_loran.png"
+    },
+    "7150": {
+      "item_name": "Bloodshot Eyeball",
+      "item_desc": "Material used in a Holy Chalice ritual.",
+      "item_img": "bloodshot_eyeball.png"
+    },
+    "7200": {
+      "item_name": "Living String",
+      "item_desc": "Special material used in a Holy Chalice ritual.",
+      "item_img": "living_string.png"
+    }
+  },
+  "key": {
+    "4000": {
+      "item_name": "Oedon Tomb Key",
+      "item_desc": "Key to the gate that blocks the Tomb of Oedon.",
+      "item_img": "oedon_tomb_key.png"
+    },
+    "4011": {
+      "item_name": "Hunter Chief Emblem",
+      "item_desc": "A cloth emblem that belonged to the captain of the Church hunters long ago.",
+      "item_img": "hunter_chief_emblem.png"
+    },
+    "4018": {
+      "item_name": "Underground Cell Key",
+      "item_desc": "Key to the cell below the Grand Cathedral.",
+      "item_img": "underground_cell_key.png"
+    },
+    "4019": {
+      "item_name": "Balcony Key",
+      "item_desc": "Key to the balcony on the first floor of the Research Hall.",
+      "item_img": "balcony_key.png"
+    },
+    "4020": {
+      "item_name": "Astral Clocktower Key",
+      "item_desc": "Key to Astral Clocktower, atop the Grand Cathedral",
+      "item_img": "astral_clocktower_key.png"
+    },
+    "4021": {
+      "item_name": "Celestial Dial",
+      "item_desc": "Dial for the great Astral Clock of the Grand Cathedral",
+      "item_img": "celestial_dial.png"
+    },
+    "4102": {
+      "item_name": "Workshop Haze Extractor",
+      "item_desc": "New option at the Workshop",
+      "item_img": "workshop_haze_extractor.png"
+    },
+    "4103": {
+      "item_name": "Blood Gem Workshop Tool",
+      "item_desc": "New option in the Workshop",
+      "item_img": "blood_gem_workshop_tool.png"
+    },
+    "4104": {
+      "item_name": "Rune Workshop Tool",
+      "item_desc": "Bath Messengers [Hunter's Dream]",
+      "item_img": "rune_workshop_tool.png"
+    },
+    "4105": {
+      "item_name": "Short Ritual Root Chalice",
+      "item_desc": "Quickly search and join a Chalice Dungeon",
+      "item_img": "short_ritual_root_chalice.png"
+    },
+    "4110": {
+      "item_name": "Saw Hunter Badge",
+      "item_desc": "Badge of a Workshop-sanctioned hunter",
+      "item_img": "saw_hunter_badge.png"
+    },
+    "4112": {
+      "item_name": "Powder Keg Hunter Badge",
+      "item_desc": "Badge of a Powder Keg hunter, crafted by Powder Kegs",
+      "item_img": "powder_keg_hunter_badge.png"
+    },
+    "4113": {
+      "item_name": "Old Hunter Badge",
+      "item_desc": "Hunter badge crafted in the age of old Gehrman",
+      "item_img": "old_hunter_badge.png"
+    },
+    "4114": {
+      "item_name": "Sword Hunter Badge",
+      "item_desc": "Badge of a swordsman hunters under Church's blessing",
+      "item_img": "sword_hunter_badge.png"
+    },
+    "4115": {
+      "item_name": "Radiant Sword Hunter Badge",
+      "item_desc": "Radiant sword hunter badge, for Ludwig's successors",
+      "item_img": "radiant_sword_hunter_badge.png"
+    },
+    "4116": {
+      "item_name": "Wheel Hunter Badge",
+      "item_desc": "Wheel hunter badge, from the Church's secret workshop",
+      "item_img": "wheel_hunter_badge.png"
+    },
+    "4117": {
+      "item_name": "Cainhurst Badge",
+      "item_desc": "Badge of the royal guards of Cainhurst",
+      "item_img": "cainhurst_badge.png"
+    },
+    "4118": {
+      "item_name": "Spark Hunter Badge",
+      "item_desc": "Badge for friends of Archibald, Church workshop eccentric",
+      "item_img": "spark_hunter_badge.png"
+    },
+    "4119": {
+      "item_name": "Cosmic Eye Watcher Badge",
+      "item_desc": "Badge of the Choir, Healing Church elites",
+      "item_img": "cosmic_eye_watcher_badge.png"
+    },
+    "4120": {
+      "item_name": "Firing Hammer Badge",
+      "item_desc": "Firing Hammer Badge, of the old Oto Workshop.",
+      "item_img": "firing_hammer_badge.png"
+    },
+    "4300": {
+      "item_name": "Small Hair Oritem_nament",
+      "item_desc": "A small, very ordinary hair oritem_nament.",
+      "item_img": "small_hair_oritem_nament.png"
+    },
+    "4304": {
+      "item_name": "Ring of Betrothal",
+      "item_desc": "Wedlock ring given special meaning by the Great Ones",
+      "item_img": "ring_of_betrothal.png"
+    },
+    "4305": {
+      "item_name": "Queenly Flesh",
+      "item_desc": "The remains of Annalise, Vileblood Queen of Cainhurst.",
+      "item_img": "queenly_flesh.png"
+    },
+    "4306": {
+      "item_name": "Red Jeweled Brooch",
+      "item_desc": "A woman's bright-red brooch, engraved with the name Viola.",
+      "item_img": "red_jeweled_brooch.png"
+    },
+    "4308": {
+      "item_name": "Unopened Summons",
+      "item_desc": "Old unopened summons, calling someone to Cainhurst",
+      "item_img": "unopened_summons.png"
+    },
+    "4310": {
+      "item_name": "Tonsil Stone",
+      "item_desc": "A latticed, deformed rock",
+      "item_img": "tonsil_stone.png"
+    },
+    "4312": {
+      "item_name": "Old Hunter Bell",
+      "item_desc": "Consume Insight to ring and call to old hunters for help",
+      "item_img": "old_hunter_bell.png"
+    },
+    "4330": {
+      "item_name": "Yharnam Stone",
+      "item_desc": "Sacred heirloom of Yharnam, Pthumerian Queen",
+      "item_img": "yharnam_stone.png"
+    },
+    "4900": {
+      "item_name": "Yharnam Messenger Hat",
+      "item_desc": "Hat that messengers are oddly fond of",
+      "item_img": "yharnam_messenger_hat.png"
+    },
+    "4902": {
+      "item_name": "Messenger Head Bandage",
+      "item_desc": "Accessory adored by naїve messengers",
+      "item_img": "messenger_head_bandage.png"
+    },
+    "4903": {
+      "item_name": "White Messenger Ribbon",
+      "item_desc": "White ribbon that messengers are oddly fond of",
+      "item_img": "white_messenger_ribbon.png"
+    },
+    "4904": {
+      "item_name": "Red Messenger Ribbon",
+      "item_desc": "Red ribbon that the messengers are oddly fond of",
+      "item_img": "red_messenger_ribbon.png"
+    },
+    "4905": {
+      "item_name": "Messenger Top Hat",
+      "item_desc": "Hat that the messengers are oddly fond of",
+      "item_img": "messenger_top_hat.png"
+    },
+    "4906": {
+      "item_name": "Black Messenger Hat",
+      "item_desc": "Hat that the messengers are oddly fond of",
+      "item_img": "black_messenger_hat.png"
+    },
+    "4907": {
+      "item_name": "Bloody Messenger Head Bandage",
+      "item_desc": "Accessory adored by naїve messengers",
+      "item_img": "bloody_messenger_head_bandage.png"
+    },
+    "4908": {
+      "item_name": "Messenger Urn Festival",
+      "item_desc": "Accessory worn by messengers playing make-believe",
+      "item_img": "messenger_urn_festival.png"
+    }
+  },
+  "chalice": {
+    "6100": {
+      "item_img": "pthumeru_root_chalice.png",
+      "item_name": "Pthumeru Root Chalice",
+      "item_desc": "",
+      "depth": "1",
+      "area": "Pthumeru"
+    },
+    "6109": {
+      "item_img": "pthumeru_chalice.png",
+      "item_name": "Pthumeru Chalice",
+      "item_desc": "",
+      "depth": "1",
+      "area": "Pthumeru"
+    },
+    "6200": {
+      "item_img": "central_pthumeru_root_chalice.png",
+      "item_name": "Central Pthumeru Root Chalice",
+      "item_desc": "",
+      "depth": "2",
+      "area": "Pthumeru"
+    },
+    "6209": {
+      "item_img": "central_pthumeru_chalice.png",
+      "item_name": "Central Pthumeru Chalice",
+      "item_desc": "",
+      "depth": "2",
+      "area": "Pthumeru"
+    },
+    "6210": {
+      "item_img": "hintertomb_root_chalice.png",
+      "item_name": "Hintertomb Root Chalice",
+      "item_desc": "",
+      "depth": "2",
+      "area": "Hintertomb"
+    },
+    "6219": {
+      "item_img": "hintertomb_chalice.png",
+      "item_name": "Hintertomb Chalice",
+      "item_desc": "",
+      "depth": "2",
+      "area": "Hintertomb"
+    },
+    "6300": {
+      "item_img": "lower_pthumeru_root_chalice.png",
+      "item_name": "Lower Pthumeru Root Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Pthumeru"
+    },
+    "6302": {
+      "item_img": "sinister_lower_pthumeru_root_chalice.png",
+      "item_name": "Sinister Lower Pthumeru Root Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Pthumeru"
+    },
+    "6309": {
+      "item_img": "lower_pthumeru_chalice.png",
+      "item_name": "Lower Pthumeru Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Pthumeru"
+    },
+    "6310": {
+      "item_img": "lower_hintertomb_root_chalice.png",
+      "item_name": "Lower Hintertomb Root Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Hintertomb"
+    },
+    "6312": {
+      "item_img": "sinister_hintertomb_root_chalice.png",
+      "item_name": "Sinister Hintertomb Root Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Hintertomb"
+    },
+    "6319": {
+      "item_img": "lower_hintertomb_chalice.png",
+      "item_name": "Lower Hintertomb Chalice",
+      "item_desc": "",
+      "depth": "3",
+      "area": "Hintertomb"
+    },
+    "6401": {
+      "item_img": "cursed_and_defiled_root_chalice.png",
+      "item_name": "Cursed and Defiled Root Chalice",
+      "item_desc": "",
+      "depth": "4",
+      "area": "Phumeru"
+    },
+    "6409": {
+      "item_img": "defiled_chalice.png",
+      "item_name": "Defiled Chalice",
+      "item_desc": "",
+      "depth": "4",
+      "area": "Pthumeru"
+    },
+    "6420": {
+      "item_img": "ailing_loran_root_chalice.png",
+      "item_name": "Ailing Loran Root Chalice",
+      "item_desc": "",
+      "depth": "4",
+      "area": "Loran"
+    },
+    "6429": {
+      "item_img": "ailing_loran_chalice.png",
+      "item_name": "Ailing Loran Chalice",
+      "item_desc": "",
+      "depth": "4",
+      "area": "Loran"
+    },
+    "6500": {
+      "item_img": "pthumeru_ihyll_root_chalice.png",
+      "item_name": "Pthumeru Ihyll Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Pthumeru"
+    },
+    "6502": {
+      "item_img": "sinister_pthumeru_ihyll_root_chalice.png",
+      "item_name": "Sinister Pthumeru Ihyll Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Phumeru"
+    },
+    "6509": {
+      "item_img": "great_pthumeru_ihyll_chalice.png",
+      "item_name": "Great Pthumeru Ihyll Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Pthumeru"
+    },
+    "6520": {
+      "item_img": "lower_ailing_loran_root_chalice.png",
+      "item_name": "Lower Ailing Loran Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Loran"
+    },
+    "6522": {
+      "item_img": "sinister_lower_loran_root_chalice.png",
+      "item_name": "Sinister Lower Loran Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Loran"
+    },
+    "6529": {
+      "item_img": "lower_loran_chalice.png",
+      "item_name": "Lower Loran Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Loran"
+    },
+    "6530": {
+      "item_img": "isz_root_chalice.png",
+      "item_name": "Isz Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Isz"
+    },
+    "6532": {
+      "item_img": "sinister_isz_root_chalice.png",
+      "item_name": "Sinister Isz Root Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Isz"
+    },
+    "6539": {
+      "item_img": "great_isz_chalice.png",
+      "item_name": "Great Isz Chalice",
+      "item_desc": "",
+      "depth": "5",
+      "area": "Isz"
+    }
+  }
 }
