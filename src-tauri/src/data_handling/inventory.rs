@@ -447,7 +447,7 @@ pub fn get_info_armor(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, Ar
     Err(Error::CustomError("ERROR: Failed to find info for the armor."))
 }
 
-pub fn get_info_weapon(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
+pub fn get_info_weapon(mut id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
     let file_path = resources_path.join("weapons.json");
     let json_file =  File::open(file_path).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
@@ -455,7 +455,9 @@ pub fn get_info_weapon(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, A
     let weapons = weapons.as_object().unwrap();
 
     let weapon_mods = WeaponMods::try_from(id)?;
-    let id = (id / 100000) * 100000; //Remove the weapon mods to be able to find its info
+    if id != 12080000 { //Special case
+        id = (id / 100000) * 100000; //Remove the weapon mods to be able to find its info
+    }
     for (category, category_weapons) in weapons {
         match category_weapons.as_object().unwrap().keys().find(|x| x.parse::<u32>().unwrap() == id) {
             Some(found) => {
