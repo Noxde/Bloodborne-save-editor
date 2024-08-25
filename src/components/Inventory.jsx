@@ -102,9 +102,7 @@ function Inventory() {
               });
               setSave(editedSave);
 
-              const canvas = document.querySelector(
-                `canvas[data-item-id='${selected.id}']`
-              );
+              const canvas = selectedRef.current;
               const ctx = canvas.getContext("2d");
 
               const itemImage = await loadImage(
