@@ -14,6 +14,8 @@
 
 </div>
 
+**Note:** To use this save editor you first need to decrypt your bloodborne save. 
+
 ## Table of Contents
 
 - [1. Features](#1-features)
@@ -95,7 +97,7 @@ If you encounter any bug please [make an issue](https://github.com/Noxde/Bloodbo
 
 ## 4. Attributions
 
-Big thanks to Meph for making the [BloodBorne Wiki](https://www.bloodborne-wiki.com/). All the information used on this project comes from there.
+Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). All the information used on this project comes from there.
 
 ## 5. License
 
