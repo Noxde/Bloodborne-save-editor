@@ -1,15 +1,17 @@
 use serde::{Deserialize, Serialize};
-use super::{constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET}, enums::{Error, TypeFamily}};
+use serde_json::Value;
+use super::{constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET, START_TO_UPGRADE}, enums::{Error, TypeFamily}};
 use std::{
-    fs,
-    io::{self, Read},
+    fs::{self, File},
+    io::{self, BufReader, Read},
     path::PathBuf,
 };
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Offsets {
     pub username: usize, //Beginning
     pub inventory: (usize, usize), //Beginning and end
+    pub upgrades: (usize, usize),
     pub key_inventory: (usize, usize), //Beginning and end
 }
 
@@ -18,10 +20,34 @@ impl Offsets {
     fn build(bytes: &Vec<u8>) -> Result<Offsets, Error> {
         let mut username_offset = 0;
         let mut inventory_offset = (0, 0);
+        let mut upgrades_offset = (START_TO_UPGRADE, 0);
         let mut key_inventory_offset = (0, 0);
         let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
         let inv_start_bytes_len = inv_start_bytes.len();
 
+        let gems = [
+            [0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
+            [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00],
+            [0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00],
+            [0x01, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00],
+            [0x01, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00]
+          ];
+        let runes =  [
+            [0x02, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
+            [0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
+        ];
+
+        //Get the end offset for the upgrades
+        for i in (upgrades_offset.0..(bytes.len())).step_by(40) {
+            let current = &bytes[i..(i+8)];
+
+            let is_match = runes.iter().any(|&x| current == x) || gems.iter().any(|&x| current == x);
+
+            if !is_match {
+                upgrades_offset.1 = i - 8;
+                break;
+            } 
+        }
         //Searches for the inv_start_bytes
         for i in 0..(bytes.len() - inv_start_bytes_len) {
             if *inv_start_bytes == bytes[i..(i + inv_start_bytes_len)] {
@@ -56,6 +82,7 @@ impl Offsets {
         Ok(Offsets {
             username: username_offset,
             inventory: inventory_offset,
+            upgrades: upgrades_offset,
             key_inventory: key_inventory_offset,
         })
     }
