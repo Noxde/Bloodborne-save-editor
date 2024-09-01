@@ -17,7 +17,7 @@
     ["0x02", "0x00", "0x00", "0x00", "0x01", "0x00", "0x00", "0x00"],
     ["0x02", "0x00", "0x00", "0x00", "0x02", "0x00", "0x00", "0x00"]
   ],
-  "effects": {
+  "gemEffects": {
     "13101": {
       "name": "Odd Bloodtinge Blood Gemstone (1)",
       "effect": "Adds blood ATK (+1)",
@@ -74993,6 +74993,14 @@
       "effect": "No Effect",
       "rating": 95,
       "level": 0
+    }
+  },
+  "runeEffects": {
+    "1136002": {
+      "name": "Added to test. Please remove",
+      "effect": "Remove this please",
+      "rating": 1,
+      "level": 1
     }
   }
 }
