@@ -59,7 +59,6 @@ impl Article {
                 self.transform_item(file_data, new_id)
             },
             TypeFamily::Armor | TypeFamily::Weapon => self.transform_armor_or_weapon(file_data, new_id),
-            TypeFamily::Upgrade => Err(Error::CustomError("ERROR: Upgrades cannot be transformed.")),
         }
     }
     fn transform_item(&mut self, file_data: &mut FileData, new_id: Vec<u8>) -> Result<(), Error>{

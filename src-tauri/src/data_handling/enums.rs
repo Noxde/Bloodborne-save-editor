@@ -30,8 +30,6 @@ pub enum ArticleType {
     RightHand,
     LeftHand,
     Armor,
-    Gem,
-    Rune,
 }
 
 impl Into<TypeFamily> for ArticleType {
@@ -44,8 +42,6 @@ impl Into<TypeFamily> for ArticleType {
             Self::RightHand => TypeFamily::Weapon,
             Self::LeftHand => TypeFamily::Weapon,
             Self::Armor => TypeFamily::Armor,
-            Self::Gem => TypeFamily::Upgrade,
-            Self::Rune => TypeFamily::Upgrade,
         }
     }
 }
@@ -59,8 +55,6 @@ impl From<&str> for ArticleType {
             "rightHand" => ArticleType::RightHand,
             "leftHand" => ArticleType::LeftHand,
             "armor" => ArticleType::Armor,
-            "gem" => ArticleType::Gem,
-            "rune" => ArticleType::Rune,
             _ => panic!("ERROR: Invalid category."),
         }
     }
@@ -70,7 +64,6 @@ impl From<&str> for ArticleType {
 pub enum TypeFamily {
     Armor,
     Item,
-    Upgrade,
     Weapon,
 }
 

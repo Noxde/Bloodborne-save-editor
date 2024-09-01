@@ -1,11 +1,6 @@
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use super::{constants::{USERNAME_TO_INV_OFFSET, USERNAME_TO_KEY_INV_OFFSET, START_TO_UPGRADE}, enums::{Error, TypeFamily}};
-use std::{
-    fs::{self, File},
-    io::{self, BufReader, Read},
-    path::PathBuf,
-};
+use std::{fs, io::{self, Read}, path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Offsets {
@@ -158,7 +153,6 @@ impl FileData {
             let last_byte = match type_family {
                 TypeFamily::Armor | TypeFamily::Item => 0x00,
                 TypeFamily::Weapon => self.bytes[offset+11],
-                TypeFamily::Upgrade => panic!("ERROR: Article cannot be an upgrade."),
             };
             let current_id = u32::from_le_bytes([self.bytes[offset+8],
                                                      self.bytes[offset+9],
