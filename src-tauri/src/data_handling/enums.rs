@@ -72,3 +72,20 @@ pub enum Imprint {
     Uncanny,
     Lost,
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy, Hash)]
+pub enum UpgradeType{
+    Gem,
+    Rune,
+}
+
+impl TryFrom<u8> for UpgradeType {
+    type Error = Error;
+    fn try_from(number: u8) -> Result<Self, Self::Error> {
+        match number {
+            0x01 => Ok(UpgradeType::Gem),
+            0x02 => Ok(UpgradeType::Rune),
+            _ => Err(Error::CustomError("ERROR: Invalid type.")),
+        }
+    }
+}
