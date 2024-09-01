@@ -34,14 +34,14 @@ impl Offsets {
 
         //Get the end offset for the upgrades
         for i in (upgrades_offset.0..(bytes.len())).step_by(40) {
-            let current = &bytes[i..(i+8)];
+            let current = &bytes[(i+8)..(i+16)];
 
             let is_match = runes.iter().any(|&x| current == x) || gems.iter().any(|&x| current == x);
 
             if !is_match {
-                upgrades_offset.1 = i - 8;
+                upgrades_offset.1 = i -1;
                 break;
-            } 
+            }
         }
         //Searches for the inv_start_bytes
         for i in 0..(bytes.len() - inv_start_bytes_len) {
@@ -221,29 +221,34 @@ mod tests {
         assert_eq!(file_data.offsets.username, 0x8777);
         assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cdb));
         assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
+        assert_eq!(file_data.offsets.upgrades, (84, 163));
 
         //testsave1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa82b);
         assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6af));
         assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
+        assert_eq!(file_data.offsets.upgrades, (84, 0x8c3));
 
         //testsave2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa86f);
         assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb643));
         assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
+        assert_eq!(file_data.offsets.upgrades, (84, 0x7d3));
 
         //testsave3
         let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xb473);
         assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8b7));
         assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
+        assert_eq!(file_data.offsets.upgrades, (84, 0xf7b));
 
         //testsave4
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xc85f);
         assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
+        assert_eq!(file_data.offsets.upgrades, (84, 163));
     }
 }

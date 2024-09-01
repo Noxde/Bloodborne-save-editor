@@ -5,4 +5,4 @@ pub const USERNAME_TO_INV_OFFSET: usize = 469;
 pub const USERNAME_TO_KEY_INV_OFFSET: usize = 32201;
 
 //Distance from the start of the save to the first gem/rune
-pub const START_TO_UPGRADE: usize = 92;
+pub const START_TO_UPGRADE: usize = 84;
