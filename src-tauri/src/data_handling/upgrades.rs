@@ -160,10 +160,10 @@ mod tests {
                                       0xffffffff]);
         assert_eq!(runes[0].shape, String::from("-"));
         let info = runes[0].info.clone();
-        assert_eq!(info.name, String::from("Added to test. Please remove"));
-        assert_eq!(info.effect, String::from("Remove this please"));
-        assert_eq!(info.rating, 1);
-        assert_eq!(info.level, 1);
+        assert_eq!(info.name, String::from("Formless Oedon"));
+        assert_eq!(info.effect, String::from("Max QS bullets held UP +3"));
+        assert_eq!(info.rating, 2);
+        assert_eq!(info.level, 0);
 
         //TESTSAVE 7
         let file_data = FileData::build("saves/testsave7", PathBuf::from("resources")).unwrap();

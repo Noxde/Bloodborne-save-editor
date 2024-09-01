@@ -74996,11 +74996,503 @@
     }
   },
   "runeEffects": {
-    "1136002": {
-      "name": "Added to test. Please remove",
-      "effect": "Remove this please",
+    "1100000": {
+      "name": "Moon",
+      "effect": "More echoes from slain enemies (+10%)",
+      "rating": 0,
+      "level": 0
+    },
+    "1100001": {
+      "name": "Moon",
+      "effect": "More echoes from slain enemies (+20%)",
       "rating": 1,
-      "level": 1
+      "level": 0
+    },
+    "1100002": {
+      "name": "Moon",
+      "effect": "More echoes from slain enemies (+30%)",
+      "rating": 2,
+      "level": 0
+    },
+    "1102000": {
+      "name": "Eye",
+      "effect": "Item Discovery +50",
+      "rating": 0,
+      "level": 0
+    },
+    "1102001": {
+      "name": "Eye",
+      "effect": "Item Discovery +70",
+      "rating": 1,
+      "level": 0
+    },
+    "1102002": {
+      "name": "Eye",
+      "effect": "Item Discovery +100",
+      "rating": 2,
+      "level": 0
+    },
+    "1103000": {
+      "name": "Clockwise Metamorphosis",
+      "effect": "Boosts Max HP +5%",
+      "rating": 0,
+      "level": 0
+    },
+    "1103001": {
+      "name": "Clockwise Metamorphosis",
+      "effect": "Boosts Max HP +10%",
+      "rating": 1,
+      "level": 0
+    },
+    "1103002": {
+      "name": "Clockwise Metamorphosis",
+      "effect": "Boosts Max HP +15%",
+      "rating": 2,
+      "level": 0
+    },
+    "1105000": {
+      "name": "Anti-Clockwise Metamorphosis",
+      "effect": "Boosts Max Stamina +10%",
+      "rating": 0,
+      "level": 0
+    },
+    "1105001": {
+      "name": "Anti-Clockwise Metamorphosis",
+      "effect": "Boosts Max Stamina +15%",
+      "rating": 1,
+      "level": 0
+    },
+    "1105002": {
+      "name": "Anti-Clockwise Metamorphosis",
+      "effect": "Boosts Max Stamina +20%",
+      "rating": 2,
+      "level": 0
+    },
+    "1107000": {
+      "name": "Clawmark",
+      "effect": "Ups visceral attack ATK +10%",
+      "rating": 0,
+      "level": 0
+    },
+    "1107001": {
+      "name": "Clawmark",
+      "effect": "Ups visceral attack ATK +20%",
+      "rating": 1,
+      "level": 0
+    },
+    "1107002": {
+      "name": "Clawmark",
+      "effect": "Ups visceral attack ATK +30%",
+      "rating": 2,
+      "level": 0
+    },
+    "1108000": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs restore HP +200",
+      "rating": 0,
+      "level": 0
+    },
+    "1108001": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs restore HP +250",
+      "rating": 1,
+      "level": 0
+    },
+    "1108002": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs restore HP +300",
+      "rating": 2,
+      "level": 0
+    },
+    "1110000": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs grant QS bullets +1",
+      "rating": 0,
+      "level": 0
+    },
+    "1110001": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs rant QS bullets +2",
+      "rating": 1,
+      "level": 0
+    },
+    "1110002": {
+      "name": "Oedon Writhe",
+      "effect": "V.ATKs grant QS bullets +3",
+      "rating": 2,
+      "level": 0
+    },
+    "1112000": {
+      "name": "Heir",
+      "effect": "Blood Echoes gained from V.ATKs (+30%)",
+      "rating": 0,
+      "level": 0
+    },
+    "1112001": {
+      "name": "Heir",
+      "effect": "Blood Echoes gained from V.ATKs (+40%)",
+      "rating": 1,
+      "level": 0
+    },
+    "1112002": {
+      "name": "Heir",
+      "effect": "Blood Echoes gained from V.ATKs (+50%)",
+      "rating": 2,
+      "level": 0
+    },
+    "1118000": {
+      "name": "Arcane Lake",
+      "effect": "Arcane DMG Reduction +5%",
+      "rating": 0,
+      "level": 0
+    },
+    "1118001": {
+      "name": "Arcane Lake",
+      "effect": "Arcane DMG Reduction +7%",
+      "rating": 1,
+      "level": 0
+    },
+    "1118002": {
+      "name": "Arcane Lake",
+      "effect": "Arcane DMG Reduction +10%",
+      "rating": 2,
+      "level": 0
+    },
+    "1119000": {
+      "name": "Fading Lake",
+      "effect": "Fire DMG Reduction +5%",
+      "rating": 0,
+      "level": 0
+    },
+    "1119001": {
+      "name": "Fading Lake",
+      "effect": "Fire DMG Reduction +7%",
+      "rating": 1,
+      "level": 0
+    },
+    "1119002": {
+      "name": "Fading Lake",
+      "effect": "Fire DMG Reduction +10%",
+      "rating": 2,
+      "level": 0
+    },
+    "1121000": {
+      "name": "Dissipating Lake",
+      "effect": "Bolt DMG Reduction +5%",
+      "rating": 0,
+      "level": 0
+    },
+    "1121001": {
+      "name": "Dissipating Lake",
+      "effect": "Bolt DMG Reduction +7%",
+      "rating": 1,
+      "level": 0
+    },
+    "1121002": {
+      "name": "Dissipating Lake",
+      "effect": "Bolt DMG Reduction +10%",
+      "rating": 2,
+      "level": 0
+    },
+    "1122000": {
+      "name": "Lake",
+      "effect": "Physical DMG reduction +3%",
+      "rating": 0,
+      "level": 0
+    },
+    "1122001": {
+      "name": "Lake",
+      "effect": "Physical DMG reduction +5%",
+      "rating": 1,
+      "level": 0
+    },
+    "1122002": {
+      "name": "Lake",
+      "effect": "Physical DMG reduction +7%",
+      "rating": 2,
+      "level": 0
+    },
+    "1123000": {
+      "name": "Great Lake",
+      "effect": "All DMG reduction +3%",
+      "rating": 0,
+      "level": 0
+    },
+    "1123001": {
+      "name": "Great Lake",
+      "effect": "All DMG reduction +5%",
+      "rating": 1,
+      "level": 0
+    },
+    "1123002": {
+      "name": "Great Lake",
+      "effect": "All DMG reduction +7%",
+      "rating": 2,
+      "level": 0
+    },
+    "1125000": {
+      "name": "Stunning Deep Sea",
+      "effect": "Add slow poison RES +100",
+      "rating": 0,
+      "level": 0
+    },
+    "1125001": {
+      "name": "Clear Deep Sea",
+      "effect": "Add slow poison RES +200",
+      "rating": 1,
+      "level": 0
+    },
+    "1125002": {
+      "name": "Clear Deep Sea",
+      "effect": "Add slow poison RES +300",
+      "rating": 2,
+      "level": 0
+    },
+    "1126000": {
+      "name": "Great Deep Sea",
+      "effect": "Add rapid poison RES +100",
+      "rating": 0,
+      "level": 0
+    },
+    "1126001": {
+      "name": "Great Deep Sea",
+      "effect": "Add rapid poison RES +200",
+      "rating": 1,
+      "level": 0
+    },
+    "1126002": {
+      "name": "Great Deep Sea",
+      "effect": "Add rapid poison RES +300",
+      "rating": 2,
+      "level": 0
+    },
+    "1127000": {
+      "name": "Deep Sea",
+      "effect": "Add frenzy RES +100",
+      "rating": 0,
+      "level": 0
+    },
+    "1127001": {
+      "name": "Deep Sea",
+      "effect": "Add frenzy RES +200",
+      "rating": 1,
+      "level": 0
+    },
+    "1127002": {
+      "name": "Deep Sea",
+      "effect": "Add frenzy RES +300",
+      "rating": 2,
+      "level": 0
+    },
+    "1128000": {
+      "name": "Great Deep Sea",
+      "effect": "Add all types of RES +50",
+      "rating": 0,
+      "level": 0
+    },
+    "1128001": {
+      "name": "Great Deep Sea",
+      "effect": "Add all types of RES+100",
+      "rating": 1,
+      "level": 0
+    },
+    "1128002": {
+      "name": "Great Deep Sea",
+      "effect": "Add all types of RES+150",
+      "rating": 2,
+      "level": 0
+    },
+    "1129000": {
+      "name": "Beast",
+      "effect": "Temp. boost to transform +20",
+      "rating": 0,
+      "level": 0
+    },
+    "1129001": {
+      "name": "Beast",
+      "effect": "Temp. boost to transform +50",
+      "rating": 1,
+      "level": 0
+    },
+    "1129002": {
+      "name": "Beast",
+      "effect": "Temp. boost to transform +100",
+      "rating": 2,
+      "level": 0
+    },
+    "1134000": {
+      "name": "Communion",
+      "effect": "Max vials held UP +1",
+      "rating": 0,
+      "level": 0
+    },
+    "1134001": {
+      "name": "Communion",
+      "effect": "Max vials held UP +2",
+      "rating": 1,
+      "level": 0
+    },
+    "1134002": {
+      "name": "Communion",
+      "effect": "Max vials held UP +3",
+      "rating": 2,
+      "level": 0
+    },
+    "1134003": {
+      "name": "Communion",
+      "effect": "Max vials held UP +4",
+      "rating": 3,
+      "level": 0
+    },
+    "1134004": {
+      "name": "Communion",
+      "effect": "Max vials held UP +5",
+      "rating": 4,
+      "level": 0
+    },
+    "1136000": {
+      "name": "Formless Oedon",
+      "effect": "Max QS bullets held UP +1",
+      "rating": 0,
+      "level": 0
+    },
+    "1136001": {
+      "name": "Formless Oedon",
+      "effect": "Max QS bullets held UP +2",
+      "rating": 1,
+      "level": 0
+    },
+    "1136002": {
+      "name": "Formless Oedon",
+      "effect": "Max QS bullets held UP +3",
+      "rating": 2,
+      "level": 0
+    },
+    "1136003": {
+      "name": "Formless Oedon",
+      "effect": "Max QS bullets held UP +4",
+      "rating": 3,
+      "level": 0
+    },
+    "1136004": {
+      "name": "Formless Oedon",
+      "effect": "Max QS bullets held UP +5",
+      "rating": 4,
+      "level": 0
+    },
+    "1140000": {
+      "name": "Beast",
+      "effect": "Falling damage reduced 30%",
+      "rating": 0,
+      "level": 0
+    },
+    "1140001": {
+      "name": "Beast",
+      "effect": "Falling damage reduced 50%",
+      "rating": 1,
+      "level": 0
+    },
+    "1140002": {
+      "name": "Beast",
+      "effect": "Falling damage reduced 100%",
+      "rating": 2,
+      "level": 0
+    },
+    "1141000": {
+      "name": "Guidance",
+      "effect": "Rally Potential +10%",
+      "rating": 0,
+      "level": 0
+    },
+    "1141001": {
+      "name": "Guidance",
+      "effect": "Rally Potential +20%",
+      "rating": 1,
+      "level": 0
+    },
+    "1141002": {
+      "name": "Guidance",
+      "effect": "Rally Potential +30%",
+      "rating": 2,
+      "level": 0
+    },
+    "2107001": {
+      "name": "Radiance",
+      "effect": "Increases HP recovery from Blood Vials",
+      "rating": 1,
+      "level": 0
+    },
+    "2108001": {
+      "name": "Corruption",
+      "effect": "Cont. heal near death (+1)",
+      "rating": 1,
+      "level": 0
+    },
+    "2110001": {
+      "name": "Hunter",
+      "effect": "Increases stamina recovery speed",
+      "rating": 1,
+      "level": 0
+    },
+    "2127001": {
+      "name": "Impurity",
+      "effect": "Increases max health by 2% while in co-op",
+      "rating": 1,
+      "level": 0
+    },
+    "2128001": {
+      "name": "Beast's Embrace",
+      "effect": "boost to transform +15",
+      "rating": 1,
+      "level": 0
+    },
+    "2128002": {
+      "name": "Beast's Embrace",
+      "effect": "??",
+      "rating": 2,
+      "level": 0
+    },
+    "2128003": {
+      "name": "Beast's Embrace",
+      "effect": "??",
+      "rating": 3,
+      "level": 0
+    },
+    "2128004": {
+      "name": "Beast's Embrace",
+      "effect": "??",
+      "rating": 4,
+      "level": 0
+    },
+    "2128005": {
+      "name": "Beast's Embrace",
+      "effect": "??",
+      "rating": 5,
+      "level": 0
+    },
+    "2129001": {
+      "name": "Milkweed",
+      "effect": "Slight increase to Item Discovery",
+      "rating": 1,
+      "level": 0
+    },
+    "2129002": {
+      "name": "Milkweed",
+      "effect": "??",
+      "rating": 2,
+      "level": 0
+    },
+    "2129003": {
+      "name": "Milkweed",
+      "effect": "??",
+      "rating": 3,
+      "level": 0
+    },
+    "4294967295": {
+      "name": "",
+      "effect": "No Effect",
+      "rating": 95,
+      "level": 0
     }
   }
 }
