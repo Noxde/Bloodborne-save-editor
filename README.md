@@ -1,6 +1,10 @@
 <div align=center> 
   <img alt="creator-program-logo" src="./assets/icon.png" width="300px">
+  <p><p/>
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total)
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total)
+[![Coverage Status](https://coveralls.io/repos/github/Noxde/Bloodborne-save-editor/badge.svg)](https://coveralls.io/github/Noxde/Bloodborne-save-editor)
 </div>
 <h1 align="center">Bloodborne Save Editor</h1>
 
