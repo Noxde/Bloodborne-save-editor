@@ -12,6 +12,7 @@ pub struct UpgradeInfo {
     pub effect: String,
     pub rating: u8,
     pub level: u8,
+    pub note: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -149,6 +150,7 @@ mod tests {
         assert_eq!(info.effect, String::from("Adds physical ATK (+45)"));
         assert_eq!(info.rating, 20);
         assert_eq!(info.level, 7);
+        assert_eq!(info.note, String::from(""));
 
         //Item N0
         assert_eq!(runes[0].id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
@@ -166,6 +168,7 @@ mod tests {
         assert_eq!(info.effect, String::from("Max QS bullets held UP +3"));
         assert_eq!(info.rating, 2);
         assert_eq!(info.level, 0);
+        assert_eq!(info.note, String::from("Higher Quicksilver Bullet max"));
 
         //TESTSAVE 7
         let file_data = FileData::build("saves/testsave7", PathBuf::from("resources")).unwrap();
@@ -190,6 +193,7 @@ mod tests {
         assert_eq!(info.effect, String::from("Physical ATK UP (+2.7%)"));
         assert_eq!(info.rating, 4);
         assert_eq!(info.level, 1);
+        assert_eq!(info.note, String::from(""));
     }
 
     #[test]
