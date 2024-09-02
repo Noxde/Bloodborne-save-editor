@@ -39,10 +39,11 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
         *data = Some(s.clone());
         Ok(serde_json::json!({
             "inventory": &s.inventory,
+            "upgrades": &s.upgrades,
             "stats": &s.stats
         }))
     } else {
-        Err("Failed to load save, make sure its a decrypted character.".to_string())
+        Err("Failed to load file, make sure its a decrypted character.".to_string())
     }
 }
 
@@ -54,6 +55,7 @@ fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexS
     match save.inventory.edit_item(&mut save.file, index, id, value) {
         Ok(_) => Ok(serde_json::json!({
             "inventory": &save.inventory,
+            "upgrades": &save.upgrades,
             "stats": &save.stats
         })),
         Err(_) => Err(())
@@ -117,6 +119,7 @@ fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, st
     match item.transform(&mut save.file, new_id) {
         Ok(_) => Ok(serde_json::json!({
             "inventory": &save.inventory,
+            "upgrades": &save.upgrades,
             "stats": &save.stats
         })),
         Err(_) => Err("Failed to transform item")
