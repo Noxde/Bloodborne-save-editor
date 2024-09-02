@@ -27,6 +27,11 @@ pub struct Upgrade {
 
 pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>> {
     let mut upgrades = HashMap::new();
+    let file_path = file_data.resources_path.join("upgrades.json");
+    let json_file =  File::open(file_path).map_err(Error::IoError).unwrap();
+    let reader = BufReader::new(json_file);
+    let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
+    
     let (start, end) = file_data.offsets.upgrades;
 
     for i in (start .. end).step_by(40) {
@@ -51,7 +56,7 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
         effects[5] = u32::from_le_bytes([file_data.bytes[i + 36], file_data.bytes[i + 37], file_data.bytes[i + 38], file_data.bytes[i + 39]]);
 
 
-        let info = match get_info_upgrade(effects[0], upgrade_type, &file_data.resources_path) {
+        let info = match get_info_upgrade(effects[0], upgrade_type, &upgrades_json) {
             Ok(inf) => inf,
             Err(_) => continue,
         };
@@ -75,25 +80,17 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
     upgrades
 }
 
-pub fn get_info_upgrade(first_effect: u32, upgrade_type: UpgradeType, resources_path: &PathBuf) -> Result<UpgradeInfo, Error> {
-    let file_path = resources_path.join("upgrades.json");
-    let json_file =  File::open(file_path).map_err(Error::IoError)?;
-    let reader = BufReader::new(json_file);
-    let upgrades: Value = serde_json::from_reader(reader).unwrap();
-    let upgrades = upgrades.as_object().unwrap();
+pub fn get_info_upgrade(first_effect: u32, upgrade_type: UpgradeType, upgrades: &Value) -> Result<UpgradeInfo, Error> {
     let upgrades = match upgrade_type {
-        UpgradeType::Gem => upgrades["gemEffects"].as_object().unwrap(),
-        UpgradeType::Rune => upgrades["runeEffects"].as_object().unwrap(),
+        UpgradeType::Gem => &upgrades["gemEffects"],
+        UpgradeType::Rune => &upgrades["runeEffects"],
     };
-
-    match upgrades.get(&first_effect.to_string()) {
-        Some(found) => {
-            let info: UpgradeInfo = serde_json::from_value(found.clone()).unwrap();
-            return Ok(info)
-        },
-        None => ()
+    
+    let upgrade = &upgrades[&first_effect.to_string()];
+    match serde_json::from_value(upgrade.clone()) {
+        Ok(info) => Ok(info),
+        Err(_) => Err(Error::CustomError("ERROR: Failed to find info for the upgrade."))
     }
-    Err(Error::CustomError("ERROR: Failed to find info for the upgrade."))
 }
 
 pub fn get_shape(shape: u8, upgrade_type: UpgradeType) -> Result<String, Error> {
