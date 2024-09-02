@@ -85,9 +85,9 @@ pub fn get_info_upgrade(first_effect: u32, upgrade_type: UpgradeType, resources_
         UpgradeType::Rune => upgrades["runeEffects"].as_object().unwrap(),
     };
 
-    match upgrades.keys().find(|x| x.parse::<u32>().unwrap() == first_effect) {
+    match upgrades.get(&first_effect.to_string()) {
         Some(found) => {
-            let info: UpgradeInfo = serde_json::from_value(upgrades[found].clone()).unwrap();
+            let info: UpgradeInfo = serde_json::from_value(found.clone()).unwrap();
             return Ok(info)
         },
         None => ()
@@ -119,7 +119,9 @@ pub fn get_shape(shape: u8, upgrade_type: UpgradeType) -> Result<String, Error> 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::path::PathBuf;
+    use std::{path::PathBuf,
+              time::Instant,
+              thread};
 
     #[test]
     fn test_parse_upgrades() {
@@ -188,5 +190,51 @@ mod tests {
         assert_eq!(info.effect, String::from("Physical ATK UP (+2.7%)"));
         assert_eq!(info.rating, 4);
         assert_eq!(info.level, 1);
+    }
+
+    #[test]
+    #[ignore] //cargo test -- --include-ignored
+    fn test_parse_upgrades_runtime() {
+
+        //TESTSAVE 0
+        let handle0 = thread::spawn(|| {
+            let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+            let now = Instant::now();
+            parse_upgrades(&file_data);
+            let elapsed = now.elapsed().as_millis();
+            assert!(elapsed < 500);
+        });
+
+        //TESTSAVE 1
+        let handle1 = thread::spawn(|| {
+            let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
+            let now = Instant::now();
+            parse_upgrades(&file_data);
+            let elapsed = now.elapsed().as_millis();
+            assert!(elapsed < 10000);
+        });
+
+        //TESTSAVE 2
+        let handle2 = thread::spawn(|| {
+            let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
+            let now = Instant::now();
+            parse_upgrades(&file_data);
+            let elapsed = now.elapsed().as_millis();
+            assert!(elapsed < 9000);
+        });
+
+        //TESTSAVE 3
+        let handle3 = thread::spawn(|| {
+            let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
+            let now = Instant::now();
+            parse_upgrades(&file_data);
+            let elapsed = now.elapsed().as_millis();
+            assert!(elapsed < 20000);
+        });
+
+        handle0.join().unwrap();
+        handle1.join().unwrap();
+        handle2.join().unwrap();
+        handle3.join().unwrap();
     }
 }
