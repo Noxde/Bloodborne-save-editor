@@ -180,6 +180,20 @@ impl FileData {
             false => None,
         }
     }
+
+    pub fn find_upgrade_offset(&self, id: u32) -> Option<usize> {
+        //Search for the upgrade
+        for i in (self.offsets.upgrades.0 .. self.offsets.upgrades.1).step_by(40) {
+            let current_id = u32::from_le_bytes([self.bytes[i+0],
+                                                 self.bytes[i+1],
+                                                 self.bytes[i+2],
+                                                 self.bytes[i+3]]);
+            if id == current_id {
+                return Some(i);
+            }
+        }
+        None
+    }
 }
 
 #[cfg(test)]
@@ -250,5 +264,23 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
+    }
+
+    #[test]
+    fn test_find_upgrade_offset() {
+        //testsave3
+        let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
+
+        //Does not exist
+        assert_eq!(file_data.find_upgrade_offset(0xFFFFFFFF), None);
+        //First one
+        assert_eq!(file_data.find_upgrade_offset(0xC08006B5), Some(0x54));
+        //Last one
+        assert_eq!(file_data.find_upgrade_offset(0xC0800715), Some(0xF54));
+        //Other ones
+        assert_eq!(file_data.find_upgrade_offset(0xC08006E5), Some(0x7D4));
+        assert_eq!(file_data.find_upgrade_offset(0xC08006D4), Some(0x52C));
+        assert_eq!(file_data.find_upgrade_offset(0xC08006C2), Some(0x25C));
+        assert_eq!(file_data.find_upgrade_offset(0x00000000), None);
     }
 }
