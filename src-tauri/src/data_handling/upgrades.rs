@@ -48,12 +48,54 @@ impl Upgrade {
 
         let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
             Some(offset) => offset,
-            None => return Err(Error::CustomError("Failed to find the article in the file data.")),
+            None => return Err(Error::CustomError("Failed to find the upgrade in the file data.")),
         };
 
         //Update the shape
         self.shape = new_shape;
         file_data.bytes[upgrade_offset+12] = new_shape_number;
+        Ok(())
+    }
+
+    //value_index must be 0..=5
+    pub fn change_effect(&mut self, file_data: &mut FileData, new_value: u32, value_index: usize) -> Result<(), Error> {
+        let file_path = file_data.resources_path.join("upgrades.json");
+        let json_file =  File::open(file_path).map_err(Error::IoError).unwrap();
+        let reader = BufReader::new(json_file);
+        let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
+
+        let json_effects: &Value = match self.upgrade_type {
+            UpgradeType::Gem => &upgrades_json["gemEffects"],
+            UpgradeType::Rune => &upgrades_json["runeEffects"],
+        };
+
+        let json_effect = &json_effects[new_value.to_string()];
+        let effect_info: UpgradeInfo = match serde_json::from_value(json_effect.clone()) {
+            Ok(inf) => inf,
+            Err(_) => return Err(Error::CustomError("Failed to find information of the new effect.")),
+        };
+        match self.effects.get_mut(value_index) {
+            Some(e) => {
+                e.0 = new_value;
+                e.1 = effect_info.effect.clone();
+            },
+            None => return Err(Error::CustomError("Invalid index.")),
+        };
+
+        if value_index == 0 {
+            self.info = effect_info;
+        }
+
+        let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
+            Some(offset) => offset,
+            None => return Err(Error::CustomError("Failed to find the upgrade in the file data.")),
+        };
+        let effect_offset = upgrade_offset + 16 + (value_index * 4);
+        let bytes = new_value.to_le_bytes();
+
+        for i in effect_offset .. effect_offset + 4 {
+            file_data.bytes[i] = bytes[i-effect_offset];
+        }
         Ok(())
     }
 }
@@ -356,5 +398,71 @@ mod tests {
         assert_eq!(gem2_2, gem3_2);
         assert_eq!(rune2_1, rune3_1);
         assert_eq!(rune2_2, rune3_2);
+    }
+
+    #[test]
+    fn upgrade_change_effect() {
+        //TESTSAVE 0
+        let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        let upgrades = parse_upgrades(&file_data);
+        let gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let mut gem2 = gem.clone();
+        let rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let mut rune2 = rune.clone();
+
+        let result = gem2.change_effect(&mut file_data, 0x00, 0);
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Failed to find information of the new effect.");
+        }
+
+        let result = rune2.change_effect(&mut file_data, 0xFFFFFFFF, 9);
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Invalid index.");
+        }
+
+        //Change effects
+        gem2.change_effect(&mut file_data, 13101, 1).unwrap();
+        gem2.change_effect(&mut file_data, 14609, 2).unwrap();
+        gem2.change_effect(&mut file_data, 14610, 3).unwrap();
+
+        rune2.change_effect(&mut file_data, 1100000, 1).unwrap();
+        rune2.change_effect(&mut file_data, 2107001, 2).unwrap();
+        rune2.change_effect(&mut file_data, 2108001, 3).unwrap();
+
+        //Compare all but effects
+        let check = |upgrade_a: Upgrade, upgrade_b: Upgrade| -> bool {
+            (upgrade_a.id == upgrade_b.id) &&
+            (upgrade_a.source == upgrade_b.source) &&
+            (upgrade_a.upgrade_type == upgrade_b.upgrade_type) &&
+            (upgrade_a.shape == upgrade_b.shape) &&
+            (upgrade_a.info == upgrade_b.info)
+        };
+
+        //Gem
+        assert_eq!(gem2.effects, vec![(0x440c, String::from("Adds physical ATK (+45)")),
+                                         (13101, String::from("Adds blood ATK (+1)")),
+                                         (14609, String::from("Adds arcane ATK (+56.3)")),
+                                         (14610, String::from("Adds arcane ATK (+62.5)")),
+                                         (0x440c, String::from("Adds physical ATK (+45)")),
+                                         (0x440c, String::from("Adds physical ATK (+45)"))]);
+        assert!(check(gem.clone(), gem2.clone()));
+
+        //Item N0
+        assert_eq!(rune2.effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
+                                          (1100000, String::from("More echoes from slain enemies (+10%)")),
+                                          (2107001, String::from("Increases HP recovery from Blood Vials")),
+                                          (2108001, String::from("Cont. heal near death (+1)")),
+                                          (0xffffffff, String::from("No Effect")),
+                                          (0xffffffff, String::from("No Effect"))]);
+        assert!(check(rune.clone(), rune2.clone()));
+
+        //Check the write to the file data
+        let upgrades = parse_upgrades(&file_data);
+        let gem3 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        assert_eq!(gem2, gem3);
+        assert_eq!(rune2, rune3);
     }
 }
