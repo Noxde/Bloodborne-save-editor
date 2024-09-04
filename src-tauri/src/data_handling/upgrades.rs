@@ -5,7 +5,7 @@ use super::{enums::{UpgradeType, Error},
 use std::{fs::File,
           io::BufReader,
           collections::HashMap};
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct UpgradeInfo {
     pub name: String,
     pub effect: String,
@@ -14,7 +14,7 @@ pub struct UpgradeInfo {
     pub note: String,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Upgrade {
     pub id: u32,
     pub source: u32,
@@ -22,6 +22,40 @@ pub struct Upgrade {
     pub shape: String,
     pub effects: Vec<(u32, String)>,
     pub info: UpgradeInfo,
+}
+
+impl Upgrade {
+    pub fn change_shape(&mut self, file_data: &mut FileData, new_shape: String) -> Result<(), Error> {
+        let new_shape_number: u8 = match self.upgrade_type {
+            UpgradeType::Gem => {
+                match new_shape.as_str() {
+                    "Radial" => 0x01,
+                    "Triangle" => 0x02,
+                    "Waning" => 0x04,
+                    "Circle" => 0x08,
+                    "Droplet" => 0x3F,
+                    _ => return Err(Error::CustomError("Invalid shape.")),
+                }
+            },
+            UpgradeType::Rune => {
+                match new_shape.as_str() {
+                    "-" => 0x01,
+                    "Oath" => 0x02,
+                    _ => return Err(Error::CustomError("Invalid shape.")),
+                }
+            },
+        };
+
+        let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
+            Some(offset) => offset,
+            None => return Err(Error::CustomError("Failed to find the article in the file data.")),
+        };
+
+        //Update the shape
+        self.shape = new_shape;
+        file_data.bytes[upgrade_offset+12] = new_shape_number;
+        Ok(())
+    }
 }
 
 pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>> {
@@ -246,5 +280,81 @@ mod tests {
         handle1.join().unwrap();
         handle2.join().unwrap();
         handle3.join().unwrap();
+    }
+
+    #[test]
+    fn upgrade_change_shape() {
+        let mut file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
+        let upgrades1 = parse_upgrades(&file_data);
+
+        //Droplet
+        let gem1_1 = upgrades1.get(&UpgradeType::Gem).unwrap()[5].clone();
+        //Radial
+        let gem1_2 = upgrades1.get(&UpgradeType::Gem).unwrap()[10].clone();
+        //Oath
+        let rune1_1 = upgrades1.get(&UpgradeType::Rune).unwrap()[5].clone();
+        //-
+        let rune1_2 = upgrades1.get(&UpgradeType::Rune).unwrap()[10].clone();
+
+        //Droplet
+        let mut gem2_1 = upgrades1.get(&UpgradeType::Gem).unwrap()[5].clone();
+        //Radial
+        let mut gem2_2 = upgrades1.get(&UpgradeType::Gem).unwrap()[10].clone();
+        //Oath
+        let mut rune2_1 = upgrades1.get(&UpgradeType::Rune).unwrap()[5].clone();
+        //-
+        let mut rune2_2 = upgrades1.get(&UpgradeType::Rune).unwrap()[10].clone();
+
+        //Run the function
+        let result = gem2_1.change_shape(&mut file_data, String::from("Test error"));
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Invalid shape.");
+        }
+        gem2_1.change_shape(&mut file_data, String::from("Waning")).unwrap();
+        gem2_2.change_shape(&mut file_data, String::from("Triangle")).unwrap();
+
+        let result = rune2_1.change_shape(&mut file_data, String::from("Test error"));
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Invalid shape.");
+        }
+        rune2_1.change_shape(&mut file_data, String::from("-")).unwrap();
+        rune2_2.change_shape(&mut file_data, String::from("Oath")).unwrap();
+
+        //Compare
+        let check = |upgrade_a: Upgrade, upgrade_b: Upgrade| -> bool {
+            (upgrade_a.id == upgrade_b.id) &&
+            (upgrade_a.source == upgrade_b.source) &&
+            (upgrade_a.upgrade_type == upgrade_b.upgrade_type) &&
+            (upgrade_a.effects == upgrade_b.effects) &&
+            (upgrade_a.info == upgrade_b.info)
+        };
+        assert_eq!(gem2_1.shape, "Waning");
+        assert!(check(gem1_1, gem2_1.clone()));
+
+        assert_eq!(gem2_2.shape, "Triangle");
+        assert!(check(gem1_2, gem2_2.clone()));
+
+        assert_eq!(rune2_1.shape, "-");
+        assert!(check(rune1_1, rune2_1.clone()));
+
+        assert_eq!(rune2_2.shape, "Oath");
+        assert!(check(rune1_2, rune2_2.clone()));
+
+        let upgrades2 = parse_upgrades(&file_data);
+        //Waning
+        let gem3_1 = upgrades2.get(&UpgradeType::Gem).unwrap()[5].clone();
+        //Triangle
+        let gem3_2 = upgrades2.get(&UpgradeType::Gem).unwrap()[10].clone();
+        //-
+        let rune3_1 = upgrades2.get(&UpgradeType::Rune).unwrap()[5].clone();
+        //Oath
+        let rune3_2 = upgrades2.get(&UpgradeType::Rune).unwrap()[10].clone();
+
+        assert_eq!(gem2_1, gem3_1);
+        assert_eq!(gem2_2, gem3_2);
+        assert_eq!(rune2_1, rune3_1);
+        assert_eq!(rune2_2, rune3_2);
     }
 }
