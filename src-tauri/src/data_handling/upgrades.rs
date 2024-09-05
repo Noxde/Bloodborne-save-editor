@@ -98,6 +98,67 @@ impl Upgrade {
         }
         Ok(())
     }
+
+    pub fn transform(&mut self, file_data: &mut FileData) -> Result<(), Error> {
+        let new_upgrade_bytes: [u8; 32] = match self.upgrade_type {
+            UpgradeType::Gem => {
+                self.upgrade_type = UpgradeType::Rune;
+                self.shape = String::from("-");
+                self.effects = vec![(1100000, String::from("More echoes from slain enemies (+10%)")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect"))];
+                self.info.name = String::from("Moon");
+                self.info.effect = String::from("More echoes from slain enemies (+10%)");
+                self.info.rating = 0;
+                self.info.level = 0;
+                self.info.note = String::from("\"Moon\" rune. Acquire more Blood Echoes");
+                [0x02, 0x00, 0x00, 0x00, //Type
+                 0x01, 0x00, 0x00, 0x00, //Shape
+                 0xE0, 0xC8, 0x10, 0x00, //Effect 1
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 2
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 3
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 4
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 5
+                 0xFF, 0xFF, 0xFF, 0xFF] //Effect 6
+            },
+            UpgradeType::Rune => {
+                self.upgrade_type = UpgradeType::Gem;
+                self.shape = String::from("Radial");
+                self.effects = vec![(13101, String::from("Adds blood ATK (+1)")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect"))];
+                self.info.name = String::from("Odd Bloodtinge Blood Gemstone (1)");
+                self.info.effect = String::from("Adds blood ATK (+1)");
+                self.info.rating = 1;
+                self.info.level = 1;
+                self.info.note = String::from("");
+                [0x01, 0x00, 0x00, 0x00, //Type
+                 0x01, 0x00, 0x00, 0x00, //Shape
+                 0x2D, 0x33, 0x00, 0x00, //Effect 1
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 2
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 3
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 4
+                 0xFF, 0xFF, 0xFF, 0xFF, //Effect 5
+                 0xFF, 0xFF, 0xFF, 0xFF] //Effect 6
+            },
+        };
+        let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
+            Some(offset) => offset,
+            None => return Err(Error::CustomError("Failed to find the upgrade in the file data.")),
+        };
+
+        //Update everything except id and source
+        for i in upgrade_offset + 8  .. upgrade_offset + 40 {
+            file_data.bytes[i] = new_upgrade_bytes[i-8-upgrade_offset];
+        }
+        Ok(())
+    }
 }
 
 pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>> {
@@ -464,5 +525,59 @@ mod tests {
         let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
         assert_eq!(gem2, gem3);
         assert_eq!(rune2, rune3);
+    }
+
+    #[test]
+    fn upgrade_transform() {
+        //TESTSAVE 0
+        let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        let upgrades = parse_upgrades(&file_data);
+        let mut gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let mut rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+
+        gem.transform(&mut file_data).unwrap(); //Transform the gem into a rune
+        rune.transform(&mut file_data).unwrap();//Transform the rune into a gem
+        //Rune -> Gem
+        assert_eq!(rune.id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
+        assert_eq!(rune.source, u32::from_le_bytes([0xBF, 0x92, 0x01, 0x80]));
+        assert_eq!(rune.upgrade_type, UpgradeType::Gem);
+        assert_eq!(rune.effects, vec![(13101, String::from("Adds blood ATK (+1)")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect"))]);
+        assert_eq!(rune.shape, String::from("Radial"));
+        let info = rune.info.clone();
+        assert_eq!(info.name, String::from("Odd Bloodtinge Blood Gemstone (1)"));
+        assert_eq!(info.effect, String::from("Adds blood ATK (+1)"));
+        assert_eq!(info.rating, 1);
+        assert_eq!(info.level, 1);
+        assert_eq!(info.note, String::from(""));
+
+        //Gem -> Rune
+        assert_eq!(gem.id, u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0]));
+        assert_eq!(gem.source, u32::from_le_bytes([0x26, 0x60, 0x01, 0x80]));
+        assert_eq!(gem.upgrade_type, UpgradeType::Rune);
+        assert_eq!(gem.effects, vec![(1100000, String::from("More echoes from slain enemies (+10%)")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect")),
+                                (0xFFFFFFFF, String::from("No Effect"))]);
+        assert_eq!(gem.shape, String::from("-"));
+        let info = gem.info.clone();
+        assert_eq!(info.name, String::from("Moon"));
+        assert_eq!(info.effect, String::from("More echoes from slain enemies (+10%)"));
+        assert_eq!(info.rating, 0);
+        assert_eq!(info.level, 0);
+        assert_eq!(info.note, String::from("\"Moon\" rune. Acquire more Blood Echoes"));
+
+        //Check if the file_data was modified correctly
+        let upgrades = parse_upgrades(&file_data);
+        let gem2 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let rune2 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        assert_eq!(rune,gem2);
+        assert_eq!(gem,rune2);
     }
 }
