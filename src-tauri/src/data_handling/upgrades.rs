@@ -214,7 +214,7 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
                 Ok(inf) => inf,
                 Err(_) => continue,
             };
-            if effect_info.effect.contains("-") {
+            if upgrade_type == UpgradeType::Gem && effect_info.effect.contains("-") {
                 is_cursed = true; // Set the flag if "Cursed" is found
             }
             effects.push((effects_ids[e], effect_info.effect.clone()));
