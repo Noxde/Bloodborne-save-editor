@@ -4,7 +4,7 @@
 use std::{error::Error, fs::File, io::BufReader, sync::Mutex};
 mod data_handling;
 
-use data_handling::{enums::ArticleType, save::SaveData};
+use data_handling::{enums::{ArticleType, UpgradeType}, save::SaveData};
 use serde_json::Value;
 struct MutexSave {
     data: Mutex<Option<SaveData>>
@@ -20,9 +20,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             return_weapons,
             return_armors,
             return_items,
+            return_gem_effects,
+            return_rune_effects,
             transform_item,
             edit_stat,
-            ])
+            edit_effect,
+            edit_shape
+        ])
         .run(tauri::generate_context!())?;
 
     Ok(())
@@ -110,6 +114,31 @@ fn return_items(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
+fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().unwrap();
+    let file_path = save.file.resources_path.join("upgrades.json");
+    let json_file =  File::open(file_path).unwrap();
+    let reader = BufReader::new(json_file);
+    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+
+    upgrade_json["gemEffects"].clone()
+}
+
+#[tauri::command]
+fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().unwrap();
+    let file_path = save.file.resources_path.join("upgrades.json");
+    let json_file =  File::open(file_path).unwrap();
+    let reader = BufReader::new(json_file);
+    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+
+    upgrade_json["runeEffects"].clone()
+}
+
+
+#[tauri::command]
 fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
@@ -132,4 +161,52 @@ fn edit_stat(rel_offset: isize, length: usize, times: usize, value: u32, state_s
     let save = save_option.as_mut().unwrap();
 
     save.file.edit(rel_offset, length, times, value);
+}
+
+#[tauri::command]
+fn edit_effect(upgrade_id: u32, upgrade_type: UpgradeType, new_effect_id: u32, index: usize, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    let upgrades_vec = {
+      match upgrade_type {
+        UpgradeType::Gem => save.upgrades.get_mut(&UpgradeType::Gem).unwrap(),
+        UpgradeType::Rune => save.upgrades.get_mut(&UpgradeType::Rune).unwrap()
+      }
+    };
+
+    let upgrade = upgrades_vec.iter_mut().find(|x| x.id == upgrade_id).unwrap();
+
+    match upgrade.change_effect(&mut save.file, new_effect_id, index) {
+        Ok(_) => Ok(serde_json::json!({
+            "inventory": &save.inventory,
+            "upgrades": &save.upgrades,
+            "stats": &save.stats
+        })),
+        Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+    }
+}
+
+#[tauri::command]
+fn edit_shape(upgrade_id: u32, upgrade_type: UpgradeType, new_shape: String, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    let upgrades_vec = {
+        match upgrade_type {
+          UpgradeType::Gem => save.upgrades.get_mut(&UpgradeType::Gem).unwrap(),
+          UpgradeType::Rune => save.upgrades.get_mut(&UpgradeType::Rune).unwrap()
+        }
+      };
+  
+      let upgrade = upgrades_vec.iter_mut().find(|x| x.id == upgrade_id).unwrap();
+  
+    match upgrade.change_shape(&mut save.file, new_shape) {
+        Ok(_) => Ok(serde_json::json!({
+            "inventory": &save.inventory,
+            "upgrades": &save.upgrades,
+            "stats": &save.stats
+        })),
+        Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+    }
 }
