@@ -206,12 +206,17 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
             note: String::from(""),
         };
 
+        let mut is_cursed = false; // Initialize the is_cursed flag
+
         for e in 0 .. 6 {
             let json_effect = &json_effects[&effects_ids[e].to_string()];
             let effect_info: UpgradeInfo = match serde_json::from_value(json_effect.clone()) {
                 Ok(inf) => inf,
                 Err(_) => continue,
             };
+            if effect_info.effect.contains("-") {
+                is_cursed = true; // Set the flag if "Cursed" is found
+            }
             effects.push((effects_ids[e], effect_info.effect.clone()));
             if e == 0 {
                 info = effect_info;
@@ -219,6 +224,9 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
 
         }
 
+        if is_cursed {
+            info.name = format!("Cursed {}", info.name); // Prefix "Cursed" to the name if any effect is cursed
+        }
 
         let shape = match get_shape(file_data.bytes[i+12], upgrade_type) {
             Ok(sha) => sha,
