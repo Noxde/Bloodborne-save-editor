@@ -11,6 +11,20 @@ async function drawCanvas(ctx, item, isSmall = false) {
     return;
   }
 
+  if (item?.upgrade_type == "Gem") {
+    loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/gem.png").then(
+      (gemImage) => {
+        drawGem(ctx, item, gemImage);
+      }
+    );
+  } else if (item?.upgrade_type == "Rune") {
+    loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item.png").then(
+      (runeImage) => {
+        drawRune(ctx, item, runeImage);
+      }
+    );
+  }
+
   switch (type) {
     case "weapon":
       loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/weapon.png").then(
@@ -48,6 +62,76 @@ async function drawCanvas(ctx, item, isSmall = false) {
     default:
       break;
   }
+}
+
+async function drawRune(ctx, rune, img) {
+  const { x, y } = {
+    x: 9,
+    y: 4.8,
+  };
+
+  const size = 73;
+  const {
+    info: { name, rating, note },
+    shape,
+  } = rune;
+
+  const path = getRunePath(name, shape, rating);
+
+  const thumbnail = await loadImage(path);
+
+  ctx.font = "18px Reim";
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
+
+  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(thumbnail, x, y, x + size, y + size + 2);
+
+  // Set up text
+  ctx.shadowBlur = 3;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowColor = "black";
+  ctx.fillStyle = "#ab9e87";
+  ctx.fillText(name, 107, 28);
+  ctx.fillText(note, 104, 69);
+
+  ctx.font = "24px Reim";
+  ctx.fillStyle = "#dbd9d5";
+}
+
+async function drawGem(ctx, gem, img) {
+  const { x, y } = {
+    x: 9,
+    y: 6,
+  };
+
+  const size = 73;
+  const {
+    effects,
+    info: { name, level, rating, effect },
+    shape,
+  } = gem;
+
+  const thumbnail = await loadImage(getGemPath(effects, shape, level));
+
+  ctx.font = "20px Reim";
+  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(thumbnail, x, y, x + size, y + size);
+
+  const margin = 100;
+  // Draw numbers
+  ctx.fillStyle = "#b8b7ad";
+  ctx.fillText(rating, 135, 77);
+  ctx.fillText(shape, margin * 2 + 27, 77);
+
+  // Set up text
+  ctx.shadowBlur = 3;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowColor = "black";
+  ctx.fillStyle = "#ab9e87";
+  ctx.fillText(name, 107, 28);
 }
 
 async function drawChalice(ctx, chalice, img) {
@@ -227,4 +311,60 @@ function getType(type) {
   }
 }
 
-export { getType, drawCanvas };
+function getRunePath(name, shape, rating) {
+  const normalized = name.toLowerCase().replaceAll(" ", "_");
+
+  if (shape === "Oath") {
+    // thumbnail = await loadImage(`/assets/runes/oath/${normalized}.png`);
+    return `/assets/runes/oath/${normalized}.png`;
+  } else {
+    // thumbnail = await loadImage(
+    return `/assets/runes/${removeRunePrefix(normalized)}/${rating}.png`;
+    // );
+  }
+}
+
+function removeRunePrefix(name) {
+  return name
+    .replaceAll(/great_|arcane_|dissipating_|stunning_|clear_|fading_/g, "")
+    .trim();
+}
+
+function isCursed(effects) {
+  return effects.some(([_, name]) => name.includes("-"));
+}
+
+function getGemPath(effects, shape, level) {
+  // Check if its a unique gem
+  // else
+  const color = getGemColor(effects[0][1]);
+  const cursed = isCursed(effects);
+  return `/assets/gems/${shape.toLowerCase()}/${color}/${
+    cursed ? "cursed_" : ""
+  }${level}.png`;
+}
+
+function getGemColor(primaryEffect) {
+  const lowerCaseEffect = primaryEffect.toLowerCase();
+
+  switch (true) {
+    case /beasts up|blood/.test(lowerCaseEffect):
+      return "blue";
+    case /(?:slow|rapid) poison effect/.test(lowerCaseEffect):
+      return "purple";
+    case /bolt/.test(lowerCaseEffect):
+      return "yellow";
+    case /fire|kin up/.test(lowerCaseEffect):
+      return "orange";
+    case /charge atks up|stamina cost|phys. up/.test(lowerCaseEffect):
+      return "green";
+    case /arcane/.test(lowerCaseEffect):
+      return "white";
+    case /physical|skl|str|thrust|blunt|atk/.test(lowerCaseEffect):
+      return "red";
+    default:
+      return null; // or some default value
+  }
+}
+
+export { getType, drawCanvas, getGemColor, getRunePath, getGemPath, isCursed };
