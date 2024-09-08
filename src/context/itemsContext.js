@@ -8,6 +8,8 @@ export const ItemsProvider = ({ children }) => {
     weapons: [],
     items: [],
     armors: [],
+    gemEffects: [],
+    runeEffects: [],
   });
 
   useEffect(() => {
@@ -15,6 +17,8 @@ export const ItemsProvider = ({ children }) => {
       const weapons = await invoke("return_weapons");
       const items = await invoke("return_items");
       const armors = await invoke("return_armors");
+      const gemEffects = await invoke("return_gem_effects");
+      const runeEffects = await invoke("return_rune_effects");
 
       const transformedWeapons = Object.keys(weapons)
         .map((x) => {
@@ -79,10 +83,33 @@ export const ItemsProvider = ({ children }) => {
         })
         .flat();
 
+      const transformedGemEffects = Object.keys(gemEffects)
+        .filter((x) => x !== "4294967295")
+        .map((x, i) => ({
+          label: gemEffects[x]?.effect,
+          rating: gemEffects[x]?.rating,
+          level: gemEffects[x]?.level,
+          name: gemEffects[x]?.name,
+          value: x,
+        }));
+
+      const transformedRuneEffects = Object.keys(runeEffects)
+        .filter((x) => x !== "4294967295")
+        .map((x, i) => ({
+          label: runeEffects[x]?.effect,
+          rating: runeEffects[x]?.rating,
+          level: runeEffects[x]?.level,
+          name: runeEffects[x]?.name,
+          note: runeEffects[x]?.note,
+          value: x,
+        }));
+
       setItems({
         weapons: transformedWeapons,
         items: transformedItems,
         armors: transformedArmors,
+        gemEffects: transformedGemEffects,
+        runeEffects: transformedRuneEffects,
       });
     };
 
