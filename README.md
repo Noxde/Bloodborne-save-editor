@@ -63,6 +63,22 @@
 
    <img src="./assets/character.gif"/>
    </details>
+   
+- <details>
+      <summary>
+        Edit Gems
+      </summary>
+
+   <img src="./assets/edit_gems.gif"/>
+   </details>
+
+- <details>
+      <summary>
+        Edit Runes
+      </summary>
+
+   <img src="./assets/edit_rune.gif"/>
+   </details>
 
 ## 2. Build from source
 
