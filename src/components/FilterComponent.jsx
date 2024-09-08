@@ -17,20 +17,26 @@ function FilterComponent({ selectedFilter = 0 }) {
   const { save } = useContext(SaveContext);
   const {
     inventory: { articles },
+    upgrades,
   } = save;
+  const all = { ...articles, ...upgrades };
   const [items, setItems] = useState(
-    Object.keys(articles)
-      .map((x) => articles[x])
+    Object.keys(all)
+      .map((x) => all[x])
       .flat()
   );
 
   useEffect(() => {
+    console.log(items);
+  }, [items]);
+
+  useEffect(() => {
     if (selectedFilter != 0) {
-      setItems(articles[filters[selectedFilter - 1]]);
+      setItems(all[filters[selectedFilter - 1]]);
     } else {
       setItems(
-        Object.keys(articles)
-          .map((x) => articles[x])
+        Object.keys(all)
+          .map((x) => all[x])
           .flat()
       );
     }

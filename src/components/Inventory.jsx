@@ -6,6 +6,7 @@ import ReplaceScreen from "./ReplaceScreen";
 import { getType } from "../utils/drawCanvas";
 import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
+import EditUpgrade from "./EditUpgrade";
 
 function Inventory() {
   const inventoryRef = useRef(null);
@@ -14,6 +15,7 @@ function Inventory() {
   const [quantity, setQuantity] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
+  const [editScreen, setEditScreen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("0");
 
   const { save, setSave } = useContext(SaveContext);
@@ -64,6 +66,14 @@ function Inventory() {
           selected={selected}
           selectedRef={selectedRef}
           setReplaceScreen={setReplaceScreen}
+        />
+      ) : null}
+      {editScreen ? (
+        <EditUpgrade
+          setSelected={setSelected}
+          selected={selected}
+          selectedRef={selectedRef}
+          setEditScreen={setEditScreen}
         />
       ) : null}
       <div
@@ -123,13 +133,27 @@ function Inventory() {
         </div>
         <button
           className="buttonBg"
-          disabled={!!!selected}
+          disabled={selected?.article_type === undefined}
           onClick={async () => {
             setReplaceScreen(true);
           }}
           style={{ width: "200px", backgroundSize: "100% 100%" }}
         >
           Replace
+        </button>
+        <button
+          className="buttonBg"
+          disabled={!selected?.upgrade_type}
+          onClick={async () => {
+            setEditScreen(true);
+          }}
+          style={{
+            marginTop: "10px",
+            width: "200px",
+            backgroundSize: "100% 100%",
+          }}
+        >
+          Edit
         </button>
       </div>
     </>
