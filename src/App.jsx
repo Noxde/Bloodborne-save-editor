@@ -41,6 +41,31 @@ function App() {
                 <Route path="/character" element={<Character />} />
               </Routes>
             ) : null}
+
+            {save == null && !loading ? (
+              <div
+                style={{
+                  gridColumn: "2/4",
+                  justifySelf: "center",
+                  padding: "2.5rem",
+                }}
+              >
+                This save editor works with decrypted save files, meaning that
+                you can't use the savefile you get from exporting it directly
+                from your playstation. If you don't know how to decrypt a save
+                click{" "}
+                <a
+                  style={{ textDecoration: "underline" }}
+                  href="https://github.com/Noxde/Bloodborne-save-editor/wiki/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  here
+                </a>{" "}
+                {/* TODO: Make a wiki page on decrypting saves */}
+                to learn more.
+              </div>
+            ) : null}
           </SaveContext.Provider>
         </main>
       </Router>
