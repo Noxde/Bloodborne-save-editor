@@ -260,6 +260,21 @@
       "item_desc": "Slash foes to cause them to lose their sense of direction",
       "item_img": "shaman_bone_blade.png"
     },
+    "4001": {
+      "item_name": "Gold Pendant",
+      "item_desc": "Vicar Amelia's pendant. Use to gain a blood gem.",
+      "item_img": "gold_pendant.png"
+    },
+    "4301": {
+      "item_name": "Tear Stone",
+      "item_desc": "Silver-shining tear stone. Use to gain droplet blood gem.",
+      "item_img": "tear_stone.png"
+    },
+    "4306": {
+      "item_name": "Red Jeweled Brooch",
+      "item_desc": "A woman's bright-red brooch, engraved with the name Viola.",
+      "item_img": "red_jeweled_brooch.png"
+    },
     "4320": {
       "item_name": "Third Umbilical Cord",
       "item_desc": "Use to gain Insight",
@@ -520,9 +535,9 @@
       "item_img": "firing_hammer_badge.png"
     },
     "4300": {
-      "item_name": "Small Hair Oritem_nament",
-      "item_desc": "A small, very ordinary hair oritem_nament.",
-      "item_img": "small_hair_oritem_nament.png"
+      "item_name": "Small Hair Ornament",
+      "item_desc": "A small, very ordinary hair ornament.",
+      "item_img": "small_hair_ornament.png"
     },
     "4304": {
       "item_name": "Ring of Betrothal",
@@ -533,11 +548,6 @@
       "item_name": "Queenly Flesh",
       "item_desc": "The remains of Annalise, Vileblood Queen of Cainhurst.",
       "item_img": "queenly_flesh.png"
-    },
-    "4306": {
-      "item_name": "Red Jeweled Brooch",
-      "item_desc": "A woman's bright-red brooch, engraved with the name Viola.",
-      "item_img": "red_jeweled_brooch.png"
     },
     "4308": {
       "item_name": "Unopened Summons",
