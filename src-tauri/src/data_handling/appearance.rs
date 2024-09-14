@@ -4,24 +4,8 @@ use std::{fs::{self, File},
           io::Read};
 
 pub fn export(file_data: &FileData, path: &str) -> Result<(), Error> {
-    let mut appearance_end = 0;
-
-    //Find the end of the appearance
-    let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-    let mut buffer = [0; 16];
-    for i in (file_data.offsets.appearance .. file_data.bytes.len() - 15).step_by(16) {
-            buffer.copy_from_slice(&file_data.bytes[i ..= i + 15]);
-            if end == buffer {
-                appearance_end = i - 1;
-                break;
-            }
-        }
-    if appearance_end == 0 {
-       return Err(Error::CustomError("Failed to find the end of the appearance."));
-    }
-
     let mut export_bytes = Vec::new();
-    export_bytes.extend_from_slice(&file_data.bytes[file_data.offsets.appearance ..= appearance_end]);
+    export_bytes.extend_from_slice(&file_data.bytes[file_data.offsets.appearance.0 ..= file_data.offsets.appearance.1]);
 
     fs::write(path, &export_bytes).map_err(Error::IoError)
 }
@@ -31,23 +15,9 @@ pub fn import(file_data: &mut FileData, path: & str) -> Result<(), Error> {
     let mut file = File::open(path).map_err(Error::IoError)?;
     let mut bytes = Vec::new();
     file.read_to_end(&mut bytes).map_err(Error::IoError)?;
-    let length = bytes.len();
     let start = file_data.offsets.appearance;
-    for i in start .. start + length {
-        file_data.bytes[i] = bytes[i - start];
-    }
-
-    //If the new appearance is bigger than the previous one the difference must be cleaned
-    //Find the end of the appearance
-    let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-    let mut buffer = [0; 16];
-    for i in (start + length .. file_data.bytes.len() - 15).step_by(16) {
-        buffer.copy_from_slice(&file_data.bytes[i ..= i + 15]);
-        if end == buffer {
-            break;
-        } else {
-            file_data.bytes.splice(i .. i + 16, end);
-        }
+    for i in start.0 ..= start.1 {
+        file_data.bytes[i] = bytes[i - start.0];
     }
 
     Ok(())
@@ -57,6 +27,7 @@ pub fn import(file_data: &mut FileData, path: & str) -> Result<(), Error> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::data_handling::constants::APPEARANCE_BYTES_AMOUNT;
     use std::{path::PathBuf,
               fs::File,
               io::Read};
@@ -73,11 +44,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x130);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x130]);
-        assert_eq!(end, file_data.bytes[start + 0x130 .. start + 0x130 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
@@ -89,11 +58,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x220);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x220]);
-        assert_eq!(end, file_data.bytes[start + 0x220 .. start + 0x220 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
@@ -105,11 +72,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x190);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x190]);
-        assert_eq!(end, file_data.bytes[start + 0x190 .. start + 0x190 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE3
         let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
@@ -121,11 +86,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x310);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x310]);
-        assert_eq!(end, file_data.bytes[start + 0x310 .. start + 0x310 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
     }
 
     #[test]
@@ -140,11 +103,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x310);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x310]);
-        assert_eq!(end, file_data.bytes[start + 0x310 .. start + 0x310 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE1
         let mut file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
@@ -156,11 +117,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x190);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x190]);
-        assert_eq!(end, file_data.bytes[start + 0x190 .. start + 0x190 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE2
         let mut file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
@@ -172,11 +131,9 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x220);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x220]);
-        assert_eq!(end, file_data.bytes[start + 0x220 .. start + 0x220 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
 
         //TESTSAVE3
         let mut file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
@@ -188,10 +145,8 @@ mod tests {
         file.read_to_end(&mut bytes).unwrap();
 
         //Check the contents of the file
-        assert_eq!(bytes.len(),0x130);
+        assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(bytes,  file_data.bytes[start .. start + 0x130]);
-        assert_eq!(end, file_data.bytes[start + 0x130 .. start + 0x130 + 16]);
+        assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
     }
 }
