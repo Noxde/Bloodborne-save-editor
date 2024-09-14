@@ -82,29 +82,25 @@
 
 ## 2. Build from source
 
-1. Clone the repository:
+1. Make sure to have [Rust](https://www.rust-lang.org/) and [NodeJS](https://nodejs.org/en) installed.
+2. Install the [Tauri dependencies](https://tauri.app/v1/guides/getting-started/prerequisites) for your operating system.
+3. Clone the repo:
 
    ```bash
    $ git clone https://github.com/Noxde/Bloodborne-save-editor
    ```
-
-2. Navigate to the project directory:
+4. Navigate to the project directory:
 
    ```bash
    $ cd Bloodborne-save-editor
    ```
-
-3. Install project dependencies:
-
+5. Install the dependencies
    ```bash
    $ npm install
    ```
+If you want to run the dev version with hot reloading run ``$ npm run dev`` or if you want to build it run ``$ npm run tauri build``
 
-4. Launch the application:
-
-   ```bash
-   $ npm run dev
-   ```
+The release will be located in ``Bloodborne-save-editor/src-tauri/target/release/``
 
 ## 3. Download
 
