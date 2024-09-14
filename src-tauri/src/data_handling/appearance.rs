@@ -10,11 +10,15 @@ pub fn export(file_data: &FileData, path: &str) -> Result<(), Error> {
     fs::write(path, &export_bytes).map_err(Error::IoError)
 }
 
-pub fn import(file_data: &mut FileData, path: & str) -> Result<(), Error> {
+pub fn import(file_data: &mut FileData, path: &str) -> Result<(), Error> {
     // Read the exported file into a vector of bytes
     let mut file = File::open(path).map_err(Error::IoError)?;
     let mut bytes = Vec::new();
+
     file.read_to_end(&mut bytes).map_err(Error::IoError)?;
+    if bytes.len() != 0xEB {
+        return Err(Error::CustomError("Not correct size"));
+    }
     let start = file_data.offsets.appearance;
     for i in start.0 ..= start.1 {
         file_data.bytes[i] = bytes[i - start.0];
