@@ -4,7 +4,7 @@
 use std::{error::Error, fs::File, io::BufReader, sync::Mutex};
 mod data_handling;
 
-use data_handling::{enums::{ArticleType, UpgradeType}, save::SaveData};
+use data_handling::{enums::{ArticleType, UpgradeType}, save::SaveData, appearance};
 use serde_json::Value;
 struct MutexSave {
     data: Mutex<Option<SaveData>>
@@ -25,7 +25,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             transform_item,
             edit_stat,
             edit_effect,
-            edit_shape
+            edit_shape,
+            export_appearance,
+            import_appearance
         ])
         .run(tauri::generate_context!())?;
 
@@ -208,5 +210,27 @@ fn edit_shape(upgrade_id: u32, upgrade_type: UpgradeType, new_shape: String, sta
             "stats": &save.stats
         })),
         Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+    }
+}
+
+#[tauri::command]
+fn export_appearance(path: &str, state_save: tauri::State<MutexSave>) -> Result<String, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    match appearance::export(&save.file, path) {
+        Ok(_) => Ok("Successfully exported".to_string()),
+        Err(_) => Err("There was an error exporting the face".to_string())
+    }
+}
+
+#[tauri::command]
+fn import_appearance(path: &str, state_save: tauri::State<MutexSave>) -> Result<String, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    match appearance::import(&mut save.file, path) {
+        Ok(_) => Ok("Successfully imported".to_string()),
+        Err(_) => Err("The imported file is not a face".to_string())
     }
 }

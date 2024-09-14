@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { SaveContext } from "../context/context";
 import Stat from "./Stat";
 import Select from "./Select";
-import { invoke } from "@tauri-apps/api";
+import { invoke, dialog } from "@tauri-apps/api";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
@@ -76,6 +76,64 @@ function Character() {
               setEditedStats={setEditedStats}
               editedStats={editedStats}
             />
+          </div>
+          <div
+            style={{
+              marginTop: "5px",
+              padding: "0 20px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <button
+              className="buttonBg"
+              style={{ padding: "0 15px", backgroundSize: "100% 100%" }}
+              onClick={async () => {
+                try {
+                  const path = await dialog.save({
+                    title: "Save face file",
+                  });
+
+                  if (path) {
+                    const success = await invoke("export_appearance", {
+                      path,
+                    });
+
+                    await dialog.message(success);
+                  }
+                } catch (error) {
+                  console.error(error);
+                }
+              }}
+            >
+              Export face
+            </button>
+            <button
+              className="buttonBg"
+              style={{ padding: "0 15px", backgroundSize: "100% 100%" }}
+              onClick={async () => {
+                try {
+                  const path = await dialog.open({
+                    title: "Select a face file",
+                  });
+
+                  if (path) {
+                    const success = await invoke("import_appearance", {
+                      path,
+                    });
+
+                    await dialog.message(success);
+                  }
+                } catch (error) {
+                  console.error(error);
+                  await dialog.message(error, {
+                    type: "error",
+                  });
+                }
+              }}
+            >
+              Import face
+            </button>
           </div>
           <div
             style={{
