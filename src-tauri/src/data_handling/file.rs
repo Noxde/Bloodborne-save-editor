@@ -6,8 +6,9 @@ use std::{fs, io::{self, Read}, path::PathBuf};
 pub struct Offsets {
     pub username: usize, //Beginning
     pub inventory: (usize, usize), //Beginning and end
-    pub upgrades: (usize, usize),
+    pub upgrades: (usize, usize), //Beginning and end
     pub key_inventory: (usize, usize), //Beginning and end
+    pub face: usize, //Beginning
 }
 
 impl Offsets {
@@ -17,8 +18,10 @@ impl Offsets {
         let mut inventory_offset = (0, 0);
         let mut upgrades_offset = (START_TO_UPGRADE, 0);
         let mut key_inventory_offset = (0, 0);
+        let mut face_offset = 0;
         let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
         let inv_start_bytes_len = inv_start_bytes.len();
+        let face_start_bytes = [b'F', b'A', b'C', b'E'];
 
         let gems = [
             [0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
@@ -74,11 +77,23 @@ impl Offsets {
         inventory_offset.1 = find_end(inventory_offset.0)?;
         key_inventory_offset.1 = find_end(key_inventory_offset.0)?;
 
+        //Searches for the face_start_bytes
+        for i in 0xF000..bytes.len() { //0xF000: In all the saves i found the save bytes after 0x10000
+            if face_start_bytes == bytes[i..i + 4] {
+                face_offset = i + 4;
+                break;
+            }
+        }
+        if face_offset == 0 {
+            return Err(Error::CustomError("Failed to find the face."));
+        }
+
         Ok(Offsets {
             username: username_offset,
             inventory: inventory_offset,
             upgrades: upgrades_offset,
             key_inventory: key_inventory_offset,
+            face: face_offset,
         })
     }
 }
@@ -236,6 +251,7 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cdb));
         assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
+        assert_eq!(file_data.offsets.face, 0x10e3c);
 
         //testsave1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
@@ -243,6 +259,7 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6af));
         assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
         assert_eq!(file_data.offsets.upgrades, (84, 0x8c3));
+        assert_eq!(file_data.offsets.face, 0x12ef0);
 
         //testsave2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
@@ -250,6 +267,7 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb643));
         assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
         assert_eq!(file_data.offsets.upgrades, (84, 0x7d3));
+        assert_eq!(file_data.offsets.face, 0x12f34);
 
         //testsave3
         let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
@@ -257,6 +275,7 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8b7));
         assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
         assert_eq!(file_data.offsets.upgrades, (84, 0xf7b));
+        assert_eq!(file_data.offsets.face, 0x13b38);
 
         //testsave4
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
@@ -264,6 +283,7 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
+        assert_eq!(file_data.offsets.face, 0x14f24);
     }
 
     #[test]
