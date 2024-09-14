@@ -104,14 +104,14 @@ impl Upgrade {
             UpgradeType::Gem => {
                 self.upgrade_type = UpgradeType::Rune;
                 self.shape = String::from("-");
-                self.effects = vec![(1100000, String::from("More echoes from slain enemies (+10%)")),
+                self.effects = vec![(1100000, String::from("More echoes from slain enemies 1")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect"))];
                 self.info.name = String::from("Moon");
-                self.info.effect = String::from("More echoes from slain enemies (+10%)");
+                self.info.effect = String::from("More echoes from slain enemies 1");
                 self.info.rating = 0;
                 self.info.level = 0;
                 self.info.note = String::from("\"Moon\" rune. Acquire more Blood Echoes");
@@ -127,14 +127,14 @@ impl Upgrade {
             UpgradeType::Rune => {
                 self.upgrade_type = UpgradeType::Gem;
                 self.shape = String::from("Radial");
-                self.effects = vec![(13101, String::from("Adds blood ATK (+1)")),
+                self.effects = vec![(13101, String::from("Adds blood ATK +1")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect"))];
-                self.info.name = String::from("Odd Bloodtinge Blood Gemstone (1)");
-                self.info.effect = String::from("Adds blood ATK (+1)");
+                self.info.name = String::from("Bloodtinge Blood Gemstone (1)");
+                self.info.effect = String::from("Adds blood ATK +1");
                 self.info.rating = 1;
                 self.info.level = 1;
                 self.info.note = String::from("");
@@ -289,16 +289,16 @@ mod tests {
         assert_eq!(gems[0].id, u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0]));
         assert_eq!(gems[0].source, u32::from_le_bytes([0x26, 0x60, 0x01, 0x80]));
         assert_eq!(gems[0].upgrade_type, UpgradeType::Gem);
-        assert_eq!(gems[0].effects, vec![(0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)"))]);
+        assert_eq!(gems[0].effects, vec![(0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45"))]);
         assert_eq!(gems[0].shape, String::from("Droplet"));
         let info = gems[0].info.clone();
-        assert_eq!(info.name, String::from("Abyssal Blood Gem"));
-        assert_eq!(info.effect, String::from("Adds physical ATK (+45)"));
+        assert_eq!(info.name, String::from("Tempering Abyssal Blood Gem"));
+        assert_eq!(info.effect, String::from("Adds physical ATK +45"));
         assert_eq!(info.rating, 20);
         assert_eq!(info.level, 7);
         assert_eq!(info.note, String::from(""));
@@ -332,8 +332,8 @@ mod tests {
         assert_eq!(gems[0].id, u32::from_le_bytes([0x67, 0x00, 0x80, 0xC0]));
         assert_eq!(gems[0].source, u32::from_le_bytes([0xF0, 0x49, 0x02, 0x80]));
         assert_eq!(gems[0].upgrade_type, UpgradeType::Gem);
-        assert_eq!(gems[0].effects, vec![(0x2FB3BC, String::from("Physical ATK UP (+2.7%)")),
-                                         (0x2E7754, String::from("Boosts rally potential (+1.8%)")),
+        assert_eq!(gems[0].effects, vec![(0x2FB3BC, String::from("Physical ATK UP +2.7%")),
+                                         (0x2E7754, String::from("Boosts rally potential +1.8%")),
                                          (0xffffffff, String::from("No Effect")),
                                          (0xffffffff, String::from("No Effect")),
                                          (0xffffffff, String::from("No Effect")),
@@ -341,7 +341,7 @@ mod tests {
         assert_eq!(gems[0].shape, String::from("Droplet"));
         let info = gems[0].info.clone();
         assert_eq!(info.name, String::from("Tempering Blood Gemstone (1)"));
-        assert_eq!(info.effect, String::from("Physical ATK UP (+2.7%)"));
+        assert_eq!(info.effect, String::from("Physical ATK UP +2.7%"));
         assert_eq!(info.rating, 4);
         assert_eq!(info.level, 1);
         assert_eq!(info.note, String::from(""));
@@ -510,19 +510,19 @@ mod tests {
         };
 
         //Gem
-        assert_eq!(gem2.effects, vec![(0x440c, String::from("Adds physical ATK (+45)")),
-                                         (13101, String::from("Adds blood ATK (+1)")),
-                                         (14609, String::from("Adds arcane ATK (+56.3)")),
-                                         (14610, String::from("Adds arcane ATK (+62.5)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)")),
-                                         (0x440c, String::from("Adds physical ATK (+45)"))]);
+        assert_eq!(gem2.effects, vec![(0x440c, String::from("Adds physical ATK +45")),
+                                         (13101, String::from("Adds blood ATK +1")),
+                                         (14609, String::from("Adds arcane ATK +56.3")),
+                                         (14610, String::from("Adds arcane ATK +62.5")),
+                                         (0x440c, String::from("Adds physical ATK +45")),
+                                         (0x440c, String::from("Adds physical ATK +45"))]);
         assert!(check(gem.clone(), gem2.clone()));
 
         //Item N0
         assert_eq!(rune2.effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
-                                          (1100000, String::from("More echoes from slain enemies (+10%)")),
-                                          (2107001, String::from("Increases HP recovery from Blood Vials")),
-                                          (2108001, String::from("Cont. heal near death (+1)")),
+                                          (1100000, String::from("More echoes from slain enemies 1")),
+                                          (2107001, String::from("Vial HP recovery UP")),
+                                          (2108001, String::from("Cont. heal near death +1")),
                                           (0xffffffff, String::from("No Effect")),
                                           (0xffffffff, String::from("No Effect"))]);
         assert!(check(rune.clone(), rune2.clone()));
@@ -549,7 +549,7 @@ mod tests {
         assert_eq!(rune.id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
         assert_eq!(rune.source, u32::from_le_bytes([0xBF, 0x92, 0x01, 0x80]));
         assert_eq!(rune.upgrade_type, UpgradeType::Gem);
-        assert_eq!(rune.effects, vec![(13101, String::from("Adds blood ATK (+1)")),
+        assert_eq!(rune.effects, vec![(13101, String::from("Adds blood ATK +1")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
@@ -557,8 +557,8 @@ mod tests {
                                 (0xFFFFFFFF, String::from("No Effect"))]);
         assert_eq!(rune.shape, String::from("Radial"));
         let info = rune.info.clone();
-        assert_eq!(info.name, String::from("Odd Bloodtinge Blood Gemstone (1)"));
-        assert_eq!(info.effect, String::from("Adds blood ATK (+1)"));
+        assert_eq!(info.name, String::from("Bloodtinge Blood Gemstone (1)"));
+        assert_eq!(info.effect, String::from("Adds blood ATK +1"));
         assert_eq!(info.rating, 1);
         assert_eq!(info.level, 1);
         assert_eq!(info.note, String::from(""));
@@ -567,7 +567,7 @@ mod tests {
         assert_eq!(gem.id, u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0]));
         assert_eq!(gem.source, u32::from_le_bytes([0x26, 0x60, 0x01, 0x80]));
         assert_eq!(gem.upgrade_type, UpgradeType::Rune);
-        assert_eq!(gem.effects, vec![(1100000, String::from("More echoes from slain enemies (+10%)")),
+        assert_eq!(gem.effects, vec![(1100000, String::from("More echoes from slain enemies 1")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
@@ -576,7 +576,7 @@ mod tests {
         assert_eq!(gem.shape, String::from("-"));
         let info = gem.info.clone();
         assert_eq!(info.name, String::from("Moon"));
-        assert_eq!(info.effect, String::from("More echoes from slain enemies (+10%)"));
+        assert_eq!(info.effect, String::from("More echoes from slain enemies 1"));
         assert_eq!(info.rating, 0);
         assert_eq!(info.level, 0);
         assert_eq!(info.note, String::from("\"Moon\" rune. Acquire more Blood Echoes"));
