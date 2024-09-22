@@ -40,10 +40,30 @@
       "item_desc": "A small music box received from a young Yharnam girl",
       "item_img": "tiny_music_box.png"
     },
+    "701": {
+      "item_name": "Blood of Arianna",
+      "item_desc": "Heals HP and temporarily boosts stamina recovery speed",
+      "item_img": "blood_of_arianna.png"
+    },
+    "702": {
+      "item_name": "Blood of Adella",
+      "item_desc": "Restores HP and continues to restore HP for a short time",
+      "item_img": "blood_of_adeline.png"
+    },
+    "703": {
+      "item_name": "Iosefka's Blood Vial",
+      "item_desc": "Invigorates the senses, restoring a larger amount of HP",
+      "item_img": "iosefka's_blood_vial.png"
+    },
     "704": {
       "item_name": "Blood Dreg",
       "item_desc": "Awful things that Vilebloods see in coldblood",
       "item_img": "blood_dreg.png"
+    },
+    "705": {
+      "item_name": "Queenly Blood",
+      "item_desc": "Restores HP and temporarily speeds stamina recovery",
+      "item_img": "queenly_blood.png"
     },
     "706": {
       "item_name": "Blood of Adeline",
@@ -476,7 +496,7 @@
     },
     "4104": {
       "item_name": "Rune Workshop Tool",
-      "item_desc": "Bath Messengers [Hunter's Dream]",
+      "item_desc": "Enables etching Caryll Runes into one's consciousness",
       "item_img": "rune_workshop_tool.png"
     },
     "4105": {
