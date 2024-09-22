@@ -64,18 +64,38 @@ impl Offsets {
 
         //Find the end of the inventories
         let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
-        let find_end = |start: usize| -> Result<usize, Error> {
+        let mut end_offset: Option<usize> = None;
+        let mut empty_slots: usize = 0;
+        let mut find_end = |start: usize, allow_empty: bool| -> Result<usize, Error> {
+            //Maximum length of the normal inv before it reaches the key inv
+            let inv_max_length = USERNAME_TO_KEY_INV_OFFSET - USERNAME_TO_INV_OFFSET;
+            let inv_max_length = if bytes.len() < inv_max_length + start {bytes.len()-start} else {inv_max_length};
             let mut buffer = [0; 12];
-            for i in (start .. bytes.len() - 15).step_by(16) {
+            for i in (start ..  start + inv_max_length - 15).step_by(16) {
                 buffer.copy_from_slice(&bytes[i + 4 ..= i + 15]);
                 if end == buffer {
-                    return Ok(i + 15);
+                    empty_slots += 1;
+                    if end_offset.is_none() {
+                        if !allow_empty {
+                            return Ok(i + 15);
+                        }
+                        end_offset = Some(i + 15);
+                    }
+                    if empty_slots > MAX_EMPTY_INV_SLOTS {
+                        return Ok(end_offset.unwrap());
+                    }
+                } else if end_offset.is_some() {
+                    end_offset = None;
+                    empty_slots = 0;
                 }
             }
-            Err(Error::CustomError("Failed to find the end of the inventory."))
+            match end_offset {
+                Some(off) => Ok(off),
+                None => Err(Error::CustomError("Failed to find the end of the inventory.")),
+            }
         };
-        inventory_offset.1 = find_end(inventory_offset.0)?;
-        key_inventory_offset.1 = find_end(key_inventory_offset.0)?;
+        inventory_offset.1 = find_end(inventory_offset.0, true)?;
+        key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
 
         //Searches for the appearance_start_bytes
         for i in 0xF000..bytes.len() { //0xF000: In all the saves i found the save bytes after 0x10000
@@ -281,10 +301,18 @@ mod tests {
         //testsave4
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xc85f);
-        assert_eq!(file_data.offsets.inventory, (0xca34, 0xcfc3));
+        assert_eq!(file_data.offsets.inventory, (0xca34, 0xe783));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
         assert_eq!(file_data.offsets.appearance, (0x14f24, 0x14f24 + APPEARANCE_BYTES_AMOUNT - 1));
+
+        //testsave8
+        let file_data = FileData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
+        assert_eq!(file_data.offsets.username, 0x19897);
+        assert_eq!(file_data.offsets.inventory, (0x19a6c, 0x210db));
+        assert_eq!(file_data.offsets.key_inventory, (0x21660, 0x218ef));
+        assert_eq!(file_data.offsets.upgrades, (84, 0x10ae3));
+        assert_eq!(file_data.offsets.appearance, (0x21f5c, 0x21f5c + APPEARANCE_BYTES_AMOUNT - 1));
     }
 
     #[test]
