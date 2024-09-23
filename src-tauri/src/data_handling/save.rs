@@ -9,6 +9,7 @@ use super::{
     inventory::{self, Inventory},
     stats::{self, Stat},
     upgrades::{Upgrade, parse_upgrades},
+    username::Username,
 };
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -17,6 +18,7 @@ pub struct SaveData {
     pub stats: Vec<Stat>,
     pub inventory: Inventory,
     pub upgrades: HashMap<UpgradeType, Vec<Upgrade>>,
+    pub username: Username,
 }
 
 impl SaveData {
@@ -25,12 +27,14 @@ impl SaveData {
         let stats = stats::new(&file).unwrap();
         let inventory = inventory::build(&file);
         let upgrades = parse_upgrades(&file);
+        let username = Username::build(&file);
 
         Ok(SaveData {
             file,
             stats,
             inventory,
             upgrades,
+            username,
         })
     }
 }
