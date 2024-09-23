@@ -1862,6 +1862,52 @@
     "type": "Head",
     "item_desc": "\nOne of the precious secrets of Cainhurst.\nThe old king's crown is said to reveal illusions,\nand expose a mirage that hides a secret.\nAnd so Logarius donned the crown of his own volition,\ndetermined to prevent a single soul from stumbling\nupon the vile secret.\nWhat visions did he see, sitting serenely upon his \nnew throne?"
   },
+  "260000": {
+    "item_img": "master's_iron_helm.png",
+    "item_name": "Master's Iron Helm",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 20,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 0
+    },
+    "resistance": {
+      "slowPoison": 6,
+      "rapidPoison": 10,
+      "frenzy": 13
+    },
+    "beasthood": 23,
+    "type": "Head",
+    "item_desc": "An iron helm resembling an upside-down bucket."
+  },
+  "900000": {
+    "item_img": "master's_iron_helm.png",
+    "item_name": "One-eyed Iron Helm",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 20,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 20,
+      "fire": 30,
+      "bolt": 0
+    },
+    "resistance": {
+      "slowPoison": 6,
+      "rapidPoison": 10,
+      "frenzy": 13
+    },
+    "beasthood": 23,
+    "type": "Head",
+    "item_desc": "An iron helm resembling an upside-down bucket."
+  },
   "270000": {
     "item_img": "iron_yahar'gul_helm.png",
     "item_name": "Iron Yahar'gul Helm",

@@ -247,6 +247,19 @@
         "bolt": "-"
       }
     },
+    "25000000": {
+      "item_name": "Amygdalan Arm",
+      "item_img": "amygdalan_arm.png",
+      "item_desc": "The arm of a small Amygdala Great One.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "40",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "26000000": {
       "item_name": "Holy Moonlight Sword",
       "item_img": "holy_moonlight_sword.png",
@@ -353,6 +366,19 @@
     }
   },
   "leftHand": {
+    "6000000": {
+      "item_name": "Hunter Blunderbuss",
+      "item_img": "hunter_blunderbuss.png",
+      "item_desc": "A blunderbuss created at the workshop for the hunters' line of work.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "-",
+        "blood": "20",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "6100000": {
       "item_name": "Ludwig's Rifle",
       "item_img": "ludwig's_rifle.png",

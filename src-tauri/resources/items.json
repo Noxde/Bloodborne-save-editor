@@ -42,57 +42,57 @@
     },
     "701": {
       "item_name": "Blood of Arianna",
-      "item_desc": "Heals HP and temporarily boosts stamina recovery speed",
+      "item_desc": "Heals HP and temporarily boosts stamina recovery speed.",
       "item_img": "blood_of_arianna.png"
     },
     "702": {
       "item_name": "Blood of Adella",
-      "item_desc": "Restores HP and continues to restore HP for a short time",
+      "item_desc": "Restores HP and continues to restore HP for a short time.",
       "item_img": "blood_of_adeline.png"
     },
     "703": {
       "item_name": "Iosefka's Blood Vial",
-      "item_desc": "Invigorates the senses, restoring a larger amount of HP",
+      "item_desc": "Invigorates the senses, restoring a larger amount of HP.",
       "item_img": "iosefka's_blood_vial.png"
     },
     "704": {
       "item_name": "Blood Dreg",
-      "item_desc": "Awful things that Vilebloods see in coldblood",
+      "item_desc": "Awful things that Vilebloods see in coldblood.",
       "item_img": "blood_dreg.png"
     },
     "705": {
       "item_name": "Queenly Blood",
-      "item_desc": "Restores HP and temporarily speeds stamina recovery",
+      "item_desc": "Heals HP and temporarily boosts stamina recovery speed.",
       "item_img": "queenly_blood.png"
     },
     "706": {
       "item_name": "Blood of Adeline",
-      "item_desc": "Restores HP, then rejuvenates HP for some time",
+      "item_desc": "Restores HP, then rejuvenates HP for some time.",
       "item_img": "blood_of_adeline.png"
     },
     "900": {
       "item_name": "Quicksilver Bullets",
-      "item_desc": "Bullets consumed when shooting guns",
+      "item_desc": "Bullets consumed when shooting guns.",
       "item_img": "quicksilver_bullets.png"
     },
     "1000": {
       "item_name": "Blood Vial",
-      "item_desc": "Special blood vial that restores HP",
+      "item_desc": "Special blood vial that restores HP.",
       "item_img": "blood_vial.png"
     },
     "1100": {
       "item_name": "Antidote",
-      "item_desc": "Medicinal pellets that counteract poison",
+      "item_desc": "Medicinal pellets that counteract poison.",
       "item_img": "antidote.png"
     },
     "1110": {
       "item_name": "Beast Blood Pellet",
-      "item_desc": "Giant medicinal pellet that grants short-lived beasthood",
+      "item_desc": "Giant medicinal pellet that grants short-lived beasthood.",
       "item_img": "beast_blood_pellet.png"
     },
     "1120": {
       "item_name": "Blue Elixir",
-      "item_desc": "Liquid medicine that makes still bodies undetectable",
+      "item_desc": "Liquid medicine that makes still bodies undetectable.",
       "item_img": "blue_elixir.png"
     },
     "1200": {
@@ -149,6 +149,11 @@
       "item_name": "Fire Paper",
       "item_desc": "Coarse rubbing paper that applies fire to weapon",
       "item_img": "fire_paper.png"
+    },
+    "1310": {
+      "item_name": "Empty Phantasm Shell",
+      "item_desc": "Empty shell that applies arcane power to weapon.",
+      "item_img": "empty_phantasm_shell.png"
     },
     "1320": {
       "item_name": "Bolt Paper",
@@ -270,15 +275,71 @@
       "item_desc": "Root of man's impurity. Writhes within filth",
       "item_img": "vermin.png"
     },
+    "2000": {
+      "item_name": "Augur of Ebrietas",
+      "item_desc": "Partially summon Ebrietas.",
+      "item_img": "augur_of_ebrietas.png"
+    },
+    "2010": {
+      "item_name": "A Call Beyond",
+      "item_desc": "Create small star explosion.",
+      "item_img": "a_call_beyond.png"
+    },
+    "2020": {
+      "item_name": "Beast Roar",
+      "item_desc": "Force of beast roar repels nearby foes and objects.",
+      "item_img": "beast_roar.png"
+    },
+
     "2030": {
       "item_name": "Lead Elixir",
       "item_desc": "Liquid medicine shifts weight to deflect attacks",
       "item_img": "lead_elixir.png"
     },
+    "2050": {
+      "item_name": "Choir Bell",
+      "item_desc": "Invigorates all cooperating parties, healing them.",
+      "item_img": "choir_bell.png"
+    },
+    "2060": {
+      "item_name": "Old Hunter Bone",
+      "item_desc": "The art of Quickening speeds up rolling and quicksteps.",
+      "item_img": "old_hunter_bone.png"
+    },
+    "2070": {
+      "item_name": "Tiny Tonitrus",
+      "item_desc": "Strike into the ground to emit blue sparks.",
+      "item_img": "tiny_tonitrus.png"
+    },
+    "2080": {
+      "item_name": "Executioner's Gloves",
+      "item_desc": "Summons wrathful spirits.",
+      "item_img": "executioner's_gloves.png"
+    },
     "2090": {
       "item_name": "Shaman Bone Blade",
       "item_desc": "Slash foes to cause them to lose their sense of direction",
       "item_img": "shaman_bone_blade.png"
+    },
+    "2110": {
+      "item_name": "Messenger's Gift",
+      "item_desc": "Enveloping black mist changes user into messenger.",
+      "item_img": "messengers's_gift.png"
+    },
+    "2120": {
+      "item_name": "Blacksky Eye",
+      "item_desc": "Summon a tiny meteor from the dark depths of one's pupil.",
+      "item_img": "blacksky_eye.png"
+    },
+    "2130": {
+      "item_name": "Accursed Brew",
+      "item_desc": "Throw a concoction of curses at foes.",
+      "item_img": "accursed_brew.png"
+    },
+    "2140": {
+      "item_name": "Madaras Whistle",
+      "item_desc": "Summon a giant serpent from the Nightmare.",
+      "item_img": "madaras_whistle.png"
     },
     "4001": {
       "item_name": "Gold Pendant",
@@ -459,10 +520,40 @@
       "item_desc": "Key to the gate that blocks the Tomb of Oedon.",
       "item_img": "oedon_tomb_key.png"
     },
+    "4003": {
+      "item_name": "Cainhurst Summons",
+      "item_desc": "A summons inviting you to Cainhurst.",
+      "item_img": "cainhurst_summons.png"
+    },
     "4011": {
       "item_name": "Hunter Chief Emblem",
       "item_desc": "A cloth emblem that belonged to the captain of the Church hunters long ago.",
       "item_img": "hunter_chief_emblem.png"
+    },
+    "4012": {
+      "item_name": "Lecture Theatre Key",
+      "item_desc": "Key to the Lecture Theatre in the Lecture Building.",
+      "item_img": "lecture_theatre_key.png"
+    },
+    "4013": {
+      "item_name": "Lunarium Key",
+      "item_desc": "Key to the lunarium facing the lake, Byrgenwerth Floor 2.",
+      "item_img": "lunarium_key.png"
+    },
+    "4014": {
+      "item_name": "Laurence's Skull",
+      "item_desc": "Skull of Laurence, first vicar of the Healing Church.",
+      "item_img": "laurence's_skull.png"
+    },
+    "4015": {
+      "item_name": "Undergound Cell Inner Chamber Key",
+      "item_desc": "Key to the inner chamber of the Grand Cathedral cell.",
+      "item_img": "underground_cell_inner_chamber_key.png"
+    },
+    "4017": {
+      "item_name": "Eye Pendant",
+      "item_desc": "An eye pendant which unlocks the surgery altar.",
+      "item_img": "eye_pendant.png"
     },
     "4018": {
       "item_name": "Underground Cell Key",
@@ -508,6 +599,11 @@
       "item_name": "Saw Hunter Badge",
       "item_desc": "Badge of a Workshop-sanctioned hunter",
       "item_img": "saw_hunter_badge.png"
+    },
+    "4111": {
+      "item_name": "Crow Hunter Badge",
+      "item_desc": "Badge of the crow, signifying a hunter of hunters.",
+      "item_img": "crow_hunter_badge.png"
     },
     "4112": {
       "item_name": "Powder Keg Hunter Badge",
@@ -579,6 +675,11 @@
       "item_desc": "A latticed, deformed rock",
       "item_img": "tonsil_stone.png"
     },
+    "4311": {
+      "item_name": "Eye of a Blood-drunk Hunter",
+      "item_desc": "Eye of a blood-drunk hunter, its pupil collapsed",
+      "item_img": "eye_of_a_blood-drunk_hunter.png"
+    },
     "4312": {
       "item_name": "Old Hunter Bell",
       "item_desc": "Consume Insight to ring and call to old hunters for help",
@@ -588,16 +689,6 @@
       "item_name": "Yharnam Stone",
       "item_desc": "Sacred heirloom of Yharnam, Pthumerian Queen",
       "item_img": "yharnam_stone.png"
-    },
-    "4900": {
-      "item_name": "Yharnam Messenger Hat",
-      "item_desc": "Hat that messengers are oddly fond of",
-      "item_img": "yharnam_messenger_hat.png"
-    },
-    "4902": {
-      "item_name": "Messenger Head Bandage",
-      "item_desc": "Accessory adored by naїve messengers",
-      "item_img": "messenger_head_bandage.png"
     },
     "4903": {
       "item_name": "White Messenger Ribbon",
