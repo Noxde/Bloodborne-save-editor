@@ -23,7 +23,7 @@
   {
     "name": "Insight",
     "rel_offset": -35,
-    "length": 1,
+    "length": 4,
     "times": 1,
     "value": 0
   },
@@ -93,6 +93,13 @@
   {
     "name": "Origin",
     "rel_offset": 39,
+    "length": 1,
+    "times": 1,
+    "value": 0
+  },
+  {
+    "name": "Ng",
+    "rel_offset": 68831,
     "length": 1,
     "times": 1,
     "value": 0
