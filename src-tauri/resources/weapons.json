@@ -184,13 +184,13 @@
     },
     "12080000": {
       "item_name": "Bloody Logarius' Wheel",
-      "item_img": "",
+      "item_img": "logarius'_wheel.png",
       "item_desc": "",
       "qsUse": "-",
       "damage": {
-        "physical": "-",
+        "physical": "100",
         "blood": "-",
-        "arcane": "-",
+        "arcane": "10",
         "fire": "-",
         "bolt": "-"
       }
