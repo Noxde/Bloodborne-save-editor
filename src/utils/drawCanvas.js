@@ -331,7 +331,12 @@ function removeRunePrefix(name) {
 }
 
 function isCursed(effects) {
-  return effects.some(([_, name]) => name.includes("-"));
+  return effects.some(
+    ([_, name]) =>
+      name.includes("-") ||
+      name.includes("Increases stamina") ||
+      name.includes("DOWN")
+  );
 }
 
 function getGemPath(effects, shape, level) {
@@ -356,7 +361,9 @@ function getGemColor(primaryEffect) {
       return "yellow";
     case /fire|kin up/.test(lowerCaseEffect):
       return "orange";
-    case /charge atks up|stamina cost|phys. up/.test(lowerCaseEffect):
+    case /charge atks up|stamina cost|phys. up|boosts rally|hp continues/.test(
+      lowerCaseEffect
+    ):
       return "green";
     case /arcane/.test(lowerCaseEffect):
       return "white";
