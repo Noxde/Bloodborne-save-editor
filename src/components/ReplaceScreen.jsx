@@ -25,19 +25,7 @@ function ReplaceScreen({
 
       setSave(edited);
 
-      const newJson = {
-        index: selected.index,
-        amount: selected.amount,
-        ...replacement,
-      };
-
-      const ctx = selectedRef.current.getContext("2d");
-      selectedRef.current.dataset.itemId = parseInt(replacement.id);
-      selectedRef.current.dataset.item = JSON.stringify(newJson);
-
-      setSelected(newJson);
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      await drawCanvas(ctx, newJson);
+      setSelected(null);
 
       setReplaceScreen(false);
     } catch (error) {
