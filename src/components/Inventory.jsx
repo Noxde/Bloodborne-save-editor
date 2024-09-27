@@ -40,8 +40,6 @@ function Inventory() {
         const { index } = target.dataset;
 
         setSelected(null);
-        setHoverIndex(0);
-        selectedRef.current = null;
 
         setSelectedFilter((prev) => (prev === index ? "0" : index));
       }
@@ -57,6 +55,13 @@ function Inventory() {
       }
     };
   }, [inventoryRef, save]);
+
+  useEffect(() => {
+    if (!selected) {
+      setHoverIndex(0);
+      selectedRef.current = null;
+    }
+  }, [selected]);
 
   return (
     <>
