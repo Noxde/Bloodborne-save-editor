@@ -32,6 +32,7 @@ function Stats() {
             x.name !== "Insight" &&
             x.name !== "Voice" &&
             x.name !== "Gender" &&
+            x.name !== "Ng" &&
             x.name !== "Origin"
         )
         .map((x, i) => (
