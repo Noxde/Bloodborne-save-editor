@@ -38,8 +38,7 @@ function Nav({ setLoading, setSave, save }) {
         save: JSON.stringify(save),
         path: path,
       });
-
-      console.log(saved);
+      await dialog.message(saved);
     } catch (error) {
       console.log(error);
     }
