@@ -145,17 +145,39 @@ fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
 
 #[tauri::command]
 fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
-    let mut save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_mut().unwrap();
+    let mut save_option = state_save.inner().data.lock().map_err(|_| "Failed to lock state")?;
+    let save = save_option.as_mut().ok_or("Save data is not available")?;
 
     let category = save.inventory.articles.get_mut(&article_type).unwrap();
     let item = category.iter_mut().find(|x| x.id == id && x.index == index).unwrap();
+    
+    let old_type = item.article_type;
+
     match item.transform(&mut save.file, new_id) {
-        Ok(_) => Ok(serde_json::json!({
-            "inventory": &save.inventory,
-            "upgrades": &save.upgrades,
-            "stats": &save.stats
-        })),
+        Ok(_) => {
+            // Check if the article type has changed
+            if item.article_type != old_type {
+                let moved_item = item.clone();
+
+                // Remove the item from the old category
+                if let Some(old_category) = save.inventory.articles.get_mut(&old_type) {
+                    old_category.retain(|x| x.index != index);
+                }
+
+                // Find or create the new category using item.article_type
+                let new_category = save.inventory.articles.entry(moved_item.article_type).or_insert_with(Vec::new);
+
+                // Add the item to the new category
+                new_category.push(moved_item);
+            }
+
+            Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "upgrades": &save.upgrades,
+                "stats": &save.stats
+            }))
+        },
         Err(_) => Err("Failed to transform item")
     }
 }
