@@ -27,7 +27,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             edit_effect,
             edit_shape,
             export_appearance,
-            import_appearance
+            import_appearance,
+            set_username
         ])
         .run(tauri::generate_context!())?;
 
@@ -44,6 +45,7 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
         let mut data = state_save.data.lock().unwrap();
         *data = Some(s.clone());
         Ok(serde_json::json!({
+            "username": &s.username,
             "inventory": &s.inventory,
             "upgrades": &s.upgrades,
             "stats": &s.stats
@@ -60,6 +62,7 @@ fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexS
 
     match save.inventory.edit_item(&mut save.file, index, id, value) {
         Ok(_) => Ok(serde_json::json!({
+            "username": &save.username,
             "inventory": &save.inventory,
             "upgrades": &save.upgrades,
             "stats": &save.stats
@@ -181,6 +184,7 @@ fn edit_effect(upgrade_id: u32, upgrade_type: UpgradeType, new_effect_id: u32, i
 
     match upgrade.change_effect(&mut save.file, new_effect_id, index) {
         Ok(_) => Ok(serde_json::json!({
+            "username": &save.username,
             "inventory": &save.inventory,
             "upgrades": &save.upgrades,
             "stats": &save.stats
@@ -205,6 +209,7 @@ fn edit_shape(upgrade_id: u32, upgrade_type: UpgradeType, new_shape: String, sta
   
     match upgrade.change_shape(&mut save.file, new_shape) {
         Ok(_) => Ok(serde_json::json!({
+            "username": &save.username,
             "inventory": &save.inventory,
             "upgrades": &save.upgrades,
             "stats": &save.stats
@@ -232,5 +237,16 @@ fn import_appearance(path: &str, state_save: tauri::State<MutexSave>) -> Result<
     match appearance::import(&mut save.file, path) {
         Ok(_) => Ok("Successfully imported".to_string()),
         Err(_) => Err("The imported file is not a face".to_string())
+    }
+}
+
+#[tauri::command]
+fn set_username(new_username: String, state_save: tauri::State<MutexSave>) -> Result<String, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    match save.username.set(&mut save.file, new_username) {
+        Ok(_) => Ok("Successfully changed name".to_string()),
+        Err(_) => Err("Failed to change name".to_string())
     }
 }

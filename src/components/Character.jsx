@@ -7,6 +7,7 @@ import { invoke, dialog } from "@tauri-apps/api";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
+  const [username, setUsername] = useState(save.username.string);
   const [editedStats, setEditedStats] = useState(
     JSON.parse(JSON.stringify(save))
   );
@@ -37,17 +38,47 @@ function Character() {
       }}
     >
       <div>
-        <div id="currency" style={{ padding: "0 20px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            borderBottom: "1px solid rgb(107, 95, 73)",
+          }}
+        >
+          <label htmlFor="username">Name:</label>
+          <input
+            id="username"
+            type="text"
+            autoComplete="off"
+            spellCheck="false"
+            maxLength={16}
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            style={{
+              width: "17ch",
+              padding: "5px",
+              textAlign: "right",
+              background: "none",
+            }}
+          />
+        </div>
+        <div id="currency" style={{ padding: "0 0px" }}>
           <Stat
             editedStats={editedStats}
             setEditedStats={setEditedStats}
             stat={save.stats.find((x) => x.name === "Echoes")}
+            width={"100%"}
           />
 
           <Stat
             editedStats={editedStats}
             setEditedStats={setEditedStats}
             stat={save.stats.find((x) => x.name === "Insight")}
+            width={"100%"}
           />
         </div>
         <div id="characterData">
@@ -152,6 +183,7 @@ function Character() {
               }}
               onClick={() => {
                 setEditedStats(JSON.parse(JSON.stringify(save)));
+                setUsername(save.username.string);
               }}
             >
               Reset
@@ -176,6 +208,20 @@ function Character() {
                       });
                     }
                   );
+
+                  if (
+                    username.length > 0 &&
+                    username !== save.username.string
+                  ) {
+                    await invoke("set_username", {
+                      newUsername: username,
+                    });
+                    editedStats.username.string = username;
+                  } else {
+                    setUsername(save.username.string);
+                  }
+
+                  await dialog.message("Confirmed changes");
 
                   setSave(JSON.parse(JSON.stringify(editedStats)));
                 } catch (error) {
