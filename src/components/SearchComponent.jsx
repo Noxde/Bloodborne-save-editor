@@ -27,18 +27,19 @@ function SearchComponent({ selected, setReplacement }) {
   useEffect(() => {
     switch (getType(selected.article_type)) {
       case "weapon":
-        setReplacements(
-          weapons.filter((y) => y.article_type == selected.article_type)
-        );
+        setReplacements(weapons);
         setBack(weapons);
         break;
       case "chalice":
-      case "key":
       case "item":
+        setReplacements(items);
+        setBack(items);
+        break;
+      case "key":
         setReplacements(
-          items.filter((y) => y.article_type == selected.article_type) // TODO: Fix this to be able to replace any kind of item
+          items.filter((y) => y.article_type === selected.article_type)
         );
-        setBack(items.filter((y) => y.article_type == selected.article_type));
+        setBack(items.filter((y) => y.article_type === selected.article_type));
         break;
       case "armor":
         setReplacements(armors);
