@@ -24,6 +24,7 @@ function Character() {
     "Cruel Fate",
     "Waste of Skin",
   ];
+  const ng = ["NG0", "NG+1", "NG+2", "NG+3", "NG+4", "NG+5", "NG+6", "NG+7"];
 
   return (
     <div
@@ -107,18 +108,28 @@ function Character() {
               setEditedStats={setEditedStats}
               editedStats={editedStats}
             />
+            <Select
+              name={"Ng"}
+              options={ng}
+              setEditedStats={setEditedStats}
+              editedStats={editedStats}
+            />
           </div>
           <div
             style={{
+              fontSize: "25px",
               marginTop: "5px",
-              padding: "0 20px",
               display: "flex",
               justifyContent: "space-between",
             }}
           >
             <button
               className="buttonBg"
-              style={{ padding: "0 15px", backgroundSize: "100% 100%" }}
+              style={{
+                padding: "0 15px",
+                fontSize: "inherit",
+                backgroundSize: "100% 100%",
+              }}
               onClick={async () => {
                 try {
                   const path = await dialog.save({
@@ -141,7 +152,11 @@ function Character() {
             </button>
             <button
               className="buttonBg"
-              style={{ padding: "0 15px", backgroundSize: "100% 100%" }}
+              style={{
+                padding: "0 15px",
+                fontSize: "inherit",
+                backgroundSize: "100% 100%",
+              }}
               onClick={async () => {
                 try {
                   const path = await dialog.open({

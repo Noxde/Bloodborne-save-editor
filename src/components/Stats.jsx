@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { SaveContext } from "../context/context";
 import Stat from "./Stat";
-import { invoke } from "@tauri-apps/api";
+import { dialog, invoke } from "@tauri-apps/api";
 
 function Stats() {
   const { save, setSave } = useContext(SaveContext);
@@ -83,8 +83,8 @@ function Stats() {
                 console.error(error);
               }
             });
-
             setSave(JSON.parse(JSON.stringify(editedStats)));
+            await dialog.message("Confirmed changes");
           }}
         >
           Confirm
