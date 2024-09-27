@@ -90,6 +90,7 @@ function SelectSearch({
               itemCount={filteredOptions.length}
               itemSize={35}
               width="100%"
+              overscanCount={10}
             >
               {Row}
             </List>
