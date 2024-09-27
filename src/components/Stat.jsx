@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Stat({ stat, editedStats, setEditedStats }) {
+function Stat({ stat, editedStats, setEditedStats, width }) {
   const [value, setValue] = useState(stat.value);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function Stat({ stat, editedStats, setEditedStats }) {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          width: "433px",
+          width: width || "433px",
         }}
       >
         <label>{stat.name}: </label>
