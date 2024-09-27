@@ -57,7 +57,9 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
         if (!isCursed(effects)) {
           edited.info.name = name.replace("Cursed ", "");
         } else {
-          edited.info.name = `Cursed ${name}`;
+          if (!edited.info.name.includes("Cursed")) {
+            edited.info.name = `Cursed ${name}`;
+          }
         }
         return prev;
       });
