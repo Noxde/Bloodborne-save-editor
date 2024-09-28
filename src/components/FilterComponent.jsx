@@ -19,16 +19,29 @@ function FilterComponent({ selectedFilter = 0 }) {
     inventory: { articles },
     upgrades,
   } = save;
+
+  // upgrades?.Gem?.sort((a, b) => {
+  //   // Sort by shape (alphabetical order)
+  //   if (a.shape < b.shape) return -1;
+  //   if (a.shape > b.shape) return 1;
+
+  //   // If shapes are the same, sort by rating (numerical order)
+  //   if (a.rating !== b.rating) return a.rating - b.rating;
+
+  //   // If shapes and ratings are the same, sort by the first effect (alphabetical order)
+  //   if (a.info.effect < b.info.effect) return -1;
+  //   if (a.info.effect > b.info.effect) return 1;
+
+  //   // If all are the same, return 0
+  //   return 0;
+  // });
+
   const all = { ...articles, ...upgrades };
   const [items, setItems] = useState(
     Object.keys(all)
       .map((x) => all[x])
       .flat()
   );
-
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
 
   useEffect(() => {
     if (selectedFilter != 0) {

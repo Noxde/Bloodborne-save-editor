@@ -5,6 +5,7 @@ import {
   getGemPath,
   getRunePath,
   isCursed,
+  getUnique,
 } from "../utils/drawCanvas";
 import { SaveContext } from "../context/context";
 import { ItemsContext } from "../context/itemsContext";
@@ -13,12 +14,13 @@ import SelectSearch from "./SelectSearch";
 function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
   const { gemEffects, runeEffects } = useContext(ItemsContext);
 
-  const [edited, setEdited] = useState({ ...selected });
+  const [edited, setEdited] = useState(JSON.parse(JSON.stringify(selected)));
   const {
     shape,
     effects,
     upgrade_type,
     info: { effect, rating, level, name, note },
+    source,
   } = edited;
   const { setSave } = useContext(SaveContext);
 
@@ -117,7 +119,12 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
                 style={{ borderRadius: "10px" }}
                 src={
                   upgrade_type === "Gem"
-                    ? getGemPath(effects, shape, level)
+                    ? getGemPath(
+                        effects,
+                        shape,
+                        level,
+                        getUnique(effects[0][0], shape, source)
+                      )
                     : getRunePath(name, shape, rating)
                 }
                 alt=""

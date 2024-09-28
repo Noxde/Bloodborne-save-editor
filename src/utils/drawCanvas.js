@@ -109,11 +109,15 @@ async function drawGem(ctx, gem, img) {
   const size = 73;
   const {
     effects,
-    info: { name, level, rating, effect },
+    info: { name, level, rating },
     shape,
+    source,
   } = gem;
 
-  const thumbnail = await loadImage(getGemPath(effects, shape, level));
+  const uniqueGem = getUnique(effects[0][0], shape, source);
+  const thumbnail = await loadImage(
+    getGemPath(effects, shape, level, uniqueGem)
+  );
 
   ctx.font = "20px Reim";
   ctx.drawImage(img, 0, 0);
@@ -131,7 +135,15 @@ async function drawGem(ctx, gem, img) {
   ctx.shadowOffsetY = 2;
   ctx.shadowColor = "black";
   ctx.fillStyle = "#ab9e87";
-  ctx.fillText(name, 107, 28);
+  ctx.fillText(
+    uniqueGem
+      ? uniqueGem.name
+      : [2147633649, 2147633648, 2147633650].includes(source)
+      ? "?GemName?"
+      : name,
+    107,
+    28
+  );
 }
 
 async function drawChalice(ctx, chalice, img) {
@@ -315,12 +327,9 @@ function getRunePath(name, shape, rating) {
   const normalized = name.toLowerCase().replaceAll(" ", "_");
 
   if (shape === "Oath") {
-    // thumbnail = await loadImage(`/assets/runes/oath/${normalized}.png`);
     return `/assets/runes/oath/${normalized}.png`;
   } else {
-    // thumbnail = await loadImage(
     return `/assets/runes/${removeRunePrefix(normalized)}/${rating}.png`;
-    // );
   }
 }
 
@@ -339,9 +348,23 @@ function isCursed(effects) {
   );
 }
 
-function getGemPath(effects, shape, level) {
-  // Check if its a unique gem
-  // else
+function getUnique(primaryEffect, shape, source) {
+  if (shape === "Droplet") {
+    if (primaryEffect === 3143408 && source === 2147633649) {
+      return { image: "tear", name: "Tear Blood Gem" };
+    } else if (primaryEffect === 3126204 && source === 2147633648) {
+      return { image: "brooch", name: "Red Blood Gem" };
+    }
+  } else if (shape === "Radial") {
+    if (primaryEffect === 3133407 && source === 2147633650) {
+      return { image: "gold", name: "Gold Blood Gem" };
+    }
+  }
+}
+
+function getGemPath(effects, shape, level, unique) {
+  if (unique) return `/assets/gems/unique/${unique.image}.png`;
+
   const color = getGemColor(effects[0][1]);
   const cursed = isCursed(effects);
   return `/assets/gems/${shape.toLowerCase()}/${color}/${
@@ -353,15 +376,15 @@ function getGemColor(primaryEffect) {
   const lowerCaseEffect = primaryEffect.toLowerCase();
 
   switch (true) {
-    case /beasts up|blood/.test(lowerCaseEffect):
+    case /vs beasts|blood/.test(lowerCaseEffect):
       return "blue";
     case /(?:slow|rapid) poison effect/.test(lowerCaseEffect):
       return "purple";
     case /bolt/.test(lowerCaseEffect):
       return "yellow";
-    case /fire|kin up/.test(lowerCaseEffect):
+    case /fire|vs the kin/.test(lowerCaseEffect):
       return "orange";
-    case /charge atks up|stamina cost|phys. up|boosts rally|hp continues/.test(
+    case /charge atks up|stamina cost|phys. up|boosts rally|hp continues|wpn durability/.test(
       lowerCaseEffect
     ):
       return "green";
@@ -374,4 +397,12 @@ function getGemColor(primaryEffect) {
   }
 }
 
-export { getType, drawCanvas, getGemColor, getRunePath, getGemPath, isCursed };
+export {
+  getType,
+  drawCanvas,
+  getGemColor,
+  getRunePath,
+  getGemPath,
+  isCursed,
+  getUnique,
+};
