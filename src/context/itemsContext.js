@@ -108,8 +108,8 @@ export const ItemsProvider = ({ children }) => {
         weapons: transformedWeapons,
         items: transformedItems,
         armors: transformedArmors,
-        gemEffects: transformedGemEffects,
-        runeEffects: transformedRuneEffects,
+        gemEffects: transformedGemEffects.concat(transformedRuneEffects),
+        runeEffects: transformedRuneEffects.concat(transformedGemEffects),
       });
     };
 
