@@ -28,7 +28,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             edit_shape,
             export_appearance,
             import_appearance,
-            set_username
+            set_username,
+            get_version
         ])
         .run(tauri::generate_context!())?;
 
@@ -271,4 +272,9 @@ fn set_username(new_username: String, state_save: tauri::State<MutexSave>) -> Re
         Ok(_) => Ok("Successfully changed name".to_string()),
         Err(_) => Err("Failed to change name".to_string())
     }
+}
+
+#[tauri::command]
+fn get_version() -> String {
+    env!("CARGO_PKG_VERSION").to_string()
 }

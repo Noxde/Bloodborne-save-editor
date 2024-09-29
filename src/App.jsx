@@ -9,10 +9,34 @@ import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 import Stats from "./components/Stats";
 import Character from "./components/Character";
 import { ItemsProvider } from "./context/itemsContext";
+import { dialog, invoke, shell } from "@tauri-apps/api";
 
 function App() {
   const [save, setSave] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function checkUpdate() {
+      const req = await fetch(
+        "  https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest"
+      );
+      const { tag_name, html_url } = await req.json();
+      const currentVersion = await invoke("get_version");
+
+      if (tag_name > currentVersion) {
+        const ok = await dialog.confirm("New update available.", {
+          title: "Update available",
+          type: "info",
+          okLabel: "Go to github",
+        });
+        if (ok) {
+          shell.open(html_url);
+        }
+      }
+    }
+
+    checkUpdate();
+  }, []);
 
   useEffect(() => {
     document.addEventListener("contextmenu", (e) => e.preventDefault());
