@@ -64,12 +64,24 @@ impl Upgrade {
         let reader = BufReader::new(json_file);
         let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
 
+        let fallback: &Value;
         let json_effects: &Value = match self.upgrade_type {
-            UpgradeType::Gem => &upgrades_json["gemEffects"],
-            UpgradeType::Rune => &upgrades_json["runeEffects"],
+            UpgradeType::Gem => {
+                fallback = &upgrades_json["runeEffects"];
+                &upgrades_json["gemEffects"]
+            }
+            UpgradeType::Rune => {
+                fallback = &upgrades_json["gemEffects"];
+                &upgrades_json["runeEffects"]
+            }
         };
 
-        let json_effect = &json_effects[new_value.to_string()];
+        let mut json_effect = &json_effects[new_value.to_string()];
+        //If the new effect wasn't found, search in the other upgrade type's effects
+        if json_effect.is_null() {
+            json_effect = &fallback[new_value.to_string()];
+        }
+
         let effect_info: UpgradeInfo = match serde_json::from_value(json_effect.clone()) {
             Ok(inf) => inf,
             Err(_) => return Err(Error::CustomError("Failed to find information of the new effect.")),
@@ -193,9 +205,16 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
         effects_ids[5] = u32::from_le_bytes([file_data.bytes[i + 36], file_data.bytes[i + 37], file_data.bytes[i + 38], file_data.bytes[i + 39]]);
 
 
+        let fallback: &Value;
         let json_effects: &Value = match upgrade_type {
-            UpgradeType::Gem => &upgrades_json["gemEffects"],
-            UpgradeType::Rune => &upgrades_json["runeEffects"],
+            UpgradeType::Gem => {
+                fallback = &upgrades_json["runeEffects"];
+                &upgrades_json["gemEffects"]
+            }
+            UpgradeType::Rune => {
+                fallback = &upgrades_json["gemEffects"];
+                &upgrades_json["runeEffects"]
+            }
         };
 
         let mut info = UpgradeInfo {
@@ -209,7 +228,12 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<UpgradeType, Vec<Upgrade>
         let mut is_cursed = false; // Initialize the is_cursed flag
 
         for e in 0 .. 6 {
-            let json_effect = &json_effects[&effects_ids[e].to_string()];
+            let mut json_effect = &json_effects[&effects_ids[e].to_string()];
+            //If the effect wasn't found, search in the other upgrade type's effects
+            if json_effect.is_null() {
+                json_effect = &fallback[&effects_ids[e].to_string()];
+            }
+
             let effect_info: UpgradeInfo = match serde_json::from_value(json_effect.clone()) {
                 Ok(inf) => inf,
                 Err(_) => continue,
@@ -533,6 +557,44 @@ mod tests {
         let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
         assert_eq!(gem2, gem3);
         assert_eq!(rune2, rune3);
+
+        //TESTSAVE 0. Test Runes effects on gems and viceversa
+        let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        let upgrades = parse_upgrades(&file_data);
+        let mut gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let mut rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+
+        //Change effects
+        rune.change_effect(&mut file_data, 13101, 1).unwrap();
+        rune.change_effect(&mut file_data, 14609, 2).unwrap();
+        rune.change_effect(&mut file_data, 14610, 3).unwrap();
+
+        gem.change_effect(&mut file_data, 1100000, 1).unwrap();
+        gem.change_effect(&mut file_data, 2107001, 2).unwrap();
+        gem.change_effect(&mut file_data, 2108001, 3).unwrap();
+
+        //Gem
+        assert_eq!(gem.effects, vec![(0x440c, String::from("Add physical ATK +45")),
+                                         (1100000, String::from("More echoes from slain enemies 1")),
+                                         (2107001, String::from("Vial HP recovery UP")),
+                                         (2108001, String::from("Cont. heal near death +1")),
+                                         (0x440c, String::from("Add physical ATK +45")),
+                                         (0x440c, String::from("Add physical ATK +45"))]);
+
+        //Item N0
+        assert_eq!(rune.effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
+                                         (13101, String::from("Add blood ATK +1")),
+                                         (14609, String::from("Add arcane ATK +56.3")),
+                                         (14610, String::from("Add arcane ATK +62.5")),
+                                         (0xffffffff, String::from("No Effect")),
+                                         (0xffffffff, String::from("No Effect"))]);
+
+        //Check the write to the file data
+        let upgrades = parse_upgrades(&file_data);
+        let gem3 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        assert_eq!(gem, gem3);
+        assert_eq!(rune, rune3);
     }
 
     #[test]
