@@ -16,7 +16,8 @@
       "dialog": {
         "open": true,
         "save": true,
-        "message": true
+        "message": true,
+        "confirm": true
       },
       "fs": {
         "readFile": true
