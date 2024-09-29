@@ -69,9 +69,9 @@ mod tests {
         assert_eq!(stats[3], Stat {
             name: "Insight".to_string(),
             rel_offset: -35,
-            length: 1,
+            length: 4,
             times:1,
-            value: 231,
+            value: 999,
         });
         assert_eq!(stats[4], Stat {
             name: "Level".to_string(),
@@ -132,7 +132,7 @@ mod tests {
         assert_eq!(stats[0].value, 1900);
         assert_eq!(stats[1].value, 91);
         assert_eq!(stats[2].value, 9987417);
-        assert_eq!(stats[3].value, 231);
+        assert_eq!(stats[3].value, 999);
         assert_eq!(stats[4].value, 594);
         stats[0].edit(10, &mut file_data);
         stats[1].edit(20, &mut file_data);

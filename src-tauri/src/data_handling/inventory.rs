@@ -726,7 +726,7 @@ mod tests {
     fn inventory_add_item() {
         let mut file_data = build_file_data();
         let mut inventory = build(&file_data);
-        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 16);
+        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 17);
         assert!(check_bytes(&file_data, 0x8cdb, 
             &[0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00]));
         //Try to add an invalid item
@@ -737,7 +737,7 @@ mod tests {
         }
 
         inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32).unwrap();
-        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 17);
+        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 18);
         assert!(check_bytes(&file_data, 0x8cdb, 
             &[0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));
 
