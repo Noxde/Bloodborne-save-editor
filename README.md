@@ -20,6 +20,15 @@
 
 **Note:** To use this save editor you first need to decrypt your bloodborne save. 
 
+If you want to use this with shadPS4, saves are located in ``shadPS4/user/savedata/1/GAMEID``
+shadPS4 being the folder where the executable is located
+
+The id for Bloodborne can be one of the following:
+- CUSA00900
+- CUSA03173
+- CUSA00207
+- CUSA01363
+
 ## Table of Contents
 
 - [1. Features](#1-features)
