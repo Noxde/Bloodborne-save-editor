@@ -470,6 +470,19 @@
         "bolt": "-"
       }
     },
+    "19000000": {
+      "item_name": "Wooden Shield",
+      "item_img": "wooden_shield.png",
+      "item_desc": "A crude wooden shield used by the masses who have arisen to join the hunt.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "-",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "19100000": {
       "item_name": "Loch Shield",
       "item_img": "loch_shield.png",
@@ -530,6 +543,19 @@
       "damage": {
         "physical": "60",
         "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "35000000": {
+      "item_name": "Church Cannon",
+      "item_img": "church_cannon.png",
+      "item_desc": "An oversized weapon used by the Healing Church.",
+      "qsUse": "10",
+      "damage": {
+        "physical": "-",
+        "blood": "160",
         "arcane": "-",
         "fire": "-",
         "bolt": "-"
