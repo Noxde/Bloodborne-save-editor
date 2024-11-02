@@ -2598,6 +2598,52 @@
     "type": "Chest",
     "item_desc": "\n\nOnce upon a time, a troupe of foreign constables chased a \nbeast all the way to Yharnam, and this is what they wore.\nThe constables became victims of the beast, except for one \nsurvivor, who in turn devoured the creature whole, all by \nhimself.\n\nThe fable is a favourite among Yharnamites, who are partial \nto any stories of pompous, intolerant foreigners who suffer \nfor their ignorance. \n\nIt makes the blood taste that much sweeter."
   },
+  "382000": {
+    "item_img": "constable's_gloves.png",
+    "item_name": "Constable's Gloves",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 60
+    },
+    "resistance": {
+      "slowPoison": 23,
+      "rapidPoison": 17,
+      "frenzy": 12
+    },
+    "beasthood": 31,
+    "type": "Hands",
+    "item_desc": "\n\nOnce upon a time, a troupe of foreign constables chased a \nbeast all the way to Yharnam, and this is what they wore.\nThe constables became victims of the beast, except for one \nsurvivor, who in turn devoured the creature whole, all by \nhimself.\n\nThe fable is a favourite among Yharnamites, who are partial \nto any stories of pompous, intolerant foreigners who suffer \nfor their ignorance. \n\nIt makes the blood taste that much sweeter."
+  },
+  "383000": {
+    "item_img": "constable's_trousers.png",
+    "item_name": "Constable's Trousers",
+    "physicalDefense": {
+      "physical": 60,
+      "blunt": 60,
+      "thrust": 50,
+      "blood": 50
+    },
+    "elementalDefense": {
+      "arcane": 50,
+      "fire": 60,
+      "bolt": 70
+    },
+    "resistance": {
+      "slowPoison": 25,
+      "rapidPoison": 18,
+      "frenzy": 14
+    },
+    "beasthood": 35,
+    "type": "Hands",
+    "item_desc": "\n\nOnce upon a time, a troupe of foreign constables chased a \nbeast all the way to Yharnam, and this is what they wore.\nThe constables became victims of the beast, except for one \nsurvivor, who in turn devoured the creature whole, all by \nhimself.\n\nThe fable is a favourite among Yharnamites, who are partial \nto any stories of pompous, intolerant foreigners who suffer \nfor their ignorance. \n\nIt makes the blood taste that much sweeter."
+  },
   "390000": {
     "item_img": "brador's_testimony.png",
     "item_name": "Brador's Testimony",
