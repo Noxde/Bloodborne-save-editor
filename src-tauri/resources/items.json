@@ -85,6 +85,11 @@
       "item_desc": "Medicinal pellets that counteract poison.",
       "item_img": "antidote.png"
     },
+    "1101": {
+      "item_name": "Sedatives",
+      "item_desc": "Liquid medicine that calms the nerves.",
+      "item_img": "sedatives.png"
+    },
     "1110": {
       "item_name": "Beast Blood Pellet",
       "item_desc": "Giant medicinal pellet that grants short-lived beasthood.",
