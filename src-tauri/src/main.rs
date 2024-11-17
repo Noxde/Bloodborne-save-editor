@@ -42,33 +42,51 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
       .resolve_resource("resources")
       .expect("failed to resolve resource");
 
-    if let Ok(s) = SaveData::build(path, resource_path) {
-        let mut data = state_save.data.lock().unwrap();
-        *data = Some(s.clone());
-        Ok(serde_json::json!({
-            "username": &s.username,
-            "inventory": &s.inventory,
-            "upgrades": &s.upgrades,
-            "stats": &s.stats
-        }))
-    } else {
-        Err("Failed to load file, make sure its a decrypted character.".to_string())
+    match SaveData::build(path, resource_path) {
+        Ok(s) => {
+            let mut data = state_save.data.lock().unwrap();
+            *data = Some(s.clone());
+            Ok(serde_json::json!({
+                "username": &s.username,
+                "inventory": &s.inventory,
+                "storage": &s.storage,
+                "upgrades": &s.upgrades,
+                "stats": &s.stats
+            }))
+        },
+        Err(e) => {
+            Err("Failed to load file, make sure its a decrypted character.".to_string())
+        }
     }
 }
 
 #[tauri::command]
-fn edit_quantity(index: u8, id: u32, value: u32, state_save: tauri::State<MutexSave>) -> Result<Value, ()> {
+fn edit_quantity(index: u8, id: u32, value: u32, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    match save.inventory.edit_item(&mut save.file, index, id, value) {
-        Ok(_) => Ok(serde_json::json!({
-            "username": &save.username,
-            "inventory": &save.inventory,
-            "upgrades": &save.upgrades,
-            "stats": &save.stats
-        })),
-        Err(_) => Err(())
+    if !is_storage {
+        match save.inventory.edit_item(&mut save.file, index, id, value, is_storage) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "upgrades": &save.upgrades,
+                "stats": &save.stats
+            })),
+            Err(e) => Err(e.to_string())
+        }
+    } else {
+        match save.storage.edit_item(&mut save.file, index, id, value, is_storage) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "upgrades": &save.upgrades,
+                "stats": &save.stats
+            })),
+            Err(e) => Err(e.to_string())
+        }
     }
 }
 
@@ -145,16 +163,22 @@ fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
 
 
 #[tauri::command]
-fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, state_save: tauri::State<MutexSave>) -> Result<Value, &str> {
+fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    let category = save.inventory.articles.get_mut(&article_type).unwrap();
+    let category = {
+        if !is_storage {
+            save.inventory.articles.get_mut(&article_type).unwrap()
+        } else {
+            save.storage.articles.get_mut(&article_type).unwrap()
+        }
+    };
     let item = category.iter_mut().find(|x| x.id == id && x.index == index).unwrap();
     
     let old_type = item.article_type;
 
-    match item.transform(&mut save.file, new_id) {
+    match item.transform(&mut save.file, new_id, is_storage) {
         Ok(_) => {
             // Check if the article type has changed
             if item.article_type != old_type {
@@ -175,11 +199,12 @@ fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, st
             Ok(serde_json::json!({
                 "username": &save.username,
                 "inventory": &save.inventory,
+                "storage": &save.storage,
                 "upgrades": &save.upgrades,
                 "stats": &save.stats
             }))
         },
-        Err(_) => Err("Failed to transform item")
+        Err(e) => Err(e.to_string())
     }
 }
 
@@ -209,6 +234,7 @@ fn edit_effect(upgrade_id: u32, upgrade_type: UpgradeType, new_effect_id: u32, i
         Ok(_) => Ok(serde_json::json!({
             "username": &save.username,
             "inventory": &save.inventory,
+            "storage": &save.storage,
             "upgrades": &save.upgrades,
             "stats": &save.stats
         })),
@@ -234,6 +260,7 @@ fn edit_shape(upgrade_id: u32, upgrade_type: UpgradeType, new_shape: String, sta
         Ok(_) => Ok(serde_json::json!({
             "username": &save.username,
             "inventory": &save.inventory,
+            "storage": &save.storage,
             "upgrades": &save.upgrades,
             "stats": &save.stats
         })),
