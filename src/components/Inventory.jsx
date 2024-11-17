@@ -8,7 +8,7 @@ import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
 import EditUpgrade from "./EditUpgrade";
 
-function Inventory() {
+function Inventory({ articles, isStorage }) {
   const inventoryRef = useRef(null);
   const [selected, setSelected] = useState(null);
   const selectedRef = useRef(null);
@@ -71,6 +71,7 @@ function Inventory() {
           selected={selected}
           selectedRef={selectedRef}
           setReplaceScreen={setReplaceScreen}
+          isStorage={isStorage}
         />
       ) : null}
       {editScreen ? (
@@ -87,21 +88,33 @@ function Inventory() {
       >
         <FilterButtons selectedFilter={selectedFilter} />
         <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
-        <FilterComponent selectedFilter={selectedFilter} />
+        <FilterComponent articles={articles} selectedFilter={selectedFilter} />
       </div>
       <div className="editButtons">
         <div className="editQuantity">
           <input
             type="number"
             value={quantity || 0}
-            max={99}
+            max={isStorage ? 600 : 99}
             min={0}
             style={{ width: "120px" }}
             disabled={getType(selected?.article_type) !== "item" ? true : false}
             onChange={(e) => {
               const { value } = e.target;
-              if (value > 99) {
+
+              // Check if the item should be capped at 600 or not
+              if (
+                (!isStorage ||
+                  (isStorage &&
+                    selected.article_type !== "Material" &&
+                    !["Quicksilver Bullets", "Blood Vial"].includes(
+                      selected.info.item_name
+                    ))) &&
+                value > 99
+              ) {
                 setQuantity(99);
+              } else if (isStorage && value > 600) {
+                setQuantity(600);
               } else {
                 setQuantity(parseInt(value));
               }
@@ -114,6 +127,7 @@ function Inventory() {
                 index: selected.index,
                 id: selected.id,
                 value: quantity,
+                isStorage,
               });
               setSave(editedSave);
 
