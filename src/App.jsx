@@ -57,7 +57,23 @@ function App() {
                   path="/"
                   element={
                     <ItemsProvider>
-                      <Inventory />
+                      <Inventory
+                        key={"inventory"}
+                        articles={save.inventory.articles}
+                        isStorage={false}
+                      />
+                    </ItemsProvider>
+                  }
+                />
+                <Route
+                  path="/storage"
+                  element={
+                    <ItemsProvider>
+                      <Inventory
+                        key={"storage"}
+                        articles={save.storage.articles}
+                        isStorage={true}
+                      />
                     </ItemsProvider>
                   }
                 />
