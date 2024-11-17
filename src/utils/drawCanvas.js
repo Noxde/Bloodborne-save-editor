@@ -290,7 +290,9 @@ async function drawItem(ctx, item, amount, img) {
 
   ctx.font = "24px Reim";
   ctx.fillStyle = "#dbd9d5";
-  if (amount > 9) {
+  if (amount > 99) {
+    ctx.fillText(amount, 45, 83);
+  } else if (amount > 9) {
     ctx.fillText(amount, 60, 85);
   } else {
     ctx.fillText(amount, 75, 83);
