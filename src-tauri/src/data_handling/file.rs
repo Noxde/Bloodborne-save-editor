@@ -6,6 +6,7 @@ use std::{fs, io::{self, Read}, path::PathBuf};
 pub struct Offsets {
     pub username: usize, //Beginning
     pub inventory: (usize, usize), //Beginning and end
+    pub storage: (usize, usize), //Beginning and end
     pub upgrades: (usize, usize), //Beginning and end
     pub key_inventory: (usize, usize), //Beginning and end
     pub appearance: (usize, usize), //Beginning
@@ -109,9 +110,13 @@ impl Offsets {
             return Err(Error::CustomError("Failed to find the appearance."));
         }
 
+        let storage_start_offset = inventory_offset.0 + INV_TO_STORAGE_OFFSET;
+        let storage_offset = (storage_start_offset, find_end(storage_start_offset, true)?);
+
         Ok(Offsets {
             username: username_offset,
             inventory: inventory_offset,
+            storage: storage_offset,
             upgrades: upgrades_offset,
             key_inventory: key_inventory_offset,
             appearance: appearance_offset,
@@ -184,7 +189,7 @@ impl FileData {
         fs::write(path, &self.bytes)
     }
 
-    pub fn find_article_offset(&self, index: u8, id: u32, type_family: TypeFamily) -> Option<usize> {
+    pub fn find_article_offset(&self, index: u8, id: u32, type_family: TypeFamily, is_storage: bool) -> Option<usize> {
         let found = |offset| -> bool {
             let last_byte = match type_family {
                 TypeFamily::Armor | TypeFamily::Item => 0x00,
@@ -197,16 +202,21 @@ impl FileData {
             (index == self.bytes[offset]) && (id == current_id)
         };
 
+        let (inv, key) = match is_storage {
+            true => (self.offsets.storage, self.offsets.key_inventory),
+            false => (self.offsets.inventory, self.offsets.key_inventory)
+        };
+
         //Search for the article in the inventory
-        let mut i = self.offsets.inventory.0;
-        while (i <= self.offsets.inventory.1 - 16) && (!found(i)) {
+        let mut i = inv.0;
+        while (i <= inv.1 - 16) && (!found(i)) {
             i+=16;
         }
 
         //If the article wasnt found, search for it in the key inventory
         if !found(i) {
-            i = self.offsets.key_inventory.0;
-            while (i <= self.offsets.key_inventory.1 - 16) && (!found(i)) {
+            i = key.0;
+            while (i <= key.1 - 16) && (!found(i)) {
                 i+=16;
             }
         }
