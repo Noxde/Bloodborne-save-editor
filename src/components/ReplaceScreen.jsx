@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
-import { drawCanvas } from "../utils/drawCanvas";
 import { SaveContext } from "../context/context";
 import SearchComponent from "./SearchComponent";
 
@@ -9,6 +8,7 @@ function ReplaceScreen({
   setSelected,
   selected,
   setReplaceScreen,
+  isStorage,
   selectedRef,
 }) {
   const [replacement, setReplacement] = useState(null);
@@ -21,7 +21,8 @@ function ReplaceScreen({
         id: selected.id,
         newId: parseInt(replacement.id),
         articleType: selected.article_type,
-      });
+        isStorage,
+      }).catch((e) => console.log(e));
 
       setSave(edited);
 
