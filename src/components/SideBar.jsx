@@ -8,6 +8,9 @@ function SideBar() {
           <Link to={"/"}>Inventory</Link>
         </li>
         <li>
+          <Link to={"/storage"}>Storage</Link>
+        </li>
+        <li>
           <Link to={"/stats"}>Stats</Link>
         </li>
         <li>
