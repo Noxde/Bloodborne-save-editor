@@ -1,20 +1,33 @@
 {
   "rightHand": {
-    "900000": {
-      "item_name": "Adella's End-Quest Dagger",
-      "item_img": "",
-      "item_desc": "",
+    "2000000": {
+      "item_name": "Chikage",
+      "item_img": "chikage.png",
+      "item_desc": "Foreign-made weapon wielded by the royal guards who\nprotect Annalise, Queen of the Vilebloods at Cainhurst\nCastle.\nWhen the intricate, rippled engraving that spans the\nChikage's blade is imbrued with blood, the sword sings in \nscarlet hues.\nHowever, the rite eats away at the wielder's very essence.",
       "qsUse": "-",
       "damage": {
-        "physical": "-",
-        "blood": "-",
+        "physical": "92",
+        "blood": "92",
         "arcane": "-",
         "fire": "-",
         "bolt": "-"
       }
     },
-    "2000000": {
-      "item_name": "Chikage",
+    "2010000": {
+      "item_name": "Uncanny Chikage",
+      "item_img": "chikage.png",
+      "item_desc": "Foreign-made weapon wielded by the royal guards who\nprotect Annalise, Queen of the Vilebloods at Cainhurst\nCastle.\nWhen the intricate, rippled engraving that spans the\nChikage's blade is imbrued with blood, the sword sings in \nscarlet hues.\nHowever, the rite eats away at the wielder's very essence.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "92",
+        "blood": "92",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "2020000": {
+      "item_name": "Lost Chikage",
       "item_img": "chikage.png",
       "item_desc": "Foreign-made weapon wielded by the royal guards who\nprotect Annalise, Queen of the Vilebloods at Cainhurst\nCastle.\nWhen the intricate, rippled engraving that spans the\nChikage's blade is imbrued with blood, the sword sings in \nscarlet hues.\nHowever, the rite eats away at the wielder's very essence.",
       "qsUse": "-",
@@ -39,8 +52,60 @@
         "bolt": "-"
       }
     },
+    "4010000": {
+      "item_name": "Uncanny Blade of Mercy",
+      "item_img": "blade_of_mercy.png",
+      "item_desc": "A special trick weapon passed down amongst hunters of hunters. One of the oldest weapons of the workshop.\nSplits into two when activated. The weapon's warped blades are forged with siderite, a rare mineral of the heavens. Most effective swift attacks, such as after a quick-stepping.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "60",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "4020000": {
+      "item_name": "Lost Blade of Mercy",
+      "item_img": "blade_of_mercy.png",
+      "item_desc": "A special trick weapon passed down amongst hunters of hunters. One of the oldest weapons of the workshop.\nSplits into two when activated. The weapon's warped blades are forged with siderite, a rare mineral of the heavens. Most effective swift attacks, such as after a quick-stepping.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "60",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "5000000": {
       "item_name": "Hunter Axe",
+      "item_img": "hunter_axe.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly used on the hunt. \nRetains the qualities of an axe, but offers wider palette of attacks by transforming. Boasts a heavy blunt attack, leading to high rally potential.\nNo matter their pasts, beasts are no more than beasts. Some choose this axe to play the part of executioner.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "98",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "5010000": {
+      "item_name": "Uncanny Hunter Axe",
+      "item_img": "hunter_axe.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly used on the hunt. \nRetains the qualities of an axe, but offers wider palette of attacks by transforming. Boasts a heavy blunt attack, leading to high rally potential.\nNo matter their pasts, beasts are no more than beasts. Some choose this axe to play the part of executioner.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "98",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "5020000": {
+      "item_name": "Lost Hunter Axe",
       "item_img": "hunter_axe.png",
       "item_desc": "One of the trick weapons of the workshop, commonly used on the hunt. \nRetains the qualities of an axe, but offers wider palette of attacks by transforming. Boasts a heavy blunt attack, leading to high rally potential.\nNo matter their pasts, beasts are no more than beasts. Some choose this axe to play the part of executioner.",
       "qsUse": "-",
@@ -65,8 +130,60 @@
         "bolt": "-"
       }
     },
+    "5110000": {
+      "item_name": "Uncanny Burial Blade",
+      "item_img": "burial_blade.png",
+      "item_desc": "Trick weapon wielded by Gehrman, the first hunter.\nA masterpiece that defined the entire array of weapons\ncrafted at the workshop. Its blade is forged with siderite, \nsaid to have fallen from the heavens.\nGehrman surely saw the hunt as a dirge of farewell, wishing\nonly that his prey might rest in peace, never again to awaken \nto another harrowing nightmare.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "5120000": {
+      "item_name": "Lost Burial Blade",
+      "item_img": "burial_blade.png",
+      "item_desc": "Trick weapon wielded by Gehrman, the first hunter.\nA masterpiece that defined the entire array of weapons\ncrafted at the workshop. Its blade is forged with siderite, \nsaid to have fallen from the heavens.\nGehrman surely saw the hunt as a dirge of farewell, wishing\nonly that his prey might rest in peace, never again to awaken \nto another harrowing nightmare.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "7000000": {
       "item_name": "Saw Cleaver",
+      "item_img": "saw_cleaver.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly\nused in the hunting business.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a long cleaver that makes use of\ncentrifugal force.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\nthe more grotesquely transformed the beast.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "7010000": {
+      "item_name": "Uncanny Saw Cleaver",
+      "item_img": "saw_cleaver.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly\nused in the hunting business.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a long cleaver that makes use of\ncentrifugal force.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\nthe more grotesquely transformed the beast.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "7020000": {
+      "item_name": "Lost Saw Cleaver",
       "item_img": "saw_cleaver.png",
       "item_desc": "One of the trick weapons of the workshop, commonly\nused in the hunting business.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a long cleaver that makes use of\ncentrifugal force.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\nthe more grotesquely transformed the beast.",
       "qsUse": "-",
@@ -91,8 +208,60 @@
         "bolt": "-"
       }
     },
+    "7110000": {
+      "item_name": "Uncanny Saw Spear",
+      "item_img": "saw_spear.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly\nused by those who dedicate themselves to the hunt.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a medium-range spear.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\n  the more grotesquely transformed the beast.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "85",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "7120000": {
+      "item_name": "Lost Saw Spear",
+      "item_img": "saw_spear.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly\nused by those who dedicate themselves to the hunt.\nThis saw, effective at drawing the blood of beasts,\ntransforms into a medium-range spear.\nThe saw, with its set of blood-letting teeth, has become\na symbol of the hunt, and only grows in effectiveness\n  the more grotesquely transformed the beast.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "85",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "8000000": {
       "item_name": "Kirkhammer",
+      "item_img": "kirkhammer.png",
+      "item_desc": "A trick weapon typically used by Healing Church hunters.\nOn the one side, an easily handled silver sword.\nOn the other, a giant obtuse stone weapon, characterized  by a blunt strike and extreme force of impact.\nThe Church takes a heavy-handed, merciless stance \ntoward the plague of beasts, an irony not lost upon\nthe wielders of this most symbolic weapon.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "105",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "8010000": {
+      "item_name": "Uncanny Kirkhammer",
+      "item_img": "kirkhammer.png",
+      "item_desc": "A trick weapon typically used by Healing Church hunters.\nOn the one side, an easily handled silver sword.\nOn the other, a giant obtuse stone weapon, characterized  by a blunt strike and extreme force of impact.\nThe Church takes a heavy-handed, merciless stance \ntoward the plague of beasts, an irony not lost upon\nthe wielders of this most symbolic weapon.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "105",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "8020000": {
+      "item_name": "Lost Kirkhammer",
       "item_img": "kirkhammer.png",
       "item_desc": "A trick weapon typically used by Healing Church hunters.\nOn the one side, an easily handled silver sword.\nOn the other, a giant obtuse stone weapon, characterized  by a blunt strike and extreme force of impact.\nThe Church takes a heavy-handed, merciless stance \ntoward the plague of beasts, an irony not lost upon\nthe wielders of this most symbolic weapon.",
       "qsUse": "-",
@@ -117,8 +286,61 @@
         "bolt": "-"
       }
     },
+
+    "8110000": {
+      "item_name": "Ludwig's Uncanny Holy Blade",
+      "item_img": "ludwig's_holy_blade.png",
+      "item_desc": "A trick weapon typically used by Healing Church hunters.\nIt is said that the silver sword was employed by Ludwig, \nthe first hunter of the church. When transformed,\nit combines with its sheath to form a greatsword. \nIt exhibits several departures from the workshop's \ndesign, suggesting that the Church anticipated  \nmuch larger inhuman beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "100",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "8120000": {
+      "item_name": "Ludwig's Lost Holy Blade",
+      "item_img": "ludwig's_holy_blade.png",
+      "item_desc": "A trick weapon typically used by Healing Church hunters.\nIt is said that the silver sword was employed by Ludwig, \nthe first hunter of the church. When transformed,\nit combines with its sheath to form a greatsword. \nIt exhibits several departures from the workshop's \ndesign, suggesting that the Church anticipated  \nmuch larger inhuman beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "100",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "9000000": {
       "item_name": "Beast Claw",
+      "item_img": "beast_claw.png",
+      "item_desc": "Beastly weapon wielded by Irreverent Izzy.\nCrafted by chiseling the long bones of an undead darkbeast\nand fastening them to the weapon. The bones are still alive,\nand when unleashed, grant its wielder a spurt of beastly\npower.\nAs flesh is flayed and blood is sprayed, the beast within\nawakens, and in time, the wielder of this weapon surges with\nboth strength and feverish reverie.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "75",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "9010000": {
+      "item_name": "Uncanny Beast Claw",
+      "item_img": "beast_claw.png",
+      "item_desc": "Beastly weapon wielded by Irreverent Izzy.\nCrafted by chiseling the long bones of an undead darkbeast\nand fastening them to the weapon. The bones are still alive,\nand when unleashed, grant its wielder a spurt of beastly\npower.\nAs flesh is flayed and blood is sprayed, the beast within\nawakens, and in time, the wielder of this weapon surges with\nboth strength and feverish reverie.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "75",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "9020000": {
+      "item_name": "Lost Beast Claw",
       "item_img": "beast_claw.png",
       "item_desc": "Beastly weapon wielded by Irreverent Izzy.\nCrafted by chiseling the long bones of an undead darkbeast\nand fastening them to the weapon. The bones are still alive,\nand when unleashed, grant its wielder a spurt of beastly\npower.\nAs flesh is flayed and blood is sprayed, the beast within\nawakens, and in time, the wielder of this weapon surges with\nboth strength and feverish reverie.",
       "qsUse": "-",
@@ -143,8 +365,60 @@
         "bolt": "-"
       }
     },
+    "10010000": {
+      "item_name": "Uncanny Rifle Spear",
+      "item_img": "rifle_spear.png",
+      "item_desc": "A trick weapon crafted by the workshop heretics, the\n  Powder Kegs.\nA prototype weapon serving as a simple firearm and spear, possibly created in imitation of a lost Cainhurst weapon.\nLacks any notable functions, saving that it is the only trick weapon with an attached gun.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "85",
+        "blood": "85",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "10020000": {
+      "item_name": "Lost Rifle Spear",
+      "item_img": "rifle_spear.png",
+      "item_desc": "A trick weapon crafted by the workshop heretics, the\n  Powder Kegs.\nA prototype weapon serving as a simple firearm and spear, possibly created in imitation of a lost Cainhurst weapon.\nLacks any notable functions, saving that it is the only trick weapon with an attached gun.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "85",
+        "blood": "85",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "10100000": {
       "item_name": "Reiterpallasch",
+      "item_img": "reiterpallasch.png",
+      "item_desc": "Weapon wielded by the Knights of Cainhurst.\nCombines an elegant knight's sword with the peculiar \nfirearm wielded by the Cainhurst order.\nThe old nobles, long-time imbibers of blood, are no strangers \nto the sanguine plague,and the disposal of beasts was a \ndiscrete task left to their servants, or knights, as they were \ncalled for the sake of appearances.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "75",
+        "blood": "75",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "10110000": {
+      "item_name": "Uncanny Reiterpallasch",
+      "item_img": "reiterpallasch.png",
+      "item_desc": "Weapon wielded by the Knights of Cainhurst.\nCombines an elegant knight's sword with the peculiar \nfirearm wielded by the Cainhurst order.\nThe old nobles, long-time imbibers of blood, are no strangers \nto the sanguine plague,and the disposal of beasts was a \ndiscrete task left to their servants, or knights, as they were \ncalled for the sake of appearances.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "75",
+        "blood": "75",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "10120000": {
+      "item_name": "Lost Reiterpallasch",
       "item_img": "reiterpallasch.png",
       "item_desc": "Weapon wielded by the Knights of Cainhurst.\nCombines an elegant knight's sword with the peculiar \nfirearm wielded by the Cainhurst order.\nThe old nobles, long-time imbibers of blood, are no strangers \nto the sanguine plague,and the disposal of beasts was a \ndiscrete task left to their servants, or knights, as they were \ncalled for the sake of appearances.",
       "qsUse": "1",
@@ -169,6 +443,32 @@
         "bolt": "-"
       }
     },
+    "11010000": {
+      "item_name": "Uncanny Stake Driver",
+      "item_img": "stake_driver.png",
+      "item_desc": "A trick weapon fashioned by the workshop heretics, the  Powder Kegs. \nFavored by the retired hunter Djura. \nThe stake driver, with its queerly complex design, violently drives thick stakes into the flesh of foes. \nThe stake driver allows for high-damage critical attacks, but is difficult to use and leaves its wielder wide open, but none of this should bother a mere Powder Keg.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "85",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "11020000": {
+      "item_name": "Lost Stake Driver",
+      "item_img": "stake_driver.png",
+      "item_desc": "A trick weapon fashioned by the workshop heretics, the  Powder Kegs. \nFavored by the retired hunter Djura. \nThe stake driver, with its queerly complex design, violently drives thick stakes into the flesh of foes. \nThe stake driver allows for high-damage critical attacks, but is difficult to use and leaves its wielder wide open, but none of this should bother a mere Powder Keg.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "85",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "12000000": {
       "item_name": "Logarius' Wheel",
       "item_img": "logarius'_wheel.png",
@@ -182,21 +482,60 @@
         "bolt": "-"
       }
     },
-    "12080000": {
-      "item_name": "Bloody Logarius' Wheel",
+    "12010000": {
+      "item_name": "Logarius' Uncanny Wheel",
       "item_img": "logarius'_wheel.png",
-      "item_desc": "",
+      "item_desc": "Weapon wielded by martyr Logarius' band of executioners.\nUsed to slaughter the Vilebloods in Cainhurst. Bathed in \npools of their blood, and forever steeped in their ire.\nTransform to release the power of the wheel and manifest\ntheir lingering rage in a show of utter brilliance.",
       "qsUse": "-",
       "damage": {
         "physical": "100",
         "blood": "-",
-        "arcane": "10",
+        "arcane": "25",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "12020000": {
+      "item_name": "Logarius' Lost Wheel",
+      "item_img": "logarius'_wheel.png",
+      "item_desc": "Weapon wielded by martyr Logarius' band of executioners.\nUsed to slaughter the Vilebloods in Cainhurst. Bathed in \npools of their blood, and forever steeped in their ire.\nTransform to release the power of the wheel and manifest\ntheir lingering rage in a show of utter brilliance.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "100",
+        "blood": "-",
+        "arcane": "25",
         "fire": "-",
         "bolt": "-"
       }
     },
     "13000000": {
       "item_name": "Tonitrus",
+      "item_img": "tonitrus.png",
+      "item_desc": "A unique trick weapon contrived by Archibald, the infamous\neccentric of the Healing Church workshop.\nStriking this peculiar iron morning star flail like a match\ngenerates the same blue sparks that blanket a darkbeast.\nUnfortunately, for reasons untold, the hunters of Archibald's\ntime did not fully take to the device.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "40"
+      }
+    },
+    "13010000": {
+      "item_name": "Uncanny Tonitrus",
+      "item_img": "tonitrus.png",
+      "item_desc": "A unique trick weapon contrived by Archibald, the infamous\neccentric of the Healing Church workshop.\nStriking this peculiar iron morning star flail like a match\ngenerates the same blue sparks that blanket a darkbeast.\nUnfortunately, for reasons untold, the hunters of Archibald's\ntime did not fully take to the device.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "40"
+      }
+    },
+    "13020000": {
+      "item_name": "Lost Tonitrus",
       "item_img": "tonitrus.png",
       "item_desc": "A unique trick weapon contrived by Archibald, the infamous\neccentric of the Healing Church workshop.\nStriking this peculiar iron morning star flail like a match\ngenerates the same blue sparks that blanket a darkbeast.\nUnfortunately, for reasons untold, the hunters of Archibald's\ntime did not fully take to the device.",
       "qsUse": "-",
@@ -221,8 +560,60 @@
         "bolt": "-"
       }
     },
+    "22010000": {
+      "item_name": "Uncanny Threaded Cane",
+      "item_img": "threaded_cane.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly used\nby hunters on their duties. \nSufficiently deadly as a rigid bladed cane, but also serves as \na whip when its blade is split into many.\nConcealing the weapon inside the cane and flogging the\nbeasts with the whip is partly an act of ceremony, an \nattempt to demonstrate to oneself that the bloodlust of the \nhunt will never encroach upon the soul.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "78",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "22020000": {
+      "item_name": "Lost Threaded Cane",
+      "item_img": "threaded_cane.png",
+      "item_desc": "One of the trick weapons of the workshop, commonly used\nby hunters on their duties. \nSufficiently deadly as a rigid bladed cane, but also serves as \na whip when its blade is split into many.\nConcealing the weapon inside the cane and flogging the\nbeasts with the whip is partly an act of ceremony, an \nattempt to demonstrate to oneself that the bloodlust of the \nhunt will never encroach upon the soul.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "78",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "23000000": {
       "item_name": "Beasthunter Saif",
+      "item_img": "beasthunter_saif.png",
+      "item_desc": "A trick weapon used by the old hunters. \n\nA second blade is found inside the curve of the main one. In \nits initial form, the saif can be wielded like a long curved \nsword, but when transformed, its blade is contracted, \nallowing for quick, repeated stabs. \n\nAlthough this trick weapon allows for adaptive combat, it \nwas later replaced by saws and similar weapons that were \nmore effective at disposing of beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "23010000": {
+      "item_name": "Uncanny Beasthunter Saif",
+      "item_img": "beasthunter_saif.png",
+      "item_desc": "A trick weapon used by the old hunters. \n\nA second blade is found inside the curve of the main one. In \nits initial form, the saif can be wielded like a long curved \nsword, but when transformed, its blade is contracted, \nallowing for quick, repeated stabs. \n\nAlthough this trick weapon allows for adaptive combat, it \nwas later replaced by saws and similar weapons that were \nmore effective at disposing of beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "23020000": {
+      "item_name": "Lost Beasthunter Saif",
       "item_img": "beasthunter_saif.png",
       "item_desc": "A trick weapon used by the old hunters. \n\nA second blade is found inside the curve of the main one. In \nits initial form, the saif can be wielded like a long curved \nsword, but when transformed, its blade is contracted, \nallowing for quick, repeated stabs. \n\nAlthough this trick weapon allows for adaptive combat, it \nwas later replaced by saws and similar weapons that were \nmore effective at disposing of beasts.",
       "qsUse": "-",
@@ -247,8 +638,60 @@
         "bolt": "-"
       }
     },
+    "24010000": {
+      "item_name": "Uncanny Beast Cutter",
+      "item_img": "beast_cutter.png",
+      "item_desc": "A trick weapon wielded by the old hunters. \n\nThis thick iron cleaver slices through the toughest of beast \nhides, and when transformed the blade splits into sections, \nallowing one to lash it int he fashion of a heavy whip. \n\nThe crude weapon relies on brute force and is regrettably \ninelegant, suggesting that the hunts of the earliest hunters \nmade for horrific affairs, painted in sanguine blacks and\nreds.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "92",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "24020000": {
+      "item_name": "Lost Beast Cutter",
+      "item_img": "beast_cutter.png",
+      "item_desc": "A trick weapon wielded by the old hunters. \n\nThis thick iron cleaver slices through the toughest of beast \nhides, and when transformed the blade splits into sections, \nallowing one to lash it int he fashion of a heavy whip. \n\nThe crude weapon relies on brute force and is regrettably \ninelegant, suggesting that the hunts of the earliest hunters \nmade for horrific affairs, painted in sanguine blacks and\nreds.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "92",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "25000000": {
       "item_name": "Amygdalan Arm",
+      "item_img": "amygdalan_arm.png",
+      "item_desc": "The arm of a small Amygdala Great One.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "40",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "25010000": {
+      "item_name": "Uncanny Amygdalan Arm",
+      "item_img": "amygdalan_arm.png",
+      "item_desc": "The arm of a small Amygdala Great One.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "80",
+        "blood": "-",
+        "arcane": "40",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "25020000": {
+      "item_name": "Lost Amygdalan Arm",
       "item_img": "amygdalan_arm.png",
       "item_desc": "The arm of a small Amygdala Great One.",
       "qsUse": "-",
@@ -273,8 +716,60 @@
         "bolt": "-"
       }
     },
+    "26010000": {
+      "item_name": "Uncanny Holy Moonlight Sword",
+      "item_img": "holy_moonlight_sword.png",
+      "item_desc": "An arcane sword discovered long ago by Ludwig. \nWhen blue moonlight dances around the sword, and it \nchannels the abyssal cosmos, its great blade will hurl a \nshadowy lightwave. \n\nThe Holy Moonlight Sword is synonymous with Ludwig, the \nHoly Blade, but few have ever set eyes on the great blade, \nand whatever guidance it has to offer, it seems to be of a \nvery private, elusive sort.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "50",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "26020000": {
+      "item_name": "Lost Holy Moonlight Sword",
+      "item_img": "holy_moonlight_sword.png",
+      "item_desc": "An arcane sword discovered long ago by Ludwig. \nWhen blue moonlight dances around the sword, and it \nchannels the abyssal cosmos, its great blade will hurl a \nshadowy lightwave. \n\nThe Holy Moonlight Sword is synonymous with Ludwig, the \nHoly Blade, but few have ever set eyes on the great blade, \nand whatever guidance it has to offer, it seems to be of a \nvery private, elusive sort.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "50",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "27000000": {
       "item_name": "Rakuyo",
+      "item_img": "rakuyo.png",
+      "item_desc": "Hunter weapon wielded by Lady Maria of the Astral \nClocktower. \nA trick sword originated in the same country as the \nCainhurst Chikage, only this sword feeds not off blood, but \ninstead demands great dexterity. \nLady Maria was fond of this aspect of the Rakuyo, as she \nfrowned upon blood blades, despite being a distant relative \nof the queen. \nBut one day, she abandoned her beloved Rakuyo, casting it into a dark well, when she could stomach its presence no longer.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "82",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "27010000": {
+      "item_name": "Uncanny Rakuyo",
+      "item_img": "rakuyo.png",
+      "item_desc": "Hunter weapon wielded by Lady Maria of the Astral \nClocktower. \nA trick sword originated in the same country as the \nCainhurst Chikage, only this sword feeds not off blood, but \ninstead demands great dexterity. \nLady Maria was fond of this aspect of the Rakuyo, as she \nfrowned upon blood blades, despite being a distant relative \nof the queen. \nBut one day, she abandoned her beloved Rakuyo, casting it into a dark well, when she could stomach its presence no longer.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "82",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "27020000": {
+      "item_name": "Lost Rakuyo",
       "item_img": "rakuyo.png",
       "item_desc": "Hunter weapon wielded by Lady Maria of the Astral \nClocktower. \nA trick sword originated in the same country as the \nCainhurst Chikage, only this sword feeds not off blood, but \ninstead demands great dexterity. \nLady Maria was fond of this aspect of the Rakuyo, as she \nfrowned upon blood blades, despite being a distant relative \nof the queen. \nBut one day, she abandoned her beloved Rakuyo, casting it into a dark well, when she could stomach its presence no longer.",
       "qsUse": "-",
@@ -299,8 +794,60 @@
         "bolt": "-"
       }
     },
+    "28010000": {
+      "item_name": "Uncanny Boom Hammer",
+      "item_img": "boom_hammer.png",
+      "item_desc": "A trick weapon used by the old hunters, and crafted by the \nworkshop heretics, the Powder Kegs. \n\nA giant hammer equipped with a miniature furnace. When \nignited and fired, it emits a volley of flame that explodes \nfuriously upon impact. \n\nCrush the beasts, then burn them - the brute simplicity of the \nBoom Hammer was favored by hunters with an acute \ndistaste for beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "60",
+        "bolt": "-"
+      }
+    },
+    "28020000": {
+      "item_name": "Lost Boom Hammer",
+      "item_img": "boom_hammer.png",
+      "item_desc": "A trick weapon used by the old hunters, and crafted by the \nworkshop heretics, the Powder Kegs. \n\nA giant hammer equipped with a miniature furnace. When \nignited and fired, it emits a volley of flame that explodes \nfuriously upon impact. \n\nCrush the beasts, then burn them - the brute simplicity of the \nBoom Hammer was favored by hunters with an acute \ndistaste for beasts.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "60",
+        "bolt": "-"
+      }
+    },
     "29000000": {
       "item_name": "Bloodletter",
+      "item_img": "bloodletter.png",
+      "item_desc": "The demented hunter weapon brandished by Brador, the Healing Church assassin.\n\nThe Bloodletter assumes its true and terrifying form after it\ndraws upon blood from the inner reaches of one's body and \nsoul.\n\nThis is the only effective means of expelling tainted blood, or \nso Brador, isolated in his cell, continued to believe.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "90",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "29010000": {
+      "item_name": "Uncanny Bloodletter",
+      "item_img": "bloodletter.png",
+      "item_desc": "The demented hunter weapon brandished by Brador, the Healing Church assassin.\n\nThe Bloodletter assumes its true and terrifying form after it\ndraws upon blood from the inner reaches of one's body and \nsoul.\n\nThis is the only effective means of expelling tainted blood, or \nso Brador, isolated in his cell, continued to believe.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "90",
+        "blood": "90",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "29020000": {
+      "item_name": "Lost Bloodletter",
       "item_img": "bloodletter.png",
       "item_desc": "The demented hunter weapon brandished by Brador, the Healing Church assassin.\n\nThe Bloodletter assumes its true and terrifying form after it\ndraws upon blood from the inner reaches of one's body and \nsoul.\n\nThis is the only effective means of expelling tainted blood, or \nso Brador, isolated in his cell, continued to believe.",
       "qsUse": "-",
@@ -325,8 +872,60 @@
         "bolt": "-"
       }
     },
+    "30010000": {
+      "item_name": "Uncanny Church Pick",
+      "item_img": "church_pick.png",
+      "item_desc": "One of the old trick weapons of the Healing Church, a \nhunting weapon formed from one of the giant picks that \nappears in the old beast tales. \n\nThe Church Pick initially serves as a large sword, but when \ntransformed, functions as an extended war pick. In spite of \nits origins, it is a highly practical weapon.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "88",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "30020000": {
+      "item_name": "Lost Church Pick",
+      "item_img": "church_pick.png",
+      "item_desc": "One of the old trick weapons of the Healing Church, a \nhunting weapon formed from one of the giant picks that \nappears in the old beast tales. \n\nThe Church Pick initially serves as a large sword, but when \ntransformed, functions as an extended war pick. In spite of \nits origins, it is a highly practical weapon.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "88",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "31000000": {
       "item_name": "Whirligig Saw",
+      "item_img": "whirligig_saw.png",
+      "item_desc": "A trick weapon crafted by the workshop heretics, the \nPowder Kegs, and weapon of choice for the old hunter Valtr, \nthe Beast Eater. \n\nThis weapon pummels beasts in its mace form, but its true \nstrength lies in its attached mechanical saws. \nThese discs, lined with serrated teeth, spin rapidly, trashing \nthe flesh of beasts into fine shreds.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "95",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "31010000": {
+      "item_name": "Uncanny Whirligig Saw",
+      "item_img": "whirligig_saw.png",
+      "item_desc": "A trick weapon crafted by the workshop heretics, the \nPowder Kegs, and weapon of choice for the old hunter Valtr, \nthe Beast Eater. \n\nThis weapon pummels beasts in its mace form, but its true \nstrength lies in its attached mechanical saws. \nThese discs, lined with serrated teeth, spin rapidly, trashing \nthe flesh of beasts into fine shreds.",
+      "qsUse": "-",
+      "damage": {
+        "physical": "95",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "31020000": {
+      "item_name": "Lost Whirligig Saw",
       "item_img": "whirligig_saw.png",
       "item_desc": "A trick weapon crafted by the workshop heretics, the \nPowder Kegs, and weapon of choice for the old hunter Valtr, \nthe Beast Eater. \n\nThis weapon pummels beasts in its mace form, but its true \nstrength lies in its attached mechanical saws. \nThese discs, lined with serrated teeth, spin rapidly, trashing \nthe flesh of beasts into fine shreds.",
       "qsUse": "-",
@@ -351,6 +950,32 @@
         "bolt": "-"
       }
     },
+    "32010000": {
+      "item_name": "Simon's Uncanny Bowblade",
+      "item_img": "simon's_bowblade.png",
+      "item_desc": "Choice weapon of Simon, one of the first Healing Church\nhunters.\n\nSimon despised firearms, and so the Church workshop had \nthis specially fashioned to his liking. The large curved blade \nserves as a bow when transformed.\n\nBut aside from a few close friends, Simon was scoffed at for \nhis choice of arms, for who would dare face the beasts with \na measly bow?",
+      "qsUse": "1",
+      "damage": {
+        "physical": "80",
+        "blood": "80",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "32020000": {
+      "item_name": "Simon's Lost Bowblade",
+      "item_img": "simon's_bowblade.png",
+      "item_desc": "Choice weapon of Simon, one of the first Healing Church\nhunters.\n\nSimon despised firearms, and so the Church workshop had \nthis specially fashioned to his liking. The large curved blade \nserves as a bow when transformed.\n\nBut aside from a few close friends, Simon was scoffed at for \nhis choice of arms, for who would dare face the beasts with \na measly bow?",
+      "qsUse": "1",
+      "damage": {
+        "physical": "80",
+        "blood": "80",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
     "38000000": {
       "item_name": "Kos Parasite",
       "item_img": "kos_parasite.png",
@@ -360,6 +985,58 @@
         "physical": "-",
         "blood": "-",
         "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "38010000": {
+      "item_name": "Uncanny Parasite",
+      "item_img": "kos_parasite.png",
+      "item_desc": "When the carcass of Kos washed up on the coast, its insides \nwere teeming with tiny parasites, unlike any found in \nhumans.\n\nThis atypical weapon can only be clasped tight and swung, \nbut a Kos Parasite is said to stimulate phantasms inhabiting \na lumenwood.",
+      "qsUse": "2",
+      "damage": {
+        "physical": "-",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "38020000": {
+      "item_name": "Lost Parasite",
+      "item_img": "kos_parasite.png",
+      "item_desc": "When the carcass of Kos washed up on the coast, its insides \nwere teeming with tiny parasites, unlike any found in \nhumans.\n\nThis atypical weapon can only be clasped tight and swung, \nbut a Kos Parasite is said to stimulate phantasms inhabiting \na lumenwood.",
+      "qsUse": "2",
+      "damage": {
+        "physical": "-",
+        "blood": "-",
+        "arcane": "30",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "900000": {
+      "item_name": "Adella's End-Quest Dagger",
+      "item_img": "",
+      "item_desc": "(NPC ITEM)",
+      "qsUse": "-",
+      "damage": {
+        "physical": "-",
+        "blood": "-",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "12080000": {
+      "item_name": "Bloody Logarius' Wheel",
+      "item_img": "logarius'_wheel.png",
+      "item_desc": "(NPC ITEM)",
+      "qsUse": "-",
+      "damage": {
+        "physical": "100",
+        "blood": "-",
+        "arcane": "10",
         "fire": "-",
         "bolt": "-"
       }
@@ -383,6 +1060,19 @@
       "item_name": "Ludwig's Rifle",
       "item_img": "ludwig's_rifle.png",
       "item_desc": "A rifle typically used by Healing Church hunters. \nIt is said that this rifle was employed by Ludwig, \nthe first hunter of the Church. Its long, heavy barrel \nmakes up in range for what it lacks in reload speed. \nLudwig's Rifle exhibits several departures from the \nworkshop's design, suggesting that the Church \nanticipated much larger inhuman beasts.",
+      "qsUse": "1",
+      "damage": {
+        "physical": "-",
+        "blood": "20",
+        "arcane": "-",
+        "fire": "-",
+        "bolt": "-"
+      }
+    },
+    "6180000": {
+      "item_name": "Bloody Ludwig's Rifle",
+      "item_img": "ludwig's_rifle.png",
+      "item_desc": "(NPC ITEM)",
       "qsUse": "1",
       "damage": {
         "physical": "-",
