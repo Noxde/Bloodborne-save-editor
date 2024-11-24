@@ -20,7 +20,7 @@
   height: 100vh;
   height: 1px;
   font-family: "Reim";
-  font-size: calc(16px + 2vmin);
+  font-size: calc(16px + 1vw);
   color: #dbd9d5;
 }
 
@@ -28,9 +28,6 @@
   background-color: #000000a1;
   padding: 1.5rem;
   width: 100%;
-  position: block;
-  top: 0;
-  left: 0;
   display: flex;
   color: #9d9d9d;
   justify-content: space-between;
@@ -39,7 +36,6 @@
 main {
   position: relative;
   display: grid;
-  grid-template-columns: 200px 805px 1fr;
   height: calc(100% - 111px);
   overflow: hidden;
 }

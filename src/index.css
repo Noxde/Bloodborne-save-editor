@@ -18,7 +18,7 @@ button {
   border: none;
   font-family: "Reim";
   color: #dbd9d5;
-  font-size: calc(18px + 2vmin);
+  font-size: calc(18px + 1vw);
 
   &:active {
     opacity: 0.7;
