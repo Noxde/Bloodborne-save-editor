@@ -139,14 +139,14 @@ impl Upgrade {
             UpgradeType::Rune => {
                 self.upgrade_type = UpgradeType::Gem;
                 self.shape = String::from("Radial");
-                self.effects = vec![(13101, String::from("Add blood ATK +1")),
+                self.effects = vec![(13101, String::from("Add blood ATK +0.5")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect"))];
                 self.info.name = String::from("Bloodtinge Blood Gemstone (1)");
-                self.info.effect = String::from("Add blood ATK +1");
+                self.info.effect = String::from("Add blood ATK +0.5");
                 self.info.rating = 1;
                 self.info.level = 1;
                 self.info.note = String::from("");
@@ -535,7 +535,7 @@ mod tests {
 
         //Gem
         assert_eq!(gem2.effects, vec![(0x440c, String::from("Add physical ATK +45")),
-                                         (13101, String::from("Add blood ATK +1")),
+                                         (13101, String::from("Add blood ATK +0.5")),
                                          (14609, String::from("Add arcane ATK +56.3")),
                                          (14610, String::from("Add arcane ATK +62.5")),
                                          (0x440c, String::from("Add physical ATK +45")),
@@ -583,7 +583,7 @@ mod tests {
 
         //Item N0
         assert_eq!(rune.effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
-                                         (13101, String::from("Add blood ATK +1")),
+                                         (13101, String::from("Add blood ATK +0.5")),
                                          (14609, String::from("Add arcane ATK +56.3")),
                                          (14610, String::from("Add arcane ATK +62.5")),
                                          (0xffffffff, String::from("No Effect")),
@@ -611,7 +611,7 @@ mod tests {
         assert_eq!(rune.id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
         assert_eq!(rune.source, u32::from_le_bytes([0xBF, 0x92, 0x01, 0x80]));
         assert_eq!(rune.upgrade_type, UpgradeType::Gem);
-        assert_eq!(rune.effects, vec![(13101, String::from("Add blood ATK +1")),
+        assert_eq!(rune.effects, vec![(13101, String::from("Add blood ATK +0.5")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
                                 (0xFFFFFFFF, String::from("No Effect")),
@@ -620,7 +620,7 @@ mod tests {
         assert_eq!(rune.shape, String::from("Radial"));
         let info = rune.info.clone();
         assert_eq!(info.name, String::from("Bloodtinge Blood Gemstone (1)"));
-        assert_eq!(info.effect, String::from("Add blood ATK +1"));
+        assert_eq!(info.effect, String::from("Add blood ATK +0.5"));
         assert_eq!(info.rating, 1);
         assert_eq!(info.level, 1);
         assert_eq!(info.note, String::from(""));
