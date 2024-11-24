@@ -145,7 +145,6 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
         <div
           style={{
             position: "relative",
-            backgroundColor: "red",
             marginTop: "20px",
             height: "95%",
             width: "371px",
@@ -155,6 +154,7 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
                 ? "gems/gem_effects_bg"
                 : "runes/rune_effects_bg"
             }.png)`,
+            backgroundRepeat: "no-repeat",
           }}
         >
           <div
