@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Bloodborne Save Editor",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "tauri": {
     "allowlist": {
@@ -71,12 +71,16 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 660,
-        "width": 1230,
+        "height": 615,
+        "width": 1165,
+        "maxWidth": 1250,
+        "maxHeight": 999999,
+        "minWidth": 1165,
+        "minHeight": 615,
         "center": true,
-        "resizable": false,
+        "resizable": true,
         "maximizable": false,
-        "title": "Bloodborne Save Editor v0.3.0"
+        "title": "Bloodborne Save Editor v0.4.0"
       }
     ]
   }
