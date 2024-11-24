@@ -41,7 +41,7 @@ function ReplaceScreen({
           display: "flex",
           justifyContent: "space-between",
           padding: "0 3rem",
-          height: "496px",
+          height: "100%",
         }}
       >
         <div
@@ -50,6 +50,7 @@ function ReplaceScreen({
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "start",
+            height: "495px",
           }}
         >
           {/* To replace */}

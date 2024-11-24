@@ -74,7 +74,7 @@ function SearchComponent({ selected, setReplacement }) {
         style={{
           position: "relative",
           overflowY: "scroll",
-          maxHeight: "400px",
+          maxHeight: "calc(100% - 111px)",
         }}
       >
         <div

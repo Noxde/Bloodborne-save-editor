@@ -29,7 +29,7 @@ function Stat({ stat, editedStats, setEditedStats, width }) {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          width: width || "433px",
+          width: width || "420px",
         }}
       >
         <label>{stat.name}: </label>
