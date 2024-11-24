@@ -2,14 +2,9 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
-import SideBar from "./components/SideBar";
-import Inventory from "./components/Inventory";
-import { SaveContext } from "./context/context";
-import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
-import Stats from "./components/Stats";
-import Character from "./components/Character";
-import { ItemsProvider } from "./context/itemsContext";
+import { BrowserRouter as Router } from "react-router-dom";
 import { dialog, invoke, shell } from "@tauri-apps/api";
+import Main from "./components/Main";
 
 function App() {
   const [save, setSave] = useState(null);
@@ -46,68 +41,7 @@ function App() {
     <div className="App">
       <Router>
         <Nav setLoading={setLoading} save={save} setSave={setSave} />
-        <main>
-          <SideBar />
-          <SaveContext.Provider value={{ save, setSave }}>
-            {loading ? <div>Loading</div> : null}
-
-            {save != null ? (
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <ItemsProvider>
-                      <Inventory
-                        key={"inventory"}
-                        articles={save.inventory.articles}
-                        isStorage={false}
-                      />
-                    </ItemsProvider>
-                  }
-                />
-                <Route
-                  path="/storage"
-                  element={
-                    <ItemsProvider>
-                      <Inventory
-                        key={"storage"}
-                        articles={save.storage.articles}
-                        isStorage={true}
-                      />
-                    </ItemsProvider>
-                  }
-                />
-                <Route path="/stats" element={<Stats />} />
-                <Route path="/character" element={<Character />} />
-              </Routes>
-            ) : null}
-
-            {save == null && !loading ? (
-              <div
-                style={{
-                  gridColumn: "2/4",
-                  justifySelf: "center",
-                  padding: "2.5rem",
-                }}
-              >
-                This save editor works with decrypted save files, meaning that
-                you can't use the savefile you get from exporting it directly
-                from your playstation. If you don't know how to decrypt a save
-                click{" "}
-                <a
-                  style={{ textDecoration: "underline" }}
-                  href="https://github.com/Noxde/Bloodborne-save-editor/wiki/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  here
-                </a>{" "}
-                {/* TODO: Make a wiki page on decrypting saves */}
-                to learn more.
-              </div>
-            ) : null}
-          </SaveContext.Provider>
-        </main>
+        <Main save={save} setSave={setSave} loading={loading} />
       </Router>
     </div>
   );
