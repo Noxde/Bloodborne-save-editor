@@ -26,7 +26,7 @@ shadPS4 being the folder where the executable is located
 The id for Bloodborne can be one of the following:
 - CUSA00900
 - CUSA03173
-- CUSA00207 (saves from this id are currently not working)
+- CUSA00207
 - CUSA01363
 
 ## Table of Contents
