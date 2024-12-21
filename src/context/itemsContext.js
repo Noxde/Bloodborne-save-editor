@@ -8,6 +8,7 @@ export const ItemsProvider = ({ children }) => {
     weapons: [],
     items: [],
     armors: [],
+    all: [],
     gemEffects: [],
     runeEffects: [],
   });
@@ -108,6 +109,7 @@ export const ItemsProvider = ({ children }) => {
         weapons: transformedWeapons,
         items: transformedItems,
         armors: transformedArmors,
+        all: transformedItems.concat(transformedWeapons, transformedArmors),
         gemEffects: transformedGemEffects.concat(transformedRuneEffects),
         runeEffects: transformedRuneEffects.concat(transformedGemEffects),
       });
