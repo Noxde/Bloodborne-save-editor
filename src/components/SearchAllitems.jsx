@@ -1,17 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { getType } from "../utils/drawCanvas";
 import Item from "./Item";
 import { ItemsContext } from "../context/itemsContext";
 
-function SearchComponent({ selected, setReplacement }) {
+/**
+ *
+ * @param {Object} props
+ * @param {"item" | "armor" | "weapon"} props.type
+ * @param {Function} props.onChange
+ * @returns
+ */
+function SearchAllitems({ type, onChange, title }) {
   const [search, setSearch] = useState("");
   const [replacements, setReplacements] = useState(null);
   const [back, setBack] = useState(null);
   const [hoverIndex, setHoverIndex] = useState(null);
-  const { weapons, items, armors } = useContext(ItemsContext);
+  const { weapons, items, armors, all } = useContext(ItemsContext);
 
   useEffect(() => {
-    setReplacement(null);
     setHoverIndex(null);
     if (search) {
       setReplacements(
@@ -24,8 +29,10 @@ function SearchComponent({ selected, setReplacement }) {
     }
   }, [search]);
 
+  console.log(type);
+
   useEffect(() => {
-    switch (getType(selected.article_type)) {
+    switch (type) {
       case "weapon":
         setReplacements(weapons);
         setBack(weapons);
@@ -36,28 +43,25 @@ function SearchComponent({ selected, setReplacement }) {
         setBack(items);
         break;
       case "key":
-        setReplacements(
-          items.filter((y) => y.article_type === selected.article_type)
-        );
-        setBack(items.filter((y) => y.article_type === selected.article_type));
+        setReplacements(items.filter((y) => y.article_type === type));
+        setBack(items.filter((y) => y.article_type === type));
         break;
       case "armor":
         setReplacements(armors);
         setBack(armors);
         break;
       default:
+        setReplacements(all);
+        setBack(all);
         break;
     }
   }, []);
 
   return (
-    <div style={{ width: "534px" }}>
+    <div style={{ width: "534px", maxHeight: "calc(100% - 149px)" }}>
       <div>
-        Select a new{" "}
-        {getType(selected.article_type) === "key" ||
-        getType(selected.article_type) === "chalice"
-          ? "item"
-          : getType(selected.article_type)}
+        {title ? title : null}
+
         <input
           onChange={(e) => {
             const { target } = e;
@@ -74,7 +78,8 @@ function SearchComponent({ selected, setReplacement }) {
         style={{
           position: "relative",
           overflowY: "scroll",
-          maxHeight: "calc(100% - 111px)",
+          // maxHeight: "calc(100% - 111px)",
+          height: "100%",
         }}
       >
         <div
@@ -88,7 +93,9 @@ function SearchComponent({ selected, setReplacement }) {
         {replacements?.map((x, i) => (
           <Item
             onClick={() => {
-              setReplacement(x);
+              if (typeof onChange == "function") {
+                onChange(x);
+              }
               setHoverIndex(i);
             }}
             key={i}
@@ -102,4 +109,4 @@ function SearchComponent({ selected, setReplacement }) {
   );
 }
 
-export default SearchComponent;
+export default SearchAllitems;

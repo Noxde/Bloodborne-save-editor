@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import Item from "./Item";
 import { invoke } from "@tauri-apps/api";
 import { SaveContext } from "../context/context";
-import SearchComponent from "./SearchComponent";
+import SearchAllitems from "./SearchAllitems";
+import { getType } from "../utils/drawCanvas";
 
 function ReplaceScreen({
   setSelected,
@@ -72,7 +73,16 @@ function ReplaceScreen({
           </div>
         </div>
         {/* List and input */}
-        <SearchComponent selected={selected} setReplacement={setReplacement} />
+        <SearchAllitems
+          type={getType(selected.article_type)}
+          onChange={(x) => setReplacement(x)}
+          title={`Select a new ${
+            getType(selected.article_type) === "key" ||
+            getType(selected.article_type) === "chalice"
+              ? "item"
+              : getType(selected.article_type)
+          }`}
+        />
       </div>
     </div>
   );
