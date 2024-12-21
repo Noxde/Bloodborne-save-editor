@@ -35,6 +35,11 @@
       "item_desc": "Ring this bell to help hunters in other worlds",
       "item_img": "small_resonant_bell.png"
     },
+    "225": {
+      "item_name": "Sinister Resonant Bell",
+      "item_desc": "Ring to become the enemy of a hunter in another world",
+      "item_img": "sinister_resonant_bell.png"
+    },
     "700": {
       "item_name": "Tiny Music Box",
       "item_desc": "A small music box received from a young Yharnam girl",
@@ -125,7 +130,7 @@
       "item_desc": "Throwing knife with a finely serrated blade.",
       "item_img": "throwing_knife.png"
     },
-    "1242": {
+    "1210": {
       "item_name": "Poison Knife",
       "item_desc": "A knife slathered in poison.",
       "item_img": "poison_knife.png"
@@ -362,22 +367,22 @@
       "item_img": "red_jeweled_brooch.png"
     },
     "4320": {
-      "item_name": "Third Umbilical Cord",
+      "item_name": "Third Umbilical Cord 1",
       "item_desc": "Use to gain Insight",
       "item_img": "third_umbilical_cord.png"
     },
     "4321": {
-      "item_name": "Third Umbilical Cord",
+      "item_name": "Third Umbilical Cord 2",
       "item_desc": "Use to gain Insight",
       "item_img": "third_umbilical_cord.png"
     },
     "4322": {
-      "item_name": "Third Umbilical Cord",
+      "item_name": "Third Umbilical Cord 3",
       "item_desc": "Use to gain Insight",
       "item_img": "third_umbilical_cord.png"
     },
     "4323": {
-      "item_name": "Third Umbilical Cord",
+      "item_name": "Third Umbilical Cord 4",
       "item_desc": "Use to gain Insight",
       "item_img": "third_umbilical_cord.png"
     }
@@ -694,6 +699,21 @@
       "item_name": "Yharnam Stone",
       "item_desc": "Sacred heirloom of Yharnam, Pthumerian Queen",
       "item_img": "yharnam_stone.png"
+    },
+    "4340": {
+      "item_name": "Brain Fluid 1",
+      "item_desc": "Greyish amoeba-shaped brain fluid. Wobbles and bounces",
+      "item_img": "brain_fluid.png"
+    },
+    "4341": {
+      "item_name": "Brain Fluid 2",
+      "item_desc": "Greyish amoeba-shaped brain fluid. Wobbles and bounces",
+      "item_img": "brain_fluid.png"
+    },
+    "4342": {
+      "item_name": "Brain Fluid 3",
+      "item_desc": "Greyish amoeba-shaped brain fluid. Wobbles and bounces",
+      "item_img": "brain_fluid.png"
     },
     "4903": {
       "item_name": "White Messenger Ribbon",
