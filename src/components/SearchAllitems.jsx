@@ -5,7 +5,7 @@ import { ItemsContext } from "../context/itemsContext";
 /**
  *
  * @param {Object} props
- * @param {"item" | "armor" | "weapon"} props.type
+ * @param {"item" | "armor" | "weapon" | "key"} props.type
  * @param {Function} props.onChange
  * @returns
  */
@@ -43,8 +43,10 @@ function SearchAllitems({ type, onChange, title }) {
         setBack(items);
         break;
       case "key":
-        setReplacements(items.filter((y) => y.article_type === type));
-        setBack(items.filter((y) => y.article_type === type));
+        setReplacements(
+          items.filter((y) => y.article_type.toLowerCase() === type)
+        );
+        setBack(items.filter((y) => y.article_type.toLowerCase() === type));
         break;
       case "armor":
         setReplacements(armors);
@@ -70,7 +72,7 @@ function SearchAllitems({ type, onChange, title }) {
           value={search}
           style={{ display: "block", width: "100%", fontSize: "1.2rem" }}
           type="text"
-          placeholder="Search"
+          placeholder={type}
         />
       </div>
       {/* List of items */}
