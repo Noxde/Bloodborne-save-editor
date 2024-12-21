@@ -1,250 +1,102 @@
 async function drawCanvas(ctx, item, isSmall = false) {
-  const { article_type, amount, info } = item;
-  const type = getType(article_type);
-
+  const { info } = item;
+  const itemBackground = await loadImage(
+    process.env.PUBLIC_URL + "/assets/itemsBg/" + getBackground(item)
+  );
   if (isSmall) {
-    loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item_small.png").then(
-      (itemImg) => {
-        drawItem(ctx, info, "", itemImg);
-      }
-    );
-    return;
-  }
-
-  if (item?.upgrade_type == "Gem") {
-    loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/gem.png").then(
-      (gemImage) => {
-        drawGem(ctx, item, gemImage);
-      }
-    );
-  } else if (item?.upgrade_type == "Rune") {
-    loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item.png").then(
-      (runeImage) => {
-        drawRune(ctx, item, runeImage);
-      }
+    return drawItem(
+      ctx,
+      info,
+      "",
+      await loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item_small.png")
     );
   }
+  drawArticle(ctx, item, itemBackground);
+}
 
-  switch (type) {
-    case "weapon":
-      loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/weapon.png").then(
-        (weaponImage) => {
-          drawWeapon(ctx, info, weaponImage);
-        }
-      );
-      break;
-
-    case "item":
-    case "key":
-      loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item.png").then(
-        (itemImage) => {
-          drawItem(ctx, info, type === "key" ? "" : amount, itemImage);
-        }
-      );
-      break;
-
+function getBackground(item) {
+  const type = getType(item.article_type);
+  switch (type || item.upgrade_type) {
+    case "Gem":
+      return "gem.png";
     case "chalice":
-      loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/chalice.png").then(
-        (chaliceImage) => {
-          drawChalice(ctx, info, chaliceImage);
-        }
-      );
-      break;
-
+      return "chalice.png";
+    case "weapon":
+      return "weapon.png";
     case "armor":
-      loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/armor.png").then(
-        (armorImage) => {
-          drawArmor(ctx, info, armorImage);
-        }
-      );
-      break;
+      return "armor.png";
+    case "Rune":
+    case "key":
+    case "item":
+      return "item.png";
+  }
+}
 
+async function drawArticle(ctx, article, img) {
+  const { x, y } = {
+    x: 9,
+    y: 6,
+  };
+
+  const size = 73;
+  const { article_type, amount, info } = article;
+  let { item_name: name, item_desc: note, item_img: image } = info;
+  const type = getType(article_type);
+  name = name ?? info.name; // Check for gems and runes
+  note = note ?? info.note ?? "";
+
+  const thumbnail = await loadImage("/assets/itemImages/" + image);
+
+  ctx.font = "18px Reim";
+  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(thumbnail, x, y, x + size, y + size);
+
+  // Set up text
+  ctx.shadowBlur = 3;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowColor = "black";
+  ctx.fillStyle = "#ab9e87";
+
+  if (article?.upgrade_type) {
+    handleUpgrades(ctx, article, { x, y, size });
+  }
+
+  switch (type || article_type) {
+    case "weapon":
+      return handleWeapon(ctx, info);
+    case "armor":
+      return handleArmor(ctx, info);
     default:
       break;
   }
-}
 
-async function drawRune(ctx, rune, img) {
-  const { x, y } = {
-    x: 9,
-    y: 4.8,
-  };
-
-  const size = 73;
-  const {
-    info: { name, rating, note },
-    shape,
-  } = rune;
-
-  const path = getRunePath(name, shape, rating);
-
-  const thumbnail = await loadImage(path);
-
-  ctx.font = "18px Reim";
-  ctx.shadowBlur = 0;
-  ctx.shadowOffsetY = 0;
-
-  ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size + 2);
-
-  // Set up text
-  ctx.shadowBlur = 3;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
   ctx.fillText(name, 107, 28);
   ctx.fillText(note, 104, 69);
 
-  ctx.font = "24px Reim";
-  ctx.fillStyle = "#dbd9d5";
+  if (type === "item" && type !== "key" && type !== "chalice") {
+    ctx.font = "24px Reim";
+    ctx.fillStyle = "#dbd9d5";
+    if (amount > 99) {
+      ctx.fillText(amount, 45, 83);
+    } else if (amount > 9) {
+      ctx.fillText(amount, 60, 85);
+    } else {
+      ctx.fillText(amount, 75, 83);
+    }
+  }
 }
 
-async function drawGem(ctx, gem, img) {
-  const { x, y } = {
-    x: 9,
-    y: 6,
-  };
-
-  const size = 73;
-  const {
-    effects,
-    info: { name, level, rating },
-    shape,
-    source,
-  } = gem;
-
-  const uniqueGem = getUnique(effects[0][0], shape, source);
-  const thumbnail = await loadImage(
-    getGemPath(effects, shape, level, uniqueGem)
-  );
-
-  ctx.font = "20px Reim";
-  ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size);
-
-  const margin = 100;
-  // Draw numbers
-  ctx.fillStyle = "#b8b7ad";
-  ctx.fillText(rating, 135, 77);
-  ctx.fillText(shape, margin * 2 + 27, 77);
-
-  // Set up text
-  ctx.shadowBlur = 3;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
-  ctx.fillText(
-    uniqueGem
-      ? uniqueGem.name
-      : [2147633649, 2147633648, 2147633650].includes(source)
-      ? "?GemName?"
-      : name,
-    107,
-    28
-  );
-}
-
-async function drawChalice(ctx, chalice, img) {
-  const { x, y } = {
-    x: 9,
-    y: 6,
-  };
-
-  const size = 73;
+function handleWeapon(ctx, weapon) {
   const {
     item_name: name,
-    item_img: image,
-    extra_info: { depth, area },
-  } = chalice;
-
-  const thumbnail = await loadImage("/assets/itemImages/" + image);
-
-  ctx.font = "18px Reim";
-  ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size);
-
-  const margin = 100;
-  // Draw numbers
-  ctx.fillStyle = "#b8b7ad";
-  ctx.fillText(depth, 145, 77);
-  ctx.fillText(area, margin * 2 + 37, 77);
-
-  // Set up text
-  ctx.shadowBlur = 3;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
-  ctx.fillText(name, 107, 28);
-}
-
-async function drawArmor(ctx, armor, img) {
-  const { x, y } = {
-    x: 9,
-    y: 6,
-  };
-  const size = 73;
-  const {
-    item_name: name,
-    item_img: image,
-    extra_info: { physicalDefense, elementalDefense },
-  } = armor;
-  const { physical, blunt, thrust, blood } = physicalDefense;
-  const { arcane, fire, bolt } = elementalDefense;
-
-  const thumbnail = await loadImage("/assets/itemImages/" + image);
-
-  ctx.font = "18px Reim";
-  ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size);
-
-  const margin = 100;
-  // Draw numbers
-  ctx.fillStyle = "#b8b7ad";
-  ctx.fillText(physical, 137, 77);
-  ctx.fillText(blunt, margin * 2 + 37, 77);
-  ctx.fillText(thrust, margin * 3 + 37, 77);
-  ctx.fillText(blood, margin * 4 + 37, 77);
-  ctx.fillText(arcane, margin * 5 + 37, 77);
-  ctx.fillText(fire, margin * 6 + 37, 77);
-  ctx.fillText(bolt, margin * 7 + 37, 77);
-
-  // const hover = await loadImage(process.env.PUBLIC_URL + "/assets/hover.png");
-
-  // Set up text
-  ctx.shadowBlur = 3;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
-  ctx.fillText(name, 107, 28);
-  // ctx.drawImage(hover, 0, 0);
-}
-
-async function drawWeapon(ctx, weapon, img) {
-  const { x, y } = {
-    x: 9,
-    y: 6,
-  };
-
-  const size = 73;
-  const {
-    item_name: name,
-    item_img: image,
     extra_info: { damage, upgrade_level: upgrade, imprint },
   } = weapon;
   const { physical, blood, arcane, fire, bolt } = damage;
   const finalName = `${imprint ? imprint + " " : ""}${name}${
     upgrade > 0 ? " +" + upgrade : ""
   }`;
-
-  const thumbnail = await loadImage("/assets/itemImages/" + image);
-
-  ctx.font = "18px Reim";
-  ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size);
+  ctx.fillText(finalName, 107, 28);
 
   const margin = 100;
   // Draw numbers
@@ -254,14 +106,63 @@ async function drawWeapon(ctx, weapon, img) {
   ctx.fillText(arcane, margin * 3 + 37, 77);
   ctx.fillText(fire, margin * 4 + 37, 77);
   ctx.fillText(bolt, margin * 5 + 37, 77);
+}
 
-  // Set up text
-  ctx.shadowBlur = 3;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
-  ctx.fillText(finalName, 107, 28);
+function handleArmor(ctx, armor) {
+  const {
+    item_name: name,
+    extra_info: { physicalDefense, elementalDefense },
+  } = armor;
+  const { physical, blunt, thrust, blood } = physicalDefense;
+  const { arcane, fire, bolt } = elementalDefense;
+  ctx.fillText(name, 107, 28);
+
+  const margin = 100;
+
+  ctx.fillStyle = "#b8b7ad";
+  ctx.fillText(physical, 137, 77);
+  ctx.fillText(blunt, margin * 2 + 37, 77);
+  ctx.fillText(thrust, margin * 3 + 37, 77);
+  ctx.fillText(blood, margin * 4 + 37, 77);
+  ctx.fillText(arcane, margin * 5 + 37, 77);
+  ctx.fillText(fire, margin * 6 + 37, 77);
+  ctx.fillText(bolt, margin * 7 + 37, 77);
+}
+
+async function handleUpgrades(ctx, upgrade, { x, y, size }) {
+  if (upgrade.upgrade_type === "Gem") {
+    const {
+      effects,
+      info: { level, rating },
+      shape,
+      source,
+    } = upgrade;
+
+    const uniqueGem = getUnique(effects[0][0], shape, source);
+    const thumbnail = await loadImage(
+      getGemPath(effects, shape, level, uniqueGem)
+    );
+
+    ctx.font = "20px Reim";
+    ctx.drawImage(thumbnail, x, y, x + size, y + size);
+
+    const margin = 100;
+    // Draw numbers
+    ctx.fillStyle = "#b8b7ad";
+    ctx.fillText(rating, 135, 77);
+    ctx.fillText(shape, margin * 2 + 27, 77);
+  } else {
+    const {
+      info: { name, rating },
+      shape,
+    } = upgrade;
+
+    const path = getRunePath(name, shape, rating);
+
+    const thumbnail = await loadImage(path);
+
+    ctx.drawImage(thumbnail, x, 4.8, x + size, 4.8 + size + 2);
+  }
 }
 
 async function drawItem(ctx, item, amount, img) {
