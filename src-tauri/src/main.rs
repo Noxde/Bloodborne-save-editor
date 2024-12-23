@@ -29,7 +29,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             export_appearance,
             import_appearance,
             set_username,
-            get_version
+            get_version,
+            add_item
         ])
         .run(tauri::generate_context!())?;
 
@@ -304,4 +305,34 @@ fn set_username(new_username: String, state_save: tauri::State<MutexSave>) -> Re
 #[tauri::command]
 fn get_version() -> String {
     env!("CARGO_PKG_VERSION").to_string()
+}
+
+#[tauri::command]
+fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    if !is_storage {
+        match save.inventory.add_item(&mut save.file, id, quantity, is_storage) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "upgrades": &save.upgrades,
+                "stats": &save.stats
+            })),
+            Err(_) => Err("Failed to add the item".to_string())
+        }
+    } else {
+        match save.storage.add_item(&mut save.file, id, quantity, is_storage) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "upgrades": &save.upgrades,
+                "stats": &save.stats
+            })),
+            Err(_) => Err("Failed to add the item".to_string())
+        }
+    }
 }

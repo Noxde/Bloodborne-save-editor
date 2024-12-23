@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{Imprint, ArticleType, Error, TypeFamily}, file::FileData};
+use super::{constants::{USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER, USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER}, enums::{ArticleType, Error, Imprint, TypeFamily}, file::FileData, save::SaveData};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap,
@@ -11,6 +11,7 @@ pub struct ItemInfo {
     pub item_desc: String,
     pub item_img: String,
     pub extra_info: Option<Value>
+    // TODO: pub gems: Option<Vec<usize>>
 }
 
 //Describes the imprint and the upgrade level of a weapon
@@ -278,6 +279,7 @@ impl Article {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inventory {
     pub articles: HashMap<ArticleType, Vec<Article>>,
+    // TODO: Option article type guardar primero del storage para actualizar el indice al aniadir 
 }
 
 impl Inventory {
@@ -313,8 +315,22 @@ impl Inventory {
         Ok(())
     }
 
-    pub fn add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32) -> Result<(), Error> {
-        let (_, inventory_end) = file_data.offsets.inventory;
+    pub fn add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32, is_storage: bool) -> Result<&mut Inventory, Error> {
+        let (_, inventory_end) = {
+            if !is_storage {
+                file_data.offsets.inventory
+            } else {
+                file_data.offsets.storage
+            }
+        };
+        let (first_counter, second_counter) = {
+            if !is_storage {
+                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+            } else {
+                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+            }
+        };
+
         let endian_id = u32::to_le_bytes(id);
         let endian_quantity = u32::to_le_bytes(quantity);
 
@@ -331,19 +347,39 @@ impl Inventory {
 
         let id = u32::from_le_bytes(endian_id);
 
+        // Create the first_part array
+        let mut first_part = [0u8; 4];
+        first_part[..endian_id.len()].copy_from_slice(&endian_id);
+        first_part[first_part.len() - 1] = 0xB0;
+
+        // Create the second_part array
+        let mut second_part = [0u8; 4];
+        second_part[..endian_id.len()].copy_from_slice(&endian_id);
+        second_part[second_part.len() - 1] = 0x40;
+
+        file_data.bytes[file_data.offsets.username + first_counter] += 1;
+        file_data.bytes[file_data.offsets.username + second_counter] += 1;
+        if !is_storage {
+            file_data.offsets.inventory.1 += 16;
+        } else {
+            file_data.offsets.storage.1 += 16;
+        }
+
         if let Ok((info, article_type)) = get_info_item(id, &file_data.resources_path) {
             let new_item = Article {
-                index: file_data.bytes[inventory_end + 12],
+                index: file_data.bytes[inventory_end - 4],
                 id,
-                first_part: 213,
-                second_part: 1233,
+                first_part: u32::from_le_bytes(first_part),
+                second_part: u32::from_le_bytes(second_part),
                 info,
                 amount: quantity,
                 article_type,
                 type_family: article_type.into(),
             };
             self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
-            return Ok(());
+            // TODO: Update the index of the first storage item
+
+            return Ok(self);
         }
         Err(Error::CustomError("ERROR: failed to find info for the item."))
     }
@@ -730,13 +766,13 @@ mod tests {
         assert!(check_bytes(&file_data, 0x8cdb, 
             &[0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00]));
         //Try to add an invalid item
-        let result = inventory.add_item(&mut file_data, 0x00, 0x00);
+        let result = inventory.add_item(&mut file_data, 0x00, 0x00, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: failed to find info for the item.");
         }
 
-        inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32).unwrap();
+        inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, false).unwrap();
         assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 18);
         assert!(check_bytes(&file_data, 0x8cdb, 
             &[0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));
