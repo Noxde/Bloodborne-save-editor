@@ -61,6 +61,9 @@ async function drawArticle(ctx, article, img) {
   if (article?.upgrade_type) {
     handleUpgrades(ctx, article, { x, y, size });
   }
+  if (type === "chalice") {
+    handleChalice(ctx, article);
+  }
 
   switch (type || article_type) {
     case "weapon":
@@ -85,6 +88,18 @@ async function drawArticle(ctx, article, img) {
       ctx.fillText(amount, 75, 83);
     }
   }
+}
+
+function handleChalice(ctx, chalice) {
+  const {
+    info: {
+      extra_info: { depth, area },
+    },
+  } = chalice;
+  console.log(chalice);
+  const margin = 100;
+  ctx.fillText(depth, 135, 77);
+  ctx.fillText(area, margin * 2 + 27, 77);
 }
 
 function handleWeapon(ctx, weapon) {
