@@ -112,12 +112,12 @@
     },
     "1201": {
       "item_name": "Delayed Molotov",
-      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_desc": "Molotov cocktail that explodes on a timed delay.",
       "item_img": "delayed_molotov.png"
     },
     "1220": {
       "item_name": "Oil Urn",
-      "item_desc": "When this urn hits its mark, the target is drenched in oil, and made extremely flammable.",
+      "item_desc": "Urn that covers target in oil when thrown.",
       "item_img": "oil_urn.png"
     },
     "1230": {
@@ -132,7 +132,7 @@
     },
     "1210": {
       "item_name": "Poison Knife",
-      "item_desc": "A knife slathered in poison.",
+      "item_desc": "Knife slathered in poison.",
       "item_img": "poison_knife.png"
     },
     "1250": {
@@ -142,7 +142,7 @@
     },
     "1251": {
       "item_name": "Delayed Rope Molotov",
-      "item_desc": "A special hunter tool crafted by the old Oto Workshop.",
+      "item_desc": "Molotov that is thrown backward and explodes on a timed delay.",
       "item_img": "delayed_rope_molotov.png"
     },
     "1260": {
@@ -222,17 +222,17 @@
     },
     "1513": {
       "item_name": "Thick Coldblood (4)",
-      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_desc": "Use to gain a large amount of Blood Echoes.",
       "item_img": "thick_coldblood_(4).png"
     },
     "1514": {
       "item_name": "Thick Coldblood (5)",
-      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_desc": "Use to gain a large amount of Blood Echoes.",
       "item_img": "thick_coldblood_(5).png"
     },
     "1515": {
       "item_name": "Thick Coldblood (6)",
-      "item_desc": "Use to gain a larger amount of Blood Echoes",
+      "item_desc": "Use to gain a large amount of Blood Echoes.",
       "item_img": "thick_coldblood_(6).png"
     },
     "1516": {
@@ -367,45 +367,45 @@
       "item_img": "red_jeweled_brooch.png"
     },
     "4320": {
-      "item_name": "Third Umbilical Cord 1",
-      "item_desc": "Use to gain Insight",
+      "item_name": "One Third of Umbilical Cord 1",
+      "item_desc": "A great relic, also known as the Cord of the Eye.",
       "item_img": "third_umbilical_cord.png"
     },
     "4321": {
-      "item_name": "Third Umbilical Cord 2",
-      "item_desc": "Use to gain Insight",
+      "item_name": "One Third of Umbilical Cord 2",
+      "item_desc": "A great relic, also known as the Cord of the Eye.",
       "item_img": "third_umbilical_cord.png"
     },
     "4322": {
-      "item_name": "Third Umbilical Cord 3",
-      "item_desc": "Use to gain Insight",
+      "item_name": "One Third of Umbilical Cord 3",
+      "item_desc": "A great relic, also known as the Cord of the Eye.",
       "item_img": "third_umbilical_cord.png"
     },
     "4323": {
-      "item_name": "Third Umbilical Cord 4",
-      "item_desc": "Use to gain Insight",
+      "item_name": "One Third of Umbilical Cord 4",
+      "item_desc": "A great relic, also known as the Cord of the Eye.",
       "item_img": "third_umbilical_cord.png"
     }
   },
   "material": {
     "3000": {
       "item_name": "Blood Stone Shard",
-      "item_desc": "A solid shard that forms in coldblood.",
+      "item_desc": "Embed in weapon to fortify.",
       "item_img": "blood_stone_shard.png"
     },
     "3010": {
       "item_name": "Twin Blood Stone Shards",
-      "item_desc": "A solid shard that forms in coldblood.",
+      "item_desc": "Embed in weapon to fortify.",
       "item_img": "twin_blood_stone_shards.png"
     },
     "3020": {
       "item_name": "Blood Stone Chunk",
-      "item_desc": "A solid chunk that forms in coldblood.",
+      "item_desc": "Embed in weapon to fortify.",
       "item_img": "blood_stone_chunk.png"
     },
     "3030": {
       "item_name": "Blood Rock",
-      "item_desc": "A large solid chunk that forms in coldblood.",
+      "item_desc": "Embed in weapon to fortify.",
       "item_img": "blood_rock.png"
     },
     "7000": {
@@ -535,9 +535,19 @@
       "item_desc": "A summons inviting you to Cainhurst.",
       "item_img": "cainhurst_summons.png"
     },
+    "4009": {
+      "item_name": "Iron Door Key",
+      "item_desc": "Key to the iron gate blocking the great midlevel bridge.",
+      "item_img": "iron_door_key.png"
+    },
+    "4010": {
+      "item_name": "Upper Cathedral Key",
+      "item_desc": "Key to the Upper Cathedral Ward seal.",
+      "item_img": "upper_cathedral_key.png"
+    },
     "4011": {
       "item_name": "Hunter Chief Emblem",
-      "item_desc": "A cloth emblem that belonged to the captain of the Church hunters long ago.",
+      "item_desc": "Key to the gate to the Grand Cathedral's round plaza.",
       "item_img": "hunter_chief_emblem.png"
     },
     "4012": {
@@ -572,32 +582,32 @@
     },
     "4019": {
       "item_name": "Balcony Key",
-      "item_desc": "Key to the balcony on the first floor of the Research Hall.",
+      "item_desc": "Key to the balcony, 1st floor, Research Hall.",
       "item_img": "balcony_key.png"
     },
     "4020": {
       "item_name": "Astral Clocktower Key",
-      "item_desc": "Key to Astral Clocktower, atop the Grand Cathedral",
+      "item_desc": "Key to Astral Clocktower, atop the Grand Cathedral.",
       "item_img": "astral_clocktower_key.png"
     },
     "4021": {
       "item_name": "Celestial Dial",
-      "item_desc": "Dial for the great Astral Clock of the Grand Cathedral",
+      "item_desc": "Dial for the great Astral Clock of the Grand Cathedral.",
       "item_img": "celestial_dial.png"
     },
     "4102": {
       "item_name": "Workshop Haze Extractor",
-      "item_desc": "New option at the Workshop",
+      "item_desc": "Extract arcane haze from ritual materials.",
       "item_img": "workshop_haze_extractor.png"
     },
     "4103": {
       "item_name": "Blood Gem Workshop Tool",
-      "item_desc": "New option in the Workshop",
+      "item_desc": "Enables fortification of weapons with blood gems.",
       "item_img": "blood_gem_workshop_tool.png"
     },
     "4104": {
       "item_name": "Rune Workshop Tool",
-      "item_desc": "Enables etching Caryll Runes into one's consciousness",
+      "item_desc": "Enables etching Caryll Runes into one's consciousness.",
       "item_img": "rune_workshop_tool.png"
     },
     "4105": {
@@ -662,7 +672,7 @@
     },
     "4300": {
       "item_name": "Small Hair Ornament",
-      "item_desc": "A small, very ordinary hair ornament.",
+      "item_desc": "A small, plain hair ornament.",
       "item_img": "small_hair_ornament.png"
     },
     "4304": {
@@ -717,27 +727,27 @@
     },
     "4903": {
       "item_name": "White Messenger Ribbon",
-      "item_desc": "White ribbon that messengers are oddly fond of",
+      "item_desc": "Accessory worn by messengers playing make-believe.",
       "item_img": "white_messenger_ribbon.png"
     },
     "4904": {
       "item_name": "Red Messenger Ribbon",
-      "item_desc": "Red ribbon that the messengers are oddly fond of",
+      "item_desc": "Accessory worn by messengers playing make-believe.",
       "item_img": "red_messenger_ribbon.png"
     },
     "4905": {
       "item_name": "Messenger Top Hat",
-      "item_desc": "Hat that the messengers are oddly fond of",
+      "item_desc": "Accessory worn by messengers playing make-believe.",
       "item_img": "messenger_top_hat.png"
     },
     "4906": {
       "item_name": "Black Messenger Hat",
-      "item_desc": "Hat that the messengers are oddly fond of",
+      "item_desc": "Accessory worn by messengers playing make-believe.",
       "item_img": "black_messenger_hat.png"
     },
     "4907": {
       "item_name": "Bloody Messenger Head Bandage",
-      "item_desc": "Accessory adored by naїve messengers",
+      "item_desc": "Accessory worn by messengers playing make-believe.",
       "item_img": "bloody_messenger_head_bandage.png"
     },
     "4908": {
