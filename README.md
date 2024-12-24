@@ -116,9 +116,13 @@ The release will be located in ``Bloodborne-save-editor/src-tauri/target/release
 You can download the pre-built executable for your operating system from the [Releases](https://github.com/Noxde/Bloodborne-save-editor/releases) section.
 For Windows, download the .exe, and for Linux, download the .AppImage.
 
-Currently there is no Mac build.
-
 If you encounter any bug please [make an issue](https://github.com/Noxde/Bloodborne-save-editor/issues/new)
+
+### Video tutorial
+[![video_thumbnail](https://img.youtube.com/vi/vP8p_osK8sw/0.jpg)](https://www.youtube.com/watch?v=vP8p_osK8sw)  
+<sub>click the image to go to the video</sub>
+
+Thanks to [Ricky Zaragoza](https://www.youtube.com/@ricardozaragoza3812) for making this video, this video is focused on the full process for playstation but if you only want to see the save editor working, it's useful too.
 
 ## 4. Attributions
 
