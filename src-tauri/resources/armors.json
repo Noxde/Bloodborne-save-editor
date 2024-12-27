@@ -298,6 +298,30 @@
     "type": "Head",
     "item_desc": "\nA mask made of bone ash, worn by the oldest keepers.           \nThe keepers, who mind the slumbering great Ones, gained\n eternal life, preserved in ashen form in a ceremony of flame that cremated body and soul.            \nThe long, pointed hat is a symbol of the old keepers and is considered evidence of their companionship, forged in a certain sin."
   },
+  "41000": {
+    "item_img": "bone_ash_armor.png",
+    "item_name": "Bone Ash Armor",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 80,
+      "thrust": 100,
+      "blood": 40
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 140,
+      "bolt": 140
+    },
+    "resistance": {
+      "slowPoison": 33,
+      "rapidPoison": 29,
+      "frenzy": 41
+    },
+    "beasthood": 25,
+    "type": "Chest",
+    "item_desc": "Armor made of bone ash, worn by the oldest keepers.\n\nThe keepers, who mind the slumbering great Ones, gained\neternal life, preserved in ashen form in a ceremony of flame\nthat cremated body and soul.\n\nNow, their frail armor is white and sinewy, a window into\nan arcane lost art."
+  },
+
   "42000": {
     "item_img": "bone_ash_gauntlets.png",
     "item_name": "Bone Ash Gauntlets",
@@ -1885,7 +1909,7 @@
     "type": "Head",
     "item_desc": "An iron helm resembling an upside-down bucket."
   },
-  "900000": {
+  "380000": {
     "item_img": "master's_iron_helm.png",
     "item_name": "One-eyed Iron Helm",
     "physicalDefense": {
@@ -2022,29 +2046,6 @@
     "beasthood": 36,
     "type": "Chest",
     "item_desc": "\nAttire of special Church doctors.\nThese doctors are superiors to the black preventative \nhunters, and specialists in experimentally-backed blood \nministration and the scourge of the beast.\nThey believe that medicine is not a means of treatment but \nrather a method for research, and that some knowledge canonly be obtained by exposing oneself to sickness."
-  },
-  "292000": {
-    "item_img": "surgical_long_gloves.png",
-    "item_name": "Surgical Long Gloves",
-    "physicalDefense": {
-      "physical": 40,
-      "blunt": 40,
-      "thrust": 50,
-      "blood": 70
-    },
-    "elementalDefense": {
-      "arcane": 50,
-      "fire": 50,
-      "bolt": 50
-    },
-    "resistance": {
-      "slowPoison": 32,
-      "rapidPoison": 31,
-      "frenzy": 4
-    },
-    "beasthood": 22,
-    "type": "Hands",
-    "item_desc": "\nWhite surgical gloves. The intricate embroidery weaves a spell that protects their wearer.\nThe Church engages in the hunt in a medical capacity. \nWhen a cancer is discovered, one must pinpoint its location, reach in, and wrench it from the host's bosom."
   },
   "293000": {
     "item_img": "white_church_trousers_or_dress.png",
@@ -2482,6 +2483,52 @@
     "beasthood": 13,
     "type": "Head",
     "item_desc": "\nOld hunter top hat, warped by blood stains.\n\nIn the old days, when hunters were ten a penny, this was \npart of their standard garb."
+  },
+  "361000": {
+    "item_img": "decorative_old_hunter_garb.png",
+    "item_name": "Decorative Old Hunter Garb",
+    "physicalDefense": {
+      "physical": 110,
+      "blunt": 70,
+      "thrust": 80,
+      "blood": 110
+    },
+    "elementalDefense": {
+      "arcane": 60,
+      "fire": 120,
+      "bolt": 50
+    },
+    "resistance": {
+      "slowPoison": 36,
+      "rapidPoison": 23,
+      "frenzy": 38
+    },
+    "beasthood": 48,
+    "type": "Chest",
+    "item_desc": "Old hunter garb decorated with brass trinkets.\n\nAt the time, some hunters believed that certain metals would\nward off beast blood.\nOn a night of the hunt, it is no wonder that people would\nresort to superstition."
+  },
+  "363000": {
+    "item_img": "decorative_old_hunter_trousers.png",
+    "item_name": "Decorative Old Hunter Trousers",
+    "physicalDefense": {
+      "physical": 70,
+      "blunt": 50,
+      "thrust": 50,
+      "blood": 70
+    },
+    "elementalDefense": {
+      "arcane": 40,
+      "fire": 70,
+      "bolt": 40
+    },
+    "resistance": {
+      "slowPoison": 19,
+      "rapidPoison": 13,
+      "frenzy": 20
+    },
+    "beasthood": 29,
+    "type": "Legs",
+    "item_desc": "Old hunter garb decorated with brass trinkets.\n\nAt the time, some hunters believed that certain metals would\nward off beast blood.\nOn a night of the hunt, it is no wonder that people would\nresort to superstition."
   },
   "370000": {
     "item_img": "maria_hunter_cap.png",
