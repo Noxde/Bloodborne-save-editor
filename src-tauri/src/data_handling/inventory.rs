@@ -387,13 +387,13 @@ impl Inventory {
                         if first.first {
                             found = true;
                             first.index += 1;
+                            break;
                         }
                     }
                 }
-            }
-
-            if !found {
-                new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
+                if !found {
+                    new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
+                }
             }
 
             self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
