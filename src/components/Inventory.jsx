@@ -7,6 +7,7 @@ import { getType } from "../utils/drawCanvas";
 import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
 import EditUpgrade from "./EditUpgrade";
+import AddScreen from "./AddScreen";
 
 function Inventory({ articles, isStorage }) {
   const inventoryRef = useRef(null);
@@ -16,6 +17,7 @@ function Inventory({ articles, isStorage }) {
   const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
   const [editScreen, setEditScreen] = useState(false);
+  const [addScreen, setAddScreen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("0");
 
   const { save, setSave } = useContext(SaveContext);
@@ -65,6 +67,9 @@ function Inventory({ articles, isStorage }) {
 
   return (
     <>
+      {addScreen ? (
+        <AddScreen setAddScreen={setAddScreen} isStorage={isStorage} />
+      ) : null}
       {replaceScreen ? (
         <ReplaceScreen
           setSelected={setSelected}
@@ -173,6 +178,17 @@ function Inventory({ articles, isStorage }) {
           }}
         >
           Edit
+        </button>
+        <button
+          className="buttonBg"
+          style={{
+            marginTop: "10px",
+            width: "200px",
+            backgroundSize: "100% 100%",
+          }}
+          onClick={() => setAddScreen(true)}
+        >
+          Add
         </button>
       </div>
     </>

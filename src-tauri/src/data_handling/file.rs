@@ -95,7 +95,7 @@ impl Offsets {
                 None => Err(Error::CustomError("Failed to find the end of the inventory.")),
             }
         };
-        inventory_offset.1 = find_end(inventory_offset.0, true)?;
+        inventory_offset.1 = find_end(inventory_offset.0, true)? - 11;
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
 
         //Searches for the appearance_start_bytes
@@ -111,7 +111,7 @@ impl Offsets {
         }
 
         let storage_start_offset = inventory_offset.0 + INV_TO_STORAGE_OFFSET;
-        let storage_offset = (storage_start_offset, find_end(storage_start_offset, true)?);
+        let storage_offset = (storage_start_offset, find_end(storage_start_offset, true)? - 11);
 
         Ok(Offsets {
             username: username_offset,
@@ -209,7 +209,7 @@ impl FileData {
 
         //Search for the article in the inventory
         let mut i = inv.0;
-        while (i <= inv.1 - 16) && (!found(i)) {
+        while (i <= inv.1 - 24) && (!found(i)) {
             i+=16;
         }
 
