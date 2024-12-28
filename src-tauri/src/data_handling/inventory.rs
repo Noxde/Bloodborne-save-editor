@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{constants::{USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER, USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER}, enums::{ArticleType, Error, Imprint, TypeFamily}, file::FileData, save::SaveData};
+use super::{constants::{USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER, USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER}, enums::{ArticleType, Error, Imprint, TypeFamily}, file::FileData};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap,
@@ -49,6 +49,7 @@ pub struct Article {
     pub info: ItemInfo,
     pub article_type: ArticleType,
     pub type_family: TypeFamily,
+    pub first: bool, //Stores whether this article is the first
 }
 
 impl Article {
@@ -323,7 +324,7 @@ impl Inventory {
                 file_data.offsets.storage
             }
         };
-        let (first_counter, second_counter) = {
+        let (first_counter_index, second_counter_index) = {
             if !is_storage {
                 (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
             } else {
@@ -357,8 +358,8 @@ impl Inventory {
         second_part[..endian_id.len()].copy_from_slice(&endian_id);
         second_part[second_part.len() - 1] = 0x40;
 
-        file_data.bytes[file_data.offsets.username + first_counter] += 1;
-        file_data.bytes[file_data.offsets.username + second_counter] += 1;
+        file_data.bytes[file_data.offsets.username + first_counter_index] += 1;
+        file_data.bytes[file_data.offsets.username + second_counter_index] += 1;
         if !is_storage {
             file_data.offsets.inventory.1 += 16;
         } else {
@@ -366,7 +367,7 @@ impl Inventory {
         }
 
         if let Ok((info, article_type)) = get_info_item(id, &file_data.resources_path) {
-            let new_item = Article {
+            let mut new_item = Article {
                 index: file_data.bytes[inventory_end - 4],
                 id,
                 first_part: u32::from_le_bytes(first_part),
@@ -375,9 +376,27 @@ impl Inventory {
                 amount: quantity,
                 article_type,
                 type_family: article_type.into(),
+                first: false,
             };
+
+            //Find the first item of the storage to increase it's index
+            let mut found = false;
+            if is_storage {
+                for v in self.articles.values_mut() {
+                    if let Some(first) = v.first_mut() {
+                        if first.first {
+                            found = true;
+                            first.index += 1;
+                        }
+                    }
+                }
+            }
+
+            if !found {
+                new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
+            }
+
             self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
-            // TODO: Update the index of the first storage item
 
             return Ok(self);
         }
@@ -392,6 +411,7 @@ pub fn build(file_data: &FileData, inv: (usize, usize), key: (usize, usize)) -> 
 }
 
 pub fn parse_articles(file_data: &FileData, inv: (usize, usize), key: (usize, usize)) -> HashMap<ArticleType, Vec<Article>> {
+    let mut first = true;
     let mut articles = HashMap::new();
     let mut parse = |start: usize, end: usize| {
         for i in (start .. end).step_by(16) {
@@ -423,7 +443,9 @@ pub fn parse_articles(file_data: &FileData, inv: (usize, usize), key: (usize, us
                     info,
                     article_type,
                     type_family: article_type.into(),
+                    first,
                 };
+                first = false;
                 let category = articles.entry(article_type).or_insert(Vec::new());
                 category.push(article);
             };
