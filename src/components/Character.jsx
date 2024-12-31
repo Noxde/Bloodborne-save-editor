@@ -4,6 +4,7 @@ import { SaveContext } from "../context/context";
 import Stat from "./Stat";
 import Select from "./Select";
 import { invoke, dialog } from "@tauri-apps/api";
+import { ImagesContext } from "../context/imagesContext";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
@@ -25,6 +26,7 @@ function Character() {
     "Waste of Skin",
   ];
   const ng = ["NG0", "NG+1", "NG+2", "NG+3", "NG+4", "NG+5", "NG+6", "NG+7"];
+  const { images } = useContext(ImagesContext);
 
   return (
     <div
@@ -34,7 +36,7 @@ function Character() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: `url(${process.env.PUBLIC_URL + "/assets/statsBg.png"})`,
+        background: `url(${images.backgrounds["statsBg.png"].src})`,
         backgroundSize: "cover",
       }}
     >

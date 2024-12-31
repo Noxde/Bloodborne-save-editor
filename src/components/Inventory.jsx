@@ -8,6 +8,7 @@ import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
 import EditUpgrade from "./EditUpgrade";
 import AddScreen from "./AddScreen";
+import { ImagesContext } from "../context/imagesContext";
 
 function Inventory({ articles, isStorage }) {
   const inventoryRef = useRef(null);
@@ -19,6 +20,9 @@ function Inventory({ articles, isStorage }) {
   const [editScreen, setEditScreen] = useState(false);
   const [addScreen, setAddScreen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("0");
+  const {
+    images: { items, backgrounds },
+  } = useContext(ImagesContext);
 
   const { save, setSave } = useContext(SaveContext);
 
@@ -139,12 +143,10 @@ function Inventory({ articles, isStorage }) {
               const canvas = selectedRef.current;
               const ctx = canvas.getContext("2d");
 
-              const itemImage = await loadImage(
-                process.env.PUBLIC_URL + "/assets/itemsBg/item.png"
-              );
+              const itemImage = backgrounds["item.png"];
 
               ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-              await drawItem(ctx, selected.info, quantity, itemImage);
+              await drawItem(ctx, selected.info, quantity, itemImage, items);
             }}
             disabled={
               getType(selected?.article_type) === "item" && quantity > 0
@@ -195,7 +197,7 @@ function Inventory({ articles, isStorage }) {
   );
 }
 
-async function drawItem(ctx, item, amount, img) {
+async function drawItem(ctx, item, amount, img, items) {
   const { x, y } = {
     x: 9,
     y: 6,
@@ -204,7 +206,7 @@ async function drawItem(ctx, item, amount, img) {
   const size = 73;
   const { item_name: name, item_img: image, item_desc: note } = item;
 
-  const thumbnail = await loadImage(image);
+  const thumbnail = items[image];
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);

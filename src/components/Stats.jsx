@@ -2,12 +2,14 @@ import { useContext, useState } from "react";
 import { SaveContext } from "../context/context";
 import Stat from "./Stat";
 import { dialog, invoke } from "@tauri-apps/api";
+import { ImagesContext } from "../context/imagesContext";
 
 function Stats() {
   const { save, setSave } = useContext(SaveContext);
   const [editedStats, setEditedStats] = useState(
     JSON.parse(JSON.stringify(save))
   );
+  const { images } = useContext(ImagesContext);
 
   return (
     <div
@@ -22,7 +24,7 @@ function Stats() {
         placeItems: "center",
         // padding: "1.5rem",
         fontSize: "1.5rem",
-        background: `url(${process.env.PUBLIC_URL + "/assets/statsBg.png"})`,
+        background: `url(${images.backgrounds["statsBg.png"].src})`,
         backgroundSize: "cover",
       }}
     >

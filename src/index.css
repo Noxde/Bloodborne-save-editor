@@ -64,7 +64,7 @@ input {
 /* Track - the background of the scrollbar */
 ::-webkit-scrollbar-track {
   /* background-color: #1b1a1c; */
-  background: url("../public/assets/statsBg.png");
+  background: url("../public/assets/itemsBg/statsBg.png");
   background-size: 10% 100%;
   border: 1px solid #6f634b;
 }
