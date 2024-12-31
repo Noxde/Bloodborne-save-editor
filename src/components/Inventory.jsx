@@ -72,7 +72,11 @@ function Inventory({ articles, isStorage }) {
   return (
     <>
       {addScreen ? (
-        <AddScreen setAddScreen={setAddScreen} isStorage={isStorage} />
+        <AddScreen
+          type="item"
+          setAddScreen={setAddScreen}
+          isStorage={isStorage}
+        />
       ) : null}
       {replaceScreen ? (
         <ReplaceScreen
