@@ -1,18 +1,29 @@
-async function drawCanvas(ctx, item, isSmall = false) {
-  const { info } = item;
-  const itemBackground = await loadImage(
-    process.env.PUBLIC_URL + "/assets/itemsBg/" + getBackground(item)
-  );
-  if (isSmall) {
-    return drawItem(
-      ctx,
-      info,
-      "",
-      await loadImage(process.env.PUBLIC_URL + "/assets/itemsBg/item_small.png")
-    );
+import { useContext } from "react";
+import { ImagesContext } from "../context/imagesContext";
+
+function useDraw() {
+  const { images } = useContext(ImagesContext);
+
+  async function drawCanvas(ctx, item, isSmall = false, context = images) {
+    const { info } = item;
+
+    if (isSmall) {
+      return drawItem(
+        ctx,
+        info,
+        "",
+        images.backgrounds["item_small.png"],
+        context
+      );
+    }
+    const itemBackground = images.backgrounds[getBackground(item)];
+    drawArticle(ctx, item, itemBackground, context);
   }
-  drawArticle(ctx, item, itemBackground);
+
+  return drawCanvas;
 }
+
+export default useDraw;
 
 function getBackground(item) {
   const type = getType(item.article_type);
@@ -32,7 +43,7 @@ function getBackground(item) {
   }
 }
 
-async function drawArticle(ctx, article, img) {
+async function drawArticle(ctx, article, img, imgContext) {
   const { x, y } = {
     x: 9,
     y: 6,
@@ -44,14 +55,15 @@ async function drawArticle(ctx, article, img) {
   const type = getType(article_type);
   name = name ?? info.name; // Check for gems and runes
   note = note ?? info.note ?? "";
-
-  const thumbnail = await loadImage("/assets/itemImages/" + image);
-
-  ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
-  ctx.drawImage(thumbnail, x, y, x + size, y + size);
+
+  if (image) {
+    const thumbnail = imgContext.items[image || "empty.png"];
+    ctx.drawImage(thumbnail, x, y, x + size, y + size);
+  }
 
   // Set up text
+  ctx.font = "18px Reim";
   ctx.shadowBlur = 3;
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 2;
@@ -96,7 +108,6 @@ function handleChalice(ctx, chalice) {
       extra_info: { depth, area },
     },
   } = chalice;
-  console.log(chalice);
   const margin = 100;
   ctx.fillText(depth, 135, 77);
   ctx.fillText(area, margin * 2 + 27, 77);
@@ -180,7 +191,7 @@ async function handleUpgrades(ctx, upgrade, { x, y, size }) {
   }
 }
 
-async function drawItem(ctx, item, amount, img) {
+async function drawItem(ctx, item, amount, img, context) {
   const { x, y } = {
     x: 9,
     y: 6,
@@ -189,7 +200,10 @@ async function drawItem(ctx, item, amount, img) {
   const size = 73;
   const { item_name: name, item_img: image, item_desc: note } = item;
 
-  const thumbnail = await loadImage("/assets/itemImages/" + image);
+  // const thumbnail = await loadImage(
+  //   "/assets/itemImages/" + image || "empty.png"
+  // );
+  const thumbnail = context.items[image || "empty.png"];
 
   ctx.font = "18px Reim";
   ctx.drawImage(img, 0, 0);
@@ -216,12 +230,12 @@ async function drawItem(ctx, item, amount, img) {
 }
 
 function loadImage(url) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     let imageObj = new Image();
     imageObj.onload = () => resolve(imageObj);
-    imageObj.onerror = () => {
+    imageObj.onerror = (e) => {
       // If the image fails to load, use the default image
-      imageObj.src = "/assets/itemImages/empty.png";
+      reject("Failed to load image");
     };
     imageObj.src = url;
   });
@@ -314,13 +328,3 @@ function getGemColor(primaryEffect) {
       return null; // or some default value
   }
 }
-
-export {
-  getType,
-  drawCanvas,
-  getGemColor,
-  getRunePath,
-  getGemPath,
-  isCursed,
-  getUnique,
-};

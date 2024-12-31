@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { drawCanvas } from "../utils/drawCanvas";
+import useDraw from "../utils/useDraw";
 
 function Item({ index, item, isSmall, ...props }) {
   const canvasRef = useRef(null);
+  const drawCanvas = useDraw();
 
   useEffect(() => {
     const canvas = canvasRef?.current;
