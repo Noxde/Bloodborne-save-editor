@@ -162,36 +162,25 @@ function Inventory({ articles, isStorage }) {
           </button>
         </div>
         <button
-          className="buttonBg"
+          className="buttonBg inventory-btn"
           disabled={selected?.article_type === undefined}
           onClick={async () => {
             setReplaceScreen(true);
           }}
-          style={{ width: "200px", backgroundSize: "100% 100%" }}
         >
           Replace
         </button>
         <button
-          className="buttonBg"
+          className="buttonBg inventory-btn"
           disabled={!selected?.upgrade_type}
           onClick={async () => {
             setEditScreen(true);
-          }}
-          style={{
-            marginTop: "10px",
-            width: "200px",
-            backgroundSize: "100% 100%",
           }}
         >
           Edit
         </button>
         <button
-          className="buttonBg"
-          style={{
-            marginTop: "10px",
-            width: "200px",
-            backgroundSize: "100% 100%",
-          }}
+          className="buttonBg inventory-btn"
           onClick={() => setAddScreen(true)}
         >
           Add
