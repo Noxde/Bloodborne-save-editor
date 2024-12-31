@@ -73,13 +73,13 @@
         "fullscreen": false,
         "height": 615,
         "width": 1165,
-        "maxWidth": 1250,
+        "maxWidth": 999999,
         "maxHeight": 999999,
         "minWidth": 1165,
         "minHeight": 615,
         "center": true,
         "resizable": true,
-        "maximizable": false,
+        "maximizable": true,
         "title": "Bloodborne Save Editor v0.4.0"
       }
     ]

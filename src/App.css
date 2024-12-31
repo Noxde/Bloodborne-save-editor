@@ -17,11 +17,15 @@
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  height: 100vh;
-  height: 1px;
+  height: 100%;
   font-family: "Reim";
   font-size: calc(16px + 1vw);
   color: #dbd9d5;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
 }
 
 .nav {
