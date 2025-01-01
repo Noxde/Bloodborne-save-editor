@@ -35,13 +35,13 @@ const Main = ({ save, setSave, loading }) => {
       </div>
       <main
         style={{
-          gridTemplateColumns: `minmax(160px, 200px) 805px ${
+          gridTemplateColumns: `200px 805px ${
             location.pathname.match(/storage|\/$/) != null ? "1fr" : ""
           }`,
         }}
       >
-        <SideBar />
         <SaveContext.Provider value={{ save, setSave }}>
+          <SideBar />
           {loading ? <div>Loading</div> : null}
 
           {save != null ? (
