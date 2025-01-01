@@ -39,6 +39,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    updateZoom();
+
     const scalingQuery = window.matchMedia(
       `(resolution: ${window.devicePixelRatio}dppx)`
     );
