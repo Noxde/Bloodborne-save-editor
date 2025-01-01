@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { invoke } from "@tauri-apps/api";
 import {
-  drawCanvas,
   getGemPath,
   getRunePath,
   isCursed,
@@ -10,9 +9,11 @@ import {
 import { SaveContext } from "../context/context";
 import { ItemsContext } from "../context/itemsContext";
 import SelectSearch from "./SelectSearch";
+import useDraw from "../utils/useDraw";
 
 function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
   const { gemEffects, runeEffects } = useContext(ItemsContext);
+  const drawCanvas = useDraw();
 
   const [edited, setEdited] = useState(JSON.parse(JSON.stringify(selected)));
   const {
