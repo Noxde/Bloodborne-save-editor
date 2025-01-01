@@ -135,3 +135,17 @@ input {
   width: 120%;
   height: 100%;
 }
+
+.selected {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url("/public/assets/botoncito.png");
+    background-repeat: no-repeat;
+    width: 159px;
+    height: 10px;
+    bottom: -5px;
+    left: 20.5px;
+  }
+}
