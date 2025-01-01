@@ -72,10 +72,10 @@
       {
         "fullscreen": false,
         "height": 615,
-        "width": 1165,
+        "width": 1205,
         "maxWidth": 999999,
         "maxHeight": 999999,
-        "minWidth": 1165,
+        "minWidth": 1205,
         "minHeight": 615,
         "center": true,
         "resizable": true,
