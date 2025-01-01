@@ -53,7 +53,7 @@ async function drawArticle(ctx, article, img, imgContext) {
   const { article_type, amount, info } = article;
   let { item_name: name, item_desc: note, item_img: image } = info;
   const type = getType(article_type);
-  name = name ?? info.name; // Check for gems and runes
+  name = name ?? (article?.upgrade_type !== "Gem" ? info.name : ""); // Check for gems and runes
   note = note ?? info.note ?? "";
   ctx.drawImage(img, 0, 0);
 
@@ -159,7 +159,7 @@ async function handleUpgrades(ctx, upgrade, { x, y, size }) {
   if (upgrade.upgrade_type === "Gem") {
     const {
       effects,
-      info: { level, rating },
+      info: { name, level, rating },
       shape,
       source,
     } = upgrade;
@@ -171,6 +171,22 @@ async function handleUpgrades(ctx, upgrade, { x, y, size }) {
 
     ctx.font = "20px Reim";
     ctx.drawImage(thumbnail, x, y, x + size, y + size);
+
+    // Set up text
+    ctx.shadowBlur = 3;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowColor = "black";
+    ctx.fillStyle = "#ab9e87";
+    ctx.fillText(
+      uniqueGem
+        ? uniqueGem.name
+        : [2147633649, 2147633648, 2147633650].includes(source)
+        ? "?GemName?"
+        : name,
+      107,
+      28
+    );
 
     const margin = 100;
     // Draw numbers
