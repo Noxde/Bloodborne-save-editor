@@ -95,6 +95,7 @@ impl Offsets {
                 None => Err(Error::CustomError("Failed to find the end of the inventory.")),
             }
         };
+        //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
         inventory_offset.1 = find_end(inventory_offset.0, true)? - 11;
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
 
@@ -111,6 +112,7 @@ impl Offsets {
         }
 
         let storage_start_offset = inventory_offset.0 + INV_TO_STORAGE_OFFSET;
+        //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
         let storage_offset = (storage_start_offset, find_end(storage_start_offset, true)? - 11);
 
         Ok(Offsets {
@@ -279,7 +281,7 @@ mod tests {
         //testsave0
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0x8777);
-        assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cdb));
+        assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cd0));
         assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
         assert_eq!(file_data.offsets.appearance, (0x10e3c, 0x10e3c + APPEARANCE_BYTES_AMOUNT - 1));
@@ -287,7 +289,7 @@ mod tests {
         //testsave1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa82b);
-        assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6af));
+        assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6a4));
         assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
         assert_eq!(file_data.offsets.upgrades, (84, 0x8c3));
         assert_eq!(file_data.offsets.appearance, (0x12ef0, 0x12ef0 + APPEARANCE_BYTES_AMOUNT - 1));
@@ -295,7 +297,7 @@ mod tests {
         //testsave2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa86f);
-        assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb643));
+        assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb638));
         assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
         assert_eq!(file_data.offsets.upgrades, (84, 0x7d3));
         assert_eq!(file_data.offsets.appearance, (0x12f34, 0x12f34 + APPEARANCE_BYTES_AMOUNT - 1));
@@ -303,7 +305,7 @@ mod tests {
         //testsave3
         let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xb473);
-        assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8b7));
+        assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8ac));
         assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
         assert_eq!(file_data.offsets.upgrades, (84, 0xf7b));
         assert_eq!(file_data.offsets.appearance, (0x13b38, 0x13b38 + APPEARANCE_BYTES_AMOUNT - 1));
@@ -311,7 +313,7 @@ mod tests {
         //testsave4
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xc85f);
-        assert_eq!(file_data.offsets.inventory, (0xca34, 0xe783));
+        assert_eq!(file_data.offsets.inventory, (0xca34, 0xe778));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
         assert_eq!(file_data.offsets.appearance, (0x14f24, 0x14f24 + APPEARANCE_BYTES_AMOUNT - 1));
@@ -319,7 +321,7 @@ mod tests {
         //testsave8
         let file_data = FileData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0x19897);
-        assert_eq!(file_data.offsets.inventory, (0x19a6c, 0x210db));
+        assert_eq!(file_data.offsets.inventory, (0x19a6c, 0x210d0));
         assert_eq!(file_data.offsets.key_inventory, (0x21660, 0x218ef));
         assert_eq!(file_data.offsets.upgrades, (84, 0x10ae3));
         assert_eq!(file_data.offsets.appearance, (0x21f5c, 0x21f5c + APPEARANCE_BYTES_AMOUNT - 1));

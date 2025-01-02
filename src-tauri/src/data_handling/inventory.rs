@@ -625,7 +625,7 @@ mod tests {
         assert_eq!(article.amount, 1);
 
         //Transform an item in the key inventory
-        let article = &mut inventory.articles.get_mut(&ArticleType::Key).unwrap()[1];
+        let article = &mut inventory.articles.get_mut(&ArticleType::Key).unwrap()[2];
         assert_eq!(article.id, u32::from_le_bytes([0xd8, 0x10, 0x00,0x00]));
         assert_eq!(article.amount, 1);
         assert!(check_bytes(&file_data, 0x10550,
@@ -721,63 +721,63 @@ mod tests {
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let articles = parse_articles(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
         let keys = articles.get(&ArticleType::Key).unwrap();
-        assert_eq!(keys.len(), 6);
+        assert_eq!(keys.len(), 7);
 
-        ////Item N0
-        //assert_eq!(keys[2].index, 0x5e);
-        //assert_eq!(keys[2].id, u32::from_le_bytes([0xd2, 0x10, 0x00, 0x00]));
-        //assert_eq!(keys[2].first_part, u32::from_le_bytes([0xd2, 0x10, 0x00, 0xb0]));
-        //assert_eq!(keys[2].second_part, u32::from_le_bytes([0xd2, 0x10, 0x00, 0x40]));
-        //assert_eq!(keys[2].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
-        //assert_eq!(keys[2].article_type, ArticleType::Key);
-
-        //Item N1
-        assert_eq!(keys[0].index, 6);
-        assert_eq!(keys[0].id, u32::from_le_bytes([0x12, 0x10, 0x00, 0x00]));
-        assert_eq!(keys[0].first_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0xb0]));
-        assert_eq!(keys[0].second_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0x40]));
+        //Item N0
+        assert_eq!(keys[0].index, 107);
+        assert_eq!(keys[0].id, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0x00]));
+        assert_eq!(keys[0].first_part, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0xb0]));
+        assert_eq!(keys[0].second_part, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0x40]));
         assert_eq!(keys[0].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[0].article_type, ArticleType::Key);
 
-        //Item N2
-        assert_eq!(keys[1].index, 0);
-        assert_eq!(keys[1].id, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x00]));
-        assert_eq!(keys[1].first_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0xb0]));
-        assert_eq!(keys[1].second_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x40]));
+        //Item N1
+        assert_eq!(keys[1].index, 6);
+        assert_eq!(keys[1].id, u32::from_le_bytes([0x12, 0x10, 0x00, 0x00]));
+        assert_eq!(keys[1].first_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0xb0]));
+        assert_eq!(keys[1].second_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0x40]));
         assert_eq!(keys[1].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[1].article_type, ArticleType::Key);
 
-        //Item N3
-        assert_eq!(keys[2].index, 1);
-        assert_eq!(keys[2].id, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x00]));
-        assert_eq!(keys[2].first_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0xb0]));
-        assert_eq!(keys[2].second_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x40]));
+        //Item N2
+        assert_eq!(keys[2].index, 0);
+        assert_eq!(keys[2].id, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x00]));
+        assert_eq!(keys[2].first_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0xb0]));
+        assert_eq!(keys[2].second_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x40]));
         assert_eq!(keys[2].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[2].article_type, ArticleType::Key);
 
-        //Item N4
-        assert_eq!(keys[3].index, 2);
-        assert_eq!(keys[3].id, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x00]));
-        assert_eq!(keys[3].first_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0xb0]));
-        assert_eq!(keys[3].second_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x40]));
+        //Item N3
+        assert_eq!(keys[3].index, 1);
+        assert_eq!(keys[3].id, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x00]));
+        assert_eq!(keys[3].first_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0xb0]));
+        assert_eq!(keys[3].second_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x40]));
         assert_eq!(keys[3].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[3].article_type, ArticleType::Key);
 
-        //Item N5
-        assert_eq!(keys[4].index, 3);
-        assert_eq!(keys[4].id, u32::from_le_bytes([0x07, 0x10, 0x00, 0x00]));
-        assert_eq!(keys[4].first_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0xb0]));
-        assert_eq!(keys[4].second_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0x40]));
+        //Item N4
+        assert_eq!(keys[4].index, 2);
+        assert_eq!(keys[4].id, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x00]));
+        assert_eq!(keys[4].first_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0xb0]));
+        assert_eq!(keys[4].second_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x40]));
         assert_eq!(keys[4].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[4].article_type, ArticleType::Key);
 
-        //Item N6
-        assert_eq!(keys[5].index, 4);
-        assert_eq!(keys[5].id, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x00]));
-        assert_eq!(keys[5].first_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0xb0]));
-        assert_eq!(keys[5].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
+        //Item N5
+        assert_eq!(keys[5].index, 3);
+        assert_eq!(keys[5].id, u32::from_le_bytes([0x07, 0x10, 0x00, 0x00]));
+        assert_eq!(keys[5].first_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0xb0]));
+        assert_eq!(keys[5].second_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0x40]));
         assert_eq!(keys[5].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
         assert_eq!(keys[5].article_type, ArticleType::Key);
+
+        //Item N6
+        assert_eq!(keys[6].index, 4);
+        assert_eq!(keys[6].id, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x00]));
+        assert_eq!(keys[6].first_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0xb0]));
+        assert_eq!(keys[6].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
+        assert_eq!(keys[6].amount, u32::from_le_bytes([0x01, 0x00, 0x00, 0x00]));
+        assert_eq!(keys[6].article_type, ArticleType::Key);
     }
 
     #[test]
