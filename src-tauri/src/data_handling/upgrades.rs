@@ -64,6 +64,11 @@ impl Upgrade {
         let reader = BufReader::new(json_file);
         let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
 
+        let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
+            Some(offset) => offset,
+            None => return Err(Error::CustomError("Failed to find the upgrade in the file data.")),
+        };
+
         let fallback: &Value;
         let json_effects: &Value = match self.upgrade_type {
             UpgradeType::Gem => {
@@ -98,10 +103,6 @@ impl Upgrade {
             self.info = effect_info;
         }
 
-        let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
-            Some(offset) => offset,
-            None => return Err(Error::CustomError("Failed to find the upgrade in the file data.")),
-        };
         let effect_offset = upgrade_offset + 16 + (value_index * 4);
         let bytes = new_value.to_le_bytes();
 
@@ -491,6 +492,13 @@ mod tests {
         assert_eq!(gem2_2, gem3_2);
         assert_eq!(rune2_1, rune3_1);
         assert_eq!(rune2_2, rune3_2);
+
+        gem2_1.id = 0;
+        let result = gem2_1.change_shape(&mut file_data, String::from("Radial"));
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Failed to find the upgrade in the file data.");
+        }
     }
 
     #[test]
@@ -513,6 +521,15 @@ mod tests {
         assert!(result.is_err());
         if let Err(e) = result {
             assert_eq!(e.to_string(), "Save error: Invalid index.");
+        }
+
+        let backup = rune2.id;
+        rune2.id = 0;
+        let result = rune2.change_effect(&mut file_data, 13101, 0);
+        rune2.id = backup;
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Failed to find the upgrade in the file data.");
         }
 
         //Change effects
@@ -595,6 +612,9 @@ mod tests {
         let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
         assert_eq!(gem, gem3);
         assert_eq!(rune, rune3);
+
+        //Test with value_index 0
+        assert!(rune2.change_effect(&mut file_data, 2108001, 0).is_ok());
     }
 
     #[test]
@@ -649,5 +669,27 @@ mod tests {
         let rune2 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
         assert_eq!(rune,gem2);
         assert_eq!(gem,rune2);
+
+        gem.id = 0;
+        let result = gem.transform(&mut file_data); //Transform the gem into a rune
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Failed to find the upgrade in the file data.");
+        }
+    }
+
+    #[test]
+    fn test_get_shape() {
+        let result = get_shape(255, UpgradeType::Gem);
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Invalid shape number.");
+        }
+
+        let result = get_shape(255, UpgradeType::Rune);
+        assert!(result.is_err());
+        if let Err(e) = result {
+            assert_eq!(e.to_string(), "Save error: Invalid shape number.");
+        }
     }
 }

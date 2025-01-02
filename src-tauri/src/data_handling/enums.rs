@@ -1,12 +1,12 @@
 use std::{fmt, io};
 use serde::{Deserialize, Serialize};
-use serde_json::Error as JsonError;
+//use serde_json::Error as JsonError;
 
 #[derive(Debug)]
 pub enum Error {
     IoError(io::Error),
     CustomError(&'static str),
-    JsonError(JsonError),
+    //JsonError(JsonError),
 }
 
 impl fmt::Display for Error {
@@ -14,7 +14,7 @@ impl fmt::Display for Error {
         match self {
             Error::IoError(err) => write!(f, "I/0 error: {}",err),
             Error::CustomError(err) => write!(f, "Save error: {}",err),
-            Error::JsonError(err) => write!(f, "JSON SERDES error: {}",err),
+            //Error::JsonError(err) => write!(f, "JSON SERDES error: {}",err),
         }
     }
 }
@@ -86,6 +86,26 @@ impl TryFrom<u8> for UpgradeType {
             0x01 => Ok(UpgradeType::Gem),
             0x02 => Ok(UpgradeType::Rune),
             _ => Err(Error::CustomError("ERROR: Invalid type.")),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "ERROR: Invalid category.")]
+    fn test_article_type_from_string() {
+        let _ = ArticleType::from("error");
+    }
+
+    #[test]
+    fn test_upgrade_type_try_from_u8() {
+        let result = UpgradeType::try_from(255);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Invalid type.");
         }
     }
 }

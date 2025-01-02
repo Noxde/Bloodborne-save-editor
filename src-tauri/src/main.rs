@@ -55,7 +55,7 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
                 "stats": &s.stats
             }))
         },
-        Err(e) => {
+        Err(_) => {
             Err("Failed to load file, make sure its a decrypted character.".to_string())
         }
     }

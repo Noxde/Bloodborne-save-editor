@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use super::{constants::*, enums::{Error, TypeFamily}};
 use std::{fs, io::{self, Read}, path::PathBuf};
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Offsets {
     pub username: usize, //Beginning
     pub inventory: (usize, usize), //Beginning and end
@@ -100,7 +100,7 @@ impl Offsets {
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
 
         //Searches for the appearance_start_bytes
-        for i in 0xF000..bytes.len() { //0xF000: In all the saves i found the save bytes after 0x10000
+        for i in 0xF000..(bytes.len() - 4) { //0xF000: In all the saves i found the save bytes after 0x10000
             if appearance_start_bytes == bytes[i..i + 4] {
                 appearance_offset.0 = i + 4;
                 appearance_offset.1 = appearance_offset.0 + APPEARANCE_BYTES_AMOUNT - 1;
@@ -126,7 +126,7 @@ impl Offsets {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub struct FileData {
     pub bytes: Vec<u8>,
     pub offsets: Offsets,
@@ -278,6 +278,13 @@ mod tests {
             assert_eq!(e.to_string(), "Save error: Failed to find the end of the inventory.");
         }
 
+        //Test a save with no appearance
+        let file_data = FileData::build("saves/noappearancesave0", PathBuf::from("resources"));
+        assert!(file_data.is_err());
+        if let Err(e) = file_data {
+            assert_eq!(e.to_string(), "Save error: Failed to find the appearance.");
+        }
+
         //testsave0
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0x8777);
@@ -343,5 +350,20 @@ mod tests {
         assert_eq!(file_data.find_upgrade_offset(0xC08006D4), Some(0x52C));
         assert_eq!(file_data.find_upgrade_offset(0xC08006C2), Some(0x25C));
         assert_eq!(file_data.find_upgrade_offset(0x00000000), None);
+    }
+
+    #[test]
+    fn test_file_data_save() {
+        let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        file_data.edit(500, 2, 10, 500);
+        file_data.save("saves/savetestsave").unwrap();
+        let file_data2 = FileData::build("saves/savetestsave", PathBuf::from("resources")).unwrap();
+        assert_eq!(file_data, file_data2);
+    }
+
+    #[test]
+    fn test_find_article_offset() {
+        let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        assert_eq!(file_data.find_article_offset(4, 1200, TypeFamily::Item, true).unwrap(), 0x10f28);
     }
 }

@@ -41,3 +41,14 @@ impl SaveData {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_build() {
+        assert!(SaveData::build("saves/testsave0", PathBuf::from("resources")).is_ok());
+    }
+
+}

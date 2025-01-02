@@ -152,5 +152,12 @@ mod tests {
         assert_eq!(bytes.len(), APPEARANCE_BYTES_AMOUNT);
         let start = file_data.offsets.appearance;
         assert_eq!(bytes,  file_data.bytes[start.0 ..= start.1]);
+
+        //Test the error case
+        let result = import(&mut file_data, "saves/testexportempty");
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: Not correct size");
+        }
     }
 }
