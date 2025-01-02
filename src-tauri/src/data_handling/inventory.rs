@@ -317,6 +317,11 @@ impl Inventory {
     }
 
     pub fn add_item(&mut self, file_data: &mut FileData, id: u32, quantity: u32, is_storage: bool) -> Result<&mut Inventory, Error> {
+        let result = get_info_item(id, &file_data.resources_path);
+        if result.is_err() {
+            return Err(Error::CustomError("ERROR: failed to find info for the item."));
+        }
+
         let (_, inventory_end) = {
             if !is_storage {
                 file_data.offsets.inventory
@@ -366,41 +371,40 @@ impl Inventory {
             file_data.offsets.storage.1 += 16;
         }
 
-        if let Ok((info, article_type)) = get_info_item(id, &file_data.resources_path) {
-            let mut new_item = Article {
-                index: file_data.bytes[inventory_end - 4],
-                id,
-                first_part: u32::from_le_bytes(first_part),
-                second_part: u32::from_le_bytes(second_part),
-                info,
-                amount: quantity,
-                article_type,
-                type_family: article_type.into(),
-                first: false,
-            };
+        let (info, article_type) = result.expect("Err variant checked at the beginning");
 
-            //Find the first item of the storage to increase it's index
-            let mut found = false;
-            if is_storage {
-                for v in self.articles.values_mut() {
-                    if let Some(first) = v.first_mut() {
-                        if first.first {
-                            found = true;
-                            first.index += 1;
-                            break;
-                        }
+        let mut new_item = Article {
+            index: file_data.bytes[inventory_end - 4],
+            id,
+            first_part: u32::from_le_bytes(first_part),
+            second_part: u32::from_le_bytes(second_part),
+            info,
+            amount: quantity,
+            article_type,
+            type_family: article_type.into(),
+            first: false,
+        };
+
+        //Find the first item of the storage to increase it's index
+        let mut found = false;
+        if is_storage {
+            for v in self.articles.values_mut() {
+                if let Some(first) = v.first_mut() {
+                    if first.first {
+                        found = true;
+                        first.index += 1;
+                        break;
                     }
                 }
-                if !found {
-                    new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
-                }
             }
-
-            self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
-
-            return Ok(self);
+            if !found {
+                new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
+            }
         }
-        Err(Error::CustomError("ERROR: failed to find info for the item."))
+
+        self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
+
+        return Ok(self);
     }
 }
 
@@ -785,8 +789,8 @@ mod tests {
         let mut file_data = build_file_data();
         let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
         assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 17);
-        assert!(check_bytes(&file_data, 0x8cdb, 
-            &[0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x8ccc,
+            &[0x78,0xff,0xff,0xff,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
         //Try to add an invalid item
         let result = inventory.add_item(&mut file_data, 0x00, 0x00, false);
         assert!(result.is_err());
@@ -796,20 +800,19 @@ mod tests {
 
         inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, false).unwrap();
         assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 18);
-        assert!(check_bytes(&file_data, 0x8cdb, 
-            &[0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));
+        assert!(check_bytes(&file_data, 0x8ccc,
+            &[0x78,0xff,0xff,0xff,0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,
+              0x79,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
 
-        //let file_data = build_file_data();
-        //let inventory = build(&file_data);
-        //let consumables = inventory.articles.get(&ArticleType::Consumable).unwrap();
-        //let new_item = consumables.last().unwrap();
-        //assert_eq!(consumables.len(), 16);
-        //assert_eq!(new_item.index, 5);
-        //assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
-        //assert_eq!(new_item.first_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0xb0]));
-        //assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
-        //assert_eq!(new_item.amount, u32::from_le_bytes([0x20, 0x00, 0x00, 0x00]));
-        //assert_eq!(new_item.article_type, ArticleType::Consumable);
+        let inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let consumables = inventory.articles.get(&ArticleType::Consumable).unwrap();
+        let new_item = consumables.last().unwrap();
+        assert_eq!(new_item.index, 120);
+        assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
+        assert_eq!(new_item.first_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0xb0]));
+        assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
+        assert_eq!(new_item.amount, u32::from_le_bytes([0x20, 0x00, 0x00, 0x00]));
+        assert_eq!(new_item.article_type, ArticleType::Consumable);
     }
 
     #[test]
