@@ -73,6 +73,30 @@ pub enum Imprint {
     Lost,
 }
 
+#[derive(PartialEq, Copy, Clone, Debug)]
+pub enum SlotShape {
+    Closed,
+    Radial,
+    Triangle,
+    Waning,
+    Circle,
+    Droplet,
+}
+impl TryFrom<&[u8; 4]> for SlotShape {
+    type Error = Error;
+    fn try_from(bytes: &[u8; 4]) -> Result<Self, Self::Error> {
+        match bytes {
+            [0x00, 0x00, 0x00, 0x80] => Ok(Self::Closed),
+            [0x01, 0x00, 0x00, 0x00] => Ok(Self::Radial),
+            [0x02, 0x00, 0x00, 0x00] => Ok(Self::Triangle),
+            [0x04, 0x00, 0x00, 0x00] => Ok(Self::Waning),
+            [0x08, 0x00, 0x00, 0x00] => Ok(Self::Circle),
+            [0x3F, 0x00, 0x00, 0x00] => Ok(Self::Droplet),
+            _ => Err(Error::CustomError("ERROR: Invalid shape.")),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy, Hash)]
 pub enum UpgradeType{
     Gem,

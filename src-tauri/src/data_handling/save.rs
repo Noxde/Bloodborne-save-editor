@@ -10,6 +10,7 @@ use super::{
     stats::{self, Stat},
     upgrades::{Upgrade, parse_upgrades},
     username::Username,
+    slots::parse_equipped_gems,
 };
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -18,17 +19,17 @@ pub struct SaveData {
     pub stats: Vec<Stat>,
     pub inventory: Inventory,
     pub storage: Inventory,
-    pub upgrades: HashMap<UpgradeType, Vec<Upgrade>>,
     pub username: Username,
 }
 
 impl SaveData {
     pub fn build(save_path: &str, resources_path: PathBuf) -> Result<SaveData, Error> {
-        let file = FileData::build(save_path, resources_path)?;
+        let mut file = FileData::build(save_path, resources_path)?;
         let stats = stats::new(&file).unwrap();
         let inventory = inventory::build(&file, file.offsets.inventory, file.offsets.key_inventory);
         let storage = inventory::build(&file, file.offsets.storage, (0,0)); // Its not possible to store key items
-        let upgrades = parse_upgrades(&file);
+        let mut upgrades = parse_upgrades(&file);
+        let slots = parse_equipped_gems(&mut file, &mut upgrades);
         let username = Username::build(&file);
 
         Ok(SaveData {
@@ -36,7 +37,6 @@ impl SaveData {
             stats,
             inventory,
             storage,
-            upgrades,
             username,
         })
     }

@@ -7,3 +7,4 @@ pub mod constants;
 pub mod upgrades;
 pub mod appearance;
 pub mod username;
+pub mod slots;

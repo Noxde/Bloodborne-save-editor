@@ -10,6 +10,7 @@ pub struct Offsets {
     pub upgrades: (usize, usize), //Beginning and end
     pub key_inventory: (usize, usize), //Beginning and end
     pub appearance: (usize, usize), //Beginning
+    pub equipped_gems: (usize, usize), //Beginning and end
 }
 
 impl Offsets {
@@ -122,6 +123,7 @@ impl Offsets {
             upgrades: upgrades_offset,
             key_inventory: key_inventory_offset,
             appearance: appearance_offset,
+            equipped_gems: (0, 0),
         })
     }
 }

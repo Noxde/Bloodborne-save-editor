@@ -1,3 +1,4 @@
+/*
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
@@ -335,4 +336,9 @@ fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<M
             Err(_) => Err("Failed to add the item".to_string())
         }
     }
+}
+*/
+
+mod data_handling;
+fn main() {
 }
