@@ -299,29 +299,25 @@ mod tests {
               time::Instant,
               thread};
 
-/* TODO: Repair tests
     #[test]
     fn test_parse_upgrades() {
         //TESTSAVE 0
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let upgrades = parse_upgrades(&file_data);
-        let gems = upgrades.get(&UpgradeType::Gem).unwrap();
-        let runes = upgrades.get(&UpgradeType::Rune).unwrap();
-        assert_eq!(gems.len(), 1);
-        assert_eq!(runes.len(), 1);
 
         //Item N0
-        assert_eq!(gems[0].id, u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0]));
-        assert_eq!(gems[0].source, u32::from_le_bytes([0x26, 0x60, 0x01, 0x80]));
-        assert_eq!(gems[0].upgrade_type, UpgradeType::Gem);
-        assert_eq!(gems[0].effects, vec![(0x440c, String::from("Add physical ATK +45")),
+        let gem = upgrades.get(&u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0])).unwrap().0.clone();
+        assert_eq!(gem.id, u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0]));
+        assert_eq!(gem.source, u32::from_le_bytes([0x26, 0x60, 0x01, 0x80]));
+        assert_eq!(gem.upgrade_type, UpgradeType::Gem);
+        assert_eq!(gem.effects, vec![(0x440c, String::from("Add physical ATK +45")),
                                          (0x440c, String::from("Add physical ATK +45")),
                                          (0x440c, String::from("Add physical ATK +45")),
                                          (0x440c, String::from("Add physical ATK +45")),
                                          (0x440c, String::from("Add physical ATK +45")),
                                          (0x440c, String::from("Add physical ATK +45"))]);
-        assert_eq!(gems[0].shape, String::from("Droplet"));
-        let info = gems[0].info.clone();
+        assert_eq!(gem.shape, String::from("Droplet"));
+        let info = gem.info.clone();
         assert_eq!(info.name, String::from("Tempering Abyssal Blood Gem"));
         assert_eq!(info.effect, String::from("Add physical ATK +45"));
         assert_eq!(info.rating, 20);
@@ -329,17 +325,18 @@ mod tests {
         assert_eq!(info.note, String::from(""));
 
         //Item N0
-        assert_eq!(runes[0].id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
-        assert_eq!(runes[0].source, u32::from_le_bytes([0xBF, 0x92, 0x01, 0x80]));
-        assert_eq!(runes[0].upgrade_type, UpgradeType::Rune);
-        assert_eq!(runes[0].effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
+        let rune = upgrades.get(&u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0])).unwrap().0.clone();
+        assert_eq!(rune.id, u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0]));
+        assert_eq!(rune.source, u32::from_le_bytes([0xBF, 0x92, 0x01, 0x80]));
+        assert_eq!(rune.upgrade_type, UpgradeType::Rune);
+        assert_eq!(rune.effects, vec![(0x115582, String::from("Max QS bullets held UP +3")),
                                           (0xffffffff, String::from("No Effect")),
                                           (0xffffffff, String::from("No Effect")),
                                           (0xffffffff, String::from("No Effect")),
                                           (0xffffffff, String::from("No Effect")),
                                           (0xffffffff, String::from("No Effect"))]);
-        assert_eq!(runes[0].shape, String::from("-"));
-        let info = runes[0].info.clone();
+        assert_eq!(rune.shape, String::from("-"));
+        let info = rune.info.clone();
         assert_eq!(info.name, String::from("Formless Oedon"));
         assert_eq!(info.effect, String::from("Max QS bullets held UP +3"));
         assert_eq!(info.rating, 2);
@@ -349,22 +346,20 @@ mod tests {
         //TESTSAVE 7
         let file_data = FileData::build("saves/testsave7", PathBuf::from("resources")).unwrap();
         let upgrades = parse_upgrades(&file_data);
-        let gems = upgrades.get(&UpgradeType::Gem).unwrap();
-        assert!(upgrades.get(&UpgradeType::Rune).is_none());
-        assert_eq!(gems.len(), 1);
 
         //Item N0
-        assert_eq!(gems[0].id, u32::from_le_bytes([0x67, 0x00, 0x80, 0xC0]));
-        assert_eq!(gems[0].source, u32::from_le_bytes([0xF0, 0x49, 0x02, 0x80]));
-        assert_eq!(gems[0].upgrade_type, UpgradeType::Gem);
-        assert_eq!(gems[0].effects, vec![(0x2FB3BC, String::from("Physical ATK UP +2.7%")),
+        let gem = upgrades.get(&u32::from_le_bytes([0x67, 0x00, 0x80, 0xC0])).unwrap().0.clone();
+        assert_eq!(gem.id, u32::from_le_bytes([0x67, 0x00, 0x80, 0xC0]));
+        assert_eq!(gem.source, u32::from_le_bytes([0xF0, 0x49, 0x02, 0x80]));
+        assert_eq!(gem.upgrade_type, UpgradeType::Gem);
+        assert_eq!(gem.effects, vec![(0x2FB3BC, String::from("Physical ATK UP +2.7%")),
                                          (0x2E7754, String::from("Boosts rally potential +1.8%")),
                                          (0xffffffff, String::from("No Effect")),
                                          (0xffffffff, String::from("No Effect")),
                                          (0xffffffff, String::from("No Effect")),
                                          (0xffffffff, String::from("No Effect"))]);
-        assert_eq!(gems[0].shape, String::from("Droplet"));
-        let info = gems[0].info.clone();
+        assert_eq!(gem.shape, String::from("Droplet"));
+        let info = gem.info.clone();
         assert_eq!(info.name, String::from("Tempering Blood Gemstone (1)"));
         assert_eq!(info.effect, String::from("Physical ATK UP +2.7%"));
         assert_eq!(info.rating, 4);
@@ -418,28 +413,29 @@ mod tests {
         handle3.join().unwrap();
     }
 
+
     #[test]
     fn upgrade_change_shape() {
         let mut file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
         let upgrades1 = parse_upgrades(&file_data);
 
         //Droplet
-        let gem1_1 = upgrades1.get(&UpgradeType::Gem).unwrap()[5].clone();
+        let gem1_1 = upgrades1.get(&3229615809).unwrap().0.clone();
         //Radial
-        let gem1_2 = upgrades1.get(&UpgradeType::Gem).unwrap()[10].clone();
+        let gem1_2 = upgrades1.get(&3229615814).unwrap().0.clone();
         //Oath
-        let rune1_1 = upgrades1.get(&UpgradeType::Rune).unwrap()[5].clone();
+        let rune1_1 = upgrades1.get(&3229615805).unwrap().0.clone();
         //-
-        let rune1_2 = upgrades1.get(&UpgradeType::Rune).unwrap()[10].clone();
+        let rune1_2 = upgrades1.get(&3229615823).unwrap().0.clone();
 
         //Droplet
-        let mut gem2_1 = upgrades1.get(&UpgradeType::Gem).unwrap()[5].clone();
+        let mut gem2_1 = upgrades1.get(&3229615809).unwrap().0.clone();
         //Radial
-        let mut gem2_2 = upgrades1.get(&UpgradeType::Gem).unwrap()[10].clone();
+        let mut gem2_2 = upgrades1.get(&3229615814).unwrap().0.clone();
         //Oath
-        let mut rune2_1 = upgrades1.get(&UpgradeType::Rune).unwrap()[5].clone();
+        let mut rune2_1 = upgrades1.get(&3229615805).unwrap().0.clone();
         //-
-        let mut rune2_2 = upgrades1.get(&UpgradeType::Rune).unwrap()[10].clone();
+        let mut rune2_2 = upgrades1.get(&3229615823).unwrap().0.clone();
 
         //Run the function
         let result = gem2_1.change_shape(&mut file_data, String::from("Test error"));
@@ -479,14 +475,15 @@ mod tests {
         assert!(check(rune1_2, rune2_2.clone()));
 
         let upgrades2 = parse_upgrades(&file_data);
+
         //Waning
-        let gem3_1 = upgrades2.get(&UpgradeType::Gem).unwrap()[5].clone();
+        let gem3_1 = upgrades2.get(&3229615809).unwrap().0.clone();
         //Triangle
-        let gem3_2 = upgrades2.get(&UpgradeType::Gem).unwrap()[10].clone();
+        let gem3_2 = upgrades2.get(&3229615814).unwrap().0.clone();
         //-
-        let rune3_1 = upgrades2.get(&UpgradeType::Rune).unwrap()[5].clone();
+        let rune3_1 = upgrades2.get(&3229615805).unwrap().0.clone();
         //Oath
-        let rune3_2 = upgrades2.get(&UpgradeType::Rune).unwrap()[10].clone();
+        let rune3_2 = upgrades2.get(&3229615823).unwrap().0.clone();
 
         assert_eq!(gem2_1, gem3_1);
         assert_eq!(gem2_2, gem3_2);
@@ -506,9 +503,9 @@ mod tests {
         //TESTSAVE 0
         let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let upgrades = parse_upgrades(&file_data);
-        let gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let gem = upgrades.get(&3229614145).unwrap().0.clone();
         let mut gem2 = gem.clone();
-        let rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let rune = upgrades.get(&3229614146).unwrap().0.clone();
         let mut rune2 = rune.clone();
 
         let result = gem2.change_effect(&mut file_data, 0x00, 0);
@@ -570,16 +567,16 @@ mod tests {
 
         //Check the write to the file data
         let upgrades = parse_upgrades(&file_data);
-        let gem3 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
-        let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let gem3 = upgrades.get(&3229614145).unwrap().0.clone();
+        let rune3 = upgrades.get(&3229614146).unwrap().0.clone();
         assert_eq!(gem2, gem3);
         assert_eq!(rune2, rune3);
 
         //TESTSAVE 0. Test Runes effects on gems and viceversa
         let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let upgrades = parse_upgrades(&file_data);
-        let mut gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
-        let mut rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let mut gem = upgrades.get(&3229614145).unwrap().0.clone();
+        let mut rune = upgrades.get(&3229614146).unwrap().0.clone();
 
         //Change effects
         rune.change_effect(&mut file_data, 13101, 1).unwrap();
@@ -608,8 +605,8 @@ mod tests {
 
         //Check the write to the file data
         let upgrades = parse_upgrades(&file_data);
-        let gem3 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
-        let rune3 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let gem3 = upgrades.get(&3229614145).unwrap().0.clone();
+        let rune3 = upgrades.get(&3229614146).unwrap().0.clone();
         assert_eq!(gem, gem3);
         assert_eq!(rune, rune3);
 
@@ -622,8 +619,8 @@ mod tests {
         //TESTSAVE 0
         let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let upgrades = parse_upgrades(&file_data);
-        let mut gem = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
-        let mut rune = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let mut gem = upgrades.get(&3229614145).unwrap().0.clone();
+        let mut rune = upgrades.get(&3229614146).unwrap().0.clone();
 
         gem.transform(&mut file_data).unwrap(); //Transform the gem into a rune
         rune.transform(&mut file_data).unwrap();//Transform the rune into a gem
@@ -665,8 +662,8 @@ mod tests {
 
         //Check if the file_data was modified correctly
         let upgrades = parse_upgrades(&file_data);
-        let gem2 = upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
-        let rune2 = upgrades.get(&UpgradeType::Rune).unwrap()[0].clone();
+        let gem2 = upgrades.get(&u32::from_le_bytes([0x42, 0x00, 0x80, 0xC0])).unwrap().0.clone();
+        let rune2 = upgrades.get(&u32::from_le_bytes([0x41, 0x00, 0x80, 0xC0])).unwrap().0.clone();
         assert_eq!(rune,gem2);
         assert_eq!(gem,rune2);
 
@@ -692,5 +689,4 @@ mod tests {
             assert_eq!(e.to_string(), "Save error: Invalid shape number.");
         }
     }
-*/
 }
