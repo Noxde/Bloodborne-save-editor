@@ -73,7 +73,7 @@ pub enum Imprint {
     Lost,
 }
 
-#[derive(PartialEq, Copy, Clone, Debug)]
+#[derive(PartialEq, Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum SlotShape {
     Closed,
     Radial,

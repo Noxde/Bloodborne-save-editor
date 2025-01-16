@@ -1,6 +1,10 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{constants::{USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER, USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER}, enums::{ArticleType, Error, Imprint, TypeFamily}, file::FileData};
+use super::{constants::*, 
+            enums::{ArticleType, Error, Imprint, TypeFamily, UpgradeType},
+            file::FileData,
+            slots::Slot,
+            upgrades::Upgrade};
 use std::{fs::File,
           io::BufReader,
           collections::HashMap,
@@ -10,8 +14,7 @@ pub struct ItemInfo {
     pub item_name: String,
     pub item_desc: String,
     pub item_img: String,
-    pub extra_info: Option<Value>
-    // TODO: pub gems: Option<Vec<usize>>
+    pub extra_info: Option<Value>,
 }
 
 //Describes the imprint and the upgrade level of a weapon
@@ -50,6 +53,7 @@ pub struct Article {
     pub article_type: ArticleType,
     pub type_family: TypeFamily,
     pub first: bool, //Stores whether this article is the first
+    pub slots: Option<Vec<Slot>>,
 }
 
 impl Article {
@@ -280,10 +284,88 @@ impl Article {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inventory {
     pub articles: HashMap<ArticleType, Vec<Article>>,
-    // TODO: Option article type guardar primero del storage para actualizar el indice al aniadir 
+    pub upgrades: HashMap<UpgradeType, Vec<Upgrade>>,
 }
 
 impl Inventory {
+    pub fn build(file_data: &FileData, inv: (usize, usize), key: (usize, usize), all_upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>, all_slots: &mut HashMap<u64, Vec<Slot>>) -> Inventory {
+        let mut first = true;
+        let mut has_slots = false;
+        let mut articles = HashMap::new();
+        let mut upgrades = HashMap::new();
+
+        let mut parse = |start: usize, end: usize| {
+            for i in (start .. end).step_by(16) {
+                let index = file_data.bytes[i];
+                let mut id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
+                let first_part =
+                    u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
+                let second_part =
+                    u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], file_data.bytes[i + 11]]);
+                let amount =
+                    u32::from_le_bytes([file_data.bytes[i + 12], file_data.bytes[i + 13], file_data.bytes[i + 14], file_data.bytes[i + 15]]);
+    
+                let result = match (file_data.bytes[i+7],file_data.bytes[i+11]) {
+                    (0xB0,0x40) => {
+                        has_slots = false;
+                        get_info_item(id, &file_data.resources_path)
+                    },
+                    (_,0x10) => {
+                        has_slots = true;
+                        get_info_armor(id, &file_data.resources_path)
+                    },
+                    _ => {
+                        id = second_part;
+                        has_slots = true;
+                        get_info_weapon(id, &file_data.resources_path)
+                    },
+                };
+    
+                if let Ok((info, article_type)) = result {
+                    let mut slots = None;
+                    if has_slots {
+                        let key = u64::from_le_bytes([file_data.bytes[i+4],
+                                                     file_data.bytes[i+5],
+                                                     file_data.bytes[i+6],
+                                                     file_data.bytes[i+7],
+                                                     file_data.bytes[i+8],
+                                                     file_data.bytes[i+9],
+                                                     file_data.bytes[i+10],
+                                                     file_data.bytes[i+11]]);
+                        slots = all_slots.remove(&key);
+                        if slots.is_none() {
+                            continue;
+                        }
+                    }
+
+                    let article = Article {
+                        index,
+                        id,
+                        first_part,
+                        second_part,
+                        amount,
+                        info,
+                        article_type,
+                        type_family: article_type.into(),
+                        first,
+                        slots,
+                    };
+                    first = false;
+                    let category = articles.entry(article_type).or_insert(Vec::new());
+                    category.push(article);
+                } else if let Some(upgrade) = all_upgrades.remove(&first_part){
+                    let category = upgrades.entry(upgrade.1).or_insert(Vec::new());
+                    category.push(upgrade.0);
+                };
+            }
+        };
+        parse(inv.0, inv.1); //parse the inventory
+        parse(key.0, key.1); //parse the key inventory
+        Inventory {
+            articles,
+            upgrades,
+        }
+    }
     ///Modifies the amount of an article
     pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, id: u32, value: u32, is_storage: bool) -> Result<(), Error> {
         let value_endian = u32::to_le_bytes(value);
@@ -383,6 +465,7 @@ impl Inventory {
             article_type,
             type_family: article_type.into(),
             first: false,
+            slots: None,
         };
 
         //Find the first item of the storage to increase it's index
@@ -408,57 +491,6 @@ impl Inventory {
     }
 }
 
-pub fn build(file_data: &FileData, inv: (usize, usize), key: (usize, usize)) -> Inventory {
-    Inventory {
-        articles: parse_articles(file_data, inv, key),
-    }
-}
-
-pub fn parse_articles(file_data: &FileData, inv: (usize, usize), key: (usize, usize)) -> HashMap<ArticleType, Vec<Article>> {
-    let mut first = true;
-    let mut articles = HashMap::new();
-    let mut parse = |start: usize, end: usize| {
-        for i in (start .. end).step_by(16) {
-            let index = file_data.bytes[i];
-            let mut id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
-            let first_part =
-                u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
-            let second_part =
-                u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], file_data.bytes[i + 11]]);
-            let amount =
-                u32::from_le_bytes([file_data.bytes[i + 12], file_data.bytes[i + 13], file_data.bytes[i + 14], file_data.bytes[i + 15]]);
-
-            let result = match (file_data.bytes[i+7],file_data.bytes[i+11]) {
-                (0xB0,0x40) => get_info_item(id, &file_data.resources_path),
-                (_,0x10) => get_info_armor(id, &file_data.resources_path),
-                _ => {
-                    id = second_part;
-                    get_info_weapon(id, &file_data.resources_path)
-                },
-            };
-
-            if let Ok((info, article_type)) = result {
-                let article = Article {
-                    index,
-                    id,
-                    first_part,
-                    second_part,
-                    amount,
-                    info,
-                    article_type,
-                    type_family: article_type.into(),
-                    first,
-                };
-                first = false;
-                let category = articles.entry(article_type).or_insert(Vec::new());
-                category.push(article);
-            };
-        }
-    };
-    parse(inv.0, inv.1); //parse the inventory
-    parse(key.0, key.1); //parse the key inventory
-    articles
-}
 
 pub fn get_info_item(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
     let file_path = resources_path.join("items.json");
@@ -562,11 +594,14 @@ pub fn scale_weapon_info(extra_info: &mut Value) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::data_handling::{save::SaveData,
+                              upgrades::parse_upgrades,
+                              enums::SlotShape,
+                              slots::parse_equipped_gems};
 
-    const TEST_SAVE_PATH: &str = "saves/testsave0";
 
-    fn build_file_data() -> FileData {
-        FileData::build(TEST_SAVE_PATH, PathBuf::from("resources")).unwrap()
+    fn build_save_data(save_path: &str) -> SaveData {
+        SaveData::build(&format!("saves/{}", save_path), PathBuf::from("resources")).unwrap()
     }
 
     fn check_bytes(file_data: &FileData,index: usize,bytes: &[u8]) -> bool {
@@ -588,19 +623,18 @@ mod tests {
 
     #[test]
     fn article_transform_item() {
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let mut save = build_save_data("testsave0");
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x89cc,
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[0];
+        assert!(check_bytes(&save.file, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
-        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]), false);
+        let result = article.transform(&mut save.file, u32::from_le_bytes([0xAA,0xBB,0xCC,0x00]), false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Failed to find info for the item.");
         }
-        article.transform(&mut file_data, u32::from_le_bytes([0x64,0x1B,0x00,0x00]), false).unwrap();
-        assert!(check_bytes(&file_data, 0x89cc,
+        article.transform(&mut save.file, u32::from_le_bytes([0x64,0x1B,0x00,0x00]), false).unwrap();
+        assert!(check_bytes(&save.file, 0x89cc,
             &[0x48,0x80,0xCF,0xA8,0x64,0x1B,0x00,0xB0,0x64,0x1B,0x00,0x40,0x01,0,0,0]));
         assert_eq!(article.id, u32::from_le_bytes([0x64,0x1B,0x00,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x64,0x1B,0x00,0xB0]));
@@ -608,34 +642,34 @@ mod tests {
         assert_eq!(article.article_type, ArticleType::Material);
 
         //error tests
-        assert!(article.transform_item(&mut file_data, vec![0xAA,0xBB], false).is_err());
-        assert!(article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]), false).is_err());
+        assert!(article.transform_item(&mut save.file, vec![0xAA,0xBB], false).is_err());
+        assert!(article.transform(&mut save.file, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]), false).is_err());
         article.index = 255;
-        let result = article.transform(&mut file_data, u32::from_le_bytes([0x64,0x1B,0x00,0x00]), false);
+        let result = article.transform(&mut save.file, u32::from_le_bytes([0x64,0x1B,0x00,0x00]), false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
         }
 
         //test transforming a Consumable into a Key
-        let article = &mut inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[1];
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::Consumable).unwrap()[1];
         assert_eq!(article.amount, 20);
-        assert!(check_bytes(&file_data, 0x89FC,
+        assert!(check_bytes(&save.file, 0x89FC,
             &[0x4B,0x00,0xFD,0x7F,0x84,0x03,0x00,0xB0,0x84,0x03,0x00,0x40,0x14,0x00,0x00,0x00]));
-        article.transform(&mut file_data, u32::from_le_bytes([0xA0,0x0F,0x00,0x00]), false).unwrap();
-        assert!(check_bytes(&file_data, 0x89FC,
+        article.transform(&mut save.file, u32::from_le_bytes([0xA0,0x0F,0x00,0x00]), false).unwrap();
+        assert!(check_bytes(&save.file, 0x89FC,
             &[0x4B,0x00,0xFD,0x7F,0xA0,0x0F,0x00,0xB0,0xA0,0x0F,0x00,0x40,0x01,0x00,0x00,0x00]));
         assert_eq!(article.article_type, ArticleType::Key);
         assert_eq!(article.amount, 1);
 
         //Transform an item in the key inventory
-        let article = &mut inventory.articles.get_mut(&ArticleType::Key).unwrap()[2];
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::Key).unwrap()[2];
         assert_eq!(article.id, u32::from_le_bytes([0xd8, 0x10, 0x00,0x00]));
         assert_eq!(article.amount, 1);
-        assert!(check_bytes(&file_data, 0x10550,
+        assert!(check_bytes(&save.file, 0x10550,
             &[0x00,0xc0,0x07,0xa6,0xd8,0x10,0x00,0xb0,0xd8,0x10,0x00,0x40,0x01,0x00,0x00,0x00]));
-        article.transform(&mut file_data, u32::from_le_bytes([0xea,0x10,0x00,0x00]), false).unwrap();
-        assert!(check_bytes(&file_data, 0x10550,
+        article.transform(&mut save.file, u32::from_le_bytes([0xea,0x10,0x00,0x00]), false).unwrap();
+        assert!(check_bytes(&save.file, 0x10550,
             &[0x00,0xc0,0x07,0xa6,0xea,0x10,0x00,0xb0,0xea,0x10,0x00,0x40,0x01,0x00,0x00,0x00]));
         assert_eq!(article.article_type, ArticleType::Key);
         assert_eq!(article.amount, 1);
@@ -644,63 +678,61 @@ mod tests {
     #[test]
     fn article_transform_armor_or_weapon() {
         //Try to transform a weapon whose first occurence was deleted
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
-        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
-        file_data.bytes[0x5f8] = 0;
-        let result = article.transform(&mut file_data, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]), false);
+        let mut save = build_save_data("testsave0");
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        save.file.bytes[0x5f8] = 0;
+        let result = article.transform(&mut save.file, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]), false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found above the inventory.");
         }
 
         //Try to transform a weapon into another that does not exist
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let mut save = build_save_data("testsave0");
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x89ec,
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        assert!(check_bytes(&save.file, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x80,0x9f,0xd5,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8,
+        assert!(check_bytes(&save.file, 0x5f8,
             &[0x80,0x9f,0xd5,0x00]));
-        let result = article.transform(&mut file_data, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]), false);
+        let result = article.transform(&mut save.file, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]), false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Failed to find info for the article.");
         }
-        article.transform(&mut file_data, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]), false).unwrap();
+        article.transform(&mut save.file, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]), false).unwrap();
 
-        assert!(check_bytes(&file_data, 0x89ec,
+        assert!(check_bytes(&save.file, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x40,0x4b,0x4c,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8,
+        assert!(check_bytes(&save.file, 0x5f8,
             &[0x40,0x4b,0x4c,0x00]));
         assert_eq!(article.id, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x51,0x00,0x80,0x80]));
         assert_eq!(article.second_part, u32::from_le_bytes([0x40,0x4b,0x4c,0x00]));
 
         //transform an armor
-        let article = &mut inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x898c,
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
+        assert!(check_bytes(&save.file, 0x898c,
             &[0x44,0xf0,0xff,0xff,0x48,0x00,0x80,0x90,0x70,0x82,0x03,0x10,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x3dc,
+        assert!(check_bytes(&save.file, 0x3dc,
             &[0x70,0x82,0x03,0x10]));
 
-        article.transform(&mut file_data, u32::from_le_bytes([0x60,0x5b,0x03,0x00]), false).unwrap();
+        article.transform(&mut save.file, u32::from_le_bytes([0x60,0x5b,0x03,0x00]), false).unwrap();
 
-        assert!(check_bytes(&file_data, 0x898c,
+        assert!(check_bytes(&save.file, 0x898c,
             &[0x44,0xf0,0xff,0xff,0x48,0x00,0x80,0x90,0x60,0x5b,0x03,0x10,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x3dc,
+        assert!(check_bytes(&save.file, 0x3dc,
             &[0x60,0x5b,0x03,0x10]));
         assert_eq!(article.id, u32::from_le_bytes([0x60,0x5b,0x03,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x48,0x00,0x80,0x90]));
         assert_eq!(article.second_part, u32::from_le_bytes([0x60,0x5b,0x03,0x10]));
 
         //error tests
-        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC], false).is_err());
-        assert!(article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD,0xEE], false).is_err());
+        assert!(article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC], false).is_err());
+        assert!(article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC,0xDD,0xEE], false).is_err());
 
         article.index = 255;
-        let result = article.transform_armor_or_weapon(&mut file_data, vec![0xAA,0xBB,0xCC,0xDD], false);
+        let result = article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC,0xDD], false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
@@ -709,34 +741,32 @@ mod tests {
 
     #[test]
     fn inventory_edit_item() {
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
-        assert!(check_bytes(&file_data, 0x89cc, 
+        let mut save = build_save_data("testsave0");
+        assert!(check_bytes(&save.file, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0x01,0,0,0]));
         //Try to edit a key item
-        let result = inventory.edit_item(&mut file_data, 0x00, 0xAAAAAAAA, 0xAABBCCDD, false);
+        let result = save.inventory.edit_item(&mut save.file, 0x00, 0xAAAAAAAA, 0xAABBCCDD, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Key items cannot be edited.");
         }
         //Try wrong index
-        let result = inventory.edit_item(&mut file_data, 0xAA, 0xAAAAAAAA, 0xAABBCCDD, false);
+        let result = save.inventory.edit_item(&mut save.file, 0xAA, 0xAAAAAAAA, 0xAABBCCDD, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
         }
 
-        inventory.edit_item(&mut file_data, 0x48, 0x64, 0xAABBCCDD, false).unwrap();
-        assert!(check_bytes(&file_data, 0x89cc, 
+        save.inventory.edit_item(&mut save.file, 0x48, 0x64, 0xAABBCCDD, false).unwrap();
+        assert!(check_bytes(&save.file, 0x89cc, 
             &[0x48,0x80,0xCF,0xA8,0x64,0,0,0xB0,0x64,0,0,0x40,0xDD,0xCC,0xBB,0xAA]));
-        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap()[0].amount, 0xAABBCCDD);
+        assert_eq!(save.inventory.articles.get(&ArticleType::Consumable).unwrap()[0].amount, 0xAABBCCDD);
     }
 
     #[test]
     fn test_parse_key_inventory() {
-        let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
-        let articles = parse_articles(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
-        let keys = articles.get(&ArticleType::Key).unwrap();
+        let save = build_save_data("testsave0");
+        let keys = save.inventory.articles.get(&ArticleType::Key).unwrap();
         assert_eq!(keys.len(), 7);
 
         //Item N0
@@ -798,29 +828,31 @@ mod tests {
 
     #[test]
     fn inventory_add_item() {
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
-        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 17);
-        assert!(check_bytes(&file_data, 0x8ccc,
+        let mut save = build_save_data("testsave0");
+        assert_eq!(save.inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 17);
+        assert!(check_bytes(&save.file, 0x8ccc,
             &[0x78,0xff,0xff,0xff,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
         //Try to add an invalid item
-        let result = inventory.add_item(&mut file_data, 0x00, 0x00, false);
+        let result = save.inventory.add_item(&mut save.file, 0x00, 0x00, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: failed to find info for the item.");
         }
 
         //Add to the storage
-        assert!(inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, true).is_ok());
+        assert!(save.inventory.add_item(&mut save.file, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, true).is_ok());
 
         //Add to the inventory
-        inventory.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, false).unwrap();
-        assert_eq!(inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 19);
-        assert!(check_bytes(&file_data, 0x8ccc,
+        save.inventory.add_item(&mut save.file, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, false).unwrap();
+        assert_eq!(save.inventory.articles.get(&ArticleType::Consumable).unwrap().len(), 19);
+        assert!(check_bytes(&save.file, 0x8ccc,
             &[0x78,0xff,0xff,0xff,0x60,0x04,0x00,0xb0,0x60,0x04,0x00,0x40,0x20,0x00,0x00,0x00,
               0x79,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
 
-        let inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+
+        let mut upgrades = parse_upgrades(&save.file);
+        let mut slots = parse_equipped_gems(&mut save.file, &mut upgrades);
+        let inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
         let consumables = inventory.articles.get(&ArticleType::Consumable).unwrap();
         let new_item = consumables.last().unwrap();
         assert_eq!(new_item.index, 120);
@@ -831,10 +863,9 @@ mod tests {
         assert_eq!(new_item.article_type, ArticleType::Consumable);
 
         //Add to a save without items in its storage
-        let mut file_data = FileData::build("saves/testsave7", PathBuf::from("resources")).unwrap();
-        let mut storage = build(&file_data, file_data.offsets.storage, file_data.offsets.storage);
-        storage.add_item(&mut file_data, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, true).unwrap();
-        let consumables = storage.articles.get(&ArticleType::Consumable).unwrap();
+        let mut save = build_save_data("testsave7");
+        save.storage.add_item(&mut save.file, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, true).unwrap();
+        let consumables = save.storage.articles.get(&ArticleType::Consumable).unwrap();
         let new_item = consumables.last().unwrap();
         assert_eq!(new_item.index, 1);
         assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
@@ -847,12 +878,11 @@ mod tests {
 
     #[test]
     fn article_is_type_family() {
-        let file_data = build_file_data();
-        let inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let save = build_save_data("testsave0");
 
-        let armor = inventory.articles.get(&ArticleType::Armor).unwrap()[0].clone();
-        let weapon = inventory.articles.get(&ArticleType::LeftHand).unwrap()[0].clone();
-        let item = inventory.articles.get(&ArticleType::Material).unwrap()[0].clone();
+        let armor = save.inventory.articles.get(&ArticleType::Armor).unwrap()[0].clone();
+        let weapon = save.inventory.articles.get(&ArticleType::LeftHand).unwrap()[0].clone();
+        let item = save.inventory.articles.get(&ArticleType::Material).unwrap()[0].clone();
         assert!(armor.is_armor());
         assert!(weapon.is_weapon());
         assert!(item.is_item());
@@ -886,9 +916,8 @@ mod tests {
 
     #[test]
     fn test_scale_weapon_info() {
-        let file_data = FileData::build("saves/weaponmods0", PathBuf::from("resources")).unwrap();
-        let articles = parse_articles(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
-        let right_hands = articles.get(&ArticleType::RightHand).unwrap();
+        let save = build_save_data("weaponmods0");
+        let right_hands = save.inventory.articles.get(&ArticleType::RightHand).unwrap();
         assert_eq!(right_hands.len(), 7);
 
         //Lost Holy Moonlight Sword +9
@@ -927,22 +956,21 @@ mod tests {
     #[test]
     fn article_set_imprint_and_upgrade() {
         //Test with Lost imprint
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let mut save = build_save_data("testsave0");
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
-        assert!(check_bytes(&file_data, 0x89ec,
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        assert!(check_bytes(&save.file, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x80,0x9f,0xd5,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8,
+        assert!(check_bytes(&save.file, 0x5f8,
             &[0x80,0x9f,0xd5,0x00]));
         let extra_info = article.info.extra_info.clone().unwrap();
         assert_eq!(extra_info["imprint"], Value::Null);
         assert_eq!(extra_info["upgrade_level"], Value::from(0));
         // 0xD59F80 + 20800 = 0xD5F0C0
-        article.set_imprint_and_upgrade(&mut file_data, Some(Some(Imprint::Lost)), Some(8)).unwrap();
-        assert!(check_bytes(&file_data, 0x89ec,
+        article.set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Lost)), Some(8)).unwrap();
+        assert!(check_bytes(&save.file, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0xC0,0xF0,0xD5,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8,
+        assert!(check_bytes(&save.file, 0x5f8,
             &[0xC0,0xF0,0xD5,0x00]));
         assert_eq!(article.id, u32::from_le_bytes([0xC0,0xF0,0xD5,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x51,0x00,0x80,0x80]));
@@ -952,15 +980,14 @@ mod tests {
         assert_eq!(extra_info["upgrade_level"], Value::from(8));
 
         //Test with Uncanny imprint
-        let mut file_data = build_file_data();
-        let mut inventory = build(&file_data, file_data.offsets.inventory, file_data.offsets.key_inventory);
+        let mut save = build_save_data("testsave0");
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
         // 0xD59F80 + 11000 = 0xD5CA78
-        article.set_imprint_and_upgrade(&mut file_data, Some(Some(Imprint::Uncanny)), Some(10)).unwrap();
-        assert!(check_bytes(&file_data, 0x89ec,
+        article.set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Uncanny)), Some(10)).unwrap();
+        assert!(check_bytes(&save.file, 0x89ec,
             &[0x4a,0x00,0x83,0x7c,0x51,0x00,0x80,0x80,0x78,0xCA,0xD5,0x00,0x01,0x00,0x00,0x00]));
-        assert!(check_bytes(&file_data, 0x5f8,
+        assert!(check_bytes(&save.file, 0x5f8,
             &[0x78,0xCA,0xD5,0x00]));
         assert_eq!(article.id, u32::from_le_bytes([0x78,0xCA,0xD5,0x00]));
         assert_eq!(article.first_part, u32::from_le_bytes([0x51,0x00,0x80,0x80]));
@@ -970,49 +997,127 @@ mod tests {
         assert_eq!(extra_info["upgrade_level"], Value::from(10));
 
         //Test errors
-        let article = &mut inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::Armor).unwrap()[0];
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The article must be a weapon.");
         }
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[0];
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, Some(11));
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[0];
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, Some(11));
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Upgrade level cannot be bigger than 10.");
         }
 
         article.info.extra_info = None;
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The weapon has no extrainfo.");
         }
 
         article.second_part = u32::MAX;
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Invalid second_part");
         }
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[1];
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[1];
         article.index = 0xEE;
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The Article was not found in the inventory.");
         }
 
-        let article = &mut inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
-        file_data.bytes[0x5f8] = 0x00;
-        let result = article.set_imprint_and_upgrade(&mut file_data, None, None);
+        let article = &mut save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap()[0];
+        save.file.bytes[0x5f8] = 0x00;
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: The weapon was not found above the inventory.");
         }
 
+    }
+
+    #[test]
+    fn test_equipped_gems() {
+        //This tests if Inventory::build allocates gems correctly
+        //(To the player inventory, storage, and weapon slots)
+        let save = build_save_data("testsave9");
+
+        //Inventory:
+        let gems = save.inventory.upgrades.get(&UpgradeType::Gem).unwrap();
+        let runes = save.inventory.upgrades.get(&UpgradeType::Rune).unwrap();
+        assert_eq!(runes[0].id, u32::from_le_bytes([0x72, 0x00, 0x80, 0xC0]));
+        assert_eq!(runes[0].source, u32::from_le_bytes([0x4a, 0x0d, 0x03, 0x80]));
+
+        //This rune is equipped
+        //assert_eq!(runes[1].id, u32::from_le_bytes([0x76, 0x00, 0x80, 0xC0]));
+        //assert_eq!(runes[1].source, u32::from_le_bytes([0x40, 0x0d, 0x03, 0x80]));
+
+        //This rune is equipped
+        //assert_eq!(runes[2].id, u32::from_le_bytes([0x77, 0x00, 0x80, 0xC0]));
+        //assert_eq!(runes[2].source, u32::from_le_bytes([0xbf, 0x92, 0x01, 0x80]));
+
+        assert_eq!(gems[0].id, u32::from_le_bytes([0x73, 0x00, 0x80, 0xC0]));
+        assert_eq!(gems[0].source, u32::from_le_bytes([0xf0, 0x49, 0x02, 0x80]));
+
+        assert_eq!(gems[1].id, u32::from_le_bytes([0x70, 0x00, 0x80, 0xC0]));
+        assert_eq!(gems[1].source, u32::from_le_bytes([0xf2, 0x49, 0x02, 0x80]));
+
+
+        //Storage:
+        let gems = save.storage.upgrades.get(&UpgradeType::Gem).unwrap();
+
+        assert_eq!(gems[0].id, u32::from_le_bytes([0x71, 0x00, 0x80, 0xC0]));
+        assert_eq!(gems[0].source, u32::from_le_bytes([0x48, 0xe8, 0x01, 0x80]));
+
+        assert_eq!(gems[1].id, u32::from_le_bytes([0x75, 0x00, 0x80, 0xC0]));
+        assert_eq!(gems[1].source, u32::from_le_bytes([0x1a, 0xf0, 0x01, 0x80]));
+
+        //Equipped gems
+        let weapons = save.inventory.articles.get(&ArticleType::RightHand).unwrap();
+        assert_eq!(weapons[0].id, 5000300);
+        let slots = weapons[0].slots.clone().unwrap();
+
+        //Slot 1
+        assert_eq!(slots[0].shape, SlotShape::Radial);
+        let gem = slots[0].gem.clone().unwrap();
+        assert_eq!(gem.id, u32::from_le_bytes([0x74, 0x00, 0x80, 0xc0]));
+        assert_eq!(gem.shape, String::from("Radial"));
+        let info = gem.info.clone();
+        assert_eq!(info.name, String::from("Tempering Blood Gemstone (2)"));
+        assert_eq!(info.effect, String::from("Physical ATK UP +7.3%"));
+        assert_eq!(info.rating, 7);
+        assert_eq!(info.level, 2);
+        assert_eq!(info.note, String::from(""));
+
+        //Slot 2
+        assert_eq!(slots[1].shape, SlotShape::Radial);
+        let gem = slots[1].gem.clone().unwrap();
+        assert_eq!(gem.id, u32::from_le_bytes([0x6f, 0x00, 0x80, 0xc0]));
+        assert_eq!(gem.shape, String::from("Radial"));
+        let info = gem.info.clone();
+        assert_eq!(info.name, String::from("Tempering Blood Gemstone (3)"));
+        assert_eq!(info.effect, String::from("Physical ATK UP +9.5%"));
+        assert_eq!(info.rating, 9);
+        assert_eq!(info.level, 3);
+        assert_eq!(info.note, String::from(""));
+
+        //Slot 3
+        assert_eq!(slots[2].shape, SlotShape::Closed);
+        assert!(slots[2].gem.is_none());
+
+        //Slot 4
+        assert_eq!(slots[3].shape, SlotShape::Closed);
+        assert!(slots[3].gem.is_none());
+
+        //Slot 5
+        assert_eq!(slots[4].shape, SlotShape::Closed);
+        assert!(slots[4].gem.is_none());
     }
 }

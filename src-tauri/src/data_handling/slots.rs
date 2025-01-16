@@ -1,9 +1,11 @@
+use serde::{Deserialize, Serialize};
+
 use super::{enums::{SlotShape, UpgradeType},
            upgrades::Upgrade,
            file::FileData};
 use std::collections::HashMap;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Slot {
     pub shape: SlotShape,
     pub gem: Option<Upgrade>,
@@ -19,7 +21,7 @@ impl Slot {
 
 }
 
-pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>) -> HashMap<u32, Vec<Slot>> {
+pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>) -> HashMap<u64, Vec<Slot>> {
     let mut slots = HashMap::new();
     let mut abort = true;
     let mut index: usize = 0;
@@ -43,20 +45,17 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
     //We skip that part and then find the next valid slot block
     //We continue to parse the blocks and the garbage ultil we reach the username offset
     //After which there are no more valid blocks
+    //NOTE: Equipped RUNES will also be stored in slots
 
     //This closure determines if there is a valid block in the received offset
     //If there is, it is added to the HashMap
     //The offset must point to the fist bit of the block
     let mut get_slots = |offset: usize| -> bool {
-        let word_1 = u32::from_le_bytes([file_data.bytes[offset],
-                                        file_data.bytes[offset+1],
-                                        file_data.bytes[offset+2],
-                                        file_data.bytes[offset+3]]);
-        if word_1 == 0 {
-            return false;
-        }
-
-        let id = u32::from_le_bytes([file_data.bytes[offset+4],
+        let id = u64::from_le_bytes([file_data.bytes[offset+0],
+                                     file_data.bytes[offset+1],
+                                     file_data.bytes[offset+2],
+                                     file_data.bytes[offset+3],
+                                     file_data.bytes[offset+4],
                                      file_data.bytes[offset+5],
                                      file_data.bytes[offset+6],
                                      file_data.bytes[offset+7]]);
@@ -84,10 +83,8 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
 
                     if let Some(upgrade) = upgrades.remove(&gem_id) {
                         gem = Some(upgrade.0);
-
-
                     } else {
-                        return false;
+                        gem = None;
                     }
                 }
                 slots_vec.push(Slot::build(shape, gem));
@@ -99,6 +96,10 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
         }
 
         slots.insert(id, slots_vec);
+        //Update the offset of the end of the equipped gems
+        //with the end of the last valid slot
+        file_data.offsets.equipped_gems.1 = offset + 59;
+
         true
     };
 
@@ -107,6 +108,7 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
         if get_slots(i-16) {
             abort = false;
             index = i - 16 + 60; //Next slots block
+            file_data.offsets.equipped_gems.0 = index - 60;
             break;
         }
     }
@@ -157,7 +159,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave9", PathBuf::from("resources")).unwrap();
         let mut upgrades = parse_upgrades(&file_data);
         let slots = parse_equipped_gems(&mut file_data, &mut upgrades);
-        let weapon_slots = slots.get(&5000300).unwrap();
+        assert_eq!(file_data.offsets.equipped_gems, (0x1bc, 0x1bc3));
+        //Hunter Axe +3
+        let weapon_slots = slots.get(&0x004c4c6c808001d0).unwrap();
         assert_eq!(weapon_slots.len(), 5);
 
         //Slot 1
