@@ -43,8 +43,7 @@ impl TryFrom<u32> for WeaponMods {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Article {
-    // pub name: String,
-    pub index: u8,
+    pub number: u8, //First byte of the inventory slot
     pub id: u32,
     pub first_part: u32,
     pub second_part: u32,
@@ -54,6 +53,7 @@ pub struct Article {
     pub type_family: TypeFamily,
     pub first: bool, //Stores whether this article is the first
     pub slots: Option<Vec<Slot>>,
+    pub index: usize, //Index of the article inside the vector
 }
 
 impl Article {
@@ -88,7 +88,7 @@ impl Article {
         }
 
         let i;
-        match file_data.find_article_offset(self.index, self.id, self.type_family, is_storage) {
+        match file_data.find_article_offset(self.number, self.id, self.type_family, is_storage) {
             Some(offset) => i = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -130,7 +130,7 @@ impl Article {
         }
 
         let i;
-        match file_data.find_article_offset(self.index, self.id, self.type_family, is_storage) {
+        match file_data.find_article_offset(self.number, self.id, self.type_family, is_storage) {
             Some(offset) => i = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -251,7 +251,7 @@ impl Article {
 
         //Update the second part in the inventory
         let mut index;
-        match file_data.find_article_offset(self.index, self.id, self.type_family, false) {
+        match file_data.find_article_offset(self.number, self.id, self.type_family, false) {
             Some(offset) => index = offset,
             None => return Err(Error::CustomError("ERROR: The Article was not found in the inventory.")),
         }
@@ -295,8 +295,8 @@ impl Inventory {
         let mut upgrades = HashMap::new();
 
         let mut parse = |start: usize, end: usize| {
-            for i in (start .. end).step_by(16) {
-                let index = file_data.bytes[i];
+            for (index, i) in (start .. end).step_by(16).enumerate() {
+                let number = file_data.bytes[i];
                 let mut id = u32::from_le_bytes([file_data.bytes[i + 8], file_data.bytes[i + 9], file_data.bytes[i + 10], 0]);
                 let first_part =
                     u32::from_le_bytes([file_data.bytes[i + 4], file_data.bytes[i + 5], file_data.bytes[i + 6], file_data.bytes[i + 7]]);
@@ -338,8 +338,8 @@ impl Inventory {
                         }
                     }
 
-                    let article = Article {
-                        index,
+                    let mut article = Article {
+                        number,
                         id,
                         first_part,
                         second_part,
@@ -349,12 +349,15 @@ impl Inventory {
                         type_family: article_type.into(),
                         first,
                         slots,
+                        index,
                     };
                     first = false;
                     let category = articles.entry(article_type).or_insert(Vec::new());
+                    article.index = category.len();
                     category.push(article);
-                } else if let Some(upgrade) = all_upgrades.remove(&first_part){
+                } else if let Some(mut upgrade) = all_upgrades.remove(&first_part){
                     let category = upgrades.entry(upgrade.1).or_insert(Vec::new());
+                    upgrade.0.index = category.len();
                     category.push(upgrade.0);
                 };
             }
@@ -367,13 +370,13 @@ impl Inventory {
         }
     }
     ///Modifies the amount of an article
-    pub fn edit_item(&mut self, file_data: &mut FileData, index: u8, id: u32, value: u32, is_storage: bool) -> Result<(), Error> {
+    pub fn edit_item(&mut self, file_data: &mut FileData, number: u8, id: u32, value: u32, is_storage: bool) -> Result<(), Error> {
         let value_endian = u32::to_le_bytes(value);
         let mut found = false;
         for (k, v) in self.articles.iter_mut() {
             let family: TypeFamily = k.to_owned().into();
             if family == TypeFamily::Item {
-                if let Some(item) = v.iter_mut().find(|item| item.index == index) {
+                if let Some(item) = v.iter_mut().find(|item| item.number == number) {
                     if k == &ArticleType::Key {
                         return Err(Error::CustomError("ERROR: Key items cannot be edited."));
                     }
@@ -384,7 +387,7 @@ impl Inventory {
             }
         }
 
-        let opt = file_data.find_article_offset(index, id, TypeFamily::Item, is_storage);
+        let opt = file_data.find_article_offset(number, id, TypeFamily::Item, is_storage);
         if let Some(offset) = opt {
             for (i, o) in (offset+12 .. offset+16).enumerate() {
                 file_data.bytes[o] = value_endian[i];
@@ -456,7 +459,7 @@ impl Inventory {
         let (info, article_type) = result.expect("Err variant checked at the beginning");
 
         let mut new_item = Article {
-            index: file_data.bytes[inventory_end - 4],
+            number: file_data.bytes[inventory_end - 4],
             id,
             first_part: u32::from_le_bytes(first_part),
             second_part: u32::from_le_bytes(second_part),
@@ -466,6 +469,7 @@ impl Inventory {
             type_family: article_type.into(),
             first: false,
             slots: None,
+            index: 0,
         };
 
         //Find the first item of the storage to increase it's index
@@ -475,17 +479,19 @@ impl Inventory {
                 if let Some(first) = v.first_mut() {
                     if first.first {
                         found = true;
-                        first.index += 1;
+                        first.number += 1;
                         break;
                     }
                 }
             }
             if !found {
-                new_item.index = file_data.bytes[file_data.offsets.username + first_counter_index];
+                new_item.number = file_data.bytes[file_data.offsets.username + first_counter_index];
             }
         }
 
-        self.articles.entry(article_type).or_insert(Vec::new()).push(new_item);
+        let vec = self.articles.entry(article_type).or_insert(Vec::new());
+        new_item.index = vec.len();
+        vec.push(new_item);
 
         return Ok(self);
     }
@@ -644,7 +650,7 @@ mod tests {
         //error tests
         assert!(article.transform_item(&mut save.file, vec![0xAA,0xBB], false).is_err());
         assert!(article.transform(&mut save.file, u32::from_le_bytes([0xAA,0xBB,0xCC,0xDD]), false).is_err());
-        article.index = 255;
+        article.number = 255;
         let result = article.transform(&mut save.file, u32::from_le_bytes([0x64,0x1B,0x00,0x00]), false);
         assert!(result.is_err());
         if let Err(error) = result {
@@ -731,7 +737,7 @@ mod tests {
         assert!(article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC], false).is_err());
         assert!(article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC,0xDD,0xEE], false).is_err());
 
-        article.index = 255;
+        article.number = 255;
         let result = article.transform_armor_or_weapon(&mut save.file, vec![0xAA,0xBB,0xCC,0xDD], false);
         assert!(result.is_err());
         if let Err(error) = result {
@@ -770,7 +776,7 @@ mod tests {
         assert_eq!(keys.len(), 7);
 
         //Item N0
-        assert_eq!(keys[0].index, 107);
+        assert_eq!(keys[0].number, 107);
         assert_eq!(keys[0].id, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0x00]));
         assert_eq!(keys[0].first_part, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0xb0]));
         assert_eq!(keys[0].second_part, u32::from_le_bytes([0xa9, 0x0f, 0x00, 0x40]));
@@ -778,7 +784,7 @@ mod tests {
         assert_eq!(keys[0].article_type, ArticleType::Key);
 
         //Item N1
-        assert_eq!(keys[1].index, 6);
+        assert_eq!(keys[1].number, 6);
         assert_eq!(keys[1].id, u32::from_le_bytes([0x12, 0x10, 0x00, 0x00]));
         assert_eq!(keys[1].first_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0xb0]));
         assert_eq!(keys[1].second_part, u32::from_le_bytes([0x12, 0x10, 0x00, 0x40]));
@@ -786,7 +792,7 @@ mod tests {
         assert_eq!(keys[1].article_type, ArticleType::Key);
 
         //Item N2
-        assert_eq!(keys[2].index, 0);
+        assert_eq!(keys[2].number, 0);
         assert_eq!(keys[2].id, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x00]));
         assert_eq!(keys[2].first_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0xb0]));
         assert_eq!(keys[2].second_part, u32::from_le_bytes([0xd8, 0x10, 0x00, 0x40]));
@@ -794,7 +800,7 @@ mod tests {
         assert_eq!(keys[2].article_type, ArticleType::Key);
 
         //Item N3
-        assert_eq!(keys[3].index, 1);
+        assert_eq!(keys[3].number, 1);
         assert_eq!(keys[3].id, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x00]));
         assert_eq!(keys[3].first_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0xb0]));
         assert_eq!(keys[3].second_part, u32::from_le_bytes([0x0e, 0x10, 0x00, 0x40]));
@@ -802,7 +808,7 @@ mod tests {
         assert_eq!(keys[3].article_type, ArticleType::Key);
 
         //Item N4
-        assert_eq!(keys[4].index, 2);
+        assert_eq!(keys[4].number, 2);
         assert_eq!(keys[4].id, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x00]));
         assert_eq!(keys[4].first_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0xb0]));
         assert_eq!(keys[4].second_part, u32::from_le_bytes([0xa0, 0x0f, 0x00, 0x40]));
@@ -810,7 +816,7 @@ mod tests {
         assert_eq!(keys[4].article_type, ArticleType::Key);
 
         //Item N5
-        assert_eq!(keys[5].index, 3);
+        assert_eq!(keys[5].number, 3);
         assert_eq!(keys[5].id, u32::from_le_bytes([0x07, 0x10, 0x00, 0x00]));
         assert_eq!(keys[5].first_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0xb0]));
         assert_eq!(keys[5].second_part, u32::from_le_bytes([0x07, 0x10, 0x00, 0x40]));
@@ -818,7 +824,7 @@ mod tests {
         assert_eq!(keys[5].article_type, ArticleType::Key);
 
         //Item N6
-        assert_eq!(keys[6].index, 4);
+        assert_eq!(keys[6].number, 4);
         assert_eq!(keys[6].id, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x00]));
         assert_eq!(keys[6].first_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0xb0]));
         assert_eq!(keys[6].second_part, u32::from_le_bytes([0xab, 0x0f, 0x00, 0x40]));
@@ -855,7 +861,7 @@ mod tests {
         let inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
         let consumables = inventory.articles.get(&ArticleType::Consumable).unwrap();
         let new_item = consumables.last().unwrap();
-        assert_eq!(new_item.index, 120);
+        assert_eq!(new_item.number, 120);
         assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
         assert_eq!(new_item.first_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0xb0]));
         assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
@@ -867,7 +873,7 @@ mod tests {
         save.storage.add_item(&mut save.file, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]), 32, true).unwrap();
         let consumables = save.storage.articles.get(&ArticleType::Consumable).unwrap();
         let new_item = consumables.last().unwrap();
-        assert_eq!(new_item.index, 1);
+        assert_eq!(new_item.number, 1);
         assert_eq!(new_item.id, u32::from_le_bytes([0x60, 0x04, 0x00, 0x00]));
         assert_eq!(new_item.first_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0xb0]));
         assert_eq!(new_item.second_part, u32::from_le_bytes([0x60, 0x04, 0x00, 0x40]));
@@ -1026,7 +1032,7 @@ mod tests {
         }
 
         let article = &mut save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap()[1];
-        article.index = 0xEE;
+        article.number = 0xEE;
         let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
         assert!(result.is_err());
         if let Err(error) = result {

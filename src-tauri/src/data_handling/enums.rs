@@ -114,6 +114,11 @@ impl TryFrom<u8> for UpgradeType {
     }
 }
 
+pub enum Location {
+    Inventory,
+    Storage,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

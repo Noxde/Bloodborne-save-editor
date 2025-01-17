@@ -22,6 +22,7 @@ pub struct Upgrade {
     pub shape: String,
     pub effects: Vec<(u32, String)>,
     pub info: UpgradeInfo,
+    pub index: usize, //Index of the upgrade inside the vector
 }
 
 impl Upgrade {
@@ -265,6 +266,7 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeTyp
             shape,
             effects,
             info,
+            index: 0, //It will be set correctly in Inventory::build()
         };
         upgrades.insert(id, (upgrade, upgrade_type));
     };

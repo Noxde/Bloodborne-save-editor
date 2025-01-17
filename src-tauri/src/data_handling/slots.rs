@@ -5,17 +5,19 @@ use super::{enums::{SlotShape, UpgradeType},
            file::FileData};
 use std::collections::HashMap;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 pub struct Slot {
     pub shape: SlotShape,
     pub gem: Option<Upgrade>,
+    pub index: usize, //Index of the slot inside the vector
 }
 
 impl Slot {
-    fn build(shape: SlotShape, gem: Option<Upgrade>) -> Self {
+    fn build(shape: SlotShape, gem: Option<Upgrade>, index: usize) -> Self {
         Slot {
             shape,
             gem,
+            index,
         }
     }
 
@@ -87,7 +89,7 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
                         gem = None;
                     }
                 }
-                slots_vec.push(Slot::build(shape, gem));
+                slots_vec.push(Slot::build(shape, gem, slots_vec.len()));
 
             } else {
                 return false;
