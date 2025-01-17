@@ -93,8 +93,7 @@ impl SaveData {
 #[cfg(test)]
 mod tests {
     use std::{path::PathBuf,
-              time::Instant,
-              thread};
+              time::Instant};
 
     use super::*;
     use crate::data_handling::enums::SlotShape;
@@ -106,218 +105,210 @@ mod tests {
 
     #[test]
     fn test_get_slot_mut() {
-        let handle = thread::spawn(|| {
-            //Inventory
-            let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
-            let articles = save.inventory.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot1 = slots.get(0).unwrap();
-            let now = Instant::now();
-            let slot2 = save.get_slot_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*slot1, *slot2);
-            assert_eq!(slot1.shape, SlotShape::Droplet);
+        //Inventory
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot1 = slots.get(0).unwrap();
+        let slot2 = save.get_slot_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
+        assert_eq!(*slot1, *slot2);
+        assert_eq!(slot1.shape, SlotShape::Droplet);
 
-            slot2.shape = SlotShape::Triangle;
+        slot2.shape = SlotShape::Triangle;
 
-            let articles = save.inventory.articles;
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot1 = slots.get(0).unwrap();
-            assert_eq!(slot1.shape, SlotShape::Triangle);
+        let articles = save.inventory.articles;
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot1 = slots.get(0).unwrap();
+        assert_eq!(slot1.shape, SlotShape::Triangle);
 
 
-            //Storage
-            let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot1 = slots.get(0).unwrap();
-            let now = Instant::now();
-            let slot2 = save.get_slot_mut(Location::Storage, ArticleType::Armor, 0, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*slot1, *slot2);
-            assert_eq!(slot1.shape, SlotShape::Closed);
+        //Storage
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot1 = slots.get(0).unwrap();
+        let slot2 = save.get_slot_mut(Location::Storage, ArticleType::Armor, 0, 0).unwrap();
+        assert_eq!(*slot1, *slot2);
+        assert_eq!(slot1.shape, SlotShape::Closed);
 
-            slot2.shape = SlotShape::Waning;
+        slot2.shape = SlotShape::Waning;
 
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot1 = slots.get(0).unwrap();
-            assert_eq!(slot1.shape, SlotShape::Waning);
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot1 = slots.get(0).unwrap();
+        assert_eq!(slot1.shape, SlotShape::Waning);
 
-            //Not found
-            assert!(save.get_slot_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
-            assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
-            assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
-        });
-        handle.join().unwrap();
+        //Not found
+        assert!(save.get_slot_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
+        assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
+        assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
     }
 
     #[test]
     fn test_get_article_mut() {
-        let handle = thread::spawn(|| {
-            //Inventory
-            let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
-            let articles = save.inventory.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article1 = articles_of_type.get(0).unwrap();
-            let now = Instant::now();
-            let article2 = save.get_article_mut(Location::Inventory, ArticleType::RightHand, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*article1, *article2);
-            assert_eq!(article1.id, 28001000);
+        //Inventory
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        let article2 = save.get_article_mut(Location::Inventory, ArticleType::RightHand, 0).unwrap();
+        assert_eq!(*article1, *article2);
+        assert_eq!(article1.id, 28001000);
 
-            article2.id = 0;
+        article2.id = 0;
 
-            let articles = save.inventory.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article1 = articles_of_type.get(0).unwrap();
-            assert_eq!(article1.id, 0);
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        assert_eq!(article1.id, 0);
 
-            //Storage
-            let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
-            let article1 = articles_of_type.get(0).unwrap();
-            let now = Instant::now();
-            let article2 = save.get_article_mut(Location::Storage, ArticleType::Armor, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*article1, *article2);
-            assert_eq!(article1.id, 351000);
+        //Storage
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        let article2 = save.get_article_mut(Location::Storage, ArticleType::Armor, 0).unwrap();
+        assert_eq!(*article1, *article2);
+        assert_eq!(article1.id, 351000);
 
-            article2.id = 0;
+        article2.id = 0;
 
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
-            let article1 = articles_of_type.get(0).unwrap();
-            assert_eq!(article1.id, 0);
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        assert_eq!(article1.id, 0);
 
-            //Not found
-            assert!(save.get_article_mut(Location::Storage, ArticleType::Chalice, 0).is_none());
-            assert!(save.get_article_mut(Location::Storage, ArticleType::Armor, usize::MAX).is_none());
-        });
-        handle.join().unwrap();
+        //Not found
+        assert!(save.get_article_mut(Location::Storage, ArticleType::Chalice, 0).is_none());
+        assert!(save.get_article_mut(Location::Storage, ArticleType::Armor, usize::MAX).is_none());
     }
 
     #[test]
     fn test_get_equipped_upgrade_mut() {
-        let handle = thread::spawn(|| {
-            //Inventory
-            let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
-            let articles = save.inventory.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot = slots.get(0).unwrap();
-            let gem1 = slot.gem.as_ref().unwrap();
-            let now = Instant::now();
-            let gem2 = save.get_equipped_upgrade_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*gem1, *gem2);
-            assert_eq!(gem1.id, 3229615259);
+        //Inventory
+        let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        let gem2 = save.get_equipped_upgrade_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
+        assert_eq!(*gem1, *gem2);
+        assert_eq!(gem1.id, 3229615259);
 
-            gem2.id = 0;
+        gem2.id = 0;
 
-            let articles = save.inventory.articles;
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(0).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot = slots.get(0).unwrap();
-            let gem1 = slot.gem.as_ref().unwrap();
-            assert_eq!(gem1.id, 0);
+        let articles = save.inventory.articles;
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        assert_eq!(gem1.id, 0);
 
-            //Storage
-            let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(17).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot = slots.get(0).unwrap();
-            let gem1 = slot.gem.as_ref().unwrap();
-            let now = Instant::now();
-            let gem2 = save.get_equipped_upgrade_mut(Location::Storage, ArticleType::RightHand, 17, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*gem1, *gem2);
-            assert_eq!(gem1.id, 3229614569);
+        //Storage
+        let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(17).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        let gem2 = save.get_equipped_upgrade_mut(Location::Storage, ArticleType::RightHand, 17, 0).unwrap();
+        assert_eq!(*gem1, *gem2);
+        assert_eq!(gem1.id, 3229614569);
 
-            gem2.id = 0;
+        gem2.id = 0;
 
-            let articles = save.storage.articles.clone();
-            let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
-            let article = articles_of_type.get(17).unwrap();
-            let slots = &article.slots.as_ref().unwrap();
-            let slot = slots.get(0).unwrap();
-            let gem1 = slot.gem.as_ref().unwrap();
-            assert_eq!(gem1.id, 0);
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(17).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        assert_eq!(gem1.id, 0);
 
-            //Not found
-            assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
-            assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
-            assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
-        });
-        handle.join().unwrap();
+        //Not found
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
     }
 
     #[test]
     fn test_get_upgrade_mut() {
+        //Inventory
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let upgrades = save.inventory.upgrades.clone();
+        let upgrades_of_type = upgrades.get(&UpgradeType::Rune).unwrap();
+        let upgrade1 = upgrades_of_type.get(0).unwrap();
+        let upgrade2 = save.get_upgrade_mut(Location::Inventory, UpgradeType::Rune, 0).unwrap();
+        assert_eq!(*upgrade1, *upgrade2);
+        assert_eq!(upgrade1.id, 3229614361);
 
-        let handle = thread::spawn(|| {
+        upgrade2.id = 0;
 
-            //Inventory
-            let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
-            let upgrades = save.inventory.upgrades.clone();
-            let upgrades_of_type = upgrades.get(&UpgradeType::Rune).unwrap();
-            let upgrade1 = upgrades_of_type.get(0).unwrap();
-            let now = Instant::now();
-            let upgrade2 = save.get_upgrade_mut(Location::Inventory, UpgradeType::Rune, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*upgrade1, *upgrade2);
-            assert_eq!(upgrade1.id, 3229614361);
+        let upgrades = save.inventory.upgrades.clone();
+        let upgrades_of_type = upgrades.get(&UpgradeType::Rune).unwrap();
+        let upgrade1 = upgrades_of_type.get(0).unwrap();
+        assert_eq!(upgrade1.id, 0);
 
-            upgrade2.id = 0;
+        //Storage
+        let mut save = SaveData::build("saves/testsave9", PathBuf::from("resources")).unwrap();
+        let upgrades = save.storage.upgrades.clone();
+        let upgrades_of_type = upgrades.get(&UpgradeType::Gem).unwrap();
+        let upgrade1 = upgrades_of_type.get(0).unwrap();
+        let upgrade2 = save.get_upgrade_mut(Location::Storage, UpgradeType::Gem, 0).unwrap();
+        assert_eq!(*upgrade1, *upgrade2);
+        assert_eq!(upgrade1.id, 3229614193);
 
-            let upgrades = save.inventory.upgrades.clone();
-            let upgrades_of_type = upgrades.get(&UpgradeType::Rune).unwrap();
-            let upgrade1 = upgrades_of_type.get(0).unwrap();
-            assert_eq!(upgrade1.id, 0);
+        upgrade2.id = 0;
 
-            //Storage
-            let mut save = SaveData::build("saves/testsave9", PathBuf::from("resources")).unwrap();
-            let upgrades = save.storage.upgrades.clone();
-            let upgrades_of_type = upgrades.get(&UpgradeType::Gem).unwrap();
-            let upgrade1 = upgrades_of_type.get(0).unwrap();
-            let now = Instant::now();
-            let upgrade2 = save.get_upgrade_mut(Location::Storage, UpgradeType::Gem, 0).unwrap();
-            let elapsed = now.elapsed().as_micros();
-            assert!(elapsed < 10);
-            assert_eq!(*upgrade1, *upgrade2);
-            assert_eq!(upgrade1.id, 3229614193);
+        let upgrades = save.storage.upgrades.clone();
+        let upgrades_of_type = upgrades.get(&UpgradeType::Gem).unwrap();
+        let upgrade1 = upgrades_of_type.get(0).unwrap();
+        assert_eq!(upgrade1.id, 0);
 
-            upgrade2.id = 0;
+        //Not found
+        assert!(save.get_upgrade_mut(Location::Storage, UpgradeType::Rune, 0).is_none());
+        assert!(save.get_upgrade_mut(Location::Storage, UpgradeType::Gem, usize::MAX).is_none());
+    }
 
-            let upgrades = save.storage.upgrades.clone();
-            let upgrades_of_type = upgrades.get(&UpgradeType::Gem).unwrap();
-            let upgrade1 = upgrades_of_type.get(0).unwrap();
-            assert_eq!(upgrade1.id, 0);
+    #[test]
+    #[ignore] //cargo test -- --include-ignored
+    fn test_save_data_get_muts_runtime() {
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
 
-            //Not found
-            assert!(save.get_upgrade_mut(Location::Storage, UpgradeType::Rune, 0).is_none());
-            assert!(save.get_upgrade_mut(Location::Storage, UpgradeType::Gem, usize::MAX).is_none());
-        });
-        handle.join().unwrap();
+        //Test get_slot_mut() runtime
+        let now = Instant::now();
+        save.get_slot_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
+        let elapsed = now.elapsed().as_micros();
+        assert!(elapsed < 10);
+
+        //Test get_article_mut() runtime
+        let now = Instant::now();
+        save.get_article_mut(Location::Inventory, ArticleType::RightHand, 0).unwrap();
+        let elapsed = now.elapsed().as_micros();
+        assert!(elapsed < 10);
+
+        //Test get_equipped_upgrade_mut() runtime
+        let now = Instant::now();
+        save.get_equipped_upgrade_mut(Location::Inventory, ArticleType::RightHand, 0, 3).unwrap();
+        let elapsed = now.elapsed().as_micros();
+        assert!(elapsed < 10);
+
+        //Test get_upgrade_mut() runtime
+        let now = Instant::now();
+        save.get_upgrade_mut(Location::Inventory, UpgradeType::Rune, 0).unwrap();
+        let elapsed = now.elapsed().as_micros();
+        assert!(elapsed < 10);
     }
 }

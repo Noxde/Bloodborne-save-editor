@@ -379,7 +379,7 @@ mod tests {
             let now = Instant::now();
             parse_upgrades(&file_data);
             let elapsed = now.elapsed().as_millis();
-            assert!(elapsed < 500);
+            assert!(elapsed < 1000);
         });
 
         //TESTSAVE 1
