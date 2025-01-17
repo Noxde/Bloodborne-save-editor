@@ -7,7 +7,7 @@ use super::{
     file::FileData,
     inventory::{Inventory, Article},
     stats::{self, Stat},
-    upgrades::parse_upgrades,
+    upgrades::{parse_upgrades, Upgrade},
     username::Username,
     slots::{parse_equipped_gems, Slot},
 };
@@ -64,6 +64,15 @@ impl SaveData {
 
         if let Some(articles_of_type) = articles.get_mut(&article_type) {
             return articles_of_type.get_mut(article_index);
+        }
+        None
+    }
+
+    pub fn get_equipped_upgrade_mut(&mut self, location: Location, article_type: ArticleType, article_index: usize, slot_index: usize) -> Option<&mut Upgrade> {
+        if let Some(slot) = self.get_slot_mut(location, article_type, article_index, slot_index) {
+            if let Some(ref mut gem) = &mut slot.gem {
+                return Some(gem);
+            }
         }
         None
     }
@@ -167,5 +176,57 @@ mod tests {
         //Not found
         assert!(save.get_article_mut(Location::Storage, ArticleType::Chalice, 0).is_none());
         assert!(save.get_article_mut(Location::Storage, ArticleType::Armor, usize::MAX).is_none());
+    }
+
+    #[test]
+    fn test_get_equipped_upgrade_mut() {
+        //Inventory
+        let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        let gem2 = save.get_equipped_upgrade_mut(Location::Inventory, ArticleType::RightHand, 0, 0).unwrap();
+        assert_eq!(*gem1, *gem2);
+        assert_eq!(gem1.id, 3229615259);
+
+        gem2.id = 0;
+
+        let articles = save.inventory.articles;
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(0).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        assert_eq!(gem1.id, 0);
+
+        //Storage
+        let mut save = SaveData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(17).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        let gem2 = save.get_equipped_upgrade_mut(Location::Storage, ArticleType::RightHand, 17, 0).unwrap();
+        assert_eq!(*gem1, *gem2);
+        assert_eq!(gem1.id, 3229614569);
+
+        gem2.id = 0;
+
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article = articles_of_type.get(17).unwrap();
+        let slots = &article.slots.as_ref().unwrap();
+        let slot = slots.get(0).unwrap();
+        let gem1 = slot.gem.as_ref().unwrap();
+        assert_eq!(gem1.id, 0);
+
+        //Not found
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
+        assert!(save.get_equipped_upgrade_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
     }
 }
