@@ -9,7 +9,7 @@ use std::{fs::File,
           io::BufReader,
           collections::HashMap,
           path::PathBuf};
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct ItemInfo {
     pub item_name: String,
     pub item_desc: String,
@@ -41,7 +41,7 @@ impl TryFrom<u32> for WeaponMods {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Article {
     pub number: u8, //First byte of the inventory slot
     pub id: u32,

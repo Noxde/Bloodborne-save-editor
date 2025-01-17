@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use super::{
     enums::{Error, ArticleType, Location},
     file::FileData,
-    inventory::Inventory,
+    inventory::{Inventory, Article},
     stats::{self, Stat},
     upgrades::parse_upgrades,
     username::Username,
@@ -52,6 +52,18 @@ impl SaveData {
                     return slots.get_mut(slot_index);
                 }
             }
+        }
+        None
+    }
+
+    pub fn get_article_mut(&mut self, location: Location, article_type: ArticleType, article_index: usize) -> Option<&mut Article> {
+        let articles = match location {
+            Location::Inventory => &mut self.inventory.articles,
+            Location::Storage => &mut self.storage.articles,
+        };
+
+        if let Some(articles_of_type) = articles.get_mut(&article_type) {
+            return articles_of_type.get_mut(article_index);
         }
         None
     }
@@ -116,5 +128,44 @@ mod tests {
         assert!(save.get_slot_mut(Location::Storage, ArticleType::Chalice, 0, 0).is_none());
         assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, usize::MAX, 0).is_none());
         assert!(save.get_slot_mut(Location::Storage, ArticleType::Armor, 0, usize::MAX).is_none());
+    }
+
+    #[test]
+    fn test_get_article_mut() {
+        //Inventory
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        let article2 = save.get_article_mut(Location::Inventory, ArticleType::RightHand, 0).unwrap();
+        assert_eq!(*article1, *article2);
+        assert_eq!(article1.id, 28001000);
+
+        article2.id = 0;
+
+        let articles = save.inventory.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::RightHand).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        assert_eq!(article1.id, 0);
+
+        //Storage
+        let mut save = SaveData::build("saves/testsave5", PathBuf::from("resources")).unwrap();
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        let article2 = save.get_article_mut(Location::Storage, ArticleType::Armor, 0).unwrap();
+        assert_eq!(*article1, *article2);
+        assert_eq!(article1.id, 351000);
+
+        article2.id = 0;
+
+        let articles = save.storage.articles.clone();
+        let articles_of_type = articles.get(&ArticleType::Armor).unwrap();
+        let article1 = articles_of_type.get(0).unwrap();
+        assert_eq!(article1.id, 0);
+
+        //Not found
+        assert!(save.get_article_mut(Location::Storage, ArticleType::Chalice, 0).is_none());
+        assert!(save.get_article_mut(Location::Storage, ArticleType::Armor, usize::MAX).is_none());
     }
 }
