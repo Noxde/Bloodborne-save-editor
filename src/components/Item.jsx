@@ -3,7 +3,7 @@ import useDraw from "../utils/useDraw";
 
 function Item({ index, item, isSmall, ...props }) {
   const canvasRef = useRef(null);
-  const drawCanvas = useDraw();
+  const { drawCanvas } = useDraw();
 
   useEffect(() => {
     const canvas = canvasRef?.current;
