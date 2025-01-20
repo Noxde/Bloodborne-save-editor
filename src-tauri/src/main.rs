@@ -62,12 +62,12 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
 }
 
 #[tauri::command]
-fn edit_quantity(index: u8, id: u32, value: u32, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+fn edit_quantity(number: u8, id: u32, value: u32, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
     if !is_storage {
-        match save.inventory.edit_item(&mut save.file, index, id, value, is_storage) {
+        match save.inventory.edit_item(&mut save.file, number, id, value, is_storage) {
             Ok(_) => Ok(serde_json::json!({
                 "username": &save.username,
                 "inventory": &save.inventory,
@@ -77,7 +77,7 @@ fn edit_quantity(index: u8, id: u32, value: u32, is_storage: bool, state_save: t
             Err(e) => Err(e.to_string())
         }
     } else {
-        match save.storage.edit_item(&mut save.file, index, id, value, is_storage) {
+        match save.storage.edit_item(&mut save.file, number, id, value, is_storage) {
             Ok(_) => Ok(serde_json::json!({
                 "username": &save.username,
                 "inventory": &save.inventory,

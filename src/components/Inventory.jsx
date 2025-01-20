@@ -142,8 +142,9 @@ function Inventory({ inv, isStorage }) {
           <button
             className="buttonBg"
             onClick={async () => {
+              console.log(selected);
               const editedSave = await invoke("edit_quantity", {
-                index: selected.index,
+                number: selected.number,
                 id: selected.id,
                 value: quantity,
                 isStorage,
