@@ -63,6 +63,7 @@ function useDraw() {
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 2;
     ctx.shadowColor = "black";
+    ctx.fillStyle = "#ab9e87";
 
     if (article?.upgrade_type) {
       handleUpgrades(ctx, article, { x, y, size });
