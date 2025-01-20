@@ -7,6 +7,7 @@ import Character from "./Character";
 import { SaveContext } from "../context/context";
 import { ItemsProvider } from "../context/itemsContext";
 import { ImagesContext } from "../context/imagesContext";
+import EquippedGems from "./EquippedGems";
 
 const Main = ({ save, setSave, loading }) => {
   const location = useLocation();
@@ -72,6 +73,14 @@ const Main = ({ save, setSave, loading }) => {
               />
               <Route path="/stats" element={<Stats />} />
               <Route path="/character" element={<Character />} />
+              <Route
+                path="/equippedGems"
+                element={
+                  <ItemsProvider>
+                    <EquippedGems />
+                  </ItemsProvider>
+                }
+              ></Route>
             </Routes>
           ) : null}
 
