@@ -8,6 +8,10 @@ pub mod test_utils {
         SaveData::build(&format!("saves/{}", save_path), PathBuf::from("resources")).unwrap()
     }
 
+    pub fn build_file_data(save_path: &str) -> FileData {
+        FileData::build(&format!("saves/{}", save_path), PathBuf::from("resources")).unwrap()
+    }
+
     pub fn check_bytes(file_data: &FileData,index: usize,bytes: &[u8]) -> bool {
         let mut equal = true;
         for (i, byte) in bytes.iter().enumerate() {

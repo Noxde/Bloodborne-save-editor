@@ -96,6 +96,18 @@ impl TryFrom<&[u8; 4]> for SlotShape {
         }
     }
 }
+impl Into<[u8; 4]> for SlotShape {
+    fn into(self) -> [u8; 4] {
+        match self {
+            Self::Closed => [0x00, 0x00, 0x00, 0x80],
+            Self::Radial => [0x01, 0x00, 0x00, 0x00],
+            Self::Triangle => [0x02, 0x00, 0x00, 0x00],
+            Self::Waning => [0x04, 0x00, 0x00, 0x00],
+            Self::Circle => [0x08, 0x00, 0x00, 0x00],
+            Self::Droplet => [0x3F, 0x00, 0x00, 0x00],
+        }
+    }
+}
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy, Hash)]
 pub enum UpgradeType{

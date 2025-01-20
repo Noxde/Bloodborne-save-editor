@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use super::{enums::{ArticleType, Error, Imprint, TypeFamily},
+use super::{enums::{ArticleType, Error, Imprint, TypeFamily, SlotShape},
             file::FileData,
             slots::Slot,
             inventory::{get_info_item, get_info_armor, get_info_weapon}};
@@ -275,6 +275,38 @@ impl Article {
         self.second_part = new_second_part;
         Ok(())
     }
+
+    pub fn change_slot_shape(&mut self, file_data: &mut FileData, slot_index: usize, new_shape: SlotShape) -> Result<(), Error> {
+        if let Some(slots) = &mut self.slots {
+            if let Some(slot) = slots.get_mut(slot_index) {
+                let first_part = self.first_part.to_le_bytes();
+                let second_part = self.second_part.to_le_bytes();
+                let mut found = false;
+                for i in file_data.offsets.equipped_gems.0 .. file_data.offsets.equipped_gems.1 {
+                    if (file_data.bytes[i .. i+4] == first_part) && (file_data.bytes[i+4 .. i+8] == second_part) {
+                        found = true;
+                        let new_shape_bytes: [u8; 4] = new_shape.into();
+                        //20 is the index for the shape of the first slot
+                        let slot_index = i + 20 + 8 * slot_index;
+                        for (j, offset) in (slot_index .. slot_index + 4).enumerate() {
+                            file_data.bytes[offset] = new_shape_bytes[j];
+                        }
+                    }
+                }
+
+                if !found {
+                    Err(Error::CustomError("ERROR: Failed to find the article in the file data."))
+                } else {
+                    slot.shape = new_shape;
+                    Ok(())
+                }
+            } else {
+                Err(Error::CustomError("ERROR: Invalid slot_index."))
+            }
+        } else {
+                Err(Error::CustomError("ERROR: Article does not have slots."))
+        }
+    }
 }
 
 pub fn scale_weapon_info(extra_info: &mut Value) {
@@ -300,7 +332,7 @@ pub fn scale_weapon_info(extra_info: &mut Value) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::data_handling::utils::test_utils::{build_save_data, check_bytes};
+    use crate::data_handling::utils::test_utils::{build_save_data, check_bytes, build_file_data};
 
     #[test]
     fn article_transform_item() {
@@ -585,5 +617,111 @@ mod tests {
             assert_eq!(error.to_string(), "Save error: ERROR: The weapon was not found above the inventory.");
         }
 
+    }
+
+    #[test]
+    fn article_change_slot_shape() {
+        let mut save = build_save_data("testsave9");
+        let mut consumable = save.inventory.articles.get(&ArticleType::Consumable).unwrap()[0].clone();
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        let hunter_axe_reference = hunter_axe.clone();
+
+        //Test error cases
+        let result = hunter_axe.change_slot_shape(&mut save.file, 500, SlotShape::Closed);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Invalid slot_index.");
+        }
+        assert_eq!(*hunter_axe, hunter_axe_reference);
+
+        //Test error cases
+        let mut file_data = build_file_data("testsave0");
+        let result = hunter_axe.change_slot_shape(&mut file_data, 0, SlotShape::Closed);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Failed to find the article in the file data.");
+        }
+        assert_eq!(*hunter_axe, hunter_axe_reference);
+
+        //Test error cases
+        let result = consumable.change_slot_shape(&mut save.file, 0, SlotShape::Closed);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Article does not have slots.");
+        }
+
+        assert_eq!(hunter_axe.slots.as_ref().unwrap()[0].shape, SlotShape::Radial);
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x74, 0x00, 0x80, 0xc0,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd1, 0x01, 0x80, 0x80,
+              0x00, 0x12, 0x7a, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd2, 0x01, 0x80, 0x90,
+              0x40, 0x19, 0x01, 0x10,
+        ]));
+
+        hunter_axe.change_slot_shape(&mut save.file, 0, SlotShape::Droplet).unwrap();
+
+        assert_eq!(hunter_axe.slots.as_ref().unwrap()[0].shape, SlotShape::Droplet);
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x3f, 0x00, 0x00, 0x00,
+              0x74, 0x00, 0x80, 0xc0,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd1, 0x01, 0x80, 0x80,
+              0x00, 0x12, 0x7a, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd2, 0x01, 0x80, 0x90,
+              0x40, 0x19, 0x01, 0x10,
+        ]));
     }
 }
