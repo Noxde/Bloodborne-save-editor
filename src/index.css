@@ -35,11 +35,12 @@ button {
   }
 }
 
-button.buttonBg {
+.buttonBg {
   background: url("../public/assets/button2.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  text-align: center;
 }
 
 input {
