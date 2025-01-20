@@ -10,7 +10,7 @@ import EditUpgrade from "./EditUpgrade";
 import AddScreen from "./AddScreen";
 import { ImagesContext } from "../context/imagesContext";
 
-function Inventory({ articles, isStorage }) {
+function Inventory({ inv, isStorage }) {
   const inventoryRef = useRef(null);
   const [selected, setSelected] = useState(null);
   const selectedRef = useRef(null);
@@ -71,6 +71,7 @@ function Inventory({ articles, isStorage }) {
 
   return (
     <>
+      {/* Optional modal like screens */}
       {addScreen ? (
         <AddScreen
           type="item"
@@ -95,14 +96,16 @@ function Inventory({ articles, isStorage }) {
           setEditScreen={setEditScreen}
         />
       ) : null}
+      {/* Inventory */}
       <div
         ref={inventoryRef}
         style={{ position: "relative", overflowY: "scroll" }}
       >
         <FilterButtons selectedFilter={selectedFilter} />
         <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
-        <FilterComponent articles={articles} selectedFilter={selectedFilter} />
+        <FilterComponent inventory={inv} selectedFilter={selectedFilter} />
       </div>
+      {/* Right side buttons */}
       <div className="editButtons">
         <div className="editQuantity">
           <input

@@ -52,7 +52,7 @@ const Main = ({ save, setSave, loading }) => {
                   <ItemsProvider>
                     <Inventory
                       key={"inventory"}
-                      articles={save.inventory.articles}
+                      inv={save.inventory}
                       isStorage={false}
                     />
                   </ItemsProvider>
@@ -64,7 +64,7 @@ const Main = ({ save, setSave, loading }) => {
                   <ItemsProvider>
                     <Inventory
                       key={"storage"}
-                      articles={save.storage.articles}
+                      inv={save.storage}
                       isStorage={true}
                     />
                   </ItemsProvider>

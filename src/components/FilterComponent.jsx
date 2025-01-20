@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { SaveContext } from "../context/context";
 import Item from "./Item";
 
-function FilterComponent({ articles, selectedFilter = 0 }) {
+function FilterComponent({ inventory, selectedFilter = 0 }) {
   const filters = [
     "Consumable",
     "Material",
@@ -15,7 +15,8 @@ function FilterComponent({ articles, selectedFilter = 0 }) {
     "Chalice",
   ];
   const { save } = useContext(SaveContext);
-  const { upgrades } = save;
+
+  const { articles, upgrades } = inventory;
 
   // upgrades?.Gem?.sort((a, b) => {
   //   // Sort by shape (alphabetical order)
