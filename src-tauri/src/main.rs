@@ -1,11 +1,10 @@
-/*
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::{error::Error, fs::File, io::BufReader, sync::Mutex};
 mod data_handling;
 
-use data_handling::{enums::{ArticleType, UpgradeType}, save::SaveData, appearance};
+use data_handling::{appearance, article::Article, enums::{ArticleType, Location, SlotShape, UpgradeType}, save::SaveData, upgrades::Upgrade};
 use serde_json::Value;
 struct MutexSave {
     data: Mutex<Option<SaveData>>
@@ -52,7 +51,6 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
                 "username": &s.username,
                 "inventory": &s.inventory,
                 "storage": &s.storage,
-                "upgrades": &s.upgrades,
                 "stats": &s.stats
             }))
         },
@@ -73,7 +71,6 @@ fn edit_quantity(index: u8, id: u32, value: u32, is_storage: bool, state_save: t
                 "username": &save.username,
                 "inventory": &save.inventory,
                 "storage": &save.storage,
-                "upgrades": &save.upgrades,
                 "stats": &save.stats
             })),
             Err(e) => Err(e.to_string())
@@ -84,7 +81,6 @@ fn edit_quantity(index: u8, id: u32, value: u32, is_storage: bool, state_save: t
                 "username": &save.username,
                 "inventory": &save.inventory,
                 "storage": &save.storage,
-                "upgrades": &save.upgrades,
                 "stats": &save.stats
             })),
             Err(e) => Err(e.to_string())
@@ -202,7 +198,6 @@ fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, is
                 "username": &save.username,
                 "inventory": &save.inventory,
                 "storage": &save.storage,
-                "upgrades": &save.upgrades,
                 "stats": &save.stats
             }))
         },
@@ -319,7 +314,6 @@ fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<M
                 "username": &save.username,
                 "inventory": &save.inventory,
                 "storage": &save.storage,
-                "upgrades": &save.upgrades,
                 "stats": &save.stats
             })),
             Err(_) => Err("Failed to add the item".to_string())
@@ -330,15 +324,9 @@ fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<M
                 "username": &save.username,
                 "inventory": &save.inventory,
                 "storage": &save.storage,
-                "upgrades": &save.upgrades,
                 "stats": &save.stats
             })),
             Err(_) => Err("Failed to add the item".to_string())
         }
     }
-}
-*/
-
-mod data_handling;
-fn main() {
 }
