@@ -116,7 +116,7 @@ function EquippedGems() {
             onClick={() => {
               setEditScreen(true);
             }}
-            disabled={!selectedGem}
+            disabled={!selectedGem?.gem}
           >
             Edit
           </button>
