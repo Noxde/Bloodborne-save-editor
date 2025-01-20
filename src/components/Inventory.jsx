@@ -9,6 +9,7 @@ import FilterComponent from "./FilterComponent";
 import EditUpgrade from "./EditUpgrade";
 import AddScreen from "./AddScreen";
 import { ImagesContext } from "../context/imagesContext";
+import { useNavigate } from "react-router-dom";
 
 function Inventory({ inv, isStorage }) {
   const inventoryRef = useRef(null);
@@ -20,6 +21,7 @@ function Inventory({ inv, isStorage }) {
   const [editScreen, setEditScreen] = useState(false);
   const [addScreen, setAddScreen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("0");
+  const nav = useNavigate();
   const {
     images: { items, backgrounds },
   } = useContext(ImagesContext);
@@ -94,6 +96,7 @@ function Inventory({ inv, isStorage }) {
           selected={selected}
           selectedRef={selectedRef}
           setEditScreen={setEditScreen}
+          isStorage={isStorage}
         />
       ) : null}
       {/* Inventory */}
@@ -187,6 +190,23 @@ function Inventory({ inv, isStorage }) {
           onClick={() => setAddScreen(true)}
         >
           Add
+        </button>
+        <button
+          className="buttonBg inventory-btn"
+          disabled={
+            getType(selected?.article_type) !== "weapon" &&
+            getType(selected?.article_type) !== "armor"
+          }
+          onClick={() =>
+            nav("/equippedGems", {
+              state: {
+                selected,
+                isStorage,
+              },
+            })
+          }
+        >
+          Gems
         </button>
       </div>
     </>
