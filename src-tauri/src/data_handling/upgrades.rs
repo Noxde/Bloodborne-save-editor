@@ -16,6 +16,7 @@ pub struct UpgradeInfo {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Upgrade {
+    pub number: u8,
     pub id: u32,
     pub source: u32,
     pub upgrade_type: UpgradeType,
@@ -260,6 +261,8 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeTyp
         };
 
         let upgrade = Upgrade {
+            number: 0, //It will be set correctly in Inventory::build()
+
             id,
             source,
             upgrade_type,

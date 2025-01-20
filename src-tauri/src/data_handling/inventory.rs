@@ -15,14 +15,20 @@ use std::{fs::File,
 pub struct Inventory {
     pub articles: HashMap<ArticleType, Vec<Article>>,
     pub upgrades: HashMap<UpgradeType, Vec<Upgrade>>,
+    //If the first slot of the inventory contains an article store its type
+    pub first_article: Option<ArticleType>,
+    //If it contains an upgrade store its type
+    pub first_upgrade: Option<UpgradeType>,
 }
 
 impl Inventory {
     pub fn build(file_data: &FileData, inv: (usize, usize), key: (usize, usize), all_upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>, all_slots: &mut HashMap<u64, Vec<Slot>>) -> Inventory {
-        let mut first = true;
         let mut has_slots = false;
         let mut articles = HashMap::new();
         let mut upgrades = HashMap::new();
+        let mut first_upgrade = None;
+        let mut first_article = None;
+        let mut first = true;
 
         let mut parse = |start: usize, end: usize| {
             for (index, i) in (start .. end).step_by(16).enumerate() {
@@ -77,17 +83,24 @@ impl Inventory {
                         info,
                         article_type,
                         type_family: article_type.into(),
-                        first,
                         slots,
                         index,
                     };
-                    first = false;
+                    if first {
+                        first_article = Some(article_type);
+                        first = false;
+                    }
                     let category = articles.entry(article_type).or_insert(Vec::new());
                     article.index = category.len();
                     category.push(article);
                 } else if let Some(mut upgrade) = all_upgrades.remove(&first_part){
+                    if first {
+                        first_upgrade = Some(upgrade.1);
+                        first = false;
+                    }
                     let category = upgrades.entry(upgrade.1).or_insert(Vec::new());
                     upgrade.0.index = category.len();
+                    upgrade.0.number = number;
                     category.push(upgrade.0);
                 };
             }
@@ -97,6 +110,8 @@ impl Inventory {
         Inventory {
             articles,
             upgrades,
+            first_article,
+            first_upgrade,
         }
     }
     ///Modifies the amount of an article
@@ -197,7 +212,6 @@ impl Inventory {
             amount: quantity,
             article_type,
             type_family: article_type.into(),
-            first: false,
             slots: None,
             index: 0,
         };
@@ -205,12 +219,18 @@ impl Inventory {
         //Find the first item of the storage to increase it's index
         let mut found = false;
         if is_storage {
-            for v in self.articles.values_mut() {
-                if let Some(first) = v.first_mut() {
-                    if first.first {
-                        found = true;
+            if let Some(article_type) = self.first_article {
+                if let Some(ref mut articles_of_type) = self.articles.get_mut(&article_type) {
+                    if let Some(first) = articles_of_type.first_mut() {
                         first.number += 1;
-                        break;
+                        found = true;
+                    }
+                }
+            } else if let Some(upgrade_type) = self.first_upgrade {
+                if let Some(ref mut upgrades_of_type) = self.upgrades.get_mut(&upgrade_type) {
+                    if let Some(first) = upgrades_of_type.first_mut() {
+                        first.number += 1;
+                        found = true;
                     }
                 }
             }
@@ -224,6 +244,75 @@ impl Inventory {
         vec.push(new_item);
 
         return Ok(self);
+    }
+
+    //This method asumes that upgrade exists in file_data and it's not in self
+    fn add_upgrade(&mut self, file_data: &mut FileData, mut upgrade: Upgrade, is_storage: bool) {
+        let inventory_end = {
+            if !is_storage {
+                file_data.offsets.inventory.1
+            } else {
+                file_data.offsets.storage.1
+            }
+        };
+        let (first_counter_offset, second_counter_offset) = {
+            if !is_storage {
+                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+            } else {
+                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+            }
+        };
+
+        let endian_id = u32::to_le_bytes(upgrade.id);
+        let endian_source = u32::to_le_bytes(upgrade.source);
+        let endian_quantity = [0x01, 0x00, 0x00, 0x00];
+
+        for i in 0..4 {
+            file_data.bytes[inventory_end + i] = endian_id[i];
+        }
+        for i in 4..8 {
+            file_data.bytes[inventory_end + i] = endian_source[i % 4];
+        }
+        for i in 8..12 {
+            file_data.bytes[inventory_end + i] = endian_quantity[i % 4];
+        }
+
+        (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
+
+        file_data.bytes[file_data.offsets.username + first_counter_offset] += 1;
+        file_data.bytes[file_data.offsets.username + second_counter_offset] += 1;
+        if !is_storage {
+            file_data.offsets.inventory.1 += 16;
+        } else {
+            file_data.offsets.storage.1 += 16;
+        }
+
+        //Find the first item of the storage to increase it's index
+        let mut found = false;
+        if is_storage {
+            if let Some(article_type) = self.first_article {
+                if let Some(ref mut articles_of_type) = self.articles.get_mut(&article_type) {
+                    if let Some(first) = articles_of_type.first_mut() {
+                        first.number += 1;
+                        found = true;
+                    }
+                }
+            } else if let Some(upgrade_type) = self.first_upgrade {
+                if let Some(ref mut upgrades_of_type) = self.upgrades.get_mut(&upgrade_type) {
+                    if let Some(first) = upgrades_of_type.first_mut() {
+                        first.number += 1;
+                        found = true;
+                    }
+                }
+            }
+            if !found {
+                upgrade.number = file_data.bytes[file_data.offsets.username + first_counter_offset];
+            }
+        }
+
+        let vec = self.upgrades.entry(upgrade.upgrade_type).or_insert(Vec::new());
+        upgrade.index = vec.len();
+        vec.push(upgrade);
     }
 }
 
@@ -530,5 +619,35 @@ mod tests {
         //Slot 5
         assert_eq!(slots[4].shape, SlotShape::Closed);
         assert!(slots[4].gem.is_none());
+    }
+
+    #[test]
+    fn inventory_add_upgrade() {
+        let mut save = build_save_data("testsave0");
+        let runes = save.inventory.upgrades.get(&UpgradeType::Rune).unwrap();
+        let rune = runes[0].clone();
+        assert_eq!(runes.len(), 1);
+        assert!(check_bytes(&save.file, 0x8ccc,
+            &[0x78,0xff,0xff,0xff,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+
+        //Add to the inventory
+        save.inventory.add_upgrade(&mut save.file, rune.clone(), false);
+        let runes = save.inventory.upgrades.get(&UpgradeType::Rune).unwrap();
+        let mut rune2 = runes[1].clone();
+        rune2.index = 0;
+        assert_eq!(rune, rune2);
+        assert_eq!(runes.len(), 2);
+        assert!(check_bytes(&save.file, 0x8ccc,
+            &[0x78,0xff,0xff,0xff,0x42,0x00,0x80,0xc0,0xbf,0x92,0x01,0x80,0x01,0x00,0x00,0x00,
+              0x79,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+        //Add to a save without items in its storage
+        let mut save = build_save_data("testsave7");
+        save.storage.add_upgrade(&mut save.file, rune, true);
+        let runes = save.storage.upgrades.get(&UpgradeType::Rune).unwrap();
+        let new_rune = runes.last().unwrap();
+        assert_eq!(new_rune.number, 1);
+        assert_eq!(new_rune.id, u32::from_le_bytes([0x42,0x00,0x80,0xc0]));
     }
 }

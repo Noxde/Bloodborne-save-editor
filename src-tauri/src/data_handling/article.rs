@@ -47,7 +47,6 @@ pub struct Article {
     pub info: ItemInfo,
     pub article_type: ArticleType,
     pub type_family: TypeFamily,
-    pub first: bool, //Stores whether this article is the first
     pub slots: Option<Vec<Slot>>,
     pub index: usize, //Index of the article inside the vector
 }
