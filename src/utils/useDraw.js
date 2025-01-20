@@ -68,7 +68,6 @@ async function drawArticle(ctx, article, img, imgContext) {
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 2;
   ctx.shadowColor = "black";
-  ctx.fillStyle = "#ab9e87";
 
   if (article?.upgrade_type) {
     handleUpgrades(ctx, article, { x, y, size });
@@ -76,6 +75,15 @@ async function drawArticle(ctx, article, img, imgContext) {
   if (type === "chalice") {
     handleChalice(ctx, article);
   }
+    if (article.slots) {
+      const openSlots = article.slots.filter(
+        (x) => x.shape !== "Closed"
+      ).length;
+      const fullSlots = article.slots.filter((x) => x.gem !== null).length;
+      ctx.fillStyle = "#a5a49c";
+
+      ctx.fillText(`${fullSlots} / ${openSlots}`, 735, 28);
+    }
 
   switch (type || article_type) {
     case "weapon":
@@ -85,6 +93,7 @@ async function drawArticle(ctx, article, img, imgContext) {
     default:
       break;
   }
+    ctx.fillStyle = "#ab9e87";
 
   ctx.fillText(name, 107, 28);
   ctx.fillText(note, 104, 69);
