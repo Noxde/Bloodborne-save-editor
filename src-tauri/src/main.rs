@@ -161,7 +161,7 @@ fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
 
 
 #[tauri::command]
-fn transform_item(index: u8, id: u32, new_id: u32, article_type: ArticleType, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+fn transform_item(index: usize, id: u32, new_id: u32, article_type: ArticleType, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
