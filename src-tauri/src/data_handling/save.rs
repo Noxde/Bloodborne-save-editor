@@ -5,7 +5,8 @@ use std::path::PathBuf;
 use super::{
     enums::{Error, ArticleType, Location, UpgradeType},
     file::FileData,
-    inventory::{Inventory, Article},
+    inventory::Inventory,
+    article::Article,
     stats::{self, Stat},
     upgrades::{parse_upgrades, Upgrade},
     username::Username,
