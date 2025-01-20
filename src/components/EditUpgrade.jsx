@@ -1,19 +1,23 @@
 import { useContext, useState } from "react";
 import { invoke } from "@tauri-apps/api";
-import {
-  getGemPath,
-  getRunePath,
-  isCursed,
-  getUnique,
-} from "../utils/drawCanvas";
+import { getGemPath, getRunePath, getUnique } from "../utils/drawCanvas";
 import { SaveContext } from "../context/context";
 import { ItemsContext } from "../context/itemsContext";
 import SelectSearch from "./SelectSearch";
 import useDraw from "../utils/useDraw";
 
-function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
+function EditUpgrade({
+  setSelected,
+  selected,
+  setEditScreen,
+  selectedRef,
+  confirmCb,
+  isStorage,
+  equipped,
+  slot,
+}) {
   const { gemEffects, runeEffects } = useContext(ItemsContext);
-  const drawCanvas = useDraw();
+  const { drawCanvas } = useDraw();
 
   const [edited, setEdited] = useState(JSON.parse(JSON.stringify(selected)));
   const {
@@ -23,57 +27,56 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
     info: { effect, rating, level, name, note },
     source,
   } = edited;
-  const { setSave } = useContext(SaveContext);
+  const { setSave, save } = useContext(SaveContext);
 
-  async function handleConfirm() {
+  async function handleConfirm(confirmCb) {
     try {
-      if (shape !== selected.shape)
-        await invoke("edit_shape", {
-          upgradeId: selected.id,
-          upgradeType: upgrade_type,
-          newShape: shape,
-        });
+      const info = equipped
+        ? {
+            equipped: {
+              articleType: equipped.article_type,
+              articleIndex: equipped.index,
+              slotIndex: slot,
+            },
+          }
+        : {
+            upgradeType: selected.upgrade_type,
+            upgradeIndex: selected.index,
+          };
 
+      info.isStorage = isStorage;
+      if (shape !== selected.shape) {
+        await invoke("edit_shape", {
+          newShape: shape,
+          info,
+        });
+      }
+
+      // TODO: Send array of effects and loop in backend
       effects.forEach(async (x, i) => {
         const [id] = x;
         if (x === selected.effects[i][0]) return;
 
-        await invoke("edit_effect", {
-          upgradeId: edited.id,
-          upgradeType: upgrade_type,
+        let edited = await invoke("edit_effect", {
           newEffectId: parseInt(id),
           index: i,
+          info,
         });
+        setSave(edited);
       });
 
-      setSave((prev) => {
-        const upgrade = prev.upgrades[selected.upgrade_type].find(
-          (x) => x.id === edited.id
-        );
-        upgrade.shape = shape;
-        upgrade.info.effect = effect;
-        upgrade.info.rating = rating;
-        upgrade.info.level = level;
-
-        upgrade.effects = [...effects];
-        upgrade.note = note;
-        if (!isCursed(effects)) {
-          edited.info.name = name.replace("Cursed ", "");
-        } else {
-          if (!edited.info.name.includes("Cursed")) {
-            edited.info.name = `Cursed ${name}`;
-          }
-        }
-        return prev;
-      });
       setSelected(edited);
 
       const ctx = selectedRef.current.getContext("2d");
       selectedRef.current.dataset.item = JSON.stringify(edited);
 
       // setSelected(newJson);
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      await drawCanvas(ctx, edited);
+      if (typeof confirmCb === "function") {
+        confirmCb(edited);
+      } else {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        await drawCanvas(ctx, edited);
+      }
 
       setEditScreen(false);
     } catch (error) {
@@ -139,7 +142,7 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
             >
               Cancel
             </button>
-            <button onClick={handleConfirm}>Confirm</button>
+            <button onClick={() => handleConfirm(confirmCb)}>Confirm</button>
           </div>
         </div>
         {/* List and input */}
@@ -261,8 +264,6 @@ function EditUpgrade({ setSelected, selected, setEditScreen, selectedRef }) {
                         };
                       }
                       newEdited.effects[i] = [parseInt(value), label];
-
-                      console.log(e, newEdited, i);
 
                       return newEdited;
                     });
