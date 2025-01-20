@@ -30,7 +30,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             import_appearance,
             set_username,
             get_version,
-            add_item
+            add_item,
+            edit_slot
         ])
         .run(tauri::generate_context!())?;
 
@@ -214,54 +215,111 @@ fn edit_stat(rel_offset: isize, length: usize, times: usize, value: u32, state_s
 }
 
 #[tauri::command]
-fn edit_effect(upgrade_id: u32, upgrade_type: UpgradeType, new_effect_id: u32, index: usize, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+fn edit_effect(new_effect_id: u32, index: usize, info: Value, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_mut().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
+    let upgrade: Option<*mut Upgrade>;
+    
+    let location: Location = {
+        let is_storage: bool = serde_json::from_value(info["isStorage"].clone()).unwrap();
 
-    let upgrades_vec = {
-      match upgrade_type {
-        UpgradeType::Gem => save.upgrades.get_mut(&UpgradeType::Gem).unwrap(),
-        UpgradeType::Rune => save.upgrades.get_mut(&UpgradeType::Rune).unwrap()
-      }
+        if is_storage {
+            Location::Storage
+        } else {
+            Location::Inventory
+        }
     };
 
-    let upgrade = upgrades_vec.iter_mut().find(|x| x.id == upgrade_id).unwrap();
+    if let Some(equipped) = info.get("equipped") {
+        let article_type: ArticleType = serde_json::from_value(equipped["articleType"].clone()).unwrap();
+        let article_index: usize = serde_json::from_value(equipped["articleIndex"].clone()).unwrap();
+        let slot_index: usize = serde_json::from_value(equipped["slotIndex"].clone()).unwrap();
 
-    match upgrade.change_effect(&mut save.file, new_effect_id, index) {
-        Ok(_) => Ok(serde_json::json!({
-            "username": &save.username,
-            "inventory": &save.inventory,
-            "storage": &save.storage,
-            "upgrades": &save.upgrades,
-            "stats": &save.stats
-        })),
-        Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+        upgrade = save.get_equipped_upgrade_mut(location, article_type, article_index, slot_index).map(|u| u as *mut _);
+    } else {
+        let upgrade_type: UpgradeType = serde_json::from_value(info["upgradeType"].clone()).unwrap();
+        let upgrade_index: usize = serde_json::from_value(info["upgradeIndex"].clone()).unwrap();
+
+        upgrade = save.get_upgrade_mut(location, upgrade_type, upgrade_index).map(|u| u as *mut _);
+    }
+
+    unsafe {
+        match (*upgrade.unwrap()).change_effect(&mut save.file, new_effect_id, index) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "stats": &save.stats
+            })),
+            Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+        }
     }
 }
 
 #[tauri::command]
-fn edit_shape(upgrade_id: u32, upgrade_type: UpgradeType, new_shape: String, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+fn edit_shape(new_shape: String, info: Value, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_mut().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
+    let upgrade: Option<*mut Upgrade>;
     
-    let upgrades_vec = {
-        match upgrade_type {
-          UpgradeType::Gem => save.upgrades.get_mut(&UpgradeType::Gem).unwrap(),
-          UpgradeType::Rune => save.upgrades.get_mut(&UpgradeType::Rune).unwrap()
+    let location: Location = {
+        let is_storage: bool = serde_json::from_value(info["isStorage"].clone()).unwrap();
+
+        if is_storage {
+            Location::Storage
+        } else {
+            Location::Inventory
         }
-      };
+    };
+
+    if let Some(equipped) = info.get("equipped") {
+        let article_type: ArticleType = serde_json::from_value(equipped["articleType"].clone()).unwrap();
+        let article_index: usize = serde_json::from_value(equipped["articleIndex"].clone()).unwrap();
+        let slot_index: usize = serde_json::from_value(equipped["slotIndex"].clone()).unwrap();
+
+        upgrade = save.get_equipped_upgrade_mut(location, article_type, article_index, slot_index).map(|u| u as *mut _);
+    } else {
+        let upgrade_type: UpgradeType = serde_json::from_value(info["upgradeType"].clone()).unwrap();
+        let upgrade_index: usize = serde_json::from_value(info["upgradeIndex"].clone()).unwrap();
+
+        upgrade = save.get_upgrade_mut(location, upgrade_type, upgrade_index).map(|u| u as *mut _);
+    }
   
-      let upgrade = upgrades_vec.iter_mut().find(|x| x.id == upgrade_id).unwrap();
-  
-    match upgrade.change_shape(&mut save.file, new_shape) {
-        Ok(_) => Ok(serde_json::json!({
-            "username": &save.username,
-            "inventory": &save.inventory,
-            "storage": &save.storage,
-            "upgrades": &save.upgrades,
-            "stats": &save.stats
-        })),
-        Err(_) => Err("Failed to edit the upgrade's effect".to_string())
+    unsafe {
+        match (*upgrade.unwrap()).change_shape(&mut save.file, new_shape) {
+            Ok(_) => Ok(serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "stats": &save.stats
+            })),
+            Err(_) => Err("Failed to edit the upgrade's shape".to_string())
+        }
+    }
+}
+
+#[tauri::command]
+fn edit_slot(is_storage: bool, article_type: ArticleType, article_index: usize, slot_index: usize, new_shape: SlotShape, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
+
+    let location= if is_storage {Location::Storage} else {Location::Inventory};
+    let article: Option<*mut Article>;
+
+    article = save.get_article_mut(location, article_type, article_index).map(|u| u as *mut _);
+
+    unsafe {
+        match (*article.unwrap()).change_slot_shape(&mut save.file, slot_index, new_shape) {
+            Ok(_) => Ok(
+                serde_json::json!({
+                    "username": &save.username,
+                    "inventory": &save.inventory,
+                    "storage": &save.storage,
+                    "stats": &save.stats
+                })
+            ),
+            Err(e) => Err(e.to_string())
+        }
     }
 }
 
