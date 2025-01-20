@@ -126,6 +126,7 @@ impl TryFrom<u8> for UpgradeType {
     }
 }
 
+#[derive(Deserialize)]
 pub enum Location {
     Inventory,
     Storage,
