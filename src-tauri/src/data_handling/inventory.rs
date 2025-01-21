@@ -246,7 +246,7 @@ impl Inventory {
         return Ok(self);
     }
 
-    //This method asumes that upgrade exists in file_data and it's not in self
+    //This method asumes that upgrade exists in file_data and it's not in the inventory
     fn add_upgrade(&mut self, file_data: &mut FileData, mut upgrade: Upgrade, is_storage: bool) {
         let inventory_end = {
             if !is_storage {
@@ -313,6 +313,58 @@ impl Inventory {
         let vec = self.upgrades.entry(upgrade.upgrade_type).or_insert(Vec::new());
         upgrade.index = vec.len();
         vec.push(upgrade);
+    }
+
+    //This method asumes that the upgrade it's not in the inventory already
+    pub fn unequip_gem(&mut self, file_data: &mut FileData, article_type: ArticleType, article_index: usize, slot_index: usize, is_storage: bool) -> Result<(), Error> {
+
+        if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
+            if let Some(article) = articles_of_type.get_mut(article_index) {
+                if let Some(ref mut slots) = &mut article.slots {
+                    if let Some(slot) = slots.get_mut(slot_index) {
+                        if let Some(ref mut gem) = &mut slot.gem {
+
+                            //Remove the gem in file_data
+                            let first_part = article.first_part.to_le_bytes();
+                            let second_part = article.second_part.to_le_bytes();
+                            let mut found = false;
+                            for i in file_data.offsets.equipped_gems.0 .. file_data.offsets.equipped_gems.1 {
+                                if (file_data.bytes[i .. i+4] == first_part) && (file_data.bytes[i+4 .. i+8] == second_part) {
+                                    found = true;
+                                    //24 is the index for the first gem id
+                                    let slot_index = i + 24 + 8 * slot_index;
+                                    for j in slot_index .. slot_index + 4 {
+                                        file_data.bytes[j] = 0;
+                                    }
+                                    break;
+                                }
+                            }
+                            if !found {
+                                return Err(Error::CustomError("ERROR: Failed to find the article in the file data."));
+                            }
+
+                            //Remove the gem
+                            let gem = gem.to_owned();
+                            slot.gem = None;
+
+                            self.add_upgrade(file_data, gem, is_storage);
+                            return Ok(());
+
+                        } else {
+                            Err(Error::CustomError("ERROR: The specified slot does not have a gem."))
+                        }
+                    } else {
+                        Err(Error::CustomError("ERROR: slot_index is invalid."))
+                    }
+                } else {
+                    Err(Error::CustomError("ERROR: The article has no slots."))
+                }
+            } else {
+                Err(Error::CustomError("ERROR: article_index is invalid."))
+            }
+        } else {
+            Err(Error::CustomError("ERROR: There are no articles of the specified type."))
+        }
     }
 }
 
@@ -403,7 +455,7 @@ mod tests {
     use super::*;
     use crate::data_handling::{upgrades::parse_upgrades,
                               enums::SlotShape,
-                              utils::test_utils::{check_bytes, build_save_data},
+                              utils::test_utils::{check_bytes, build_save_data, build_file_data},
                               slots::parse_equipped_gems};
 
     #[test]
@@ -649,5 +701,144 @@ mod tests {
         let new_rune = runes.last().unwrap();
         assert_eq!(new_rune.number, 1);
         assert_eq!(new_rune.id, u32::from_le_bytes([0x42,0x00,0x80,0xc0]));
+    }
+
+    #[test]
+    fn inventory_unequip_gem() {
+        let mut save = build_save_data("testsave9");
+
+        //Test error cases
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::Chalice, 500, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: There are no articles of the specified type.");
+        }
+
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 500, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: article_index is invalid.");
+        }
+
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::Consumable, 0, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The article has no slots.");
+        }
+
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 0, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: slot_index is invalid.");
+        }
+
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 0, 4, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The specified slot does not have a gem.");
+        }
+
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        let backup = hunter_axe.first_part;
+        hunter_axe.first_part = 0;
+        let result = save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 0, 0, false);
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        hunter_axe.first_part = backup;
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Failed to find the article in the file data.");
+        }
+
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        let gem = hunter_axe.slots.as_ref().unwrap()[0].clone().gem.unwrap();
+        //Slots of the hunter axe
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x74, 0x00, 0x80, 0xc0,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd1, 0x01, 0x80, 0x80,
+              0x00, 0x12, 0x7a, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd2, 0x01, 0x80, 0x90,
+              0x40, 0x19, 0x01, 0x10,
+        ]));
+        //Last slot of the inventory
+        assert!(check_bytes(&save.file, 0x9328,
+            &[0x85,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+
+        save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 0, 0, false).unwrap();
+        let mut upgrades = parse_upgrades(&save.file);
+        let mut slots = parse_equipped_gems(&mut save.file, &mut upgrades);
+        let mut inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
+        let new_gem = inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().last_mut().unwrap();
+        new_gem.number = gem.number;
+        new_gem.index = gem.index;
+        assert_eq!(*new_gem, gem);
+
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        assert!(hunter_axe.slots.as_ref().unwrap()[0].clone().gem.is_none());
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd1, 0x01, 0x80, 0x80,
+              0x00, 0x12, 0x7a, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0xd2, 0x01, 0x80, 0x90,
+              0x40, 0x19, 0x01, 0x10,
+        ]));
+        //Last slot of the inventory
+        assert!(check_bytes(&save.file, 0x9328,
+            &[0x85,0x00,0x00,0x00,0x74,0x00,0x80,0xc0,0x62,0xe4,0x01,0x80,0x01,0x00,0x00,0x00,
+              0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
     }
 }

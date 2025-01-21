@@ -290,6 +290,7 @@ impl Article {
                         for (j, offset) in (slot_index .. slot_index + 4).enumerate() {
                             file_data.bytes[offset] = new_shape_bytes[j];
                         }
+                        break;
                     }
                 }
 
