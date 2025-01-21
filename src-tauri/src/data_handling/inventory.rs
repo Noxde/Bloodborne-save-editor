@@ -6,9 +6,8 @@ use super::{constants::*,
             slots::Slot,
             upgrades::Upgrade,
             article::{Article, ItemInfo, WeaponMods, scale_weapon_info}};
-use std::{fs::File,
-          io::BufReader,
-          collections::HashMap,
+use std::{collections::HashMap,
+          fs::File, io::BufReader,
           path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -403,6 +402,65 @@ impl Inventory {
             Err(Error::CustomError("ERROR: There are no upgrades of the specified type."))
         }
 
+    }
+
+    pub fn equip_gem(&mut self, file_data: &mut FileData, upgrade_index: usize, article_type: ArticleType, article_index: usize, slot_index: usize, is_storage: bool) -> Result<(), Error> {
+        if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
+            if let Some(article) = articles_of_type.get_mut(article_index) {
+                if let Some(ref mut slots) = &mut article.slots {
+                    if let Some(slot) = slots.get_mut(slot_index) {
+                        if slot.gem.is_some() {
+                            return Err(Error::CustomError("ERROR: The specified slot already has a gem."));
+                        }
+                        let slot_raw_pointer = slot as *mut Slot;
+
+                        //Remove the gem in file_data
+                        let first_part = article.first_part.to_le_bytes();
+                        let second_part = article.second_part.to_le_bytes();
+                        let mut found = false;
+                        for i in file_data.offsets.equipped_gems.0 .. file_data.offsets.equipped_gems.1 {
+                            if (file_data.bytes[i .. i+4] == first_part) && (file_data.bytes[i+4 .. i+8] == second_part) {
+                                let id_bytes;
+                                //Try to get the gem to be equipped
+                                let result = self.remove_upgrade(file_data, UpgradeType::Gem, upgrade_index, is_storage);
+
+                                match result {
+                                    Ok(gem) => {
+                                        id_bytes = gem.id.to_le_bytes();
+                                        unsafe {
+                                            (*slot_raw_pointer).gem = Some(gem);
+                                        }
+                                    },
+                                    Err(error) => return Err(error),
+                                };
+
+                                //Equip the gem in the slot
+                                found = true;
+                                //24 is the index for the first gem id
+                                let slot_index = i + 24 + 8 * slot_index;
+                                for j in slot_index .. slot_index + 4 {
+                                    file_data.bytes[j] = id_bytes[j - slot_index];
+                                }
+                                break;
+                            }
+                        }
+                        if !found {
+                            return Err(Error::CustomError("ERROR: Failed to find the article in the file data."));
+                        }
+
+                        return Ok(());
+                    } else {
+                        Err(Error::CustomError("ERROR: slot_index is invalid."))
+                    }
+                } else {
+                    Err(Error::CustomError("ERROR: The article has no slots."))
+                }
+            } else {
+                Err(Error::CustomError("ERROR: article_index is invalid."))
+            }
+        } else {
+            Err(Error::CustomError("ERROR: There are no articles of the specified type."))
+        }
     }
 }
 
@@ -930,5 +988,130 @@ mod tests {
         let inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
         let gems = inventory.upgrades.get(&UpgradeType::Gem).unwrap();
         assert_eq!(gems.len(), 1);
+    }
+
+    #[test]
+    fn inventory_equip_gem() {
+        let mut save = build_save_data("testsave9");
+
+        //Test error cases
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::Chalice, 500, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: There are no articles of the specified type.");
+        }
+
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::RightHand, 500, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: article_index is invalid.");
+        }
+
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::Consumable, 0, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The article has no slots.");
+        }
+
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::RightHand, 0, 500, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: slot_index is invalid.");
+        }
+
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::RightHand, 0, 0, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: The specified slot already has a gem.");
+        }
+
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::RightHand, 0, 4, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: upgrade_index is invalid.");
+        }
+
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        let backup = hunter_axe.first_part;
+        hunter_axe.first_part = 0;
+        let result = save.inventory.equip_gem(&mut save.file, 500, ArticleType::RightHand, 0, 4, false);
+        let hunter_axe = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().get_mut(0).unwrap();
+        hunter_axe.first_part = backup;
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Failed to find the article in the file data.");
+        }
+
+        //Get the gem to be equipped
+        let gem = save.inventory.upgrades.get(&UpgradeType::Gem).unwrap()[0].clone();
+        let hunter_axe = save.inventory.articles.get(&ArticleType::RightHand).unwrap().get(0).unwrap();
+        let slots = hunter_axe.slots.as_ref().unwrap();
+        //The slot n4 is empty
+        assert!(slots[4].gem.is_none());
+        //The inventory has two gems
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 2);
+        //Slots of the hunter axe
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x74, 0x00, 0x80, 0xc0,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+        ]));
+        //Slot of the inventory with the gem
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0x51,0x40,0x89,0x13,0x73,0x00,0x80,0xc0,0xf0,0x49,0x02,0x80,0x01,0x00,0x00,0x00]));
+
+        //Run the function
+        save.inventory.equip_gem(&mut save.file, 0, ArticleType::RightHand, 0, 4, false).unwrap();
+
+        let hunter_axe = save.inventory.articles.get(&ArticleType::RightHand).unwrap().get(0).unwrap();
+        let slots = hunter_axe.slots.as_ref().unwrap();
+        //Now the slot n4 contains the gem
+        assert_eq!(*slots[4].gem.as_ref().unwrap(), gem);
+        //And the inventory doesn't have that gem anymore
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 1);
+
+        //Test again rebuilding the inventory
+        let mut upgrades = parse_upgrades(&save.file);
+        let mut slots = parse_equipped_gems(&mut save.file, &mut upgrades);
+        let mut inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
+        assert_eq!(inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 1);
+        let hunter_axe = save.inventory.articles.get(&ArticleType::RightHand).unwrap().get(0).unwrap();
+        let slots = hunter_axe.slots.as_ref().unwrap();
+        assert_eq!(*slots[4].gem.as_ref().unwrap(), gem);
+
+        //Check the game is in the slots of the weapon
+        assert!(check_bytes(&save.file, 0x1570,
+            &[0xd0, 0x01, 0x80, 0x80,
+              0x6c, 0x4c, 0x4c, 0x00,
+              0xfa, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x01, 0x00, 0x00, 0x00,
+              0x74, 0x00, 0x80, 0xc0,
+              0x01, 0x00, 0x00, 0x00,
+              0x6f, 0x00, 0x80, 0xc0,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x00, 0x00, 0x00, 0x00,
+              0x00, 0x00, 0x00, 0x80,
+              0x73, 0x00, 0x80, 0xc0,
+        ]));
+
+        //Now the slot in which the gem was is empty
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
     }
 }
