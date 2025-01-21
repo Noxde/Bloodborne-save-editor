@@ -366,6 +366,44 @@ impl Inventory {
             Err(Error::CustomError("ERROR: There are no articles of the specified type."))
         }
     }
+
+    fn remove_upgrade(&mut self, file_data: &mut FileData, upgrade_type: UpgradeType, upgrade_index: usize, is_storage: bool) -> Result<Upgrade, Error> {
+        if let Some(upgrades_of_type) = self.upgrades.get_mut(&upgrade_type) {
+            if upgrade_index < upgrades_of_type.len() {
+                //Remove the upgrade from the inventory
+                let first_part = upgrades_of_type[upgrade_index].id.to_le_bytes();
+                let second_part = upgrades_of_type[upgrade_index].source.to_le_bytes();
+                let mut found = false;
+                let (start, end) = match is_storage {
+                    true => file_data.offsets.storage,
+                    false => file_data.offsets.inventory,
+                };
+                let empty_slot = [0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0];
+                for i in (start .. end).step_by(16) {
+                    if (file_data.bytes[i+4 .. i+8] == first_part) && (file_data.bytes[i+8 .. i+12] == second_part) {
+                        found = true;
+                        for j in i .. i+16 {
+                            file_data.bytes[j] = empty_slot[j-i];
+                        }
+                        break;
+                    }
+                }
+                if !found {
+                    return Err(Error::CustomError("ERROR: Failed to find the upgrade in the inventory."));
+                }
+                //Update the index of the upgrades after the one to be removed
+                for i in upgrade_index+1 .. upgrades_of_type.len() {
+                    upgrades_of_type[i].index -= 1;
+                }
+                Ok(upgrades_of_type.remove(upgrade_index)) 
+            } else {
+                Err(Error::CustomError("ERROR: upgrade_index is invalid."))
+            }
+        } else {
+            Err(Error::CustomError("ERROR: There are no upgrades of the specified type."))
+        }
+
+    }
 }
 
 
@@ -840,5 +878,57 @@ mod tests {
         assert!(check_bytes(&save.file, 0x9328,
             &[0x85,0x00,0x00,0x00,0x74,0x00,0x80,0xc0,0x62,0xe4,0x01,0x80,0x01,0x00,0x00,0x00,
               0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+    }
+
+    #[test]
+    fn inventory_remove_upgrade() {
+        let mut save = build_save_data("testsave9");
+        //Test error cases
+        let result = save.storage.remove_upgrade(&mut save.file, UpgradeType::Rune, 0, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: There are no upgrades of the specified type.");
+        }
+
+        let result = save.inventory.remove_upgrade(&mut save.file, UpgradeType::Rune, 999, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: upgrade_index is invalid.");
+        }
+
+        let gem = save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().get_mut(0).unwrap();
+        let backup = gem.id;
+        gem.id = 0;
+        let result = save.inventory.remove_upgrade(&mut save.file, UpgradeType::Gem, 0, false);
+        let gem = save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().get_mut(0).unwrap();
+        gem.id = backup;
+        let gem = gem.clone();
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: Failed to find the upgrade in the inventory.");
+        }
+
+        //The inventory has two gems
+        let gems = save.inventory.upgrades.get(&UpgradeType::Gem).unwrap();
+        assert_eq!(gems.len(), 2);
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0x51,0x40,0x89,0x13,0x73,0x00,0x80,0xc0,0xf0,0x49,0x02,0x80,0x01,0x00,0x00,0x00]));
+
+        //Run the method
+        let removed_gem = save.inventory.remove_upgrade(&mut save.file, UpgradeType::Gem, 0, false).unwrap();
+
+        //Now the slot is empty and there is only one gem
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
+        let gems = save.inventory.upgrades.get(&UpgradeType::Gem).unwrap();
+        assert_eq!(gems.len(), 1);
+        assert_eq!(removed_gem, gem);
+
+        //Rebuild the inventory to check the changes to file_data are valid
+        let mut upgrades = parse_upgrades(&save.file);
+        let mut slots = parse_equipped_gems(&mut save.file, &mut upgrades);
+        let inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
+        let gems = inventory.upgrades.get(&UpgradeType::Gem).unwrap();
+        assert_eq!(gems.len(), 1);
     }
 }
