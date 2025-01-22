@@ -35,6 +35,7 @@ function Item({ index, item, isSmall, ...props }) {
       height={90}
       ref={canvasRef}
       style={{ display: "block", marginBottom: "1px" }}
+      {...props}
     ></canvas>
   );
 }
