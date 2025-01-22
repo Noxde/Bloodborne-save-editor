@@ -6,6 +6,7 @@ import { ImagesContext } from "../context/imagesContext";
 import EquippedGem from "./EquippedGem";
 import useDraw from "../utils/useDraw";
 import { SaveContext } from "../context/context";
+import ChangeGemScreen from "./ChangeGemScreen";
 
 function EquippedGems() {
   const { images } = useContext(ImagesContext);
@@ -17,6 +18,7 @@ function EquippedGems() {
   } = useLocation();
   const [selectedRef, setSelectedRef] = useState(null);
   const [editScreen, setEditScreen] = useState(false);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [selectedGem, setSelectedGem] = useState(null);
   const nav = useNavigate();
 
@@ -33,6 +35,15 @@ function EquippedGems() {
 
   return (
     <>
+      {changeScreen ? (
+        <ChangeGemScreen
+          slotIndex={selectedGem.index}
+          article={selected}
+          setSelected={setSelectedGem}
+          setScreen={setChangeScreen}
+          isStorage={isStorage}
+        />
+      ) : null}
       {editScreen ? (
         <EditUpgrade
           setSelected={setSelectedGem}
@@ -88,7 +99,6 @@ function EquippedGems() {
             position: "relative",
           }}
         >
-          {/* TODO: Replace with the equipped gems, make them selectable */}
           {selected.slots.map((slot, i) => (
             <EquippedGem
               gem={slot?.gem}
@@ -109,8 +119,15 @@ function EquippedGems() {
             marginTop: "5rem",
           }}
         >
-          <button onClick={() => nav("/")} style={{ marginRight: "2rem" }}>
-            Back
+          <button onClick={() => nav("/")}>Back</button>
+          <button
+            style={{ margin: "0 2rem" }}
+            onClick={() => {
+              setChangeScreen(true);
+            }}
+            disabled={!selectedGem}
+          >
+            Change
           </button>
           <button
             onClick={() => {
