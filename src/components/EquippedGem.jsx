@@ -33,8 +33,14 @@ function EquippedGem({
           ctx.drawImage(img, 0, 0, 175, 175);
         });
       }
+    } else {
+      const canvas = canvasRef?.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      }
     }
-  }, []);
+  }, [gem]);
 
   return (
     <>
