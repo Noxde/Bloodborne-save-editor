@@ -115,6 +115,25 @@ function ChangeGemScreen({
                 setSelected(null);
 
                 setScreen(false);
+              } else {
+                const edited = await invoke("equip_gem", {
+                  upgradeIndex: selectedGem.index,
+                  articleType: article.article_type,
+                  articleIndex: article.index,
+                  slotIndex: slotIndex,
+                  isStorage: isStorage,
+                });
+
+                setSave(edited);
+                setArticle((prev) => {
+                  const copy = JSON.parse(JSON.stringify(prev));
+                  copy.slots[slotIndex].gem = selectedGem;
+                  return copy;
+                });
+
+                setSelected(selectedGem);
+
+                setScreen(false);
               }
             }}
           >
