@@ -26,6 +26,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             edit_stat,
             edit_effect,
             edit_shape,
+            equip_gem,
+            unequip_gem,
             export_appearance,
             import_appearance,
             set_username,
@@ -320,6 +322,54 @@ fn edit_slot(is_storage: bool, article_type: ArticleType, article_index: usize, 
             ),
             Err(e) => Err(e.to_string())
         }
+    }
+}
+
+#[tauri::command]
+fn equip_gem(upgrade_index: usize, article_type: ArticleType, article_index: usize, slot_index: usize, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    let result = if is_storage {
+        save.storage.equip_gem(&mut save.file, upgrade_index, article_type, article_index, slot_index, is_storage)
+    } else {
+        save.inventory.equip_gem(&mut save.file, upgrade_index, article_type, article_index, slot_index, is_storage)
+    };
+
+    match result {
+        Ok(_) => Ok(
+            serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "stats": &save.stats
+            })
+        ),
+        Err(e) => Err(e.to_string())
+    }
+}
+
+#[tauri::command]
+fn unequip_gem(article_type: ArticleType, article_index: usize, slot_index: usize, is_storage: bool, state_save: tauri::State<MutexSave>) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+    
+    let result = if is_storage {
+        save.storage.unequip_gem(&mut save.file, article_type, article_index, slot_index, is_storage)
+    } else {
+        save.inventory.unequip_gem(&mut save.file, article_type, article_index, slot_index, is_storage)
+    };
+
+    match result {
+        Ok(_) => Ok(
+            serde_json::json!({
+                "username": &save.username,
+                "inventory": &save.inventory,
+                "storage": &save.storage,
+                "stats": &save.stats
+            })
+        ),
+        Err(e) => Err(e.to_string())
     }
 }
 

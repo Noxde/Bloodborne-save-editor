@@ -8,8 +8,8 @@ function EquippedGem({
   setSelected,
   setRef,
   isStorage,
-  articleType,
-  articleIndex,
+  article,
+  setArticle,
   index,
 }) {
   const canvasRef = useRef();
@@ -21,20 +21,27 @@ function EquippedGem({
         effects,
         info: { level },
         shape,
+        source,
       } = gem;
 
       const canvas = canvasRef?.current;
       if (canvas) {
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        const unique = getUnique(effects[0][0], shape, shape);
+        const unique = getUnique(effects[0][0], shape, source);
         const path = getGemPath(effects, shape, level, unique);
         loadImage(path).then((img) => {
           ctx.drawImage(img, 0, 0, 175, 175);
         });
       }
+    } else {
+      const canvas = canvasRef?.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      }
     }
-  }, []);
+  }, [gem]);
 
   return (
     <>
@@ -56,8 +63,8 @@ function EquippedGem({
       >
         <ShapeSelector
           isStorage={isStorage}
-          articleType={articleType}
-          articleIndex={articleIndex}
+          article={article}
+          setArticle={setArticle}
           shape={shape}
           slotIndex={index}
         />

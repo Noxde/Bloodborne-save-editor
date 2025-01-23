@@ -6,6 +6,7 @@ import { ImagesContext } from "../context/imagesContext";
 import EquippedGem from "./EquippedGem";
 import useDraw from "../utils/useDraw";
 import { SaveContext } from "../context/context";
+import ChangeGemScreen from "./ChangeGemScreen";
 
 function EquippedGems() {
   const { images } = useContext(ImagesContext);
@@ -15,8 +16,10 @@ function EquippedGems() {
   const {
     state: { selected, isStorage },
   } = useLocation();
+  const [article, setArticle] = useState(selected);
   const [selectedRef, setSelectedRef] = useState(null);
   const [editScreen, setEditScreen] = useState(false);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [selectedGem, setSelectedGem] = useState(null);
   const nav = useNavigate();
 
@@ -27,12 +30,18 @@ function EquippedGems() {
     console.log(selected);
   }, [selected]);
 
-  useEffect(() => {
-    console.log(selectedGem);
-  }, [selectedGem]);
-
   return (
     <>
+      {changeScreen ? (
+        <ChangeGemScreen
+          slotIndex={selectedGem.index}
+          article={article}
+          setArticle={setArticle}
+          setSelected={setSelectedGem}
+          setScreen={setChangeScreen}
+          isStorage={isStorage}
+        />
+      ) : null}
       {editScreen ? (
         <EditUpgrade
           setSelected={setSelectedGem}
@@ -40,7 +49,7 @@ function EquippedGems() {
           selectedRef={selectedRef}
           setEditScreen={setEditScreen}
           isStorage={isStorage}
-          equipped={selected}
+          equipped={article}
           slot={selectedGem.index}
           confirmCb={(newGem) => {
             const canvas = selectedRef.current;
@@ -79,7 +88,7 @@ function EquippedGems() {
             marginBottom: "5rem",
           }}
         >
-          <Item item={selected} index={0} />
+          <Item item={article} index={0} />
         </div>
         {/* Gems */}
         <div
@@ -88,16 +97,15 @@ function EquippedGems() {
             position: "relative",
           }}
         >
-          {/* TODO: Replace with the equipped gems, make them selectable */}
-          {selected.slots.map((slot, i) => (
+          {article.slots.map((slot, i) => (
             <EquippedGem
               gem={slot?.gem}
               shape={slot.shape}
               setRef={setSelectedRef}
               setSelected={setSelectedGem}
               isStorage={isStorage}
-              articleType={selected.article_type}
-              articleIndex={selected.index}
+              article={article}
+              setArticle={setArticle}
               index={i}
               key={i}
             />
@@ -109,8 +117,15 @@ function EquippedGems() {
             marginTop: "5rem",
           }}
         >
-          <button onClick={() => nav("/")} style={{ marginRight: "2rem" }}>
-            Back
+          <button onClick={() => nav("/")}>Back</button>
+          <button
+            style={{ margin: "0 2rem" }}
+            onClick={() => {
+              setChangeScreen(true);
+            }}
+            disabled={!selectedGem}
+          >
+            Change
           </button>
           <button
             onClick={() => {
