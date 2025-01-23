@@ -333,7 +333,7 @@ fn equip_gem(upgrade_index: usize, article_type: ArticleType, article_index: usi
     let result = if is_storage {
         save.storage.equip_gem(&mut save.file, upgrade_index, article_type, article_index, slot_index, is_storage)
     } else {
-        save.storage.equip_gem(&mut save.file, upgrade_index, article_type, article_index, slot_index, is_storage)
+        save.inventory.equip_gem(&mut save.file, upgrade_index, article_type, article_index, slot_index, is_storage)
     };
 
     match result {
