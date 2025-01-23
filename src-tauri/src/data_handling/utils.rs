@@ -23,7 +23,8 @@ pub mod test_utils {
         if equal == false {
             println!("check_bytes failed:");
             for (i, byte) in bytes.iter().enumerate() {
-                println!("File byte: {:#02x}, test byte: {:#02x}", file_data.bytes[index+i], *byte);
+                let equal = file_data.bytes[index+i] == *byte;
+                println!("File byte: {:#02x}, test byte: {:#02x}, match: {}", file_data.bytes[index+i], *byte, equal);
             }
         }
         equal

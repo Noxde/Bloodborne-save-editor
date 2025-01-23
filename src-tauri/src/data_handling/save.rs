@@ -89,6 +89,22 @@ impl SaveData {
         }
         None
     }
+
+    pub fn move_upgrade(&mut self, upgrade_type: UpgradeType, upgrade_index: usize, from: Location) -> Result<(), Error> {
+        match from {
+            Location::Inventory => {
+                let upgrade = self.inventory.remove_upgrade(&mut self.file, upgrade_type, upgrade_index, false)?;
+                self.storage.add_upgrade(&mut self.file, upgrade, true);
+
+            },
+            Location::Storage => {
+                let upgrade = self.storage.remove_upgrade(&mut self.file, upgrade_type, upgrade_index, true)?;
+                self.inventory.add_upgrade(&mut self.file, upgrade, false);
+
+            },
+        };
+        Ok(())
+    }
 }
 
 #[cfg(test)]
@@ -97,7 +113,8 @@ mod tests {
               time::Instant};
 
     use super::*;
-    use crate::data_handling::enums::SlotShape;
+    use crate::data_handling::{enums::SlotShape,
+                               utils::test_utils::{build_save_data, check_bytes}};
 
     #[test]
     fn test_build() {
@@ -311,5 +328,91 @@ mod tests {
         save.get_upgrade_mut(Location::Inventory, UpgradeType::Rune, 0).unwrap();
         let elapsed = now.elapsed().as_micros();
         assert!(elapsed < 10);
+    }
+
+    #[test]
+    fn test_move_upgrade() {
+        let mut save = build_save_data("testsave9");
+
+        //Test error cases
+        let result = save.move_upgrade(UpgradeType::Rune, 500, Location::Storage);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: There are no upgrades of the specified type.");
+        }
+
+        let result = save.move_upgrade(UpgradeType::Gem, 500, Location::Storage);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(error.to_string(), "Save error: ERROR: upgrade_index is invalid.");
+        }
+
+        //The inventory has 2 gems
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 2);
+        //The storage has 2 gems
+        assert_eq!(save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 2);
+        //Get the gem to be moved
+        let gem = save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap()[0].clone();
+        //Slot of the inventory with the gem
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0x51,0x40,0x89,0x13,0x73,0x00,0x80,0xc0,0xf0,0x49,0x02,0x80,0x01,0x00,0x00,0x00]));
+        //Last slot of the storage
+        assert!(check_bytes(&save.file, 0x11524,
+            &[0x69,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+        //Move the gem
+        save.move_upgrade(UpgradeType::Gem, 0, Location::Inventory).unwrap();
+
+        //The inventory now has 1 gem
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 1);
+        //The storage now has 3 gems
+        assert_eq!(save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 3);
+        //Get the moved gem
+        let mut moved_gem = save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap().last_mut().unwrap().clone();
+        assert_eq!(moved_gem.index, 2);
+        moved_gem.index = 0;
+        assert_eq!(gem, moved_gem);
+        //Now the inventory slot in which the gem was is empty
+        assert!(check_bytes(&save.file, 0x8fe8,
+            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
+        //And the last slot of the storage has the gem
+        assert!(check_bytes(&save.file, 0x11524,
+            &[0x69,0x00,0x00,0x00,0x73,0x00,0x80,0xc0,0xf0,0x49,0x02,0x80,0x01,0x00,0x00,0x00,
+              0x6a,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+        //Try again but from the storage
+
+        //The inventory has 1 gems
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 1);
+        //The storage has 3 gems
+        assert_eq!(save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 3);
+        //Get the gem to be moved
+        let gem = save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap()[0].clone();
+        //Slot of the storage with the gem
+        assert!(check_bytes(&save.file, 0x11504,
+            &[0x44,0x40,0x89,0x13,0x71,0x00,0x80,0xc0,0x48,0xe8,0x01,0x80,0x01,0x00,0x00,0x00]));
+        //Last slot of the storage
+        assert!(check_bytes(&save.file, 0x9328,
+            &[0x85,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+
+        //Move the gem
+        save.move_upgrade(UpgradeType::Gem, 0, Location::Storage).unwrap();
+
+        //The inventory now has 2 gem
+        assert_eq!(save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 2);
+        //The storage now has 2 gems
+        assert_eq!(save.storage.upgrades.get_mut(&UpgradeType::Gem).unwrap().len(), 2);
+        //Get the moved gem
+        let mut moved_gem = save.inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().last_mut().unwrap().clone();
+        assert_eq!(moved_gem.index, 1);
+        moved_gem.index = 0;
+        assert_eq!(gem, moved_gem);
+        //Now the storage slot in which the gem was is empty
+        assert!(check_bytes(&save.file, 0x11504,
+            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
+        //And the last slot of the storage has the gem
+        assert!(check_bytes(&save.file, 0x9328,
+            &[0x85,0x00,0x00,0x00,0x71,0x00,0x80,0xc0,0x48,0xe8,0x01,0x80,0x01,0x00,0x00,0x00,
+              0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
     }
 }
