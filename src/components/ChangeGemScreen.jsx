@@ -136,7 +136,7 @@ function ChangeGemScreen({
               }
             }}
             disabled={
-              !selectedGem?.number ||
+              !selectedGem ||
               (selectedGem?.number === -1 &&
                 article.slots[slotIndex]?.gem === null) ||
               (selectedGem?.number !== -1 &&
