@@ -8,8 +8,8 @@ function EquippedGem({
   setSelected,
   setRef,
   isStorage,
-  articleType,
-  articleIndex,
+  article,
+  setArticle,
   index,
 }) {
   const canvasRef = useRef();
@@ -63,8 +63,8 @@ function EquippedGem({
       >
         <ShapeSelector
           isStorage={isStorage}
-          articleType={articleType}
-          articleIndex={articleIndex}
+          article={article}
+          setArticle={setArticle}
           shape={shape}
           slotIndex={index}
         />

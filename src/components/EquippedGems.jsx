@@ -16,6 +16,7 @@ function EquippedGems() {
   const {
     state: { selected, isStorage },
   } = useLocation();
+  const [article, setArticle] = useState(selected);
   const [selectedRef, setSelectedRef] = useState(null);
   const [editScreen, setEditScreen] = useState(false);
   const [changeScreen, setChangeScreen] = useState(false);
@@ -29,16 +30,13 @@ function EquippedGems() {
     console.log(selected);
   }, [selected]);
 
-  useEffect(() => {
-    console.log(selectedGem);
-  }, [selectedGem]);
-
   return (
     <>
       {changeScreen ? (
         <ChangeGemScreen
           slotIndex={selectedGem.index}
-          article={selected}
+          article={article}
+          setArticle={setArticle}
           setSelected={setSelectedGem}
           setScreen={setChangeScreen}
           isStorage={isStorage}
@@ -51,7 +49,7 @@ function EquippedGems() {
           selectedRef={selectedRef}
           setEditScreen={setEditScreen}
           isStorage={isStorage}
-          equipped={selected}
+          equipped={article}
           slot={selectedGem.index}
           confirmCb={(newGem) => {
             const canvas = selectedRef.current;
@@ -90,7 +88,7 @@ function EquippedGems() {
             marginBottom: "5rem",
           }}
         >
-          <Item item={selected} index={0} />
+          <Item item={article} index={0} />
         </div>
         {/* Gems */}
         <div
@@ -99,15 +97,15 @@ function EquippedGems() {
             position: "relative",
           }}
         >
-          {selected.slots.map((slot, i) => (
+          {article.slots.map((slot, i) => (
             <EquippedGem
               gem={slot?.gem}
               shape={slot.shape}
               setRef={setSelectedRef}
               setSelected={setSelectedGem}
               isStorage={isStorage}
-              articleType={selected.article_type}
-              articleIndex={selected.index}
+              article={article}
+              setArticle={setArticle}
               index={i}
               key={i}
             />

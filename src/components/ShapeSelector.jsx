@@ -2,23 +2,27 @@ import { invoke } from "@tauri-apps/api";
 import { useEffect, useState, useContext } from "react";
 import { SaveContext } from "../context/context";
 
-function ShapeSelector({
-  shape,
-  isStorage,
-  articleType,
-  articleIndex,
-  slotIndex,
-}) {
+function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(shape);
   const { setSave } = useContext(SaveContext);
   const shapes = ["radial", "triangle", "waning", "circle"];
 
   useEffect(() => {
+    setArticle((prev) => {
+      const copy = JSON.parse(JSON.stringify(prev));
+
+      copy.slots[
+        slotIndex
+      ].shape = `${selected[0].toUpperCase()}${selected.slice(1)}`;
+
+      return copy;
+    });
+
     invoke("edit_slot", {
       isStorage,
-      articleType,
-      articleIndex,
+      articleType: article.article_type,
+      articleIndex: article.index,
       slotIndex,
       newShape: `${selected[0].toUpperCase()}${selected.slice(1)}`,
     }).then((save) => setSave(save));
