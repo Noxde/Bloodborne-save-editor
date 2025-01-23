@@ -192,8 +192,21 @@ impl Inventory {
         second_part[..endian_id.len()].copy_from_slice(&endian_id);
         second_part[second_part.len() - 1] = 0x40;
 
-        file_data.bytes[file_data.offsets.username + first_counter_index] += 1;
-        file_data.bytes[file_data.offsets.username + second_counter_index] += 1;
+        let first_byte = file_data.offsets.username + first_counter_index;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_byte],
+                                                    file_data.bytes[first_byte+1],
+                                                    file_data.bytes[first_byte+2],
+                                                    file_data.bytes[first_byte+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+        }
+
+        let first_byte = file_data.offsets.username + second_counter_index;
+        for i in 0..4 {
+            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+        }
+
         if !is_storage {
             file_data.offsets.inventory.1 += 16;
         } else {
@@ -278,8 +291,20 @@ impl Inventory {
 
         (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
 
-        file_data.bytes[file_data.offsets.username + first_counter_offset] += 1;
-        file_data.bytes[file_data.offsets.username + second_counter_offset] += 1;
+        let first_byte = file_data.offsets.username + first_counter_offset;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_byte],
+                                                    file_data.bytes[first_byte+1],
+                                                    file_data.bytes[first_byte+2],
+                                                    file_data.bytes[first_byte+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+        }
+
+        let first_byte = file_data.offsets.username + second_counter_offset;
+        for i in 0..4 {
+            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+        }
         if !is_storage {
             file_data.offsets.inventory.1 += 16;
         } else {
