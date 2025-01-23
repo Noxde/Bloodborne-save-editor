@@ -13,21 +13,25 @@ function App() {
 
   useEffect(() => {
     async function checkUpdate() {
-      const req = await fetch(
-        "https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest"
-      );
-      const { tag_name, html_url } = await req.json();
-      const currentVersion = await invoke("get_version");
+      try {
+        const req = await fetch(
+          "https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest"
+        );
+        const { tag_name, html_url } = await req.json();
+        const currentVersion = await invoke("get_version");
 
-      if (tag_name > currentVersion) {
-        const ok = await dialog.confirm("New update available.", {
-          title: "Update available",
-          type: "info",
-          okLabel: "Go to github",
-        });
-        if (ok) {
-          shell.open(html_url);
+        if (tag_name > currentVersion) {
+          const ok = await dialog.confirm("New update available.", {
+            title: "Update available",
+            type: "info",
+            okLabel: "Go to github",
+          });
+          if (ok) {
+            shell.open(html_url);
+          }
         }
+      } catch (err) {
+        console.error(err);
       }
     }
 
