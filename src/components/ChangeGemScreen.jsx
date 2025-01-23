@@ -64,7 +64,6 @@ function ChangeGemScreen({
             width: "534px",
             minHeight: "400px",
             maxHeight: "calc(100% - 149px)",
-            background: "black",
             overflowX: "hidden",
             overflowY: "scroll",
           }}
