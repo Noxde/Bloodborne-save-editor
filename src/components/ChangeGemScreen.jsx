@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 function ChangeGemScreen({
   article,
+  setArticle,
   setSelected,
   setScreen,
   slotIndex,
@@ -105,7 +106,12 @@ function ChangeGemScreen({
                 });
 
                 setSave(edited);
-                article.slots[slotIndex].gem = null;
+                setArticle((prev) => {
+                  const copy = JSON.parse(JSON.stringify(prev));
+                  copy.slots[slotIndex].gem = null;
+                  return copy;
+                });
+
                 setSelected(null);
 
                 setScreen(false);
