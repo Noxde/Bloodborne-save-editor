@@ -246,7 +246,7 @@ impl Inventory {
     }
 
     //This method asumes that upgrade exists in file_data and it's not in the inventory
-    fn add_upgrade(&mut self, file_data: &mut FileData, mut upgrade: Upgrade, is_storage: bool) {
+    pub fn add_upgrade(&mut self, file_data: &mut FileData, mut upgrade: Upgrade, is_storage: bool) {
         let inventory_end = {
             if !is_storage {
                 file_data.offsets.inventory.1
@@ -366,7 +366,7 @@ impl Inventory {
         }
     }
 
-    fn remove_upgrade(&mut self, file_data: &mut FileData, upgrade_type: UpgradeType, upgrade_index: usize, is_storage: bool) -> Result<Upgrade, Error> {
+    pub fn remove_upgrade(&mut self, file_data: &mut FileData, upgrade_type: UpgradeType, upgrade_index: usize, is_storage: bool) -> Result<Upgrade, Error> {
         if let Some(upgrades_of_type) = self.upgrades.get_mut(&upgrade_type) {
             if upgrade_index < upgrades_of_type.len() {
                 //Remove the upgrade from the inventory
