@@ -136,6 +136,13 @@ function ChangeGemScreen({
                 setScreen(false);
               }
             }}
+            disabled={
+              !selectedGem?.number ||
+              (selectedGem?.number === -1 &&
+                article.slots[slotIndex]?.gem === null) ||
+              (selectedGem?.number !== -1 &&
+                article.slots[slotIndex]?.gem !== null)
+            }
           >
             Confirm
           </button>
