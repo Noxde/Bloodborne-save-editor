@@ -13,8 +13,8 @@ function ChangeGemScreen({
 }) {
   const { save, setSave } = useContext(SaveContext);
   const gems = isStorage
-    ? [...save.storage.upgrades.Gem]
-    : [...save.inventory.upgrades.Gem];
+    ? [...(save.storage.upgrades.Gem ?? [])]
+    : [...(save.inventory.upgrades.Gem ?? [])];
 
   const [hoverIndex, setHoverIndex] = useState(null);
   const [selectedGem, setSelectedGem] = useState(null);
