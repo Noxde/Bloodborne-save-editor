@@ -6,15 +6,13 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(shape);
   const { setSave } = useContext(SaveContext);
-  const shapes = ["radial", "triangle", "waning", "circle"];
+  const shapes = ["Closed", "Radial", "Triangle", "Waning", "Circle"];
 
   useEffect(() => {
     setArticle((prev) => {
       const copy = JSON.parse(JSON.stringify(prev));
 
-      copy.slots[
-        slotIndex
-      ].shape = `${selected[0].toUpperCase()}${selected.slice(1)}`;
+      copy.slots[slotIndex].shape = selected;
 
       return copy;
     });
@@ -24,7 +22,7 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
       articleType: article.article_type,
       articleIndex: article.index,
       slotIndex,
-      newShape: `${selected[0].toUpperCase()}${selected.slice(1)}`,
+      newShape: selected,
     }).then((save) => setSave(save));
   }, [selected]);
 
@@ -73,11 +71,11 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
             }}
           >
             {shapes
-              .filter((x) => x !== selected.toLowerCase())
+              .filter((x) => x !== selected)
               .map((x) => (
                 <img
                   style={{ display: "block" }}
-                  src={`/assets/${x}.png`}
+                  src={`/assets/${x.toLowerCase()}.png`}
                   width="48px"
                   alt=""
                   onClick={() => setSelected(x)}
