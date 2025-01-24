@@ -158,11 +158,12 @@ impl Inventory {
                 file_data.offsets.storage
             }
         };
+        let uname = file_data.offsets.username;
         let (first_counter_index, second_counter_index) = {
             if !is_storage {
-                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+                (uname + USERNAME_TO_FIRST_INVENTORY_COUNTER, uname + USERNAME_TO_SECOND_INVENTORY_COUNTER)
             } else {
-                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+                (uname + USERNAME_TO_FIRST_STORAGE_COUNTER, uname + USERNAME_TO_SECOND_STORAGE_COUNTER)
             }
         };
 
@@ -192,8 +193,24 @@ impl Inventory {
         second_part[..endian_id.len()].copy_from_slice(&endian_id);
         second_part[second_part.len() - 1] = 0x40;
 
-        file_data.bytes[file_data.offsets.username + first_counter_index] += 1;
-        file_data.bytes[file_data.offsets.username + second_counter_index] += 1;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_counter_index],
+                                                    file_data.bytes[first_counter_index+1],
+                                                    file_data.bytes[first_counter_index+2],
+                                                    file_data.bytes[first_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + first_counter_index] = new_counter_value_bytes[i];
+        }
+
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[second_counter_index],
+                                                    file_data.bytes[second_counter_index+1],
+                                                    file_data.bytes[second_counter_index+2],
+                                                    file_data.bytes[second_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
+        }
+
         if !is_storage {
             file_data.offsets.inventory.1 += 16;
         } else {
@@ -234,7 +251,7 @@ impl Inventory {
                 }
             }
             if !found {
-                new_item.number = file_data.bytes[file_data.offsets.username + first_counter_index];
+                new_item.number = file_data.bytes[first_counter_index];
             }
         }
 
@@ -254,11 +271,12 @@ impl Inventory {
                 file_data.offsets.storage.1
             }
         };
-        let (first_counter_offset, second_counter_offset) = {
+        let uname = file_data.offsets.username;
+        let (first_counter_index, second_counter_index) = {
             if !is_storage {
-                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+                (uname + USERNAME_TO_FIRST_INVENTORY_COUNTER, uname + USERNAME_TO_SECOND_INVENTORY_COUNTER)
             } else {
-                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+                (uname + USERNAME_TO_FIRST_STORAGE_COUNTER, uname + USERNAME_TO_SECOND_STORAGE_COUNTER)
             }
         };
 
@@ -278,8 +296,24 @@ impl Inventory {
 
         (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
 
-        file_data.bytes[file_data.offsets.username + first_counter_offset] += 1;
-        file_data.bytes[file_data.offsets.username + second_counter_offset] += 1;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_counter_index],
+                                                    file_data.bytes[first_counter_index+1],
+                                                    file_data.bytes[first_counter_index+2],
+                                                    file_data.bytes[first_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + first_counter_index] = new_counter_value_bytes[i];
+        }
+
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[second_counter_index],
+                                                    file_data.bytes[second_counter_index+1],
+                                                    file_data.bytes[second_counter_index+2],
+                                                    file_data.bytes[second_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
+        }
+
         if !is_storage {
             file_data.offsets.inventory.1 += 16;
         } else {
@@ -305,7 +339,7 @@ impl Inventory {
                 }
             }
             if !found {
-                upgrade.number = file_data.bytes[file_data.offsets.username + first_counter_offset];
+                upgrade.number = file_data.bytes[first_counter_index];
             }
         }
 
