@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
 use super::{constants::*,
-            enums::{ArticleType, Error, TypeFamily, UpgradeType},
+            enums::{Location, ArticleType, Error, TypeFamily, UpgradeType},
             file::FileData,
             slots::Slot,
             upgrades::Upgrade,
@@ -151,18 +151,27 @@ impl Inventory {
             return Err(Error::CustomError("ERROR: failed to find info for the item."));
         }
 
-        let (_, inventory_end) = {
-            if !is_storage {
-                file_data.offsets.inventory
-            } else {
-                file_data.offsets.storage
-            }
+        let empty_slot_index;
+        match file_data.find_inv_empty_slot(Location::from(is_storage)) {
+            Some(index) => empty_slot_index = index,
+            None => {
+                if !is_storage {
+                    empty_slot_index = file_data.offsets.inventory.1;
+                    file_data.offsets.inventory.1 += 16;
+                } else {
+                    empty_slot_index = file_data.offsets.storage.1;
+                    file_data.offsets.storage.1 +=16;
+                }
+                (file_data.bytes[empty_slot_index + 12], _) = file_data.bytes[empty_slot_index - 4].overflowing_add(1);
+            },
         };
+
+        let uname = file_data.offsets.username;
         let (first_counter_index, second_counter_index) = {
             if !is_storage {
-                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+                (uname + USERNAME_TO_FIRST_INVENTORY_COUNTER, uname + USERNAME_TO_SECOND_INVENTORY_COUNTER)
             } else {
-                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+                (uname + USERNAME_TO_FIRST_STORAGE_COUNTER, uname + USERNAME_TO_SECOND_STORAGE_COUNTER)
             }
         };
 
@@ -171,14 +180,13 @@ impl Inventory {
 
         for i in 0..12 {
             if i < 8 {
-                file_data.bytes[inventory_end + i] = endian_id[i % 4];
+                file_data.bytes[empty_slot_index + i] = endian_id[i % 4];
             } else {
-                file_data.bytes[inventory_end + i] = endian_quantity[i % 4];
+                file_data.bytes[empty_slot_index + i] = endian_quantity[i % 4];
             }
         }
-        file_data.bytes[inventory_end + 3] = 0xB0;
-        file_data.bytes[inventory_end + 7] = 0x40;
-        (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
+        file_data.bytes[empty_slot_index + 3] = 0xB0;
+        file_data.bytes[empty_slot_index + 7] = 0x40;
 
         let id = u32::from_le_bytes(endian_id);
 
@@ -192,31 +200,28 @@ impl Inventory {
         second_part[..endian_id.len()].copy_from_slice(&endian_id);
         second_part[second_part.len() - 1] = 0x40;
 
-        let first_byte = file_data.offsets.username + first_counter_index;
-        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_byte],
-                                                    file_data.bytes[first_byte+1],
-                                                    file_data.bytes[first_byte+2],
-                                                    file_data.bytes[first_byte+3]]) + 1;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_counter_index],
+                                                    file_data.bytes[first_counter_index+1],
+                                                    file_data.bytes[first_counter_index+2],
+                                                    file_data.bytes[first_counter_index+3]]) + 1;
         let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
         for i in 0..4 {
-            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+            file_data.bytes[i + first_counter_index] = new_counter_value_bytes[i];
         }
 
-        let first_byte = file_data.offsets.username + second_counter_index;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[second_counter_index],
+                                                    file_data.bytes[second_counter_index+1],
+                                                    file_data.bytes[second_counter_index+2],
+                                                    file_data.bytes[second_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
         for i in 0..4 {
-            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
-        }
-
-        if !is_storage {
-            file_data.offsets.inventory.1 += 16;
-        } else {
-            file_data.offsets.storage.1 += 16;
+            file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
         }
 
         let (info, article_type) = result.expect("Err variant checked at the beginning");
 
         let mut new_item = Article {
-            number: file_data.bytes[inventory_end - 4],
+            number: file_data.bytes[empty_slot_index - 4],
             id,
             first_part: u32::from_le_bytes(first_part),
             second_part: u32::from_le_bytes(second_part),
@@ -247,7 +252,7 @@ impl Inventory {
                 }
             }
             if !found {
-                new_item.number = file_data.bytes[file_data.offsets.username + first_counter_index];
+                new_item.number = file_data.bytes[first_counter_index];
             }
         }
 
@@ -260,18 +265,26 @@ impl Inventory {
 
     //This method asumes that upgrade exists in file_data and it's not in the inventory
     pub fn add_upgrade(&mut self, file_data: &mut FileData, mut upgrade: Upgrade, is_storage: bool) {
-        let inventory_end = {
-            if !is_storage {
-                file_data.offsets.inventory.1
-            } else {
-                file_data.offsets.storage.1
-            }
+        let empty_slot_index;
+        match file_data.find_inv_empty_slot(Location::from(is_storage)) {
+            Some(index) => empty_slot_index = index,
+            None => {
+                if !is_storage {
+                    empty_slot_index = file_data.offsets.inventory.1;
+                    file_data.offsets.inventory.1 += 16;
+                } else {
+                    empty_slot_index = file_data.offsets.storage.1;
+                    file_data.offsets.storage.1 +=16;
+                }
+                (file_data.bytes[empty_slot_index + 12], _) = file_data.bytes[empty_slot_index - 4].overflowing_add(1);
+            },
         };
-        let (first_counter_offset, second_counter_offset) = {
+        let uname = file_data.offsets.username;
+        let (first_counter_index, second_counter_index) = {
             if !is_storage {
-                (USERNAME_TO_FIRST_INVENTORY_COUNTER, USERNAME_TO_SECOND_INVENTORY_COUNTER)
+                (uname + USERNAME_TO_FIRST_INVENTORY_COUNTER, uname + USERNAME_TO_SECOND_INVENTORY_COUNTER)
             } else {
-                (USERNAME_TO_FIRST_STORAGE_COUNTER, USERNAME_TO_SECOND_STORAGE_COUNTER)
+                (uname + USERNAME_TO_FIRST_STORAGE_COUNTER, uname + USERNAME_TO_SECOND_STORAGE_COUNTER)
             }
         };
 
@@ -280,35 +293,32 @@ impl Inventory {
         let endian_quantity = [0x01, 0x00, 0x00, 0x00];
 
         for i in 0..4 {
-            file_data.bytes[inventory_end + i] = endian_id[i];
+            file_data.bytes[empty_slot_index + i] = endian_id[i];
         }
         for i in 4..8 {
-            file_data.bytes[inventory_end + i] = endian_source[i % 4];
+            file_data.bytes[empty_slot_index + i] = endian_source[i % 4];
         }
         for i in 8..12 {
-            file_data.bytes[inventory_end + i] = endian_quantity[i % 4];
+            file_data.bytes[empty_slot_index + i] = endian_quantity[i % 4];
         }
 
-        (file_data.bytes[inventory_end + 12], _) = file_data.bytes[inventory_end - 4].overflowing_add(1);
 
-        let first_byte = file_data.offsets.username + first_counter_offset;
-        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_byte],
-                                                    file_data.bytes[first_byte+1],
-                                                    file_data.bytes[first_byte+2],
-                                                    file_data.bytes[first_byte+3]]) + 1;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[first_counter_index],
+                                                    file_data.bytes[first_counter_index+1],
+                                                    file_data.bytes[first_counter_index+2],
+                                                    file_data.bytes[first_counter_index+3]]) + 1;
         let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
         for i in 0..4 {
-            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
+            file_data.bytes[i + first_counter_index] = new_counter_value_bytes[i];
         }
 
-        let first_byte = file_data.offsets.username + second_counter_offset;
+        let new_counter_value = u32::from_le_bytes([file_data.bytes[second_counter_index],
+                                                    file_data.bytes[second_counter_index+1],
+                                                    file_data.bytes[second_counter_index+2],
+                                                    file_data.bytes[second_counter_index+3]]) + 1;
+        let new_counter_value_bytes: [u8; 4] = new_counter_value.to_le_bytes();
         for i in 0..4 {
-            file_data.bytes[i + first_byte] = new_counter_value_bytes[i];
-        }
-        if !is_storage {
-            file_data.offsets.inventory.1 += 16;
-        } else {
-            file_data.offsets.storage.1 += 16;
+            file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
         }
 
         //Find the first item of the storage to increase it's index
@@ -330,7 +340,7 @@ impl Inventory {
                 }
             }
             if !found {
-                upgrade.number = file_data.bytes[file_data.offsets.username + first_counter_offset];
+                upgrade.number = file_data.bytes[first_counter_index];
             }
         }
 
@@ -402,12 +412,13 @@ impl Inventory {
                     true => file_data.offsets.storage,
                     false => file_data.offsets.inventory,
                 };
-                let empty_slot = [0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0];
+                //Leave the first 4 bytes
+                let empty_slot = [0,0,0,0,255,255,255,255,0,0,0,0];
                 for i in (start .. end).step_by(16) {
                     if (file_data.bytes[i+4 .. i+8] == first_part) && (file_data.bytes[i+8 .. i+12] == second_part) {
                         found = true;
-                        for j in i .. i+16 {
-                            file_data.bytes[j] = empty_slot[j-i];
+                        for j in i+4 .. i+16 {
+                            file_data.bytes[j] = empty_slot[j-i-4];
                         }
                         break;
                     }
@@ -907,16 +918,16 @@ mod tests {
               0xd2, 0x01, 0x80, 0x90,
               0x40, 0x19, 0x01, 0x10,
         ]));
-        //Last slot of the inventory
-        assert!(check_bytes(&save.file, 0x9328,
-            &[0x85,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+        //Empty slot of the inventory
+        assert!(check_bytes(&save.file, 0x9158,
+            &[0x68,0x80,0x93,0xb9,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
 
 
         save.inventory.unequip_gem(&mut save.file, ArticleType::RightHand, 0, 0, false).unwrap();
         let mut upgrades = parse_upgrades(&save.file);
         let mut slots = parse_equipped_gems(&mut save.file, &mut upgrades);
         let mut inventory = Inventory::build(&save.file, save.file.offsets.inventory, save.file.offsets.key_inventory, &mut upgrades, &mut slots);
-        let new_gem = inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().last_mut().unwrap();
+        let new_gem = inventory.upgrades.get_mut(&UpgradeType::Gem).unwrap().get_mut(1).unwrap();
         new_gem.number = gem.number;
         new_gem.index = gem.index;
         assert_eq!(*new_gem, gem);
@@ -957,10 +968,9 @@ mod tests {
               0xd2, 0x01, 0x80, 0x90,
               0x40, 0x19, 0x01, 0x10,
         ]));
-        //Last slot of the inventory
-        assert!(check_bytes(&save.file, 0x9328,
-            &[0x85,0x00,0x00,0x00,0x74,0x00,0x80,0xc0,0x62,0xe4,0x01,0x80,0x01,0x00,0x00,0x00,
-              0x86,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0x00,0x00,0x00,0x00]));
+        //The slot now has the gem
+        assert!(check_bytes(&save.file, 0x9158,
+            &[0x68,0x80,0x93,0xb9,0x74,0x00,0x80,0xc0,0x62,0xe4,0x01,0x80,0x01,0x00,0x00,0x00]));
     }
 
     #[test]
@@ -1002,7 +1012,7 @@ mod tests {
 
         //Now the slot is empty and there is only one gem
         assert!(check_bytes(&save.file, 0x8fe8,
-            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
+            &[0x51,0x40,0x89,0x13,0,0,0,0,255,255,255,255,0,0,0,0]));
         let gems = save.inventory.upgrades.get(&UpgradeType::Gem).unwrap();
         assert_eq!(gems.len(), 1);
         assert_eq!(removed_gem, gem);
@@ -1137,6 +1147,6 @@ mod tests {
 
         //Now the slot in which the gem was is empty
         assert!(check_bytes(&save.file, 0x8fe8,
-            &[0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]));
+            &[0x51,0x40,0x89,0x13,0,0,0,0,255,255,255,255,0,0,0,0]));
     }
 }

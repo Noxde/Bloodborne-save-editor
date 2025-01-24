@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use super::{enums::{Error, TypeFamily},
+use super::{enums::{Error, TypeFamily, Location},
             offsets::Offsets};
 use std::{fs, io::{self, Read}, path::PathBuf};
 
@@ -119,6 +119,25 @@ impl FileData {
         }
         None
     }
+
+    //If there is an empty slot return the index of the first byte of the first part
+    //Or else return None
+    pub fn find_inv_empty_slot(&self, location: Location) -> Option<usize> {
+        let (start, end) = match location {
+            Location::Inventory => self.offsets.inventory,
+            Location::Storage => self.offsets.storage,
+        };
+        let empty = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
+        let mut buffer = [0; 12];
+        //-4 so it doesn't match the last slot
+        for i in (start ..  end - 4).step_by(16) {
+            buffer.copy_from_slice(&self.bytes[i + 4 ..= i + 15]);
+            if empty == buffer {
+                return Some(i + 4); //First byte of the first part of the slot
+            }
+        }
+        None
+    }
 }
 
 #[cfg(test)]
@@ -156,5 +175,15 @@ mod tests {
     fn test_find_article_offset() {
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.find_article_offset(4, 1200, TypeFamily::Item, true).unwrap(), 0x10f28);
+    }
+
+    #[test]
+    fn test_find_inv_empty_slot() {
+        let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
+        assert_eq!(file_data.find_inv_empty_slot(Location::Inventory).unwrap(), 0xcfb8);
+        assert_eq!(file_data.find_inv_empty_slot(Location::Storage).unwrap(), 0x15304);
+
+        let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
+        assert!(file_data.find_inv_empty_slot(Location::Inventory).is_none());
     }
 }

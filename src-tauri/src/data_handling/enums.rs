@@ -132,6 +132,15 @@ pub enum Location {
     Storage,
 }
 
+impl From<bool> for Location {
+    fn from(is_storage: bool) -> Location {
+        match is_storage {
+            true => Location::Storage,
+            false => Location::Inventory,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
