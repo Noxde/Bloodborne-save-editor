@@ -98,6 +98,13 @@ function EquippedGems() {
             position: "relative",
           }}
         >
+          <div
+            className="selected-slot"
+            style={{
+              display: selectedGem !== null ? "block" : "none",
+              left: `${selectedGem?.index * 207}px`,
+            }}
+          ></div>
           {article.slots.map((slot, i) => (
             <EquippedGem
               gem={slot?.gem}
