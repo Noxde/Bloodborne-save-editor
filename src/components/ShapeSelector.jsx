@@ -75,7 +75,9 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
               .map((x) => (
                 <img
                   style={{ display: "block" }}
-                  src={`/assets/${x.toLowerCase()}.png`}
+                  src={`/assets/${
+                    x === "Closed" ? "shape_bg" : x.toLowerCase()
+                  }.png`}
                   width="48px"
                   alt=""
                   onClick={() => setSelected(x)}
