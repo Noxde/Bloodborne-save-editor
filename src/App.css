@@ -59,7 +59,7 @@ main {
   height: 100%;
   ul {
     list-style: none;
-    li {
+    li a {
       cursor: pointer;
       margin-bottom: 1rem;
     }
