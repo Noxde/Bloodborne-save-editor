@@ -5,6 +5,7 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total)
 ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total)
 [![Coverage Status](https://coveralls.io/repos/github/Noxde/Bloodborne-save-editor/badge.svg)](https://coveralls.io/github/Noxde/Bloodborne-save-editor)
+
 </div>
 <h1 align="center">Bloodborne Save Editor</h1>
 
@@ -14,26 +15,28 @@
 
 <div align="center">
 
-![overview.gif](./assets/overview.gif)
+![overview.gif](./assets/overview-optimized.gif)
 
 </div>
 
-**Note:** To use this save editor you first need to decrypt your bloodborne save. 
+> [!IMPORTANT]
+> **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
-If you want to use this with shadPS4, saves are located in ``shadPS4/user/savedata/1/GAMEID``
-shadPS4 being the folder where the executable is located
-
-The id for Bloodborne can be one of the following:
-- CUSA00900
-- CUSA03173
-- CUSA00207
-- CUSA01363
+> [!NOTE]
+> If you want to use this with shadPS4, saves are located in `shadPS4/user/savedata/1/GAMEID/SPRJ0005/`
+> shadPS4 being the folder where the executable is located
+> The id for Bloodborne can be one of the following depending on your version of the game:
+>
+> - CUSA00900
+> - CUSA03173
+> - CUSA00207
+> - CUSA01363
 
 ## Table of Contents
 
 - [1. Features](#1-features)
-- [2. Build from source](#2-build-from-source)
-- [3. Download](#3-download)
+- [2. Download](#2-download)
+- [3. Build from source](#3-build-from-source)
 - [4. Attributions](#4-attributions)
 - [5. License](#5-license)
 
@@ -46,7 +49,7 @@ The id for Bloodborne can be one of the following:
          Change items amount.
       </summary>
 
-   <img src="./assets/edit_amount.gif"/>
+   <img src="./assets/amount-optimized.gif"/>
    </details>
 
 - <details>
@@ -54,7 +57,7 @@ The id for Bloodborne can be one of the following:
          Transform items, weapons or armors into different ones including cut content.
       </summary>
 
-   <img src="./assets/transform.gif"/>
+   <img src="./assets/transform-optimized.gif"/>
    </details>
 
 - <details>
@@ -62,7 +65,7 @@ The id for Bloodborne can be one of the following:
          Modify character attributes.
       </summary>
 
-   <img src="./assets/attributes.gif"/>
+   <img src="./assets/stats-optimized.gif"/>
    </details>
 
 - <details>
@@ -70,26 +73,47 @@ The id for Bloodborne can be one of the following:
          Modify Blood echoes, insight, gender, origin and voice.
       </summary>
 
-   <img src="./assets/character.gif"/>
-   </details>
-   
-- <details>
-      <summary>
-        Edit Gems
-      </summary>
-
-   <img src="./assets/edit_gems.gif"/>
+   <img src="./assets/character-optimized.gif"/>
    </details>
 
 - <details>
       <summary>
-        Edit Runes
+        Edit Gems and Runes
       </summary>
 
-   <img src="./assets/edit_rune.gif"/>
+   <img src="./assets/upgrades-optimized.gif"/>
    </details>
 
-## 2. Build from source
+- <details>
+      <summary>
+        Add items
+      </summary>
+
+   <img src="./assets/add_items-optimized.gif"/>
+   </details>
+
+- <details>
+      <summary>
+        Edit weapons and armor gem slots
+      </summary>
+
+   <img src="./assets/equip_gems-optimized.gif"/>
+   </details>
+
+## 2. Download
+
+You can download the pre-built executable for your operating system from the [Releases](https://github.com/Noxde/Bloodborne-save-editor/releases) section.
+
+If you encounter any bug please [make an issue](https://github.com/Noxde/Bloodborne-save-editor/issues/new)
+
+### Video tutorial on how to use the editor on Playstation
+
+[![video_thumbnail](https://img.youtube.com/vi/vP8p_osK8sw/0.jpg)](https://www.youtube.com/watch?v=vP8p_osK8sw)  
+<sub>click the image to go to the video</sub>
+
+Thanks to [Ricky Zaragoza](https://www.youtube.com/@ricardozaragoza3812) for making this video, this video is focused on the full process for playstation but if you only want to see the save editor working, it's useful too.
+
+## 3. Build from source
 
 1. Make sure to have [Rust](https://www.rust-lang.org/) and [NodeJS](https://nodejs.org/en) installed.
 2. Install the [Tauri dependencies](https://tauri.app/v1/guides/getting-started/prerequisites) for your operating system.
@@ -98,35 +122,24 @@ The id for Bloodborne can be one of the following:
    ```bash
    $ git clone https://github.com/Noxde/Bloodborne-save-editor
    ```
+
 4. Navigate to the project directory:
 
    ```bash
    $ cd Bloodborne-save-editor
    ```
+
 5. Install the dependencies
    ```bash
    $ npm install
    ```
-If you want to run the dev version with hot reloading run ``$ npm run dev`` or if you want to build it run ``$ npm run tauri build``
+   If you want to run the dev version with hot reloading run `$ npm run dev` or if you want to build it run `$ npm run tauri build`
 
-The release will be located in ``Bloodborne-save-editor/src-tauri/target/release/``
-
-## 3. Download
-
-You can download the pre-built executable for your operating system from the [Releases](https://github.com/Noxde/Bloodborne-save-editor/releases) section.
-For Windows, download the .exe, and for Linux, download the .AppImage.
-
-If you encounter any bug please [make an issue](https://github.com/Noxde/Bloodborne-save-editor/issues/new)
-
-### Video tutorial
-[![video_thumbnail](https://img.youtube.com/vi/vP8p_osK8sw/0.jpg)](https://www.youtube.com/watch?v=vP8p_osK8sw)  
-<sub>click the image to go to the video</sub>
-
-Thanks to [Ricky Zaragoza](https://www.youtube.com/@ricardozaragoza3812) for making this video, this video is focused on the full process for playstation but if you only want to see the save editor working, it's useful too.
+The release will be located in `Bloodborne-save-editor/src-tauri/target/release/`
 
 ## 4. Attributions
 
-Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). All the information used on this project comes from there.
+Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). All the information used on this project comes from there.</br>
 
 ## 5. License
 
