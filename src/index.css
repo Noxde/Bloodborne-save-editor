@@ -150,3 +150,15 @@ input {
     left: 20.5px;
   }
 }
+
+.selected-slot {
+  position: absolute;
+  pointer-events: none;
+  width: 207px;
+  height: 207px;
+  background: linear-gradient(#679aff, 1%, transparent);
+  border: 2px solid;
+  z-index: 10;
+  border-radius: 2px;
+  animation: hover-fade 1000ms ease-in alternate infinite;
+}
