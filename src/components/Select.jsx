@@ -20,13 +20,15 @@ function Select({ options, name, setEditedStats, editedStats }) {
   }, [editedStats]);
 
   return (
-    <select value={value} name={name} onChange={handleChange}>
-      {options.map((x, i) => (
-        <option key={i} value={i}>
-          {x}
-        </option>
-      ))}
-    </select>
+    <div className="select-wrapper">
+      <select value={value} name={name} onChange={handleChange}>
+        {options.map((x, i) => (
+          <option key={i} value={i}>
+            {x}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
