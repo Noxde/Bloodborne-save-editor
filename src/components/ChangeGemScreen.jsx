@@ -115,6 +115,16 @@ function ChangeGemScreen({
 
                 setScreen(false);
               } else {
+                // Unequip the current gem before trying to equip the selected one
+                if (article.slots[slotIndex]?.gem !== null) {
+                  await invoke("unequip_gem", {
+                    articleType: article.article_type,
+                    articleIndex: article.index,
+                    slotIndex: slotIndex,
+                    isStorage: isStorage,
+                  });
+                }
+
                 const edited = await invoke("equip_gem", {
                   upgradeIndex: selectedGem.index,
                   articleType: article.article_type,
@@ -130,7 +140,7 @@ function ChangeGemScreen({
                   return copy;
                 });
 
-                setSelected(selectedGem);
+                setSelected(null);
 
                 setScreen(false);
               }
@@ -138,9 +148,7 @@ function ChangeGemScreen({
             disabled={
               !selectedGem ||
               (selectedGem?.number === -1 &&
-                article.slots[slotIndex]?.gem === null) ||
-              (selectedGem?.number !== -1 &&
-                article.slots[slotIndex]?.gem !== null)
+                article.slots[slotIndex]?.gem === null)
             }
           >
             Confirm
