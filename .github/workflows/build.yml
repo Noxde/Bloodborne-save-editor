@@ -52,17 +52,17 @@ jobs:
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: npm install # change this to npm or pnpm depending on which one you use.
 
-      - name: Extract tag name
-        id: extract_tag
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      # - name: Extract tag name
+      #   id: extract_tag
+      #   run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - uses: tauri-apps/tauri-action@v0
         env:
           CI: ""
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ env.TAG_NAME }} # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: "Bloodborne save editor ${{ env.TAG_NAME }}"
+          tagName: ${{ github.ref_name }} # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: "Bloodborne save editor ${{ github.ref_name }}"
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
