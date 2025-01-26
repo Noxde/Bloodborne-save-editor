@@ -19,7 +19,7 @@
   min-height: 100vh;
   height: 100%;
   font-family: "Reim";
-  font-size: calc(16px + 1vw);
+  font-size: clamp(16px, calc(16px + 1vw), 30px);
   color: #dbd9d5;
   overflow: hidden;
 }
