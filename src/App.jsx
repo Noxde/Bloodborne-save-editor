@@ -43,6 +43,18 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.addEventListener("keypress", (e) => {
+      console.log(e);
+      const { code, ctrlKey } = e;
+      if (code === "Equal" && ctrlKey) {
+        document.body.style.zoom = Number(document.body.style.zoom) + 0.1;
+      } else if (code === "Minus" && ctrlKey) {
+        document.body.style.zoom = Number(document.body.style.zoom) - 0.1;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     updateZoom();
 
     const scalingQuery = window.matchMedia(
