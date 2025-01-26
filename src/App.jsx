@@ -57,12 +57,14 @@ function App() {
   useEffect(() => {
     updateZoom();
 
-    const scalingQuery = window.matchMedia(
-      `(resolution: ${window.devicePixelRatio}dppx)`
-    );
+    const scalingQuery = window.matchMedia(`(min-width: 2000px)`);
 
     function updateZoom() {
-      document.body.style.zoom = `${window.devicePixelRatio % 1 || 1}`;
+      if (window.innerWidth > 2000) {
+        document.body.style.zoom = 2;
+      } else {
+        document.body.style.zoom = 1;
+      }
     }
 
     scalingQuery.addEventListener("change", updateZoom);
