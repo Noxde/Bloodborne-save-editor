@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.addEventListener("keypress", (e) => {
+    document.addEventListener("keydown", (e) => {
       console.log(e);
       const { code, ctrlKey } = e;
       if (code === "Equal" && ctrlKey) {
