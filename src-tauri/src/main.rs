@@ -33,11 +33,29 @@ fn main() -> Result<(), Box<dyn Error>> {
             set_username,
             get_version,
             add_item,
-            edit_slot
+            edit_slot,
+            get_isz,
+            fix_isz
         ])
         .run(tauri::generate_context!())?;
 
     Ok(())
+}
+
+#[tauri::command]
+fn get_isz(state_save: tauri::State<MutexSave>) -> [u8;2] {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    return save.file.get_isz();
+}
+
+#[tauri::command]
+fn fix_isz(state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.fix_isz();
 }
 
 #[tauri::command]
