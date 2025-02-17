@@ -1,5 +1,5 @@
 import "./character.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SaveContext } from "../context/context";
 import Stat from "./Stat";
 import Select from "./Select";
@@ -12,6 +12,7 @@ function Character() {
   const [editedStats, setEditedStats] = useState(
     JSON.parse(JSON.stringify(save))
   );
+  const [isz, setIsz] = useState([]);
   const voice = ["Young Voice", "Mature Voice", "Aged Voice"];
   const gender = ["Female", "Male"];
   const origins = [
@@ -27,6 +28,10 @@ function Character() {
   ];
   const ng = ["NG0", "NG+1", "NG+2", "NG+3", "NG+4", "NG+5", "NG+6", "NG+7"];
   const { images } = useContext(ImagesContext);
+
+  useEffect(() => {
+    invoke("get_isz").then((d) => setIsz(d));
+  }, []);
 
   return (
     <div
@@ -181,6 +186,34 @@ function Character() {
               }}
             >
               Import face
+            </button>
+          </div>
+          <div
+            style={{
+              fontSize: "25px",
+              marginTop: "5px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <span>
+              Isz status:{" "}
+              {isz.map((x) => x.toString(16).toUpperCase()).join(" ")}
+            </span>
+            <button
+              style={{
+                width: "174px",
+                fontSize: "25px",
+                padding: "0 15px",
+                backgroundSize: "100% 100%",
+              }}
+              className="buttonBg"
+              onClick={async () => {
+                await invoke("fix_isz");
+                setIsz(await invoke("get_isz"));
+              }}
+            >
+              Fix isz
             </button>
           </div>
           <div
