@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
-use super::{enums::{Error, TypeFamily, Location},
-            offsets::Offsets};
+
+use super::{constants::USERNAME_TO_ISZ_GLITCH, enums::{Error, Location, TypeFamily}, offsets::Offsets};
 use std::{fs, io::{self, Read}, path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
@@ -137,6 +137,21 @@ impl FileData {
             }
         }
         None
+    }
+
+    pub fn get_isz(&self) -> [u8;2] {
+        return [self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username], self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1]];
+    }
+
+    pub fn fix_isz(&mut self) {
+        let values = self.get_isz();
+        if values[0] == 0xFF {
+            if values[1] < 0xC0 {
+                self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1] = 0x30;
+            } else if values[1] == 0xC0 {
+                self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1] = 0xFF;
+            }
+        }
     }
 }
 
