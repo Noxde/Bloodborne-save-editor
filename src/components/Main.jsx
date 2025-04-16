@@ -8,6 +8,7 @@ import { SaveContext } from "../context/context";
 import { ItemsProvider } from "../context/itemsContext";
 import { ImagesContext } from "../context/imagesContext";
 import EquippedGems from "./EquippedGems";
+import Bosses from "./Bosses";
 
 const Main = ({ save, setSave, loading }) => {
   const location = useLocation();
@@ -81,6 +82,7 @@ const Main = ({ save, setSave, loading }) => {
                   </ItemsProvider>
                 }
               ></Route>
+              <Route path="/bosses" element={<Bosses />}></Route>
             </Routes>
           ) : null}
 

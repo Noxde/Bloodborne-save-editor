@@ -40,6 +40,13 @@ function SideBar() {
         >
           <Link to={"/character"}>Character</Link>
         </li>
+        <li
+          className={
+            save && document.location.pathname.match(/bosses/) ? "selected" : ""
+          }
+        >
+          <Link to={"/bosses"}>Bosses</Link>
+        </li>
       </ul>
     </div>
   );
