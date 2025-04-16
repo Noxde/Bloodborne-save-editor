@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{constants::USERNAME_TO_ISZ_GLITCH, enums::{Error, Location, TypeFamily}, offsets::Offsets};
+use super::{constants::{USERNAME_TO_AOB, USERNAME_TO_ISZ_GLITCH}, enums::{Error, Location, TypeFamily}, offsets::Offsets};
 use std::{fs, io::{self, Read}, path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
@@ -50,6 +50,18 @@ impl FileData {
         }
 
         value
+    }
+
+    pub fn get_flag(&self, offset_from_aob: usize) -> u8 {
+        let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
+        
+        self.bytes[value_offset]
+    }
+
+    pub fn set_flag(&mut self, offset_from_aob: usize, new_value: u8) {
+        let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
+        
+        self.bytes[value_offset] = new_value;
     }
 
     pub fn edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {

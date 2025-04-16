@@ -19,6 +19,9 @@ pub const USERNAME_TO_FIRST_STORAGE_COUNTER: usize = 34737;
 // Distance between the username and the second inventory counter
 pub const USERNAME_TO_SECOND_STORAGE_COUNTER: usize = 68541;
 
+// Distance between the username and the aob used for flags
+pub const USERNAME_TO_AOB: usize = 68545;
+
 // Distance between the username and the isz glitch bytes
 pub const USERNAME_TO_ISZ_GLITCH: usize = 72082;
 
