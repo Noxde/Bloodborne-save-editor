@@ -68,12 +68,7 @@ fn make_save(path: &str, state_save: tauri::State<MutexSave>, handle: tauri::App
         Ok(s) => {
             let mut data = state_save.data.lock().unwrap();
             *data = Some(s.clone());
-            Ok(serde_json::json!({
-                "username": &s.username,
-                "inventory": &s.inventory,
-                "storage": &s.storage,
-                "stats": &s.stats
-            }))
+            Ok(serde_json::to_value(&s).map_err(|x| x.to_string())?)
         },
         Err(_) => {
             Err("Failed to load file, make sure its a decrypted character.".to_string())
@@ -88,22 +83,12 @@ fn edit_quantity(number: u8, id: u32, value: u32, is_storage: bool, state_save: 
 
     if !is_storage {
         match save.inventory.edit_item(&mut save.file, number, id, value, is_storage) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(e) => Err(e.to_string())
         }
     } else {
         match save.storage.edit_item(&mut save.file, number, id, value, is_storage) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(e) => Err(e.to_string())
         }
     }
@@ -215,12 +200,7 @@ fn transform_item(index: usize, id: u32, new_id: u32, article_type: ArticleType,
                 new_category.push(moved_item);
             }
 
-            Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            }))
+            Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?)
         },
         Err(e) => Err(e.to_string())
     }
@@ -265,12 +245,7 @@ fn edit_effect(new_effect_id: u32, index: usize, info: Value, state_save: tauri:
 
     unsafe {
         match (*upgrade.unwrap()).change_effect(&mut save.file, new_effect_id, index) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to edit the upgrade's effect".to_string())
         }
     }
@@ -307,12 +282,7 @@ fn edit_shape(new_shape: String, info: Value, state_save: tauri::State<MutexSave
   
     unsafe {
         match (*upgrade.unwrap()).change_shape(&mut save.file, new_shape) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to edit the upgrade's shape".to_string())
         }
     }
@@ -330,14 +300,7 @@ fn edit_slot(is_storage: bool, article_type: ArticleType, article_index: usize, 
 
     unsafe {
         match (*article.unwrap()).change_slot_shape(&mut save.file, slot_index, new_shape) {
-            Ok(_) => Ok(
-                serde_json::json!({
-                    "username": &save.username,
-                    "inventory": &save.inventory,
-                    "storage": &save.storage,
-                    "stats": &save.stats
-                })
-            ),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(e) => Err(e.to_string())
         }
     }
@@ -355,14 +318,7 @@ fn equip_gem(upgrade_index: usize, article_type: ArticleType, article_index: usi
     };
 
     match result {
-        Ok(_) => Ok(
-            serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })
-        ),
+        Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
         Err(e) => Err(e.to_string())
     }
 }
@@ -379,14 +335,7 @@ fn unequip_gem(article_type: ArticleType, article_index: usize, slot_index: usiz
     };
 
     match result {
-        Ok(_) => Ok(
-            serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })
-        ),
+        Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
         Err(e) => Err(e.to_string())
     }
 }
@@ -436,22 +385,12 @@ fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<M
     
     if !is_storage {
         match save.inventory.add_item(&mut save.file, id, quantity, is_storage) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to add the item".to_string())
         }
     } else {
         match save.storage.add_item(&mut save.file, id, quantity, is_storage) {
-            Ok(_) => Ok(serde_json::json!({
-                "username": &save.username,
-                "inventory": &save.inventory,
-                "storage": &save.storage,
-                "stats": &save.stats
-            })),
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to add the item".to_string())
         }
     }

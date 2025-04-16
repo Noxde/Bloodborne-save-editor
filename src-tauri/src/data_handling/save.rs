@@ -15,6 +15,7 @@ use super::{
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct SaveData {
+    #[serde(skip_serializing)]
     pub file: FileData,
     pub stats: Vec<Stat>,
     pub inventory: Inventory,
