@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Cleric Beast",
+    "rel_offset": 21714,
+    "dead_value": 8,
+    "value": 0
+  },
+  {
+    "name": "Father Gascoigne",
+    "rel_offset": 21727,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Vicar Amelia",
+    "rel_offset": 21602,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Celestial Emissary",
+    "rel_offset": 21839,
+    "dead_value": 8,
+    "value": 0
+  },
+  {
+    "name": "Ebrietas",
+    "rel_offset": 21852,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Blood Starved Beast",
+    "rel_offset": 21477,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Shadow Of Yharnam",
+    "rel_offset": 22227,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Rom",
+    "rel_offset": 22602,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Witch Of Hemwick",
+    "rel_offset": 21352,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "One Reborn",
+    "rel_offset": 22352,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Martyr Logarius",
+    "rel_offset": 21977,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Dark Beast Paarl",
+    "rel_offset": 21464,
+    "dead_value": 8,
+    "value": 0
+  },
+  {
+    "name": "Amygdala",
+    "rel_offset": 22727,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Mergo's Wet Nurse",
+    "rel_offset": 22102,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Micolash",
+    "rel_offset": 22108,
+    "dead_value": 32,
+    "value": 0
+  },
+  {
+    "name": "Gehrman",
+    "rel_offset": 21102,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Moon Presence",
+    "rel_offset": 21108,
+    "dead_value": 32,
+    "value": 0
+  },
+  {
+    "name": "Ludwig",
+    "rel_offset": 22852,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Living Failures",
+    "rel_offset": 22983,
+    "dead_value": 32,
+    "value": 0
+  },
+  {
+    "name": "Lady Maria",
+    "rel_offset": 22977,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Kos",
+    "rel_offset": 23102,
+    "dead_value": 128,
+    "value": 0
+  },
+  {
+    "name": "Laurence",
+    "rel_offset": 22858,
+    "dead_value": 32,
+    "value": 0
+  }
+]

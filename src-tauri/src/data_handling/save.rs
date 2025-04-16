@@ -3,14 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
 use super::{
-    enums::{Error, ArticleType, Location, UpgradeType},
-    file::FileData,
-    inventory::Inventory,
-    article::Article,
-    stats::{self, Stat},
-    upgrades::{parse_upgrades, Upgrade},
-    username::Username,
-    slots::{parse_equipped_gems, Slot},
+    article::Article, bosses::{self, Boss}, enums::{ArticleType, Error, Location, UpgradeType}, file::FileData, inventory::Inventory, slots::{parse_equipped_gems, Slot}, stats::{self, Stat}, upgrades::{parse_upgrades, Upgrade}, username::Username
 };
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -21,12 +14,14 @@ pub struct SaveData {
     pub inventory: Inventory,
     pub storage: Inventory,
     pub username: Username,
+    pub bosses: Vec<Boss>,
 }
 
 impl SaveData {
     pub fn build(save_path: &str, resources_path: PathBuf) -> Result<SaveData, Error> {
         let mut file = FileData::build(save_path, resources_path)?;
         let stats = stats::new(&file).unwrap();
+        let bosses = bosses::new(&file).unwrap();
         let mut upgrades = parse_upgrades(&file);
         let mut slots = parse_equipped_gems(&mut file, &mut upgrades);
         let inventory = Inventory::build(&file, file.offsets.inventory, file.offsets.key_inventory, &mut upgrades, &mut slots);
@@ -39,6 +34,7 @@ impl SaveData {
             inventory,
             storage,
             username,
+            bosses,
         })
     }
 

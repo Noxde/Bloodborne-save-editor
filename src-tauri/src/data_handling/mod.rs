@@ -3,6 +3,7 @@ pub mod file;
 pub mod inventory;
 pub mod save;
 pub mod stats;
+pub mod bosses;
 pub mod constants;
 pub mod upgrades;
 pub mod appearance;
