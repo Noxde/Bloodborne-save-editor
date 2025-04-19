@@ -44,7 +44,6 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
-      console.log(e);
       const { code, ctrlKey } = e;
       if (code === "Equal" && ctrlKey) {
         document.body.style.zoom = Number(document.body.style.zoom) + 0.1;
