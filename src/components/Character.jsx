@@ -5,6 +5,8 @@ import Stat from "./Stat";
 import Select from "./Select";
 import { invoke, dialog } from "@tauri-apps/api";
 import { ImagesContext } from "../context/imagesContext";
+import Playtime from "./Playtime";
+import { represent } from "../utils/playtime";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
@@ -13,6 +15,8 @@ function Character() {
     JSON.parse(JSON.stringify(save))
   );
   const [isz, setIsz] = useState([]);
+  const [editedPlaytime, setEditedPlaytime] = useState(save.playtime);
+
   const voice = ["Young Voice", "Mature Voice", "Aged Voice"];
   const gender = ["Female", "Male"];
   const origins = [
@@ -122,6 +126,7 @@ function Character() {
               editedStats={editedStats}
             />
           </div>
+          {/* Appearance */}
           <div
             style={{
               fontSize: "25px",
@@ -188,6 +193,7 @@ function Character() {
               Import face
             </button>
           </div>
+          {/* Isz glitch */}
           <div
             style={{
               fontSize: "25px",
@@ -216,6 +222,7 @@ function Character() {
               Fix isz
             </button>
           </div>
+          <Playtime ms={editedPlaytime} setMs={setEditedPlaytime} />
           <div
             style={{
               display: "flex",
@@ -270,6 +277,11 @@ function Character() {
                   } else {
                     setUsername(save.username.string);
                   }
+                  await invoke("set_playtime", {
+                    newPlaytime: represent(editedPlaytime),
+                  });
+
+                  editedStats.playtime = editedPlaytime;
 
                   await dialog.message("Confirmed changes");
 
