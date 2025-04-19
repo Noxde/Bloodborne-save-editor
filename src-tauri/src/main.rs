@@ -36,6 +36,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             edit_slot,
             get_isz,
             fix_isz,
+            get_playtime,
+            set_playtime,
             set_flag
         ])
         .run(tauri::generate_context!())?;
@@ -65,6 +67,23 @@ fn fix_isz(state_save: tauri::State<MutexSave>) {
     let save = save_option.as_mut().unwrap();
 
     save.file.fix_isz();
+}
+
+
+#[tauri::command]
+fn get_playtime(state_save: tauri::State<MutexSave>) -> u32 {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.get_playtime()
+}
+
+#[tauri::command]
+fn set_playtime(new_playtime: [u8;4], state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.set_playtime(new_playtime);
 }
 
 #[tauri::command]
