@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { SaveContext } from "../context/context";
 import { invoke } from "@tauri-apps/api";
 import { ImagesContext } from "../context/imagesContext";
@@ -7,6 +7,7 @@ import Boss from "./Boss";
 function Bosses() {
   const { save, setSave } = useContext(SaveContext);
   const { bosses } = save;
+  const scrollDiv = useRef(null);
 
   const { images } = useContext(ImagesContext);
 
@@ -23,8 +24,15 @@ function Bosses() {
     });
   }
 
+  useEffect(() => {
+    if (scrollDiv?.current) {
+      scrollDiv.current.scroll(0, -999);
+    }
+  }, [scrollDiv]); // Correct scroll
+
   return (
     <div
+      ref={scrollDiv}
       style={{
         alignContent: "center",
         gridColumn: "2/4",
@@ -37,7 +45,7 @@ function Bosses() {
         fontSize: "1.5rem",
         background: `url(${images.backgrounds["statsBg.png"].src})`,
         backgroundSize: "cover",
-        overflowY: "scroll",
+        overflowY: "auto",
       }}
     >
       {bosses.map((x, i) => {
