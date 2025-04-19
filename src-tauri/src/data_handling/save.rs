@@ -15,6 +15,7 @@ pub struct SaveData {
     pub storage: Inventory,
     pub username: Username,
     pub bosses: Vec<Boss>,
+    pub playtime: u32
 }
 
 impl SaveData {
@@ -27,6 +28,7 @@ impl SaveData {
         let inventory = Inventory::build(&file, file.offsets.inventory, file.offsets.key_inventory, &mut upgrades, &mut slots);
         let storage = Inventory::build(&file, file.offsets.storage, (0,0), &mut upgrades, &mut slots); // Its not possible to store key items
         let username = Username::build(&file);
+        let playtime = file.get_playtime();
 
         Ok(SaveData {
             file,
@@ -35,6 +37,7 @@ impl SaveData {
             storage,
             username,
             bosses,
+            playtime
         })
     }
 

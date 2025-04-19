@@ -151,6 +151,19 @@ impl FileData {
         None
     }
 
+    pub fn get_playtime(&self) -> u32 {
+        let time_bytes = [self.bytes[0x08], self.bytes[0x09], self.bytes[0x0A], self.bytes[0x0B]];
+        let time_ms = u32::from_le_bytes(time_bytes);
+
+        time_ms
+    }
+
+    pub fn set_playtime(&mut self, new_playtime: [u8;4]) {
+        for (i, j) in (0x08..=0x0B).enumerate() {
+            self.bytes[j] = new_playtime[i];
+        }
+    }
+
     pub fn get_isz(&self) -> [u8;2] {
         return [self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username], self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1]];
     }
