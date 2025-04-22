@@ -12,6 +12,8 @@
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
   position: relative;
   background-image: url("/public/assets/bg.png");
   background-size: cover;

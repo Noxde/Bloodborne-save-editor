@@ -100,13 +100,16 @@ function Inventory({ inv, isStorage }) {
         />
       ) : null}
       {/* Inventory */}
-      <div
-        ref={inventoryRef}
-        style={{ position: "relative", overflowY: "scroll" }}
-      >
+      <div ref={inventoryRef} style={{ overflowY: "scroll" }}>
         <FilterButtons selectedFilter={selectedFilter} />
-        <div id="hover" style={{ top: `${hoverIndex * 91}px` }}></div>
-        <FilterComponent inventory={inv} selectedFilter={selectedFilter} />
+        <div
+          style={{
+            position: "relative",
+          }}
+        >
+          <div id="hover" style={{ top: `${(hoverIndex - 1) * 91}px` }}></div>
+          <FilterComponent inventory={inv} selectedFilter={selectedFilter} />
+        </div>
       </div>
       {/* Right side buttons */}
       <div className="editButtons">
