@@ -42,7 +42,7 @@
 main {
   position: relative;
   display: grid;
-  height: calc(100% - 111px);
+  height: 100%;
   overflow: hidden;
 }
 
