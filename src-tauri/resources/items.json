@@ -280,6 +280,246 @@
       "item_desc": "Use to gain cosmically nightmarish Blood Echoes",
       "item_img": "revered_great_one_coldblood.png"
     },
+    "1600": {
+      "item_name": "[CUT] Clockwise Metamorphosis",
+      "item_desc": "\"Clockwise Metamorphosis\" script left by runesmith Caryll.",
+      "item_img": "cutClockwise.png"
+    },
+    "1601": {
+      "item_name": "[CUT] Anti-Clockwise Metamorphosis",
+      "item_desc": "\"Anti-Clockwise Metamorphosis\" script left by runesmith Caryll.",
+      "item_img": "cutAntiClockwise.png"
+    },
+    "1602": {
+      "item_name": "[CUT] Communion",
+      "item_desc": "Script for \"Communion,\" left by runesmith Caryll.",
+      "item_img": "cutCommunion.png"
+    },
+    "1603": {
+      "item_name": "[CUT] Oedon Liaison",
+      "item_desc": "Script for \"Oedon Liaison,\" left by runesmith Caryll.",
+      "item_img": "cutOedon.png"
+    },
+    "1604": {
+      "item_name": "[CUT] Lake",
+      "item_desc": "Script for \"Lake,\" left by runesmith Caryll.",
+      "item_img": "cutLake.png"
+    },
+    "1605": {
+      "item_name": "[CUT] Deep Sea",
+      "item_desc": "Script for \"Deep Sea,\" left by runesmith Caryll.",
+      "item_img": "cutDeepSea.png"
+    },
+    "1606": {
+      "item_name": "[CUT] Destroyer",
+      "item_desc": "Script for \"Destroyer,\" left by runesmith Caryll.",
+      "item_img": "cutDestroyer.png"
+    },
+    "1607": {
+      "item_name": "[CUT] Reveller",
+      "item_desc": "Script for \"Reveller,\" left by runesmith Caryll.",
+      "item_img": "cutReveller.png"
+    },
+    "1608": {
+      "item_name": "[CUT] Liaison",
+      "item_desc": "Script for \"Liaison,\" left by runesmith Caryll.",
+      "item_img": "cutLiaison.png"
+    },
+    "1609": {
+      "item_name": "[CUT] Heir",
+      "item_desc": "Script for \"Heir,\" left by runesmith Caryll.",
+      "item_img": "cutHeir.png"
+    },
+    "1610": {
+      "item_name": "[CUT] Beast",
+      "item_desc": "Script for \"Beast,\" left by runesmith Caryll.",
+      "item_img": "cutBeast.png"
+    },
+    "1611": {
+      "item_name": "[CUT] Moon",
+      "item_desc": "Script for \"Moon,\" left by runesmith Caryll.",
+      "item_img": "cutMoon.png"
+    },
+    "1612": {
+      "item_name": "[CUT] Eye",
+      "item_desc": "Script for \"Eye,\" left by runesmith Caryll.",
+      "item_img": "cutEye.png"
+    },
+    "1650": {
+      "item_name": "[CUT] Petrified Blood Gem (1) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1651": {
+      "item_name": "[CUT] Petrified Blood Gem (2) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1652": {
+      "item_name": "[CUT] Petrified Blood Gem (3) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1653": {
+      "item_name": "[CUT] Petrified Blood Gem (4) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1654": {
+      "item_name": "[CUT] Petrified Blood Gem (5) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1655": {
+      "item_name": "[CUT] Petrified Blood Gem (6) Radial",
+      "item_desc": "Petrified Blood Gem. Acquire Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1656": {
+      "item_name": "[CUT] Petrified Abyssal Blood Gem Radial",
+      "item_desc": "Petrified Abyssal Gem. Get Abyssal Radial Blood Gem.",
+      "item_img": "cutRadial.png"
+    },
+    "1657": {
+      "item_name": "[CUT] Petrified Blood Gem (1) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1658": {
+      "item_name": "[CUT] Petrified Blood Gem (2) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1659": {
+      "item_name": "[CUT] Petrified Blood Gem (3) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1660": {
+      "item_name": "[CUT] Petrified Blood Gem (4) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1661": {
+      "item_name": "[CUT] Petrified Blood Gem (5) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1662": {
+      "item_name": "[CUT] Petrified Blood Gem (6) Triangle",
+      "item_desc": "Petrified Blood Gem. Acquire Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1663": {
+      "item_name": "[CUT] Petrified Abyssal Blood Gem Triangle",
+      "item_desc": "Petrified Abyssal Gem. Get Abyssal Triangle Blood Gem.",
+      "item_img": "cutTriangle.png"
+    },
+    "1664": {
+      "item_name": "[CUT] Petrified Blood Gem (1) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1665": {
+      "item_name": "[CUT] Petrified Blood Gem (2) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1666": {
+      "item_name": "[CUT] Petrified Blood Gem (3) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1667": {
+      "item_name": "[CUT] Petrified Blood Gem (4) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1668": {
+      "item_name": "[CUT] Petrified Blood Gem (5) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1669": {
+      "item_name": "[CUT] Petrified Blood Gem (6) Waning",
+      "item_desc": "Petrified Blood Gem. Acquire Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1670": {
+      "item_name": "[CUT] Petrified Abyssal Blood Gem Waning",
+      "item_desc": "Petrified Abyssal Gem. Get Abyssal Waning Blood Gem.",
+      "item_img": "cutWaning.png"
+    },
+    "1671": {
+      "item_name": "[CUT] Petrified Blood Gem (1) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1672": {
+      "item_name": "[CUT] Petrified Blood Gem (2) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1673": {
+      "item_name": "[CUT] Petrified Blood Gem (3) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1674": {
+      "item_name": "[CUT] Petrified Blood Gem (4) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1675": {
+      "item_name": "[CUT] Petrified Blood Gem (5) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1676": {
+      "item_name": "[CUT] Petrified Blood Gem (6) Circle",
+      "item_desc": "Petrified Blood Gem. Acquire Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1677": {
+      "item_name": "[CUT] Petrified Abyssal Blood Gem Circle",
+      "item_desc": "Petrified Abyssal Gem. Get Abyssal Circle Blood Gem.",
+      "item_img": "cutCircle.png"
+    },
+    "1678": {
+      "item_name": "[CUT] Petrified Blood Gem (1) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1679": {
+      "item_name": "[CUT] Petrified Blood Gem (2) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1680": {
+      "item_name": "[CUT] Petrified Blood Gem (3) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1681": {
+      "item_name": "[CUT] Petrified Blood Gem (4) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1682": {
+      "item_name": "[CUT] Petrified Blood Gem (5) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1683": {
+      "item_name": "[CUT] Petrified Blood Gem (6) Droplet",
+      "item_desc": "Petrified Blood Gem. Acquire Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
+    "1684": {
+      "item_name": "[CUT] Petrified Abyssal Blood Gem Droplet",
+      "item_desc": "Petrified Abyssal Gem. Get Abyssal Droplet Blood Gem.",
+      "item_img": "cutDroplet.png"
+    },
     "1700": {
       "item_name": "Vermin",
       "item_desc": "Root of man's impurity. Writhes within filth",
