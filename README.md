@@ -18,11 +18,11 @@
 
 <div align="center">
 
-![overview.gif](./assets/overview-optimized.gif)
+![overview.gif](./assets/overview.gif)
 
 </div>
 
-> [!IMPORTANT]
+> [!IMPORTANT] 
 > **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
 > [!NOTE]
@@ -52,7 +52,7 @@
          Change items amount.
       </summary>
 
-   <img src="./assets/amount-optimized.gif"/>
+   <img src="./assets/itemAmount.gif"/>
    </details>
 
 - <details>
@@ -60,7 +60,7 @@
          Transform items, weapons or armors into different ones including cut content.
       </summary>
 
-   <img src="./assets/transform-optimized.gif"/>
+   <img src="./assets/transform.gif"/>
    </details>
 
 - <details>
@@ -68,7 +68,7 @@
          Modify character attributes.
       </summary>
 
-   <img src="./assets/stats-optimized.gif"/>
+   <img src="./assets/stats.gif"/>
    </details>
 
 - <details>
@@ -76,7 +76,7 @@
          Modify Blood echoes, insight, gender, origin and voice.
       </summary>
 
-   <img src="./assets/character-optimized.gif"/>
+   <img src="./assets/character.gif"/>
    </details>
 
 - <details>
@@ -84,7 +84,7 @@
         Edit Gems and Runes
       </summary>
 
-   <img src="./assets/upgrades-optimized.gif"/>
+   <img src="./assets/editGemsRunes.gif"/>
    </details>
 
 - <details>
@@ -92,7 +92,7 @@
         Add items
       </summary>
 
-   <img src="./assets/add_items-optimized.gif"/>
+   <img src="./assets/addItems.gif"/>
    </details>
 
 - <details>
@@ -100,7 +100,7 @@
         Edit weapons and armor gem slots
       </summary>
 
-   <img src="./assets/equip_gems-optimized.gif"/>
+   <img src="./assets/gemSlots.gif"/>
    </details>
 
 ## 2. Download
