@@ -22,7 +22,7 @@
 
 </div>
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
 > [!NOTE]
@@ -101,6 +101,14 @@
       </summary>
 
    <img src="./assets/gemSlots.gif"/>
+   </details>
+
+- <details>
+      <summary>
+        Kill and revive bosses
+      </summary>
+
+   <img src="./assets/bosses.gif"/>
    </details>
 
 ## 2. Download
