@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Item from "./Item";
-import EditUpgrade from "./EditUpgrade";
-import { ImagesContext } from "../context/imagesContext";
+import Item from "../../components/Item";
+import EditUpgrade from "../../components/EditUpgrade";
+import { ImagesContext } from "../../context/imagesContext";
 import EquippedGem from "./EquippedGem";
-import useDraw from "../utils/useDraw";
-import { SaveContext } from "../context/context";
+import useDraw from "../../utils/useDraw";
+import { SaveContext } from "../../context/context";
 import ChangeGemScreen from "./ChangeGemScreen";
 
 function EquippedGems() {

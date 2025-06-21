@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { dialog, invoke, shell } from "@tauri-apps/api";
-import Main from "./components/Main";
+import Main from "./pages/main/Main";
 import { ImagesProvider } from "./context/imagesContext";
 
 function App() {

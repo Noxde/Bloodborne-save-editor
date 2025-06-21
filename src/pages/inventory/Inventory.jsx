@@ -1,14 +1,14 @@
 import "./inventory.css";
 import { useEffect, useRef, useState, useContext } from "react";
-import { SaveContext } from "../context/context";
+import { SaveContext } from "../../context/context";
 import { invoke } from "@tauri-apps/api";
-import ReplaceScreen from "./ReplaceScreen";
-import { getType } from "../utils/drawCanvas";
+import ReplaceScreen from "../../components/ReplaceScreen";
+import { getType } from "../../utils/drawCanvas";
 import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
-import EditUpgrade from "./EditUpgrade";
+import EditUpgrade from "../../components/EditUpgrade";
 import AddScreen from "./AddScreen";
-import { ImagesContext } from "../context/imagesContext";
+import { ImagesContext } from "../../context/imagesContext";
 import { useNavigate } from "react-router-dom";
 
 function Inventory({ inv, isStorage }) {

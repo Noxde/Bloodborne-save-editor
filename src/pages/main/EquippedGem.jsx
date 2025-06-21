@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import useDraw from "../utils/useDraw";
-import ShapeSelector from "./ShapeSelector";
+import useDraw from "../../utils/useDraw";
+import ShapeSelector from "../../components/ShapeSelector";
 
 function EquippedGem({
   gem,

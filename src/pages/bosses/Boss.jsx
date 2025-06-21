@@ -1,17 +1,22 @@
 function Boss({ boss, onChange }) {
-  let { name, dead_value, value } = boss;
+  let { name, flags } = boss;
+  let [defeatedFlag] = flags;
 
   function handleChange({ target }) {
-    const { mask, op } = JSON.parse(target.value);
+    const option = JSON.parse(target.value);
 
-    if (op === "AND") {
-      value &= mask;
+    if (option === 1) {
+      flags.forEach((f) => {
+        f.current_value = f.alive_value;
+      });
     } else {
-      value |= mask;
+      flags.forEach((f) => {
+        f.current_value = f.dead_value;
+      });
     }
-    boss.value = value;
+    // boss.value = value;
     if (typeof onChange === "function") {
-      onChange(boss);
+      onChange(flags);
     }
   }
 
@@ -27,12 +32,13 @@ function Boss({ boss, onChange }) {
       <span>{name}:</span>
       <div className="select-wrapper">
         <select name="bossStatus" id="bossStatus" onChange={handleChange}>
-          <option value={`{ "mask": ${~dead_value & 0xff}, "op": "AND" }`}>
-            Alive
-          </option>
+          <option value={1}>Alive</option>
           <option
-            selected={(dead_value & value & 0xff) !== 0}
-            value={`{ "mask": ${dead_value}, "op": "OR" }`}
+            selected={
+              (defeatedFlag.dead_value & defeatedFlag.current_value & 0xff) !==
+              0
+            }
+            value={2}
           >
             Dead
           </option>

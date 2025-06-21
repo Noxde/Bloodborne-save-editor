@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
 import SideBar from "./SideBar";
-import Inventory from "./Inventory";
-import Stats from "./Stats";
-import Character from "./Character";
-import { SaveContext } from "../context/context";
-import { ItemsProvider } from "../context/itemsContext";
-import { ImagesContext } from "../context/imagesContext";
+import Inventory from "../inventory/Inventory";
+import Stats from "../stats/Stats";
+import Character from "../character/Character";
+import { SaveContext } from "../../context/context";
+import { ItemsProvider } from "../../context/itemsContext";
+import { ImagesContext } from "../../context/imagesContext";
 import EquippedGems from "./EquippedGems";
-import Bosses from "./Bosses";
+import Bosses from "../bosses/Bosses";
 
 const Main = ({ save, setSave, loading }) => {
   const location = useLocation();

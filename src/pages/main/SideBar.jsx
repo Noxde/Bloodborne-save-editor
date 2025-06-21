@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { SaveContext } from "../context/context";
+import { SaveContext } from "../../context/context";
 
 function SideBar() {
   const { save } = useContext(SaveContext);

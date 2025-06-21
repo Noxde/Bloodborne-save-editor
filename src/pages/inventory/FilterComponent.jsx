@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-import { SaveContext } from "../context/context";
-import Item from "./Item";
+import { SaveContext } from "../../context/context";
+import Item from "../../components/Item";
 
 function FilterComponent({ inventory, selectedFilter = 0 }) {
   const filters = [

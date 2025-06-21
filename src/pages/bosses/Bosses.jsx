@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
-import { SaveContext } from "../context/context";
+import { SaveContext } from "../../context/context";
 import { invoke } from "@tauri-apps/api";
-import { ImagesContext } from "../context/imagesContext";
+import { ImagesContext } from "../../context/imagesContext";
 import Boss from "./Boss";
 
 function Bosses() {
@@ -12,12 +12,14 @@ function Bosses() {
   const { images } = useContext(ImagesContext);
 
   async function handleChange(e, i) {
-    await invoke("set_flag", {
-      offset: e.rel_offset,
-      newValue: e.value,
+    e.forEach(async (x) => {
+      await invoke("set_flag", {
+        offset: x.rel_offset,
+        newValue: x.current_value,
+      });
     });
 
-    bosses[i] = e;
+    bosses[i].flags = e;
     setSave((prev) => {
       prev.bosses = bosses;
       return prev;

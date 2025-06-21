@@ -1,6 +1,6 @@
 import "./playtime.css";
 import { useEffect, useState } from "react";
-import { interpret, toMs } from "../utils/playtime";
+import { interpret, toMs } from "../../utils/playtime";
 
 function Playtime({ ms, setMs }) {
   const [time, setTime] = useState(interpret(ms));

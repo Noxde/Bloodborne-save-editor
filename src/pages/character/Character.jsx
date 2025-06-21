@@ -1,12 +1,12 @@
 import "./character.css";
 import { useContext, useEffect, useState } from "react";
-import { SaveContext } from "../context/context";
-import Stat from "./Stat";
-import Select from "./Select";
+import { SaveContext } from "../../context/context";
+import Stat from "../../components/Stat";
+import Select from "../../components/Select";
 import { invoke, dialog } from "@tauri-apps/api";
-import { ImagesContext } from "../context/imagesContext";
+import { ImagesContext } from "../../context/imagesContext";
 import Playtime from "./Playtime";
-import { represent } from "../utils/playtime";
+import { represent } from "../../utils/playtime";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);

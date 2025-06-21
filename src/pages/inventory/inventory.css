@@ -21,7 +21,7 @@ canvas {
 
 #hover {
   position: absolute;
-  background: url("../../public/assets/hover.png");
+  background: url("/public/assets/hover.png");
   width: 795px;
   height: 90px;
   z-index: 1;
@@ -37,7 +37,7 @@ canvas {
   top: 0;
   width: 795px;
   height: 90px;
-  background: url("../../public/assets/bg.png");
+  background: url("/public/assets/bg.png");
   background-size: cover;
   text-align: center;
   z-index: 2;
@@ -53,7 +53,7 @@ canvas {
 
 #filterHover {
   position: absolute;
-  background: url("../../public/assets/filterHover.png");
+  background: url("/public/assets/filterHover.png");
   background-position: center;
   background-size: contain;
   width: 85px;
@@ -73,7 +73,7 @@ canvas {
 
 #hoverReplacement {
   position: absolute;
-  background: url("../../public/assets/hover.png");
+  background: url("/public/assets/hover.png");
   background-size: 100% 100%;
   width: 526px;
   height: 90px;

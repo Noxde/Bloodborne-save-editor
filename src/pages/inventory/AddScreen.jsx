@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { invoke } from "@tauri-apps/api";
-import { SaveContext } from "../context/context";
-import SearchAllitems from "./SearchAllitems";
+import { SaveContext } from "../../context/context";
+import SearchAllitems from "../../components/SearchAllitems";
 
 function AddScreen({ type, setAddScreen, isStorage }) {
   const [selected, setSelected] = useState(null);
