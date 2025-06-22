@@ -1,9 +1,6 @@
 name: "build-artifact"
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -36,7 +33,9 @@ jobs:
           $config | ConvertTo-Json -Depth 10 | Set-Content src-tauri/tauri.conf.json -Encoding UTF8
 
       - name: Build Tauri app (Windows)
-        run: CI=false npm run tauri build
+        run: |
+          $Env:CI = $false
+          npm run tauri build
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
