@@ -72,9 +72,7 @@ jobs:
         run: npm install
 
       - name: Build Tauri AppImage
-        run: |
-          export NO_STRIP=true
-          CI=false npm run tauri build
+        run: NO_STRIP=true CI=false npm run tauri build -- --bundles "appimage"
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
