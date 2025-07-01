@@ -228,8 +228,6 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeTyp
             note: String::from(""),
         };
 
-        let mut is_cursed = false; // Initialize the is_cursed flag
-
         for e in 0 .. 6 {
             let mut json_effect = &json_effects[&effects_ids[e].to_string()];
             //If the effect wasn't found, search in the other upgrade type's effects
@@ -241,18 +239,11 @@ pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeTyp
                 Ok(inf) => inf,
                 Err(_) => continue,
             };
-            if upgrade_type == UpgradeType::Gem && effect_info.effect.contains("-") {
-                is_cursed = true; // Set the flag if "Cursed" is found
-            }
             effects.push((effects_ids[e], effect_info.effect.clone()));
             if e == 0 {
                 info = effect_info;
             }
 
-        }
-
-        if is_cursed {
-            info.name = format!("Cursed {}", info.name); // Prefix "Cursed" to the name if any effect is cursed
         }
 
         let shape = match get_shape(file_data.bytes[i+12], upgrade_type) {
