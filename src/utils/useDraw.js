@@ -170,8 +170,10 @@ function useDraw() {
       } = upgrade;
 
       const uniqueGem = getUnique(effects[0][0], shape, source);
+      const cursed = isCursed(effects);
+      const finalName = makeGemName(name, uniqueGem, cursed, source);
       const thumbnail = await loadImage(
-        getGemPath(effects, shape, level, uniqueGem)
+        getGemPath(effects, shape, level, uniqueGem, cursed)
       ).catch(() => {});
 
       ctx.font = "20px Reim";
@@ -184,15 +186,7 @@ function useDraw() {
       ctx.shadowOffsetY = 2;
       ctx.shadowColor = "black";
       ctx.fillStyle = "#ab9e87";
-      ctx.fillText(
-        uniqueGem
-          ? uniqueGem.name
-          : [2147633649, 2147633648, 2147633650].includes(source)
-          ? "?GemName?"
-          : name,
-        107,
-        28
-      );
+      ctx.fillText(finalName, 107, 28);
 
       const margin = 100;
       // Draw numbers
@@ -211,6 +205,18 @@ function useDraw() {
 
       if (thumbnail !== undefined)
         ctx.drawImage(thumbnail, x, 4.8, x + size, 4.8 + size + 2);
+    }
+  }
+
+  function makeGemName(name, uniqueGem, cursed, source) {
+    if (uniqueGem) {
+      return uniqueGem.name;
+    } else if ([2147633649, 2147633648, 2147633650].includes(source)) {
+      return "?GemName?";
+    } else if (cursed) {
+      return `Cursed ${name}`;
+    } else {
+      return name;
     }
   }
 
@@ -317,11 +323,10 @@ function useDraw() {
     }
   }
 
-  function getGemPath(effects, shape, level, unique) {
+  function getGemPath(effects, shape, level, unique, cursed) {
     if (unique) return `/assets/gems/unique/${unique.image}.png`;
 
     const color = getGemColor(effects[0][1]);
-    const cursed = isCursed(effects);
     return `/assets/gems/${shape.toLowerCase()}/${color}/${
       cursed ? "cursed_" : ""
     }${level}.png`;
