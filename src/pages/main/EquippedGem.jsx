@@ -13,7 +13,7 @@ function EquippedGem({
   index,
 }) {
   const canvasRef = useRef();
-  const { getGemPath, getUnique, loadImage } = useDraw();
+  const { getGemPath, getUnique, loadImage, isCursed } = useDraw();
 
   useEffect(() => {
     if (gem != null) {
@@ -29,7 +29,9 @@ function EquippedGem({
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         const unique = getUnique(effects[0][0], shape, source);
-        const path = getGemPath(effects, shape, level, unique);
+        const cursed = isCursed(effects);
+        const path = getGemPath(effects, shape, level, unique, cursed);
+
         loadImage(path).then((img) => {
           ctx.drawImage(img, 0, 0, 175, 175);
         });
