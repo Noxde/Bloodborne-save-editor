@@ -52,21 +52,14 @@ function EquippedGems() {
           equipped={article}
           slot={selectedGem.index}
           confirmCb={(newGem) => {
-            const canvas = selectedRef.current;
-            const ctx = canvas.getContext("2d");
-
-            const {
-              effects,
-              info: { level },
-              shape,
-            } = newGem;
-
-            console.log(save);
-            const path = getGemPath(effects, shape, level);
-            loadImage(path).then((img) => {
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            setArticle((prev) => {
+              const index = prev.slots.findIndex(
+                (x) => x.gem?.id === selectedGem.gem.id
+              );
+              prev.slots[index].gem = newGem;
+              return JSON.parse(JSON.stringify(prev));
             });
+
             setSelectedGem(null);
           }}
         />
