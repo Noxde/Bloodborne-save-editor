@@ -82,9 +82,9 @@ impl Offsets {
                         }
                         end_offset = Some(i + 15);
                     }
-                    if empty_slots > MAX_EMPTY_INV_SLOTS {
-                        return Ok(end_offset.unwrap());
-                    }
+                    // if empty_slots > MAX_EMPTY_INV_SLOTS {
+                    //     return Ok(end_offset.unwrap());
+                    // }
                 } else if end_offset.is_some() {
                     end_offset = None;
                     empty_slots = 0;
