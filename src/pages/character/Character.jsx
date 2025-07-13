@@ -1,12 +1,14 @@
 import "./character.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SaveContext } from "../../context/context";
 import Stat from "../../components/Stat";
-import Select from "../../components/Select";
 import { invoke, dialog } from "@tauri-apps/api";
 import { ImagesContext } from "../../context/imagesContext";
 import Playtime from "./Playtime";
 import { represent } from "../../utils/playtime";
+import CharacterInfo from "./CharacterInfo";
+import Appearance from "./Appearance";
+import IszGlitch from "./IszGlitch";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
@@ -14,28 +16,9 @@ function Character() {
   const [editedStats, setEditedStats] = useState(
     JSON.parse(JSON.stringify(save))
   );
-  const [isz, setIsz] = useState([]);
   const [editedPlaytime, setEditedPlaytime] = useState(save.playtime);
 
-  const voice = ["Young Voice", "Mature Voice", "Aged Voice"];
-  const gender = ["Female", "Male"];
-  const origins = [
-    "Milquetoast",
-    "Lone Survivor",
-    "Troubled Childhood",
-    "Violent Past",
-    "Professional",
-    "Military Veteran",
-    "Noble Scion",
-    "Cruel Fate",
-    "Waste of Skin",
-  ];
-  const ng = ["NG0", "NG+1", "NG+2", "NG+3", "NG+4", "NG+5", "NG+6", "NG+7"];
   const { images } = useContext(ImagesContext);
-
-  useEffect(() => {
-    invoke("get_isz").then((d) => setIsz(d));
-  }, []);
 
   return (
     <div
@@ -94,134 +77,14 @@ function Character() {
           />
         </div>
         <div id="characterData">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              marginTop: "5px",
-            }}
-          >
-            <Select
-              name={"Gender"}
-              options={gender}
-              setEditedStats={setEditedStats}
-              editedStats={editedStats}
-            />
-            <Select
-              name={"Origin"}
-              options={origins}
-              setEditedStats={setEditedStats}
-              editedStats={editedStats}
-            />
-            <Select
-              name={"Voice"}
-              options={voice}
-              setEditedStats={setEditedStats}
-              editedStats={editedStats}
-            />
-            <Select
-              name={"Ng"}
-              options={ng}
-              setEditedStats={setEditedStats}
-              editedStats={editedStats}
-            />
-          </div>
+          <CharacterInfo
+            editedStats={editedStats}
+            setEditedStats={setEditedStats}
+          />
           {/* Appearance */}
-          <div
-            style={{
-              fontSize: "25px",
-              marginTop: "5px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <button
-              className="buttonBg"
-              style={{
-                padding: "0 15px",
-                fontSize: "inherit",
-                backgroundSize: "100% 100%",
-              }}
-              onClick={async () => {
-                try {
-                  const path = await dialog.save({
-                    title: "Save face file",
-                  });
-
-                  if (path) {
-                    const success = await invoke("export_appearance", {
-                      path,
-                    });
-
-                    await dialog.message(success);
-                  }
-                } catch (error) {
-                  console.error(error);
-                }
-              }}
-            >
-              Export face
-            </button>
-            <button
-              className="buttonBg"
-              style={{
-                padding: "0 15px",
-                fontSize: "inherit",
-                backgroundSize: "100% 100%",
-              }}
-              onClick={async () => {
-                try {
-                  const path = await dialog.open({
-                    title: "Select a face file",
-                  });
-
-                  if (path) {
-                    const success = await invoke("import_appearance", {
-                      path,
-                    });
-
-                    await dialog.message(success);
-                  }
-                } catch (error) {
-                  console.error(error);
-                  await dialog.message(error, {
-                    type: "error",
-                  });
-                }
-              }}
-            >
-              Import face
-            </button>
-          </div>
+          <Appearance />
           {/* Isz glitch */}
-          <div
-            style={{
-              fontSize: "25px",
-              marginTop: "5px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <span>
-              Isz status:{" "}
-              {isz.map((x) => x.toString(16).toUpperCase()).join(" ")}
-            </span>
-            <button
-              style={{
-                width: "174px",
-                fontSize: "25px",
-                padding: "0 15px",
-                backgroundSize: "100% 100%",
-              }}
-              className="buttonBg"
-              onClick={async () => {
-                await invoke("fix_isz");
-                setIsz(await invoke("get_isz"));
-              }}
-            >
-              Fix isz
-            </button>
-          </div>
+          <IszGlitch />
           <Playtime ms={editedPlaytime} setMs={setEditedPlaytime} />
           <div
             style={{
