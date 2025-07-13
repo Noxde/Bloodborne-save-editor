@@ -168,15 +168,19 @@ impl FileData {
         return [self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username], self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1]];
     }
 
-    pub fn fix_isz(&mut self) {
+    pub fn fix_isz(&mut self) -> String {
         let values = self.get_isz();
         if values[0] == 0xFF {
             if values[1] < 0xC0 {
                 self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1] = 0x30;
+                return "Partial Isz glitch fix applied".to_string();
             } else if values[1] == 0xC0 {
                 self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1] = 0xFF;
+                return "Full Isz glitch fix applied".to_string();
             }
         }
+
+        "No Isz glitch, no changes have been made".to_string()
     }
 }
 

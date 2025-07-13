@@ -62,11 +62,11 @@ fn get_isz(state_save: tauri::State<MutexSave>) -> [u8;2] {
 }
 
 #[tauri::command]
-fn fix_isz(state_save: tauri::State<MutexSave>) {
+fn fix_isz(state_save: tauri::State<MutexSave>) -> String {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    save.file.fix_isz();
+    save.file.fix_isz()
 }
 
 
