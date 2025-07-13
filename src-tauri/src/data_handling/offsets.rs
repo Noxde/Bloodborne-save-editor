@@ -66,7 +66,6 @@ impl Offsets {
         //Find the end of the inventories
         let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
         let mut end_offset: Option<usize> = None;
-        let mut empty_slots: usize = 0;
         let mut find_end = |start: usize, allow_empty: bool| -> Result<usize, Error> {
             //Maximum length of the normal inv before it reaches the key inv
             let inv_max_length = USERNAME_TO_KEY_INV_OFFSET - USERNAME_TO_INV_OFFSET;
@@ -75,19 +74,14 @@ impl Offsets {
             for i in (start ..  start + inv_max_length - 15).step_by(16) {
                 buffer.copy_from_slice(&bytes[i + 4 ..= i + 15]);
                 if end == buffer {
-                    empty_slots += 1;
                     if end_offset.is_none() {
                         if !allow_empty {
                             return Ok(i + 15);
                         }
                         end_offset = Some(i + 15);
                     }
-                    // if empty_slots > MAX_EMPTY_INV_SLOTS {
-                    //     return Ok(end_offset.unwrap());
-                    // }
                 } else if end_offset.is_some() {
                     end_offset = None;
-                    empty_slots = 0;
                 }
             }
             match end_offset {
