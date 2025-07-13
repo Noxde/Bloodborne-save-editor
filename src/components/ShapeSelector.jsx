@@ -41,6 +41,7 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
         }}
         onClick={() => setOpen((prev) => !prev)}
       >
+        {/* If the slot is not closed, show the selected shape. Else, show an empty div */}
         {selected !== "Closed" ? (
           <img
             style={{
@@ -48,7 +49,7 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
               position: "relative",
               top: 1,
               left: 1,
-              zIndex: 2,
+              zIndex: 10,
             }}
             src={`/assets/${selected.toLowerCase()}.png`}
             width="48px"
@@ -74,7 +75,11 @@ function ShapeSelector({ shape, isStorage, article, setArticle, slotIndex }) {
               .filter((x) => x !== selected)
               .map((x) => (
                 <img
-                  style={{ display: "block" }}
+                  style={{
+                    position: "relative",
+                    display: "block",
+                    zIndex: 10,
+                  }}
                   src={`/assets/${
                     x === "Closed" ? "shape_bg" : x.toLowerCase()
                   }.png`}
