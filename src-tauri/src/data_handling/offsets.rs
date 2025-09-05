@@ -10,6 +10,7 @@ pub struct Offsets {
     pub key_inventory: (usize, usize), //Beginning and end
     pub appearance: (usize, usize), //Beginning
     pub equipped_gems: (usize, usize), //Beginning and end
+    pub lced_offset: usize
 }
 
 impl Offsets {
@@ -20,9 +21,11 @@ impl Offsets {
         let mut upgrades_offset = (START_TO_UPGRADE, 0);
         let mut key_inventory_offset = (0, 0);
         let mut appearance_offset = (0, 0);
+        let mut lced_offset= 0;
         let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
         let inv_start_bytes_len = inv_start_bytes.len();
         let appearance_start_bytes = [b'F', b'A', b'C', b'E'];
+        let lced_bytes = [0x4C, 0x43, 0x45, 0x44];
 
         let gems = [
             [0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
@@ -92,18 +95,28 @@ impl Offsets {
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
         inventory_offset.1 = find_end(inventory_offset.0, true)? - 11;
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
+        let mut last_i: usize = 0;
 
         //Searches for the appearance_start_bytes
         for i in 0xF000..(bytes.len() - 4) { //0xF000: In all the saves i found the save bytes after 0x10000
             if appearance_start_bytes == bytes[i..i + 4] {
                 appearance_offset.0 = i + 4;
                 appearance_offset.1 = appearance_offset.0 + APPEARANCE_BYTES_AMOUNT - 1;
+                last_i = i;
                 break;
             }
         }
         if appearance_offset.0 == 0 {
             return Err(Error::CustomError("Failed to find the appearance."));
         }
+
+        // Find lced offset
+        for i in last_i..(bytes.len() - 1) {    
+            if lced_bytes == bytes[i..i + 4] {
+                lced_offset = i;
+                break;
+            }
+        };
 
         let storage_start_offset = inventory_offset.0 + INV_TO_STORAGE_OFFSET;
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
@@ -117,6 +130,7 @@ impl Offsets {
             key_inventory: key_inventory_offset,
             appearance: appearance_offset,
             equipped_gems: (0, 0),
+            lced_offset
         })
     }
 }
