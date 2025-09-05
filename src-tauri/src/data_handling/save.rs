@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use std::path::PathBuf;
+use crate::data_handling::position::Pos;
 
 use super::{
     article::Article, bosses::{self, Boss}, enums::{ArticleType, Error, Location, UpgradeType}, file::FileData, inventory::Inventory, slots::{parse_equipped_gems, Slot}, stats::{self, Stat}, upgrades::{parse_upgrades, Upgrade}, username::Username
@@ -15,7 +16,8 @@ pub struct SaveData {
     pub storage: Inventory,
     pub username: Username,
     pub bosses: Vec<Boss>,
-    pub playtime: u32
+    pub playtime: u32,
+    pub position: Pos
 }
 
 impl SaveData {
@@ -29,6 +31,7 @@ impl SaveData {
         let storage = Inventory::build(&file, file.offsets.storage, (0,0), &mut upgrades, &mut slots); // Its not possible to store key items
         let username = Username::build(&file);
         let playtime = file.get_playtime();
+        let position = Pos::new(&file).unwrap();
 
         Ok(SaveData {
             file,
@@ -37,7 +40,8 @@ impl SaveData {
             storage,
             username,
             bosses,
-            playtime
+            playtime,
+            position
         })
     }
 

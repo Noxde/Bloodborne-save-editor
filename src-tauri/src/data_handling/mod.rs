@@ -4,6 +4,7 @@ pub mod inventory;
 pub mod save;
 pub mod stats;
 pub mod bosses;
+pub mod position;
 pub mod constants;
 pub mod upgrades;
 pub mod appearance;

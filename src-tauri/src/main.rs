@@ -38,7 +38,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             fix_isz,
             get_playtime,
             set_playtime,
-            set_flag
+            set_flag,
+            edit_coordinates
         ])
         .run(tauri::generate_context!())?;
 
@@ -422,4 +423,12 @@ fn add_item(id: u32, quantity: u32, is_storage: bool, state_save: tauri::State<M
             Err(_) => Err("Failed to add the item".to_string())
         }
     }
+}
+
+#[tauri::command]
+fn edit_coordinates(x: f32, y: f32, z: f32, state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+   
+   save.position.coordinates.edit(&mut save.file, x, y, z);
 }
