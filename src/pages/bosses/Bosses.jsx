@@ -36,7 +36,6 @@ function Bosses() {
     <div
       ref={scrollDiv}
       style={{
-        alignContent: "center",
         gridColumn: "2/4",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
