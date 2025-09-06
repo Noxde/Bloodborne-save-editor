@@ -158,7 +158,7 @@
     "flags": [
       {
         "rel_offset": 22108,
-        "dead_value": 32,
+        "dead_value": 63,
         "alive_value": 0,
         "current_value": 0
       }
