@@ -31,7 +31,6 @@ impl Coordinates {
     pub fn new(file: &FileData) -> Result<Coordinates, Error> {
         let bytes = &file.bytes;
         let lced_offset = file.offsets.lced_offset;
-        println!("{lced_offset}");
         
         for i in lced_offset..(bytes.len() - 1) {
             if [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] == bytes[i..=i+11] {
