@@ -53,15 +53,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-
-      - name: Pre-fetch AppImage tools
-        run: |
-          mkdir -p ~/.local/bin
-          curl -L https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-x86_64 -o ~/.local/bin/uruntime
-          curl -L https://github.com/VHSgunzo/sharun/releases/latest/download/sharun-x86_64-aio -o ~/.local/bin/sharun
-          chmod +x ~/.local/bin/uruntime ~/.local/bin/sharun
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -74,16 +66,17 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: "./src-tauri -> target"
+          workspaces: src-tauri
+          cache-all-crates: true
 
-      - name: "Install bundler"
-        run: cargo install tauri-cli --git https://github.com/tauri-apps/tauri --branch feat/truly-portable-appimage
+      - name: install tauri cli
+        run: cargo install tauri-cli --git https://github.com/tauri-apps/tauri --branch feat/truly-portable-appimage --locked
 
       - name: Install frontend dependencies
         run: npm install
 
       - name: Build Tauri AppImage
-        run: TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
+        run: NO_STRIP=true TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
