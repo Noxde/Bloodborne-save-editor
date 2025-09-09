@@ -85,7 +85,7 @@ jobs:
         run: npm install
 
       - name: Build Tauri AppImage
-        run: NO_STRIP=true TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
+        run: NO_STRIP=true TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build --verbose
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
