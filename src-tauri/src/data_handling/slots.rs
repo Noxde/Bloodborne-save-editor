@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
 
-use super::{enums::{SlotShape, UpgradeType},
-           upgrades::Upgrade,
-           file::FileData};
+use super::{
+    enums::{SlotShape, UpgradeType},
+    file::FileData,
+    upgrades::Upgrade,
+};
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
@@ -14,16 +16,14 @@ pub struct Slot {
 
 impl Slot {
     fn build(shape: SlotShape, gem: Option<Upgrade>, index: usize) -> Self {
-        Slot {
-            shape,
-            gem,
-            index,
-        }
+        Slot { shape, gem, index }
     }
-
 }
 
-pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>) -> HashMap<u64, Vec<Slot>> {
+pub fn parse_equipped_gems(
+    file_data: &mut FileData,
+    upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>,
+) -> HashMap<u64, Vec<Slot>> {
     let mut slots = HashMap::new();
     let mut abort = true;
     let mut index: usize = 0;
@@ -53,35 +53,39 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
     //If there is, it is added to the HashMap
     //The offset must point to the fist bit of the block
     let mut get_slots = |offset: usize| -> bool {
-        let id = u64::from_le_bytes([file_data.bytes[offset+0],
-                                     file_data.bytes[offset+1],
-                                     file_data.bytes[offset+2],
-                                     file_data.bytes[offset+3],
-                                     file_data.bytes[offset+4],
-                                     file_data.bytes[offset+5],
-                                     file_data.bytes[offset+6],
-                                     file_data.bytes[offset+7]]);
+        let id = u64::from_le_bytes([
+            file_data.bytes[offset + 0],
+            file_data.bytes[offset + 1],
+            file_data.bytes[offset + 2],
+            file_data.bytes[offset + 3],
+            file_data.bytes[offset + 4],
+            file_data.bytes[offset + 5],
+            file_data.bytes[offset + 6],
+            file_data.bytes[offset + 7],
+        ]);
 
         if id == 0 {
             return false;
         }
 
         let mut slots_vec = Vec::with_capacity(5);
-        for val in (offset + 20 .. offset + 60).into_iter().step_by(8) {
+        for val in (offset + 20..offset + 60).into_iter().step_by(8) {
             let mut gem: Option<Upgrade> = None;
             //If the slot shape is valid
-            if let Ok(shape) = SlotShape::try_from(&[file_data.bytes[val+0],
-                                                     file_data.bytes[val+1],
-                                                     file_data.bytes[val+2],
-                                                     file_data.bytes[val+3]]) {
-
+            if let Ok(shape) = SlotShape::try_from(&[
+                file_data.bytes[val + 0],
+                file_data.bytes[val + 1],
+                file_data.bytes[val + 2],
+                file_data.bytes[val + 3],
+            ]) {
                 //If the slot is open we fetch the gem in the slot
                 if shape != SlotShape::Closed {
-
-                    let gem_id = u32::from_le_bytes([file_data.bytes[val+4],
-                                                 file_data.bytes[val+5],
-                                                 file_data.bytes[val+6],
-                                                 file_data.bytes[val+7]]);
+                    let gem_id = u32::from_le_bytes([
+                        file_data.bytes[val + 4],
+                        file_data.bytes[val + 5],
+                        file_data.bytes[val + 6],
+                        file_data.bytes[val + 7],
+                    ]);
 
                     if let Some(upgrade) = upgrades.remove(&gem_id) {
                         gem = Some(upgrade.0);
@@ -90,11 +94,9 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
                     }
                 }
                 slots_vec.push(Slot::build(shape, gem, slots_vec.len()));
-
             } else {
                 return false;
             }
-
         }
 
         slots.insert(id, slots_vec);
@@ -106,8 +108,8 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
     };
 
     //Find the first block
-    for i in (file_data.offsets.upgrades.1) .. (file_data.offsets.username - 147) {
-        if get_slots(i-16) {
+    for i in (file_data.offsets.upgrades.1)..(file_data.offsets.username - 147) {
+        if get_slots(i - 16) {
             abort = false;
             index = i - 16 + 60; //Next slots block
             file_data.offsets.equipped_gems.0 = index - 60;
@@ -130,20 +132,23 @@ pub fn parse_equipped_gems(file_data: &mut FileData, upgrades: &mut HashMap<u32,
         }
 
         //Skip the garbage
-        while u64::from_le_bytes([file_data.bytes[index+0],
-                                   file_data.bytes[index+1],
-                                   file_data.bytes[index+2],
-                                   file_data.bytes[index+3],
-                                   file_data.bytes[index+4],
-                                   file_data.bytes[index+5],
-                                   file_data.bytes[index+6],
-                                   file_data.bytes[index+7]]) == 0xFFFFFFFF00000000 {
+        while u64::from_le_bytes([
+            file_data.bytes[index + 0],
+            file_data.bytes[index + 1],
+            file_data.bytes[index + 2],
+            file_data.bytes[index + 3],
+            file_data.bytes[index + 4],
+            file_data.bytes[index + 5],
+            file_data.bytes[index + 6],
+            file_data.bytes[index + 7],
+        ]) == 0xFFFFFFFF00000000
+        {
             index += 8;
         }
 
         //If the loop is stuck in corrupted data, continue
         if previous == index {
-            index +=1;
+            index += 1;
         }
     }
 

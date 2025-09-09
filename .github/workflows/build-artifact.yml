@@ -44,7 +44,7 @@ jobs:
           path: src-tauri/target/release/bundle/msi/*.msi # Adjust if needed
 
   build-linux-appimage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -68,11 +68,14 @@ jobs:
         with:
           workspaces: "./src-tauri -> target"
 
+      - name: "Install bundler"
+        run: cargo install tauri-cli --git https://github.com/tauri-apps/tauri --branch feat/truly-portable-appimage
+
       - name: Install frontend dependencies
         run: npm install
 
       - name: Build Tauri AppImage
-        run: NO_STRIP=true CI=false npm run tauri build -- --bundles "appimage"
+        run: TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4

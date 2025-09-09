@@ -2,7 +2,7 @@ import "./character.css";
 import { useContext, useState } from "react";
 import { SaveContext } from "../../context/context";
 import Stat from "../../components/Stat";
-import { invoke, dialog } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { ImagesContext } from "../../context/imagesContext";
 import Playtime from "./Playtime";
 import { represent } from "../../utils/playtime";
@@ -10,6 +10,7 @@ import CharacterInfo from "./CharacterInfo";
 import Appearance from "./Appearance";
 import IszGlitch from "./IszGlitch";
 import Coordinates from "./Coordinates";
+import * as dialog from "@tauri-apps/plugin-dialog";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);

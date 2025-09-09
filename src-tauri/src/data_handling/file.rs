@@ -1,7 +1,15 @@
 use serde::{Deserialize, Serialize};
 
-use super::{constants::{USERNAME_TO_AOB, USERNAME_TO_ISZ_GLITCH}, enums::{Error, Location, TypeFamily}, offsets::Offsets};
-use std::{fs, io::{self, Read}, path::PathBuf};
+use super::{
+    constants::{USERNAME_TO_AOB, USERNAME_TO_ISZ_GLITCH},
+    enums::{Error, Location, TypeFamily},
+    offsets::Offsets,
+};
+use std::{
+    fs,
+    io::{self, Read},
+    path::PathBuf,
+};
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub struct FileData {
@@ -54,13 +62,13 @@ impl FileData {
 
     pub fn get_flag(&self, offset_from_aob: usize) -> u8 {
         let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
-        
+
         self.bytes[value_offset]
     }
 
     pub fn set_flag(&mut self, offset_from_aob: usize, new_value: u8) {
         let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
-        
+
         self.bytes[value_offset] = new_value;
     }
 
@@ -80,35 +88,43 @@ impl FileData {
         fs::write(path, &self.bytes)
     }
 
-    pub fn find_article_offset(&self, index: u8, id: u32, type_family: TypeFamily, is_storage: bool) -> Option<usize> {
+    pub fn find_article_offset(
+        &self,
+        index: u8,
+        id: u32,
+        type_family: TypeFamily,
+        is_storage: bool,
+    ) -> Option<usize> {
         let found = |offset| -> bool {
             let last_byte = match type_family {
                 TypeFamily::Armor | TypeFamily::Item => 0x00,
-                TypeFamily::Weapon => self.bytes[offset+11],
+                TypeFamily::Weapon => self.bytes[offset + 11],
             };
-            let current_id = u32::from_le_bytes([self.bytes[offset+8],
-                                                     self.bytes[offset+9],
-                                                     self.bytes[offset+10],
-                                                     last_byte]);
+            let current_id = u32::from_le_bytes([
+                self.bytes[offset + 8],
+                self.bytes[offset + 9],
+                self.bytes[offset + 10],
+                last_byte,
+            ]);
             (index == self.bytes[offset]) && (id == current_id)
         };
 
         let (inv, key) = match is_storage {
             true => (self.offsets.storage, self.offsets.key_inventory),
-            false => (self.offsets.inventory, self.offsets.key_inventory)
+            false => (self.offsets.inventory, self.offsets.key_inventory),
         };
 
         //Search for the article in the inventory
         let mut i = inv.0;
         while (i <= inv.1 - 24) && (!found(i)) {
-            i+=16;
+            i += 16;
         }
 
         //If the article wasnt found, search for it in the key inventory
         if !found(i) {
             i = key.0;
             while (i <= key.1 - 16) && (!found(i)) {
-                i+=16;
+                i += 16;
             }
         }
 
@@ -120,11 +136,13 @@ impl FileData {
 
     pub fn find_upgrade_offset(&self, id: u32) -> Option<usize> {
         //Search for the upgrade
-        for i in (self.offsets.upgrades.0 .. self.offsets.upgrades.1).step_by(40) {
-            let current_id = u32::from_le_bytes([self.bytes[i+0],
-                                                 self.bytes[i+1],
-                                                 self.bytes[i+2],
-                                                 self.bytes[i+3]]);
+        for i in (self.offsets.upgrades.0..self.offsets.upgrades.1).step_by(40) {
+            let current_id = u32::from_le_bytes([
+                self.bytes[i + 0],
+                self.bytes[i + 1],
+                self.bytes[i + 2],
+                self.bytes[i + 3],
+            ]);
             if id == current_id {
                 return Some(i);
             }
@@ -142,8 +160,8 @@ impl FileData {
         let empty = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
         let mut buffer = [0; 12];
         //-4 so it doesn't match the last slot
-        for i in (start ..  end - 4).step_by(16) {
-            buffer.copy_from_slice(&self.bytes[i + 4 ..= i + 15]);
+        for i in (start..end - 4).step_by(16) {
+            buffer.copy_from_slice(&self.bytes[i + 4..=i + 15]);
             if empty == buffer {
                 return Some(i + 4); //First byte of the first part of the slot
             }
@@ -152,20 +170,28 @@ impl FileData {
     }
 
     pub fn get_playtime(&self) -> u32 {
-        let time_bytes = [self.bytes[0x08], self.bytes[0x09], self.bytes[0x0A], self.bytes[0x0B]];
+        let time_bytes = [
+            self.bytes[0x08],
+            self.bytes[0x09],
+            self.bytes[0x0A],
+            self.bytes[0x0B],
+        ];
         let time_ms = u32::from_le_bytes(time_bytes);
 
         time_ms
     }
 
-    pub fn set_playtime(&mut self, new_playtime: [u8;4]) {
+    pub fn set_playtime(&mut self, new_playtime: [u8; 4]) {
         for (i, j) in (0x08..=0x0B).enumerate() {
             self.bytes[j] = new_playtime[i];
         }
     }
 
-    pub fn get_isz(&self) -> [u8;2] {
-        return [self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username], self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1]];
+    pub fn get_isz(&self) -> [u8; 2] {
+        return [
+            self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username],
+            self.bytes[USERNAME_TO_ISZ_GLITCH + self.offsets.username + 1],
+        ];
     }
 
     pub fn fix_isz(&mut self) -> String {
@@ -218,14 +244,25 @@ mod tests {
     #[test]
     fn test_find_article_offset() {
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
-        assert_eq!(file_data.find_article_offset(4, 1200, TypeFamily::Item, true).unwrap(), 0x10f28);
+        assert_eq!(
+            file_data
+                .find_article_offset(4, 1200, TypeFamily::Item, true)
+                .unwrap(),
+            0x10f28
+        );
     }
 
     #[test]
     fn test_find_inv_empty_slot() {
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
-        assert_eq!(file_data.find_inv_empty_slot(Location::Inventory).unwrap(), 0xcfb8);
-        assert_eq!(file_data.find_inv_empty_slot(Location::Storage).unwrap(), 0x15304);
+        assert_eq!(
+            file_data.find_inv_empty_slot(Location::Inventory).unwrap(),
+            0xcfb8
+        );
+        assert_eq!(
+            file_data.find_inv_empty_slot(Location::Storage).unwrap(),
+            0x15304
+        );
 
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert!(file_data.find_inv_empty_slot(Location::Inventory).is_none());

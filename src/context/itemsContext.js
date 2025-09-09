@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 
 export const ItemsContext = createContext();
 

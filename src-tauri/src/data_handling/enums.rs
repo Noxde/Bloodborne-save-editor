@@ -1,5 +1,5 @@
-use std::{fmt, io};
 use serde::{Deserialize, Serialize};
+use std::{fmt, io};
 //use serde_json::Error as JsonError;
 
 #[derive(Debug)]
@@ -12,8 +12,8 @@ pub enum Error {
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Error::IoError(err) => write!(f, "I/0 error: {}",err),
-            Error::CustomError(err) => write!(f, "Save error: {}",err),
+            Error::IoError(err) => write!(f, "I/0 error: {}", err),
+            Error::CustomError(err) => write!(f, "Save error: {}", err),
             //Error::JsonError(err) => write!(f, "JSON SERDES error: {}",err),
         }
     }
@@ -110,7 +110,7 @@ impl Into<[u8; 4]> for SlotShape {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Copy, Hash)]
-pub enum UpgradeType{
+pub enum UpgradeType {
     Gem,
     Rune,
 }

@@ -1,6 +1,7 @@
-import { invoke, dialog } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { basename } from "@tauri-apps/api/path";
 import { useState } from "react";
+import * as dialog from "@tauri-apps/plugin-dialog";
 
 function Nav({ setLoading, setSave, save }) {
   const [name, setName] = useState("");
