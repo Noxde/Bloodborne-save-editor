@@ -12,7 +12,7 @@ use data_handling::{
     upgrades::Upgrade,
 };
 use serde_json::Value;
-use tauri::Manager;
+use tauri::{Manager, path::BaseDirectory};
 struct MutexSave {
     data: Mutex<Option<SaveData>>,
 }
@@ -105,8 +105,7 @@ fn make_save(
     handle: tauri::AppHandle,
 ) -> Result<Value, String> {
     let resource_path = handle
-        .path()
-        .resource_dir().unwrap();
+        .path().resolve("resources/", BaseDirectory::Resource).unwrap();
 
     match SaveData::build(path, resource_path) {
         Ok(s) => {
