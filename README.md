@@ -22,8 +22,7 @@
 
 </div>
 
-> [!IMPORTANT]
-> **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
+> [!IMPORTANT] > **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
 > [!NOTE]
 > If you want to use this with shadPS4, saves are located in `shadPS4/user/savedata/1/GAMEID/SPRJ0005/`
@@ -73,7 +72,7 @@
 
 - <details>
       <summary>
-         Modify Blood echoes, insight, gender, origin and voice.
+         Modify Blood echoes, insight, gender, origin, voice and position.
       </summary>
 
    <img src="./assets/character.gif"/>

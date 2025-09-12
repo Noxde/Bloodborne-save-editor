@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { SaveContext } from "../../context/context";
 import Stat from "../../components/Stat";
-import { dialog, invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { ImagesContext } from "../../context/imagesContext";
+import * as dialog from "@tauri-apps/plugin-dialog";
 
 function Stats() {
   const { save, setSave } = useContext(SaveContext);

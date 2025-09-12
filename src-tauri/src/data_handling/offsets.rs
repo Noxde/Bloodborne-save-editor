@@ -1,16 +1,16 @@
-use serde::{Deserialize, Serialize};
 use super::{constants::*, enums::Error};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Offsets {
-    pub username: usize, //Beginning
-    pub inventory: (usize, usize), //Beginning and end
-    pub storage: (usize, usize), //Beginning and end
-    pub upgrades: (usize, usize), //Beginning and end
+    pub username: usize,               //Beginning
+    pub inventory: (usize, usize),     //Beginning and end
+    pub storage: (usize, usize),       //Beginning and end
+    pub upgrades: (usize, usize),      //Beginning and end
     pub key_inventory: (usize, usize), //Beginning and end
-    pub appearance: (usize, usize), //Beginning
+    pub appearance: (usize, usize),    //Beginning
     pub equipped_gems: (usize, usize), //Beginning and end
-    pub lced_offset: usize
+    pub lced_offset: usize,
 }
 
 impl Offsets {
@@ -21,7 +21,7 @@ impl Offsets {
         let mut upgrades_offset = (START_TO_UPGRADE, 0);
         let mut key_inventory_offset = (0, 0);
         let mut appearance_offset = (0, 0);
-        let mut lced_offset= 0;
+        let mut lced_offset = 0;
         let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
         let inv_start_bytes_len = inv_start_bytes.len();
         let appearance_start_bytes = [b'F', b'A', b'C', b'E'];
@@ -32,21 +32,22 @@ impl Offsets {
             [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00],
             [0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00],
             [0x01, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00],
-            [0x01, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00]
-          ];
-        let runes =  [
+            [0x01, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00],
+        ];
+        let runes = [
             [0x02, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00],
-            [0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
+            [0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00],
         ];
 
         //Get the end offset for the upgrades
         for i in (upgrades_offset.0..(bytes.len())).step_by(40) {
-            let current = &bytes[(i+8)..(i+16)];
+            let current = &bytes[(i + 8)..(i + 16)];
 
-            let is_match = runes.iter().any(|&x| current == x) || gems.iter().any(|&x| current == x);
+            let is_match =
+                runes.iter().any(|&x| current == x) || gems.iter().any(|&x| current == x);
 
             if !is_match {
-                upgrades_offset.1 = i -1;
+                upgrades_offset.1 = i - 1;
                 break;
             }
         }
@@ -72,10 +73,14 @@ impl Offsets {
         let mut find_end = |start: usize, allow_empty: bool| -> Result<usize, Error> {
             //Maximum length of the normal inv before it reaches the key inv
             let inv_max_length = USERNAME_TO_KEY_INV_OFFSET - USERNAME_TO_INV_OFFSET;
-            let inv_max_length = if bytes.len() < inv_max_length + start {bytes.len()-start} else {inv_max_length};
+            let inv_max_length = if bytes.len() < inv_max_length + start {
+                bytes.len() - start
+            } else {
+                inv_max_length
+            };
             let mut buffer = [0; 12];
-            for i in (start ..  start + inv_max_length - 15).step_by(16) {
-                buffer.copy_from_slice(&bytes[i + 4 ..= i + 15]);
+            for i in (start..start + inv_max_length - 15).step_by(16) {
+                buffer.copy_from_slice(&bytes[i + 4..=i + 15]);
                 if end == buffer {
                     if end_offset.is_none() {
                         if !allow_empty {
@@ -89,7 +94,9 @@ impl Offsets {
             }
             match end_offset {
                 Some(off) => Ok(off),
-                None => Err(Error::CustomError("Failed to find the end of the inventory.")),
+                None => Err(Error::CustomError(
+                    "Failed to find the end of the inventory.",
+                )),
             }
         };
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
@@ -98,7 +105,8 @@ impl Offsets {
         let mut last_i: usize = 0;
 
         //Searches for the appearance_start_bytes
-        for i in 0xF000..(bytes.len() - 4) { //0xF000: In all the saves i found the save bytes after 0x10000
+        for i in 0xF000..(bytes.len() - 4) {
+            //0xF000: In all the saves i found the save bytes after 0x10000
             if appearance_start_bytes == bytes[i..i + 4] {
                 appearance_offset.0 = i + 4;
                 appearance_offset.1 = appearance_offset.0 + APPEARANCE_BYTES_AMOUNT - 1;
@@ -111,16 +119,19 @@ impl Offsets {
         }
 
         // Find lced offset
-        for i in last_i..(bytes.len() - 1) {    
+        for i in last_i..(bytes.len() - 1) {
             if lced_bytes == bytes[i..i + 4] {
                 lced_offset = i;
                 break;
             }
-        };
+        }
 
         let storage_start_offset = inventory_offset.0 + INV_TO_STORAGE_OFFSET;
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
-        let storage_offset = (storage_start_offset, find_end(storage_start_offset, true)? - 11);
+        let storage_offset = (
+            storage_start_offset,
+            find_end(storage_start_offset, true)? - 11,
+        );
 
         Ok(Offsets {
             username: username_offset,
@@ -130,7 +141,7 @@ impl Offsets {
             key_inventory: key_inventory_offset,
             appearance: appearance_offset,
             equipped_gems: (0, 0),
-            lced_offset
+            lced_offset,
         })
     }
 }
@@ -161,14 +172,20 @@ mod tests {
         let file_data = FileData::build("saves/no_inv_save", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
-            assert_eq!(e.to_string(), "Save error: Failed to find username in save data.");
+            assert_eq!(
+                e.to_string(),
+                "Save error: Failed to find username in save data."
+            );
         }
 
         //Test a save in which the inventory has no end
         let file_data = FileData::build("saves/no_inv_end_save", PathBuf::from("resources"));
         assert!(file_data.is_err());
         if let Err(e) = file_data {
-            assert_eq!(e.to_string(), "Save error: Failed to find the end of the inventory.");
+            assert_eq!(
+                e.to_string(),
+                "Save error: Failed to find the end of the inventory."
+            );
         }
 
         //Test a save with no appearance
@@ -184,7 +201,10 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cd0));
         assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
-        assert_eq!(file_data.offsets.appearance, (0x10e3c, 0x10e3c + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x10e3c, 0x10e3c + APPEARANCE_BYTES_AMOUNT - 1)
+        );
 
         //testsave1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
@@ -192,7 +212,10 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6a4));
         assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
         assert_eq!(file_data.offsets.upgrades, (84, 0x8c3));
-        assert_eq!(file_data.offsets.appearance, (0x12ef0, 0x12ef0 + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x12ef0, 0x12ef0 + APPEARANCE_BYTES_AMOUNT - 1)
+        );
 
         //testsave2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
@@ -200,7 +223,10 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb638));
         assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
         assert_eq!(file_data.offsets.upgrades, (84, 0x7d3));
-        assert_eq!(file_data.offsets.appearance, (0x12f34, 0x12f34 + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x12f34, 0x12f34 + APPEARANCE_BYTES_AMOUNT - 1)
+        );
 
         //testsave3
         let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
@@ -208,7 +234,10 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8ac));
         assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
         assert_eq!(file_data.offsets.upgrades, (84, 0xf7b));
-        assert_eq!(file_data.offsets.appearance, (0x13b38, 0x13b38 + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x13b38, 0x13b38 + APPEARANCE_BYTES_AMOUNT - 1)
+        );
 
         //testsave4
         let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
@@ -216,7 +245,10 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0xca34, 0xe778));
         assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
-        assert_eq!(file_data.offsets.appearance, (0x14f24, 0x14f24 + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x14f24, 0x14f24 + APPEARANCE_BYTES_AMOUNT - 1)
+        );
 
         //testsave8
         let file_data = FileData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
@@ -224,6 +256,9 @@ mod tests {
         assert_eq!(file_data.offsets.inventory, (0x19a6c, 0x210d0));
         assert_eq!(file_data.offsets.key_inventory, (0x21660, 0x218ef));
         assert_eq!(file_data.offsets.upgrades, (84, 0x10ae3));
-        assert_eq!(file_data.offsets.appearance, (0x21f5c, 0x21f5c + APPEARANCE_BYTES_AMOUNT - 1));
+        assert_eq!(
+            file_data.offsets.appearance,
+            (0x21f5c, 0x21f5c + APPEARANCE_BYTES_AMOUNT - 1)
+        );
     }
 }

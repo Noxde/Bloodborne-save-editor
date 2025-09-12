@@ -3,9 +3,11 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import { BrowserRouter as Router } from "react-router-dom";
-import { dialog, invoke, shell } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import Main from "./pages/main/Main";
 import { ImagesProvider } from "./context/imagesContext";
+import * as dialog from "@tauri-apps/plugin-dialog";
+import * as shell from "@tauri-apps/plugin-shell";
 
 function App() {
   const [save, setSave] = useState(null);

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { SaveContext } from "../../context/context";
 import SearchAllitems from "../../components/SearchAllitems";
 

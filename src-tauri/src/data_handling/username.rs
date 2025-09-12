@@ -1,5 +1,4 @@
-use super::{file::FileData,
-            enums::Error};
+use super::{enums::Error, file::FileData};
 
 use serde::{Deserialize, Serialize};
 
@@ -12,20 +11,24 @@ impl Username {
     pub fn build(file_data: &FileData) -> Username {
         let mut chars: Vec<char> = Vec::with_capacity(16);
         let start = file_data.offsets.username + 1;
-        file_data.bytes[start .. start + 32].iter().step_by(2).take_while(|&c| *c!=0).for_each(|c| chars.push(*c as char));
+        file_data.bytes[start..start + 32]
+            .iter()
+            .step_by(2)
+            .take_while(|&c| *c != 0)
+            .for_each(|c| chars.push(*c as char));
         let string = chars.into_iter().collect();
-        Username {
-            string,
-        }
+        Username { string }
     }
 
     pub fn set(&mut self, file_data: &mut FileData, username: String) -> Result<(), Error> {
-        if !(1 ..= 16).contains(&username.len()) {
-            return Err(Error::CustomError("The new username must have between 1 and 16 characters."));
+        if !(1..=16).contains(&username.len()) {
+            return Err(Error::CustomError(
+                "The new username must have between 1 and 16 characters.",
+            ));
         }
         let start = file_data.offsets.username + 1;
         let username_bytes = username.as_bytes();
-        for (i, j) in (start .. start + 31).step_by(2).enumerate() {
+        for (i, j) in (start..start + 31).step_by(2).enumerate() {
             file_data.bytes[j] = match username_bytes.get(i) {
                 Some(b) => *b,
                 None => 0,
@@ -75,7 +78,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         let mut username = Username::build(&file_data);
         assert_eq!(username.string, String::from("Proyectito"));
-        username.set(&mut file_data, String::from("testsave0")).unwrap();
+        username
+            .set(&mut file_data, String::from("testsave0"))
+            .unwrap();
         assert_eq!(username.string, String::from("testsave0"));
         let username = Username::build(&file_data);
         assert_eq!(username.string, String::from("testsave0"));
@@ -84,7 +89,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
         let mut username = Username::build(&file_data);
         assert_eq!(username.string, String::from("Toe Taster"));
-        username.set(&mut file_data, String::from("testsave1")).unwrap();
+        username
+            .set(&mut file_data, String::from("testsave1"))
+            .unwrap();
         assert_eq!(username.string, String::from("testsave1"));
         let username = Username::build(&file_data);
         assert_eq!(username.string, String::from("testsave1"));
@@ -93,7 +100,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
         let mut username = Username::build(&file_data);
         assert_eq!(username.string, String::from("I'm Here To Help"));
-        username.set(&mut file_data, String::from("testsave2")).unwrap();
+        username
+            .set(&mut file_data, String::from("testsave2"))
+            .unwrap();
         assert_eq!(username.string, String::from("testsave2"));
         let username = Username::build(&file_data);
         assert_eq!(username.string, String::from("testsave2"));
@@ -102,7 +111,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
         let mut username = Username::build(&file_data);
         assert_eq!(username.string, String::from("Yeezy"));
-        username.set(&mut file_data, String::from("testsave3")).unwrap();
+        username
+            .set(&mut file_data, String::from("testsave3"))
+            .unwrap();
         assert_eq!(username.string, String::from("testsave3"));
         let username = Username::build(&file_data);
         assert_eq!(username.string, String::from("testsave3"));
@@ -111,7 +122,9 @@ mod tests {
         let mut file_data = FileData::build("saves/testsave6", PathBuf::from("resources")).unwrap();
         let mut username = Username::build(&file_data);
         assert_eq!(username.string, String::from("Touch Me"));
-        username.set(&mut file_data, String::from("testsave6")).unwrap();
+        username
+            .set(&mut file_data, String::from("testsave6"))
+            .unwrap();
         assert_eq!(username.string, String::from("testsave6"));
         let username = Username::build(&file_data);
         assert_eq!(username.string, String::from("testsave6"));
@@ -123,13 +136,19 @@ mod tests {
         let result = username.set(&mut file_data, String::from(""));
         assert!(result.is_err());
         if let Err(error) = result {
-            assert_eq!(error.to_string(), "Save error: The new username must have between 1 and 16 characters.");
+            assert_eq!(
+                error.to_string(),
+                "Save error: The new username must have between 1 and 16 characters."
+            );
         }
         //Test using 17 characters
         let result = username.set(&mut file_data, String::from("12345678901234567"));
         assert!(result.is_err());
         if let Err(error) = result {
-            assert_eq!(error.to_string(), "Save error: The new username must have between 1 and 16 characters.");
+            assert_eq!(
+                error.to_string(),
+                "Save error: The new username must have between 1 and 16 characters."
+            );
         }
         //Test using 1 characters
         username.set(&mut file_data, String::from("1")).unwrap();

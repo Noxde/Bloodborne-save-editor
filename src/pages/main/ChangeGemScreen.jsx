@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { SaveContext } from "../../context/context";
 import Item from "../../components/Item";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 function ChangeGemScreen({
   article,

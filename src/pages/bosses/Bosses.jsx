@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { SaveContext } from "../../context/context";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { ImagesContext } from "../../context/imagesContext";
 import Boss from "./Boss";
 
