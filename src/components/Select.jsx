@@ -22,11 +22,16 @@ function Select({ options, name, setEditedStats, editedStats }) {
   return (
     <div className="select-wrapper">
       <select value={value} name={name} onChange={handleChange}>
-        {options.map((x, i) => (
-          <option key={i} value={i}>
-            {x}
-          </option>
-        ))}
+        {options.map((x, i) => {
+          const label = x.label ?? x;
+          const value = x.value ?? i;
+
+          return (
+            <option key={i} value={value}>
+              {label}
+            </option>
+          );
+        })}
       </select>
     </div>
   );
