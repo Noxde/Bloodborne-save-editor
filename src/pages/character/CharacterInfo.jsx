@@ -1,7 +1,27 @@
 import Select from "../../components/Select";
 
 function CharacterInfo({ editedStats, setEditedStats }) {
-  const voice = ["Young Voice", "Mature Voice", "Aged Voice"];
+  const voice = [
+    // Normal voices
+    { label: "Young Voice", value: 0 },
+    { label: "Mature Voice", value: 1 },
+    { label: "Aged Voice", value: 2 },
+    // NPCs voices
+    { label: "Simon", value: 41 },
+    { label: "Valtr", value: 40 },
+    { label: "Brador", value: 42 },
+    { label: "Annalise", value: 17 },
+    { label: "Imposter doctor", value: 24 },
+    { label: "Bigoted old man", value: 25 },
+    { label: "Lonely old woman", value: 26 },
+    { label: "Beggar", value: 27 },
+    { label: "Arianna", value: 28 },
+    { label: "Adella", value: 32 },
+    { label: "Alfred", value: 34 },
+    { label: "Eileen", value: 35 },
+    { label: "Djura", value: 33 },
+    { label: "Micolash", value: 21 },
+  ];
   const gender = ["Female", "Male"];
   const origins = [
     "Milquetoast",
