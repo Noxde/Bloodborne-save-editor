@@ -22,8 +22,7 @@
 
 </div>
 
-> [!IMPORTANT]
-> **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
+> [!IMPORTANT] > **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
 > [!NOTE]
 > If you want to use this with shadPS4, saves are located in `shadPS4/user/savedata/1/GAMEID/SPRJ0005/`
@@ -150,7 +149,13 @@ The release will be located in `Bloodborne-save-editor/src-tauri/target/release/
 
 ## 4. Attributions
 
-Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). All the information used on this project comes from there.</br>
+Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). Weapon stats, game assets and inspiration for the UI come from here.
+
+Thanks to @foxyhooligan on discord for helping with gem effects ids, how to edit the new game plus level, other flags and more.
+
+Thanks to [PlayingUnfairly](https://www.youtube.com/@PlayingUnfairly) for the detailed tutorials on how to edit character stats, gems/runes, weapons/armors and appearance.
+
+Thanks to @xtrin on the "The Tomb Prospectors" discord for explaining to me how gem images work based on their effects and level.
 
 ## 5. License
 
