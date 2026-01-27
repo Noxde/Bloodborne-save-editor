@@ -4,7 +4,6 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total)
 ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total)
-[![Coverage Status](https://coveralls.io/repos/github/Noxde/Bloodborne-save-editor/badge.svg)](https://coveralls.io/github/Noxde/Bloodborne-save-editor)
 
 <div><a href='https://ko-fi.com/R5R8106WUY' target='_blank'><img height='30' style='border:0px;height:30px;' src='https://storage.ko-fi.com/cdn/kofi5.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </div>
