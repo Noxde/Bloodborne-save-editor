@@ -1102,15 +1102,15 @@
       "area": "Hintertomb"
     },
     "6401": {
-      "item_img": "cursed_and_defiled_root_chalice.png",
-      "item_name": "Cursed and Defiled Root Chalice",
+      "item_img": "defiled_chalice.png",
+      "item_name": "Defiled Chalice",
       "item_desc": "",
       "depth": "4",
       "area": "Phumeru"
     },
     "6409": {
-      "item_img": "defiled_chalice.png",
-      "item_name": "Defiled Chalice",
+      "item_img": "cursed_and_defiled_root_chalice.png",
+      "item_name": "Cursed and Defiled Root Chalice",
       "item_desc": "",
       "depth": "4",
       "area": "Pthumeru"
