@@ -10,17 +10,18 @@ import CharacterInfo from "./CharacterInfo";
 import Appearance from "./Appearance";
 import IszGlitch from "./IszGlitch";
 import Coordinates from "./Coordinates";
+import Teleport from "./Teleport";
 import * as dialog from "@tauri-apps/plugin-dialog";
 
 function Character() {
   const { save, setSave } = useContext(SaveContext);
   const [username, setUsername] = useState(save.username.string);
   const [editedStats, setEditedStats] = useState(
-    JSON.parse(JSON.stringify(save))
+    JSON.parse(JSON.stringify(save)),
   );
   const [editedPlaytime, setEditedPlaytime] = useState(save.playtime);
   const [editedCoordinates, setEditedCoordinates] = useState(
-    save.position.coordinates
+    save.position.coordinates,
   );
 
   const { images } = useContext(ImagesContext);
@@ -104,6 +105,10 @@ function Character() {
           <Coordinates
             coordinates={editedCoordinates}
             setCoordinates={setEditedCoordinates}
+          />
+          <Teleport
+            setSave={setSave}
+            setEditedCoordinates={setEditedCoordinates}
           />
         </div>
       </div>
