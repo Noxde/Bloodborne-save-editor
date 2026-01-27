@@ -51,7 +51,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             get_playtime,
             set_playtime,
             set_flag,
-            edit_coordinates
+            edit_coordinates,
+            teleport
         ])
         .run(tauri::generate_context!())?;
 
@@ -501,7 +502,7 @@ fn export_appearance(path: &str, state_save: tauri::State<MutexSave>) -> Result<
 #[tauri::command]
 fn import_appearance(path: &str, state_save: tauri::State<MutexSave>) -> Result<String, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_mut().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
 
     match appearance::import(&mut save.file, path) {
         Ok(_) => Ok("Successfully imported".to_string()),
@@ -561,6 +562,19 @@ fn add_item(
 fn edit_coordinates(x: f32, y: f32, z: f32, state_save: tauri::State<MutexSave>) {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
+
+    save.position.coordinates.edit(&mut save.file, x, y, z);
+}
+
+#[tauri::command]
+fn teleport(x: f32, y: f32, z: f32, map_id: Vec<u8>, state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
+    let le_map = [00, 00, map_id[1], map_id[0]];
+
+    for (i, j) in (0x04..0x08).enumerate() {
+            save.file.bytes[j] = le_map[i];
+    }
 
     save.position.coordinates.edit(&mut save.file, x, y, z);
 }
