@@ -99,8 +99,8 @@ impl Offsets {
                 )),
             }
         };
-        //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
-        inventory_offset.1 = find_end(inventory_offset.0, true)? - 11;
+
+        inventory_offset.1 = username_offset + USERNAME_TO_INV_OFFSET + (USERNAME_TO_KEY_INV_OFFSET - USERNAME_TO_INV_OFFSET - 4); // Substracting 4 leaves the end placed at the "next" slot (which it won't actually exist)
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
         let mut last_i: usize = 0;
 
@@ -130,7 +130,7 @@ impl Offsets {
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
         let storage_offset = (
             storage_start_offset,
-            find_end(storage_start_offset, true)? - 11,
+            username_offset+USERNAME_TO_KEY_INV_OFFSET
         );
 
         Ok(Offsets {
