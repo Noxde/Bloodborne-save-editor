@@ -22,3 +22,8 @@ build/
 
 # .env
 .env
+
+src-tauri/vendor
+flatpak
+repo
+*.flatpak
