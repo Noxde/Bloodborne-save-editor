@@ -24378,6 +24378,13 @@
       "level": 7,
       "note": ""
     },
+    "156620": {
+      "name": "Pulsing Abyssal Blood Gem",
+      "effect": "HP continues to recover +75",
+      "rating": 20,
+      "level": 7,
+      "note": ""
+    },
     "44101": {
       "name": "Cursed Pulsing Blood Gemstone (1)",
       "effect": "HP gradually depletes -1",
