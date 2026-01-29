@@ -1,27 +1,32 @@
-<div align=center> 
+<div align="center">
   <img alt="creator-program-logo" src="./assets/icon.png" width="300px">
-  <p><p/>
-
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total)
-
-<div><a href='https://ko-fi.com/R5R8106WUY' target='_blank'><img height='30' style='border:0px;height:30px;' src='https://storage.ko-fi.com/cdn/kofi5.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </div>
 
-</div>
 <h1 align="center">Bloodborne Save Editor</h1>
 
 <p align="center">
-   <b>DISCLAIMER:</b> We do not condone the use of this software for cheating or griefing in online games by any means.
+  <img src="https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total">
+  <img src="https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total">
 </p>
 
-<div align="center">
+<p align="center">
+  <a href="https://ko-fi.com/R5R8106WUY" target="_blank">
+    <img height="36" src="https://storage.ko-fi.com/cdn/kofi5.png?v=6" alt="Buy Me a Coffee">
+  </a>
+</p>
+
+<p align="center">
+  <b>DISCLAIMER:</b> We do not condone the use of this software for cheating or griefing in online games by any means.
+</p>
+
+<div align=center>
 
 ![overview.gif](./assets/overview.gif)
 
 </div>
 
-> [!IMPORTANT] > **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
+> [!IMPORTANT]
+> **To use this save editor on Playstation you first need to decrypt your bloodborne save, check out the [wiki](https://github.com/Noxde/Bloodborne-save-editor/wiki/How-to-decrypt-a-save) if you don't know how.**
 
 > [!NOTE]
 > If you want to use this with shadPS4, saves are located in `shadPS4/user/savedata/1/GAMEID/SPRJ0005/`
@@ -108,6 +113,8 @@
 
    <img src="./assets/bosses.gif"/>
    </details>
+
+- Change spawn point/teleport (available on the character section)
 
 ## 2. Download
 
