@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Tauri app (Windows)
         run: |
-          $Env:CI = $false
+          $Env:CI = "false"
           npm run tauri build
 
       - name: Upload executable
