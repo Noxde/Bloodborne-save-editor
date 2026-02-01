@@ -26,12 +26,6 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
-      - name: Set custom window title
-        run: |
-          $config = Get-Content src-tauri/tauri.conf.json | ConvertFrom-Json
-          $config.tauri.windows[0].title = "Bloodborne Save Editor WIP"
-          $config | ConvertTo-Json -Depth 10 | Set-Content src-tauri/tauri.conf.json -Encoding UTF8
-
       - name: Build Tauri app (Windows)
         run: |
           $Env:CI = $false
@@ -62,7 +56,7 @@ jobs:
             libjavascriptcoregtk-4.1-dev=2.44.0-2 \
             gir1.2-javascriptcoregtk-4.1=2.44.0-2 \
             gir1.2-webkit2-4.1=2.44.0-2 \
-          
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
