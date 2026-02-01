@@ -16,6 +16,7 @@ function Inventory({ inv, isStorage }) {
   const [selected, setSelected] = useState(null);
   const selectedRef = useRef(null);
   const [quantity, setQuantity] = useState(0);
+  const [level, setLevel] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
   const [editScreen, setEditScreen] = useState(false);
@@ -130,7 +131,7 @@ function Inventory({ inv, isStorage }) {
                   (isStorage &&
                     selected.article_type !== "Material" &&
                     !["Quicksilver Bullets", "Blood Vial"].includes(
-                      selected.info.item_name
+                      selected.info.item_name,
                     ))) &&
                 value > 99
               ) {
@@ -212,6 +213,56 @@ function Inventory({ inv, isStorage }) {
         >
           Gems
         </button>
+        <div className="editQuantity">
+          <input
+            type="number"
+            value={level || 0}
+            max={10}
+            min={0}
+            style={{ width: "120px" }}
+            disabled={
+              getType(selected?.article_type) !== "weapon" ? true : false
+            }
+            onChange={(e) => {
+              const { value } = e.target;
+
+              if (value > 10) {
+                setLevel(10);
+              } else {
+                setLevel(parseInt(value));
+              }
+            }}
+          />
+          <button
+            className="buttonBg"
+            onClick={async () => {
+              console.log(selected);
+              const editedSave = await invoke("change_weapon_level", {
+                articleType: selected.article_type,
+                articleIndex: selected.index,
+                slotIndex: selected.number,
+                isStorage,
+                level,
+              });
+              setSave(editedSave);
+
+              // const canvas = selectedRef.current;
+              // const ctx = canvas.getContext("2d");
+
+              // const itemImage = backgrounds["item.png"];
+
+              // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+              // await drawItem(ctx, selected.info, quantity, itemImage, items);
+            }}
+            disabled={
+              getType(selected?.article_type) === "weapon" && quantity > 0
+                ? false
+                : true
+            }
+          >
+            Set
+          </button>
+        </div>
       </div>
     </>
   );

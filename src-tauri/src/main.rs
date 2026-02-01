@@ -52,7 +52,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             set_playtime,
             set_flag,
             edit_coordinates,
-            teleport
+            teleport,
+            change_weapon_level
         ])
         .run(tauri::generate_context!())?;
 
@@ -577,4 +578,42 @@ fn teleport(x: f32, y: f32, z: f32, map_id: Vec<u8>, state_save: tauri::State<Mu
     }
 
     save.position.coordinates.edit(&mut save.file, x, y, z);
+}
+
+#[tauri::command]
+fn change_weapon_level(
+    article_type: ArticleType,
+    article_index: usize,
+    slot_index: usize,
+    is_storage: bool,
+    level: u8,
+    state_save: tauri::State<MutexSave>
+) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save: &mut SaveData = save_option.as_mut().unwrap();
+
+    let result = if is_storage {
+        save.storage.change_weapon_level(
+            &mut save.file,
+            article_type,
+            article_index,
+            slot_index,
+            is_storage,
+            level
+        )
+    } else {
+        save.inventory.change_weapon_level(
+            &mut save.file,
+            article_type,
+            article_index,
+            slot_index,
+            is_storage,
+            level
+        )
+    };
+
+    match result {
+        Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
+        Err(e) => Err(e.to_string()),
+    }
 }

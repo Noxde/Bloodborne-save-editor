@@ -617,6 +617,35 @@ impl Inventory {
             ))
         }
     }
+
+    pub fn change_weapon_level(
+        &mut self, 
+        file_data: &mut FileData, 
+        article_type: ArticleType, 
+        article_index: usize, 
+        slot_index: usize, 
+        is_storage: bool,
+        level: u8
+    ) -> Result<(), Error> {
+        if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
+            if let Some(article) = articles_of_type.get_mut(article_index) {
+                println!("{:#?}", article);
+                article.set_imprint_and_upgrade(
+                    file_data,
+                    None,
+                    Some(level)
+                )
+            } else {
+                Err(Error::CustomError(
+                    "ERROR: There are no articles of the specified type.",
+                ))
+            }
+        } else {
+            Err(Error::CustomError(
+                    "ERROR: There are no articles of the specified type.",
+            ))
+        }
+    }
 }
 
 pub fn get_info_item(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
