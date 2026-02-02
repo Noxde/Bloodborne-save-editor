@@ -130,7 +130,7 @@ impl Offsets {
         //11 is subtracted to the offset to match the first byte of the first part of the next slot the game will open
         let storage_offset = (
             storage_start_offset,
-            username_offset+USERNAME_TO_KEY_INV_OFFSET
+            find_end(storage_start_offset, true)? - 11,
         );
 
         Ok(Offsets {
