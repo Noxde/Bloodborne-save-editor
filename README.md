@@ -163,6 +163,8 @@ Thanks to [PlayingUnfairly](https://www.youtube.com/@PlayingUnfairly) for the de
 
 Thanks to @xtrin on the "The Tomb Prospectors" discord for explaining to me how gem images work based on their effects and level.
 
+Thanks to @n3r4\_ on the "?ServerName?" discord for sharing a spreadsheet with boss flags
+
 ## 5. License
 
 This project is licensed under the [GPL-3.0 License](./LICENSE).
