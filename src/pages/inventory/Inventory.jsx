@@ -236,7 +236,6 @@ function Inventory({ inv, isStorage }) {
           <button
             className="buttonBg"
             onClick={async () => {
-              console.log(selected);
               const editedSave = await invoke("change_weapon_level", {
                 articleType: selected.article_type,
                 articleIndex: selected.index,
@@ -245,14 +244,6 @@ function Inventory({ inv, isStorage }) {
                 level,
               });
               setSave(editedSave);
-
-              // const canvas = selectedRef.current;
-              // const ctx = canvas.getContext("2d");
-
-              // const itemImage = backgrounds["item.png"];
-
-              // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-              // await drawItem(ctx, selected.info, quantity, itemImage, items);
             }}
             disabled={
               getType(selected?.article_type) === "weapon" && quantity > 0
