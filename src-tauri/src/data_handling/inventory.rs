@@ -629,7 +629,6 @@ impl Inventory {
     ) -> Result<(), Error> {
         if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
             if let Some(article) = articles_of_type.get_mut(article_index) {
-                println!("{:#?}", article);
                 article.set_imprint_and_upgrade(
                     file_data,
                     None,
@@ -732,6 +731,7 @@ pub fn get_info_weapon(
                 let mut info: ItemInfo =
                     serde_json::from_value(category_weapons[found].clone()).unwrap();
                 let mut extra_info = json!({
+                    "_base_damage": &category_weapons[found]["damage"],
                     "damage": &category_weapons[found]["damage"],
                     "upgrade_level": weapon_mods.upgrade_level,
                     "imprint": weapon_mods.imprint,
