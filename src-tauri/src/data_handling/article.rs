@@ -371,18 +371,27 @@ impl Article {
 pub fn scale_weapon_info(extra_info: &mut Value) {
     //Scales the stats of a weapon based on its upgrade level
     let upgrade_level: u32 = serde_json::from_value(extra_info["upgrade_level"].clone()).unwrap();
-    for (_, v) in extra_info["damage"].as_object_mut().unwrap() {
+    let base_damages = extra_info["_base_damage"].clone();
+
+    for (k, v) in extra_info["damage"].as_object_mut().unwrap() {
         //Get the damage for the current type
         let damage: String = serde_json::from_value(v.clone()).unwrap();
+        let base_damage: String = serde_json::from_value(base_damages[k].clone()).unwrap();
+
         let mut damage: u32 = match damage.parse::<u32>() {
             Ok(num) => num,
             Err(_) => continue, //If the damage is "-" (n/a), skip
         };
 
+        let base_damage: u32 = match base_damage.parse::<u32>() {
+            Ok(num) => num,
+            Err(_) => continue, //If the damage is "-" (n/a), skip
+        };
+
         if upgrade_level == 10 {
-            damage *= 2;
+            damage = base_damage * 2;
         } else {
-            damage += (damage / 10) * upgrade_level;
+            damage = base_damage + (base_damage / 10) * upgrade_level;
         }
         *v = json!(damage.to_string());
     }
