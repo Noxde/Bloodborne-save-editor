@@ -124,6 +124,9 @@ function Inventory({ inv, isStorage }) {
             disabled={getType(selected?.article_type) !== "item" ? true : false}
             onChange={(e) => {
               const { value } = e.target;
+              if (value.length > 1 && value[0] === "0") {
+                e.target.value = value.slice(1);
+              }
 
               // Check if the item should be capped at 600 or not
               if (
@@ -225,6 +228,9 @@ function Inventory({ inv, isStorage }) {
             }
             onChange={(e) => {
               const { value } = e.target;
+              if (value.length > 1 && value[0] === "0") {
+                e.target.value = value.slice(1);
+              }
 
               if (value > 10) {
                 setLevel(10);
