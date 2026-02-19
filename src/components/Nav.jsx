@@ -24,6 +24,13 @@ function Nav({ setLoading, setSave, save }) {
       setName(await basename(selectedPath));
     } catch (error) {
       console.error(error);
+      await dialog.message(
+        "Could not parse file, make sure it is a decrypted save file",
+        {
+          title: "Failed to parse save",
+          kind: "error",
+        },
+      );
       setLoading(false);
     }
   }
