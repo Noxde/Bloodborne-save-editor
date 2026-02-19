@@ -15,9 +15,9 @@ function Inventory({ inv, isStorage }) {
   const inventoryRef = useRef(null);
   const [selected, setSelected] = useState(null);
   const selectedRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [level, setLevel] = useState(0);
-  const [hoverIndex, setHoverIndex] = useState(0);
   const [replaceScreen, setReplaceScreen] = useState(false);
   const [editScreen, setEditScreen] = useState(false);
   const [addScreen, setAddScreen] = useState(false);
@@ -40,7 +40,8 @@ function Inventory({ inv, isStorage }) {
       if (nodeName === "CANVAS") {
         const { item: itemRaw, index } = target.dataset;
         const item = JSON.parse(itemRaw);
-        setHoverIndex(index);
+
+        setSelectedIndex(index - 1); // TODO: show selected item
 
         selectedRef.current = target;
         setSelected(item);
@@ -49,7 +50,6 @@ function Inventory({ inv, isStorage }) {
         const { index } = target.dataset;
 
         setSelected(null);
-
         setSelectedFilter((prev) => (prev === index ? "0" : index));
       }
     }
@@ -67,7 +67,6 @@ function Inventory({ inv, isStorage }) {
 
   useEffect(() => {
     if (!selected) {
-      setHoverIndex(0);
       selectedRef.current = null;
     }
   }, [selected]);
@@ -101,16 +100,20 @@ function Inventory({ inv, isStorage }) {
         />
       ) : null}
       {/* Inventory */}
-      <div ref={inventoryRef} style={{ overflowY: "scroll" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "start",
+        }}
+        ref={inventoryRef}
+      >
         <FilterButtons selectedFilter={selectedFilter} />
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          <div id="hover" style={{ top: `${(hoverIndex - 1) * 91}px` }}></div>
-          <FilterComponent inventory={inv} selectedFilter={selectedFilter} />
-        </div>
+        <FilterComponent
+          inventory={inv}
+          selectedFilter={selectedFilter}
+          selectedIndex={selectedIndex}
+        />
       </div>
       {/* Right side buttons */}
       <div className="editButtons">
