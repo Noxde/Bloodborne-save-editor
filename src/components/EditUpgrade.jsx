@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import { getGemPath, getRunePath, getUnique } from "../utils/drawCanvas";
+import { getGemPath, getRunePath, getUnique } from "../utils/upgrades";
 import { SaveContext } from "../context/context";
 import { ItemsContext } from "../context/itemsContext";
 import SelectSearch from "./SelectSearch";
@@ -127,7 +127,7 @@ function EditUpgrade({
                         effects,
                         shape,
                         level,
-                        getUnique(effects[0][0], shape, source)
+                        getUnique(effects[0][0], shape, source),
                       )
                     : getRunePath(name, shape, rating)
                 }

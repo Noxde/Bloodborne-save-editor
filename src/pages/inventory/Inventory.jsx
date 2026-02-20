@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { SaveContext } from "../../context/context";
 import { invoke } from "@tauri-apps/api/core";
 import ReplaceScreen from "../../components/ReplaceScreen";
-import { getType } from "../../utils/drawCanvas";
+import { getType } from "../../utils/upgrades";
 import FilterButtons from "./FilterButtons";
 import FilterComponent from "./FilterComponent";
 import EditUpgrade from "../../components/EditUpgrade";
@@ -299,14 +299,6 @@ async function drawItem(ctx, item, amount, img, items) {
   } else {
     ctx.fillText(amount, 75, 83);
   }
-}
-
-function loadImage(url) {
-  return new Promise((resolve) => {
-    let imageObj = new Image();
-    imageObj.onload = () => resolve(imageObj);
-    imageObj.src = url;
-  });
 }
 
 export default Inventory;

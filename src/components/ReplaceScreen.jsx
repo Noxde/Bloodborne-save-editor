@@ -3,7 +3,7 @@ import Item from "./Item";
 import { invoke } from "@tauri-apps/api/core";
 import { SaveContext } from "../context/context";
 import SearchAllitems from "./SearchAllitems";
-import { getType } from "../utils/drawCanvas";
+import { getType } from "../utils/upgrades";
 
 function ReplaceScreen({
   setSelected,
