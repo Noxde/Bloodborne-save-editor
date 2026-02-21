@@ -86,3 +86,48 @@ jobs:
         with:
           name: bloodborne-save-editor-appimage
           path: src-tauri/target/release/bundle/appimage/*.AppImage
+          
+  build-macos:
+      runs-on: macos-latest
+  
+      strategy:
+        fail-fast: false
+        matrix:
+          target:
+            - aarch64-apple-darwin   # Apple Silicon
+            - x86_64-apple-darwin    # Intel
+  
+      steps:
+        - uses: actions/checkout@v4
+  
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: lts/*
+            cache: "npm"
+  
+        - name: Install Rust stable with mac targets
+          uses: dtolnay/rust-toolchain@stable
+          with:
+            targets: ${{ matrix.target }}
+  
+        - name: Rust cache
+          uses: swatinem/rust-cache@v2
+          with:
+            workspaces: "./src-tauri -> target"
+  
+        - name: Install frontend dependencies
+          run: npm install
+  
+        - name: Build Tauri (macOS)
+          run: |
+            export CI=false
+            npm run tauri build -- --target ${{ matrix.target }}
+  
+        - name: Upload macOS bundle
+          uses: actions/upload-artifact@v4
+          with:
+            name: bloodborne-save-editor-macos-${{ matrix.target }}
+            path: |
+              src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+              src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app
