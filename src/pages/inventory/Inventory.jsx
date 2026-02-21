@@ -117,6 +117,7 @@ function Inventory({ inv, isStorage }) {
       </div>
       {/* Right side buttons */}
       <div className="editButtons">
+        <span style={{ fontSize: "1.2rem" }}>Item quantity:</span>
         <div className="editQuantity">
           <input
             type="number"
@@ -130,7 +131,6 @@ function Inventory({ inv, isStorage }) {
               if (value.length > 1 && value[0] === "0") {
                 e.target.value = value.slice(1);
               }
-
               // Check if the item should be capped at 600 or not
               if (
                 (!isStorage ||
@@ -160,17 +160,59 @@ function Inventory({ inv, isStorage }) {
                 isStorage,
               });
               setSave(editedSave);
-
               const canvas = selectedRef.current;
               const ctx = canvas.getContext("2d");
-
               const itemImage = backgrounds["item.png"];
-
               ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
               await drawItem(ctx, selected.info, quantity, itemImage, items);
             }}
             disabled={
               getType(selected?.article_type) === "item" && quantity > 0
+                ? false
+                : true
+            }
+          >
+            Set
+          </button>
+        </div>
+        <span style={{ fontSize: "1.2rem" }}>Weapon level:</span>
+        <div className="editQuantity">
+          <input
+            type="number"
+            value={level || 0}
+            max={10}
+            min={0}
+            style={{ width: "120px" }}
+            disabled={
+              getType(selected?.article_type) !== "weapon" ? true : false
+            }
+            onChange={(e) => {
+              const { value } = e.target;
+              if (value.length > 1 && value[0] === "0") {
+                e.target.value = value.slice(1);
+              }
+
+              if (value > 10) {
+                setLevel(10);
+              } else {
+                setLevel(parseInt(value));
+              }
+            }}
+          />
+          <button
+            className="buttonBg"
+            onClick={async () => {
+              const editedSave = await invoke("change_weapon_level", {
+                articleType: selected.article_type,
+                articleIndex: selected.index,
+                slotIndex: selected.number,
+                isStorage,
+                level,
+              });
+              setSave(editedSave);
+            }}
+            disabled={
+              getType(selected?.article_type) === "weapon" && quantity > 0
                 ? false
                 : true
             }
@@ -219,50 +261,6 @@ function Inventory({ inv, isStorage }) {
         >
           Gems
         </button>
-        <div className="editQuantity">
-          <input
-            type="number"
-            value={level || 0}
-            max={10}
-            min={0}
-            style={{ width: "120px" }}
-            disabled={
-              getType(selected?.article_type) !== "weapon" ? true : false
-            }
-            onChange={(e) => {
-              const { value } = e.target;
-              if (value.length > 1 && value[0] === "0") {
-                e.target.value = value.slice(1);
-              }
-
-              if (value > 10) {
-                setLevel(10);
-              } else {
-                setLevel(parseInt(value));
-              }
-            }}
-          />
-          <button
-            className="buttonBg"
-            onClick={async () => {
-              const editedSave = await invoke("change_weapon_level", {
-                articleType: selected.article_type,
-                articleIndex: selected.index,
-                slotIndex: selected.number,
-                isStorage,
-                level,
-              });
-              setSave(editedSave);
-            }}
-            disabled={
-              getType(selected?.article_type) === "weapon" && quantity > 0
-                ? false
-                : true
-            }
-          >
-            Set
-          </button>
-        </div>
       </div>
     </>
   );
