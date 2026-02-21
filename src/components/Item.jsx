@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import useDraw from "../utils/useDraw";
 
-function Item({ index, item, isSmall, ...props }) {
+function Item({ index, item, isSmall, className, ...props }) {
   const canvasRef = useRef(null);
   const { drawCanvas } = useDraw();
 
@@ -24,19 +24,21 @@ function Item({ index, item, isSmall, ...props }) {
       {...props}
     ></canvas>
   ) : (
-    <canvas
-      data-index={index}
-      data-item-id={item.id}
-      data-item-type={
-        item?.article_type?.toLowerCase() || item.upgrade_type.toLowerCase()
-      }
-      data-item={JSON.stringify(item)}
-      width={795}
-      height={90}
-      ref={canvasRef}
-      style={{ display: "block", marginBottom: "1px" }}
-      {...props}
-    ></canvas>
+    <div className={className}>
+      <canvas
+        data-index={index}
+        data-item-id={item.id}
+        data-item-type={
+          item?.article_type?.toLowerCase() || item.upgrade_type.toLowerCase()
+        }
+        data-item={JSON.stringify(item)}
+        width={795}
+        height={90}
+        ref={canvasRef}
+        style={{ display: "block", marginBottom: "1px" }}
+        {...props}
+      ></canvas>
+    </div>
   );
 }
 
