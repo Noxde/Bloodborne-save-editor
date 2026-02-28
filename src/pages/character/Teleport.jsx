@@ -105,9 +105,6 @@ function Teleport({ setSave, setEditedCoordinates }) {
             <option value='{"x":-400.4,"y":-180.8,"z":414.6,"mapId":[32,0]}'>
               Byrgenwerth
             </option>
-            <option value='{"x":-509,"y":-271,"z":371,"mapId":[32,2]}'>
-              Moonside Lake
-            </option>
           </optgroup>
           <optgroup label="Unseen Headstone">
             <option value='{"x":257.4,"y":-51.4,"z":70,"mapId":[28,0]}'>
