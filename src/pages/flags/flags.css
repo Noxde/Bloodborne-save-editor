@@ -1,0 +1,32 @@
+.tooltip {
+  position: absolute;
+  left: 0;
+  padding: 10px 14px;
+  max-width: 600px;
+  background: rgba(18, 20, 23, 0.96);
+  border: 1px solid rgba(180, 180, 180, 0.15);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.85);
+  color: #d4d4d4;
+  font-family: serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  border-radius: 3px;
+}
+
+.tooltip-hover {
+  position: absolute;
+  top: 8;
+  left: 5;
+  width: 15;
+  height: 15;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 200, 200, 0.2);
+  color: rgba(210, 210, 210);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-family: serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
