@@ -50,7 +50,9 @@ function Flags() {
           label="Enable Blood addled"
           offset={4127}
           values={[162]}
-          info={"Enables pvp when looking for coop."}
+          info={
+            "Enables pvp when doing coop with players that have the Hunter rune equipped."
+          }
         />
       </div>
     </div>
