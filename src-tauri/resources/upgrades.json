@@ -87705,14 +87705,14 @@
     },
     "1123001": {
       "name": "Great Lake",
-      "effect": "All DMG reduction +5%",
+      "effect": "All DMG reduction +4%",
       "rating": 1,
       "level": 0,
       "note": "A \"Lake\" rune. Increases all types of damage reduction"
     },
     "1123002": {
       "name": "Great Lake",
-      "effect": "All DMG reduction +7%",
+      "effect": "All DMG reduction +5%",
       "rating": 2,
       "level": 0,
       "note": "A \"Lake\" rune. Increases all types of damage reduction"
