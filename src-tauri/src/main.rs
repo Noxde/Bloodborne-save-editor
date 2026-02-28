@@ -11,7 +11,7 @@ use data_handling::{
     save::SaveData,
     upgrades::Upgrade,
 };
-use serde_json::Value;
+use serde_json::{Value, json};
 use tauri::{Manager, path::BaseDirectory};
 struct MutexSave {
     data: Mutex<Option<SaveData>>,
@@ -613,7 +613,10 @@ fn change_weapon_level(
     };
 
     match result {
-        Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
+        Ok(weapon) => Ok(json!({
+            "save": serde_json::to_value(&save).map_err(|x| x.to_string())?,
+            "weapon": weapon
+        })),
         Err(e) => Err(e.to_string()),
     }
 }
