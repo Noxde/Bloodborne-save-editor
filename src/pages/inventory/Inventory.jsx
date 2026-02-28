@@ -68,6 +68,7 @@ function Inventory({ inv, isStorage }) {
   useEffect(() => {
     if (!selected) {
       selectedRef.current = null;
+      setSelectedIndex(null);
     }
   }, [selected]);
 
