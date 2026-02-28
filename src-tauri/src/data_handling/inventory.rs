@@ -626,7 +626,7 @@ impl Inventory {
         slot_index: usize, 
         is_storage: bool,
         level: u8
-    ) -> Result<(), Error> {
+    ) -> Result<Article, Error> {
         if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
             if let Some(article) = articles_of_type.get_mut(article_index) {
                 article.set_imprint_and_upgrade(

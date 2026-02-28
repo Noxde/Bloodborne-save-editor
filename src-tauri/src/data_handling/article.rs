@@ -251,7 +251,7 @@ impl Article {
         file_data: &mut FileData,
         imprint: Option<Option<Imprint>>,
         upgrade_level: Option<u8>,
-    ) -> Result<(), Error> {
+    ) -> Result<Article, Error> {
         if !self.is_weapon() {
             return Err(Error::CustomError("ERROR: The article must be a weapon."));
         }
@@ -322,7 +322,7 @@ impl Article {
 
         self.id = new_second_part;
         self.second_part = new_second_part;
-        Ok(())
+        Ok(self.clone())
     }
 
     pub fn change_slot_shape(
