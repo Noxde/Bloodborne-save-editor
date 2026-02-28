@@ -202,14 +202,18 @@ function Inventory({ inv, isStorage }) {
           <button
             className="buttonBg"
             onClick={async () => {
-              const editedSave = await invoke("change_weapon_level", {
-                articleType: selected.article_type,
-                articleIndex: selected.index,
-                slotIndex: selected.number,
-                isStorage,
-                level,
-              });
+              const { save: editedSave, weapon } = await invoke(
+                "change_weapon_level",
+                {
+                  articleType: selected.article_type,
+                  articleIndex: selected.index,
+                  slotIndex: selected.number,
+                  isStorage,
+                  level,
+                },
+              );
               setSave(editedSave);
+              setSelected(weapon);
             }}
             disabled={
               getType(selected?.article_type) === "weapon" && quantity > 0
