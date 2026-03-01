@@ -15,10 +15,10 @@
 
 .tooltip-hover {
   position: absolute;
-  top: 8;
-  left: 5;
-  width: 15;
-  height: 15;
+  top: 8px;
+  left: 5px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   border: 1px solid rgba(200, 200, 200, 0.2);
   color: rgba(210, 210, 210);
