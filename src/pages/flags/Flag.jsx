@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { message } from "@tauri-apps/plugin-dialog";
 import { useEffect, useRef, useState } from "react";
 
 function Flag({ label, offset, values, info }) {
@@ -13,13 +14,13 @@ function Flag({ label, offset, values, info }) {
   }, []);
 
   async function setFlag() {
-    console.log(values);
     for (let i = 0; i < values.length; i++) {
       await invoke("set_flag", {
         offset: offset + i,
         newValue: values[i],
       });
     }
+    await message("Flag applied");
   }
 
   return (
