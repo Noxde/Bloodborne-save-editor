@@ -8,7 +8,7 @@ import * as dialog from "@tauri-apps/plugin-dialog";
 function Stats() {
   const { save, setSave } = useContext(SaveContext);
   const [editedStats, setEditedStats] = useState(
-    JSON.parse(JSON.stringify(save))
+    JSON.parse(JSON.stringify(save.stats)),
   );
   const { images } = useContext(ImagesContext);
 
@@ -30,7 +30,7 @@ function Stats() {
         backgroundSize: "cover",
       }}
     >
-      {editedStats.stats
+      {editedStats
         .filter(
           (x) =>
             x.name !== "Echoes" &&
@@ -38,7 +38,7 @@ function Stats() {
             x.name !== "Voice" &&
             x.name !== "Gender" &&
             x.name !== "Ng" &&
-            x.name !== "Origin"
+            x.name !== "Origin",
         )
         .map((x, i) => (
           <Stat
@@ -63,7 +63,7 @@ function Stats() {
             padding: "0 1rem",
           }}
           onClick={() => {
-            setEditedStats(JSON.parse(JSON.stringify(save)));
+            setEditedStats(JSON.parse(JSON.stringify(save.stats)));
           }}
         >
           Reset
@@ -75,20 +75,26 @@ function Stats() {
             padding: "0 1rem",
           }}
           onClick={async () => {
-            const { stats } = editedStats;
-            stats.forEach(async ({ rel_offset, length, times, value }) => {
-              try {
-                await invoke("edit_stat", {
-                  relOffset: rel_offset,
-                  length,
-                  times,
-                  value: parseInt(value),
-                });
-              } catch (error) {
-                console.error(error);
-              }
+            editedStats.forEach(
+              async ({ rel_offset, length, times, value }, i) => {
+                try {
+                  if (save.stats[i].value !== value) {
+                    await invoke("edit_stat", {
+                      relOffset: rel_offset,
+                      length,
+                      times,
+                      value: parseInt(value),
+                    });
+                  }
+                } catch (error) {
+                  console.error(error);
+                }
+              },
+            );
+            setSave((prev) => {
+              prev.stats = JSON.parse(JSON.stringify(editedStats));
+              return prev;
             });
-            setSave(JSON.parse(JSON.stringify(editedStats)));
             await dialog.message("Confirmed changes");
           }}
         >
