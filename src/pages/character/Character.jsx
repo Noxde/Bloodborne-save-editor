@@ -17,7 +17,7 @@ function Character() {
   const { save, setSave } = useContext(SaveContext);
   const [username, setUsername] = useState(save.username.string);
   const [editedStats, setEditedStats] = useState(
-    JSON.parse(JSON.stringify(save)),
+    JSON.parse(JSON.stringify(save.stats)),
   );
   const [editedPlaytime, setEditedPlaytime] = useState(save.playtime);
   const [editedCoordinates, setEditedCoordinates] = useState(
@@ -128,7 +128,7 @@ function Character() {
             padding: "0 1rem",
           }}
           onClick={() => {
-            setEditedStats(JSON.parse(JSON.stringify(save)));
+            setEditedStats(JSON.parse(JSON.stringify(save.stats)));
             setEditedPlaytime(save.playtime);
             setEditedCoordinates(save.position.coordinates);
             setUsername(save.username.string);
@@ -144,22 +144,22 @@ function Character() {
             padding: "0 1rem",
           }}
           onClick={async () => {
-            const { stats } = editedStats;
             try {
-              stats.forEach(async ({ rel_offset, length, times, value }) => {
-                await invoke("edit_stat", {
-                  relOffset: rel_offset,
-                  length,
-                  times,
-                  value: parseInt(value),
-                });
-              });
+              editedStats.forEach(
+                async ({ rel_offset, length, times, value }) => {
+                  await invoke("edit_stat", {
+                    relOffset: rel_offset,
+                    length,
+                    times,
+                    value: parseInt(value),
+                  });
+                },
+              );
 
               if (username.length > 0 && username !== save.username.string) {
                 await invoke("set_username", {
                   newUsername: username,
                 });
-                editedStats.username.string = username;
               } else {
                 setUsername(save.username.string);
               }
@@ -167,19 +167,24 @@ function Character() {
                 newPlaytime: represent(editedPlaytime),
               });
 
-              editedStats.playtime = editedPlaytime;
-
               await invoke("edit_coordinates", {
                 x: +editedCoordinates.x,
                 y: +editedCoordinates.y,
                 z: +editedCoordinates.z,
               });
 
-              editedStats.position.coordinates = editedCoordinates;
-
               await dialog.message("Confirmed changes");
 
-              setSave(JSON.parse(JSON.stringify(editedStats)));
+              setSave((prev) => {
+                prev.position.coordinates = JSON.parse(
+                  JSON.stringify(editedCoordinates),
+                );
+                prev.stats = JSON.parse(JSON.stringify(editedStats));
+                prev.playtime = editedPlaytime;
+                prev.username.string = username;
+
+                return prev;
+              });
             } catch (error) {
               console.error(error);
             }
