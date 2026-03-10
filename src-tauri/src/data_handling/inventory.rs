@@ -152,7 +152,7 @@ impl Inventory {
         for (k, v) in self.articles.iter_mut() {
             let family: TypeFamily = k.to_owned().into();
             if family == TypeFamily::Item {
-                if let Some(item) = v.iter_mut().find(|item| item.number == number) {
+                if let Some(item) = v.iter_mut().find(|item| item.id == id) {
                     if k == &ArticleType::Key {
                         return Err(Error::CustomError("ERROR: Key items cannot be edited."));
                     }
