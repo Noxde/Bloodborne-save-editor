@@ -191,6 +191,7 @@ Thanks to everyone that has starred the repo and used the editor!
    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=Noxde/bloodborne-save-editor&type=date&legend=bottom-right" />
  </picture>
 </a>
+
 ## 5. License
 
 This project is licensed under the [GPL-3.0 License](./LICENSE).
