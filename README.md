@@ -181,6 +181,16 @@ Thanks to @xtrin on the "The Tomb Prospectors" discord for explaining to me how 
 
 Thanks to @n3r4\_ on the "?ServerName?" discord for sharing a spreadsheet with boss flags
 
+## Star History
+Thanks to everyone that has starred the repo and used the editor!
+
+<a href="https://www.star-history.com/?repos=Noxde%2Fbloodborne-save-editor&type=date&legend=bottom-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=Noxde/bloodborne-save-editor&type=date&theme=dark&legend=bottom-right" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=Noxde/bloodborne-save-editor&type=date&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=Noxde/bloodborne-save-editor&type=date&legend=bottom-right" />
+ </picture>
+</a>
 ## 5. License
 
 This project is licensed under the [GPL-3.0 License](./LICENSE).
