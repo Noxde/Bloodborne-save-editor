@@ -55,7 +55,7 @@
          Change items amount.
       </summary>
 
-   <video src="./assets/itemAmount.mp4"/>
+   <img src="./assets/itemAmount.gif"/>
    </details>
 
 - <details>
@@ -63,7 +63,7 @@
          Transform items, weapons or armors into different ones including cut content.
       </summary>
 
-   <video src="./assets/transform.mp4"/>
+   <img src="./assets/transform.gif"/>
    </details>
 
 - <details>
@@ -71,7 +71,7 @@
          Modify character attributes.
       </summary>
 
-   <video src="./assets/stats.mp4"/>
+   <img src="./assets/stats.gif"/>
    </details>
 
 - <details>
@@ -79,7 +79,7 @@
          Modify Blood echoes, insight, gender, origin, voice and position.
       </summary>
 
-   <video src="./assets/character.mp4"/>
+   <img src="./assets/character.gif"/>
    </details>
 
 - <details>
@@ -87,7 +87,7 @@
         Edit Gems and Runes
       </summary>
 
-   <video src="./assets/editGemsRunes.mp4"/>
+   <img src="./assets/editGemsRunes.gif"/>
    </details>
 
 - <details>
@@ -95,7 +95,7 @@
         Add items
       </summary>
 
-   <video src="./assets/addItems.mp4"/>
+   <img src="./assets/addItems.gif"/>
    </details>
 
 - <details>
@@ -103,7 +103,7 @@
         Edit weapons and armor gem slots
       </summary>
 
-   <video src="./assets/gemSlots.mp4"/>
+   <img src="./assets/gemSlots.gif"/>
    </details>
 
 - <details>
@@ -111,7 +111,7 @@
         Kill and revive bosses
       </summary>
 
-   <video src="./assets/bosses.mp4"/>
+   <img src="./assets/bosses.gif"/>
    </details>
 
 - Change spawn point/teleport (available on the character section)
