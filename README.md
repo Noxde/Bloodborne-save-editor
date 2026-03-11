@@ -48,6 +48,8 @@
 
 ## 1. Features
 
+<sub>you can click on these to see a gif</sub>
+
 - Automatic backup when opening a file.
 - Item filters to easily find whatever you need.
 - <details>
@@ -114,7 +116,21 @@
    <img src="./assets/bosses.gif"/>
    </details>
 
-- Change spawn point/teleport (available on the character section)
+- <details>
+      <summary>
+        Set different flags
+      </summary>
+
+   <img src="./assets/flags.gif"/>
+   </details>
+
+- <details>
+      <summary>
+        Change spawn point to any lantern location
+      </summary>
+
+   <img src="./assets/teleport.gif"/>
+   </details>
 
 ## 2. Download
 
