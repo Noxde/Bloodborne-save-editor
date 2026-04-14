@@ -54,6 +54,14 @@ function Flags() {
             "Enables pvp when doing coop with players that have the Hunter rune equipped."
           }
         />
+        <Flag
+          label="Enable multiplayer in Central yharnam"
+          offset={4127}
+          values={[162]}
+          info={
+            "Enables multiplayer in central yharnam when both bosses are dead."
+          }
+        />
       </div>
     </div>
   );

@@ -53,7 +53,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             set_flag,
             edit_coordinates,
             teleport,
-            change_weapon_level
+            change_weapon_level,
+            apply_mask
         ])
         .run(tauri::generate_context!())?;
 
@@ -66,6 +67,14 @@ fn set_flag(offset: usize, new_value: u8, state_save: tauri::State<MutexSave>) {
     let save = save_option.as_mut().unwrap();
 
     save.file.set_flag(offset, new_value);
+}
+
+#[tauri::command]
+fn apply_mask(offset: usize, mask: u8, state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.apply_mask(offset, mask);
 }
 
 #[tauri::command]

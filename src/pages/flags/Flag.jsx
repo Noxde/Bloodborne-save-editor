@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { message } from "@tauri-apps/plugin-dialog";
 import { useEffect, useRef, useState } from "react";
 
-function Flag({ label, offset, values, info }) {
+function Flag({ label, offset, values, info, isMask = false }) {
   const tipRef = useRef();
   const [top, setTop] = useState(0);
   const [showTip, setShowTip] = useState(false);
@@ -21,6 +21,13 @@ function Flag({ label, offset, values, info }) {
       });
     }
     await message("Flag applied");
+  }
+
+  async function applyMask() {
+    await invoke("apply_mask", {
+      offset: offset,
+      mask: values[0],
+    });
   }
 
   return (
@@ -68,7 +75,7 @@ function Flag({ label, offset, values, info }) {
           backgroundSize: "100% 100%",
         }}
         className="buttonBg"
-        onClick={setFlag}
+        onClick={isMask ? applyMask : setFlag}
       >
         Apply
       </button>

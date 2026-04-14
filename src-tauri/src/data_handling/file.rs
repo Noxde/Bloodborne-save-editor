@@ -72,6 +72,12 @@ impl FileData {
         self.bytes[value_offset] = new_value;
     }
 
+    pub fn apply_mask(&mut self, offset_from_aob: usize, mask: u8) {
+        let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
+
+        self.bytes[value_offset] &= mask;
+    }
+
     pub fn edit(&mut self, rel_offset: isize, length: usize, times: usize, value: u32) {
         let value_bytes = value.to_le_bytes();
         let from_offset = (self.offsets.username as isize + rel_offset) as usize;
