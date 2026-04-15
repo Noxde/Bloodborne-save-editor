@@ -75,7 +75,7 @@ jobs:
       - name: Build Tauri (experimental AppImage)
         if: matrix.platform == 'ubuntu-24.04'
         run: |
-          TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" cargo tauri build
+          TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
 
       # 🧱 Use normal action for other platforms
       - uses: tauri-apps/tauri-action@v0
