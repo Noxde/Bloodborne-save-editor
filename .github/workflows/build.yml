@@ -20,7 +20,7 @@ jobs:
           - platform: "macos-latest"
             args: "--target x86_64-apple-darwin"
 
-          - platform: "ubuntu-24.04" # ✅ updated
+          - platform: "ubuntu-24.04"
             args: ""
 
           - platform: "windows-latest"
@@ -31,8 +31,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ✅ Linux deps (still needed here since we are NOT using tauri container)
-      - name: install dependencies (ubuntu only)
+      # ✅ Linux dependencies + fixes for quick-sharun
+      - name: Install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-24.04'
         run: |
           sudo apt-get update
@@ -43,7 +43,19 @@ jobs:
             patchelf \
             curl \
             wget \
-            file
+            file \
+            bash \
+            coreutils \
+            xz-utils \
+            binutils
+
+          # Fix missing /bin/sh issue
+          sudo ln -sf /bin/bash /bin/sh
+
+          # Debug (optional but useful)
+          which sh
+          which bash
+          ls -l /bin/sh
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -62,7 +74,7 @@ jobs:
       - name: install frontend dependencies
         run: npm install
 
-      # 🚀 Install experimental Tauri CLI
+      # 🚀 Install experimental Tauri CLI (Linux only)
       - name: Install experimental tauri-cli
         if: matrix.platform == 'ubuntu-24.04'
         run: |
@@ -75,9 +87,9 @@ jobs:
       - name: Build Tauri (experimental AppImage)
         if: matrix.platform == 'ubuntu-24.04'
         run: |
-          TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" CI=false cargo tauri build
+          TAURI_BUNDLER_NEW_APPIMAGE_FORMAT="true" cargo tauri build
 
-      # 🧱 Use normal action for other platforms
+      # 🧱 Standard builds (macOS + Windows)
       - uses: tauri-apps/tauri-action@v0
         if: matrix.platform != 'ubuntu-24.04'
         env:
@@ -91,7 +103,7 @@ jobs:
           prerelease: false
           args: ${{ matrix.args }}
 
-      # 📦 Upload Linux artifact manually
+      # 📦 Upload Linux AppImage artifact
       - name: Upload AppImage
         if: matrix.platform == 'ubuntu-24.04'
         uses: actions/upload-artifact@v4
