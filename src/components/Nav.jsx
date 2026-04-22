@@ -2,26 +2,31 @@ import { invoke } from "@tauri-apps/api/core";
 import { basename } from "@tauri-apps/api/path";
 import { useState } from "react";
 import * as dialog from "@tauri-apps/plugin-dialog";
+import {
+  AndroidFs,
+  AndroidPublicGeneralPurposeDir,
+  AndroidProgressNotificationIconType,
+} from "tauri-plugin-android-fs-api";
 
 function Nav({ setLoading, setSave, save }) {
   const [name, setName] = useState("");
 
   async function readFile() {
     try {
-      const selectedPath = await dialog.open({
-        multiple: false,
-        title: "Character data",
+      const [selected] = await AndroidFs.showOpenFilePicker({
+        localOnly: true,
       });
-      if (!selectedPath) return;
+      const bytes = await AndroidFs.readFile(selected);
+
       if (save) setSave(null);
       setLoading(true);
 
       const parsedSave = await invoke("make_save", {
-        path: selectedPath,
+        bytes,
       });
       setLoading(false);
       setSave(parsedSave);
-      setName(await basename(selectedPath));
+      setName(await AndroidFs.getName(selected));
     } catch (error) {
       console.error(error);
       await dialog.message(
