@@ -28,7 +28,7 @@ canvas {
   top: 0;
   width: 795px;
   height: 90px;
-  background: url("/public/assets/bg.png");
+  background: url("assets/bg.png");
   background-size: cover;
   text-align: center;
   z-index: 2;
@@ -44,7 +44,7 @@ canvas {
 
 #filterHover {
   position: absolute;
-  background: url("/public/assets/filterHover.png");
+  background: url("assets/filterHover.png");
   background-position: center;
   background-size: contain;
   width: 85px;
@@ -64,7 +64,7 @@ canvas {
 
 #hoverReplacement {
   position: absolute;
-  background: url("/public/assets/hover.png");
+  background: url("assets/hover.png");
   background-size: 100% 100%;
   width: 526px;
   height: 90px;
@@ -81,7 +81,7 @@ canvas {
     position: absolute;
     width: 795px;
     height: 90px;
-    background: url("/public/assets/hover.png");
+    background: url("assets/hover.png");
     pointer-events: none;
     animation: hover-fade alternate infinite 700ms ease-out;
   }

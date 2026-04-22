@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Reim";
-  src: url("../public/fonts/A-OTF-ReimPr6-Medium.otf");
+  src: url("/fonts/A-OTF-ReimPr6-Medium.otf");
 }
 
 .App {
