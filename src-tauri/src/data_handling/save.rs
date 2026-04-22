@@ -29,11 +29,15 @@ pub struct SaveData {
 }
 
 impl SaveData {
-    pub fn build(save_path: &str, resources_path: PathBuf) -> Result<SaveData, Error> {
-        let mut file = FileData::build(save_path, resources_path)?;
-        let stats = stats::new(&file).unwrap();
-        let bosses = bosses::new(&file).unwrap();
-        let mut upgrades = parse_upgrades(&file);
+    pub fn build(
+        bytes: Vec<u8>,
+        resources_path: PathBuf,
+        handle: &tauri::AppHandle,
+    ) -> Result<SaveData, Error> {
+        let mut file = FileData::build(bytes, resources_path)?;
+        let stats = stats::new(&file, handle).unwrap();
+        let bosses = bosses::new(&file, handle).unwrap();
+        let mut upgrades = parse_upgrades(&file, handle);
         let mut slots = parse_equipped_gems(&mut file, &mut upgrades);
         let inventory = Inventory::build(
             &file,
@@ -41,6 +45,7 @@ impl SaveData {
             file.offsets.key_inventory,
             &mut upgrades,
             &mut slots,
+            &handle
         );
         let storage = Inventory::build(
             &file,
@@ -48,6 +53,7 @@ impl SaveData {
             (0, 0),
             &mut upgrades,
             &mut slots,
+            &handle
         ); // Its not possible to store key items
         let username = Username::build(&file);
         let playtime = file.get_playtime();

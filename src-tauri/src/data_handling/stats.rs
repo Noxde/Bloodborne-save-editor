@@ -3,6 +3,9 @@ use serde::{Deserialize, Serialize};
 use super::file::FileData;
 use std::fs::File;
 use std::io::{self, BufReader};
+use tauri::Manager;
+use tauri_plugin_fs::FsExt;
+use crate::BaseDirectory;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Stat {
@@ -21,13 +24,12 @@ impl Stat {
     }
 }
 
-pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
-    let file_path = file.resources_path.join("offsets.json");
-    let json_file = File::open(file_path)?;
-    let reader = BufReader::new(json_file);
+pub fn new(file: &FileData, handle: &tauri::AppHandle) -> Result<Vec<Stat>, io::Error> {
+    let resource_path = handle.path().resolve("resources/offsets.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
 
-    // Read the JSON contents of the file as Vec<Stat>.
-    let mut stats: Vec<Stat> = serde_json::from_reader(reader)?;
+    // Now you can parse the bytes (assuming it's JSON)
+    let mut stats: Vec<Stat> = serde_json::from_str(&json)?;
     for s in &mut stats {
         s.value = file.get_number(s.rel_offset, s.length);
     }

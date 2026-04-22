@@ -9,6 +9,9 @@ use super::{
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
 use std::{collections::HashMap, fs::File, io::BufReader, path::PathBuf};
+use tauri::Manager;
+use tauri_plugin_fs::FsExt;
+use crate::BaseDirectory;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inventory {
@@ -27,6 +30,7 @@ impl Inventory {
         key: (usize, usize),
         all_upgrades: &mut HashMap<u32, (Upgrade, UpgradeType)>,
         all_slots: &mut HashMap<u64, Vec<Slot>>,
+        handle: &tauri::AppHandle,
     ) -> Inventory {
         let mut has_slots = false;
         let mut articles = HashMap::new();
@@ -66,16 +70,16 @@ impl Inventory {
                 let result = match (file_data.bytes[i + 7], file_data.bytes[i + 11]) {
                     (0xB0, 0x40) => {
                         has_slots = false;
-                        get_info_item(id, &file_data.resources_path)
+                        get_info_item(id, &file_data.resources_path, &handle)
                     }
                     (_, 0x10) => {
                         has_slots = true;
-                        get_info_armor(id, &file_data.resources_path)
+                        get_info_armor(id, &file_data.resources_path, &handle)
                     }
                     _ => {
                         id = second_part;
                         has_slots = true;
-                        get_info_weapon(id, &file_data.resources_path)
+                        get_info_weapon(id, &file_data.resources_path, &handle)
                     }
                 };
 
@@ -185,8 +189,9 @@ impl Inventory {
         id: u32,
         quantity: u32,
         is_storage: bool,
+        handle: &tauri::AppHandle
     ) -> Result<&mut Inventory, Error> {
-        let result = get_info_item(id, &file_data.resources_path);
+        let result = get_info_item(id, &file_data.resources_path, handle);
         if result.is_err() {
             return Err(Error::CustomError(
                 "ERROR: failed to find info for the item.",
@@ -619,21 +624,17 @@ impl Inventory {
     }
 
     pub fn change_weapon_level(
-        &mut self, 
-        file_data: &mut FileData, 
-        article_type: ArticleType, 
-        article_index: usize, 
-        slot_index: usize, 
+        &mut self,
+        file_data: &mut FileData,
+        article_type: ArticleType,
+        article_index: usize,
+        slot_index: usize,
         is_storage: bool,
-        level: u8
+        level: u8,
     ) -> Result<Article, Error> {
         if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
             if let Some(article) = articles_of_type.get_mut(article_index) {
-                article.set_imprint_and_upgrade(
-                    file_data,
-                    None,
-                    Some(level)
-                )
+                article.set_imprint_and_upgrade(file_data, None, Some(level))
             } else {
                 Err(Error::CustomError(
                     "ERROR: There are no articles of the specified type.",
@@ -641,17 +642,16 @@ impl Inventory {
             }
         } else {
             Err(Error::CustomError(
-                    "ERROR: There are no articles of the specified type.",
+                "ERROR: There are no articles of the specified type.",
             ))
         }
     }
 }
 
-pub fn get_info_item(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
-    let file_path = resources_path.join("items.json");
-    let json_file = File::open(file_path).map_err(Error::IoError)?;
-    let reader = BufReader::new(json_file);
-    let items: Value = serde_json::from_reader(reader).unwrap();
+pub fn get_info_item(id: u32, resources_path: &PathBuf, handle: &tauri::AppHandle) -> Result<(ItemInfo, ArticleType), Error> {
+    let resource_path = handle.path().resolve("resources/items.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let items: Value = serde_json::from_str(&json).unwrap();
     let items = items.as_object().unwrap();
 
     for (category, category_items) in items {
@@ -680,7 +680,7 @@ pub fn get_info_item(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, Art
     ))
 }
 
-pub fn get_info_armor(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
+pub fn get_info_armor(id: u32, resources_path: &PathBuf, handle: &tauri::AppHandle) -> Result<(ItemInfo, ArticleType), Error> {
     let file_path = resources_path.join("armors.json");
     let json_file = File::open(file_path).map_err(Error::IoError)?;
     let reader = BufReader::new(json_file);
@@ -708,6 +708,7 @@ pub fn get_info_armor(id: u32, resources_path: &PathBuf) -> Result<(ItemInfo, Ar
 pub fn get_info_weapon(
     mut id: u32,
     resources_path: &PathBuf,
+    handle: &tauri::AppHandle
 ) -> Result<(ItemInfo, ArticleType), Error> {
     let file_path = resources_path.join("weapons.json");
     let json_file = File::open(file_path).map_err(Error::IoError)?;

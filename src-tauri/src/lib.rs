@@ -3,6 +3,7 @@
 
 use std::{error::Error, fs::File, io::BufReader, sync::Mutex};
 mod data_handling;
+use tauri_plugin_fs::FsExt;
 
 use data_handling::{
     appearance,
@@ -11,16 +12,25 @@ use data_handling::{
     save::SaveData,
     upgrades::Upgrade,
 };
-use serde_json::{Value, json};
-use tauri::{Manager, path::BaseDirectory};
+use serde_json::{json, Value};
+use tauri::{path::BaseDirectory, Manager};
 struct MutexSave {
     data: Mutex<Option<SaveData>>,
 }
 
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() -> Result<(), Box<dyn Error>> {
     tauri::Builder::default()
-        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
+        .setup(|app| {
+          // allowed the given directory
+          let scope = app.fs_scope();
+          scope.allow_directory("/resources/", false);
+
+          Ok(())
+        })
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_android_fs::init())
         .plugin(tauri_plugin_shell::init())
         .manage(MutexSave {
             data: Mutex::new(None),
@@ -111,14 +121,17 @@ fn set_playtime(new_playtime: [u8; 4], state_save: tauri::State<MutexSave>) {
 
 #[tauri::command]
 fn make_save(
-    path: &str,
+    bytes: Vec<u8>,
     state_save: tauri::State<MutexSave>,
     handle: tauri::AppHandle,
 ) -> Result<Value, String> {
     let resource_path = handle
-        .path().resolve("resources/", BaseDirectory::Resource).unwrap();
+        .path()
+        .resolve("resources/", BaseDirectory::Resource)
+        .unwrap();
 
-    match SaveData::build(path, resource_path) {
+    println!("{:#?}", resource_path);
+    match SaveData::build(bytes, resource_path, &handle) {
         Ok(s) => {
             let mut data = state_save.data.lock().unwrap();
             *data = Some(s.clone());
@@ -170,63 +183,58 @@ fn save(path: String, state_save: tauri::State<MutexSave>) -> Result<&str, &str>
 }
 
 #[tauri::command]
-fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
+fn return_weapons(state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("weapons.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let weapons: Value = serde_json::from_reader(reader).unwrap();
+    let resource_path = handle.path().resolve("resources/weapons.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let weapons: Value = serde_json::from_str(&json).unwrap();
 
     weapons
 }
 
 #[tauri::command]
-fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
+fn return_armors(state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("armors.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let armors: Value = serde_json::from_reader(reader).unwrap();
+    let resource_path = handle.path().resolve("resources/armors.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let armors: Value = serde_json::from_str(&json).unwrap();
 
     armors
 }
 
 #[tauri::command]
-fn return_items(state_save: tauri::State<MutexSave>) -> Value {
+fn return_items(state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("items.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let items: Value = serde_json::from_reader(reader).unwrap();
+    let save = save_option.as_ref().unwrap();   
+    let resource_path = handle.path().resolve("resources/items.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let items: Value = serde_json::from_str(&json).unwrap();
 
     items
 }
 
 #[tauri::command]
-fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
+fn return_gem_effects(state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+    let resource_path = handle.path().resolve("resources/upgrades.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let upgrades: Value = serde_json::from_str(&json).unwrap();
 
-    upgrade_json["gemEffects"].clone()
+    upgrades["gemEffects"].clone()
 }
 
 #[tauri::command]
-fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
+fn return_rune_effects(state_save: tauri::State<MutexSave>, handle: tauri::AppHandle) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+    let resource_path = handle.path().resolve("resources/upgrades.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let upgrades: Value = serde_json::from_str(&json).unwrap();
 
-    upgrade_json["runeEffects"].clone()
+    upgrades["runeEffects"].clone()
 }
 
 #[tauri::command]
@@ -237,6 +245,7 @@ fn transform_item(
     article_type: ArticleType,
     is_storage: bool,
     state_save: tauri::State<MutexSave>,
+    handle: tauri::AppHandle
 ) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
@@ -255,7 +264,7 @@ fn transform_item(
 
     let old_type = item.article_type;
 
-    match item.transform(&mut save.file, new_id, is_storage) {
+    match item.transform(&mut save.file, new_id, is_storage, &handle) {
         Ok(_) => {
             // Check if the article type has changed
             if item.article_type != old_type {
@@ -545,6 +554,7 @@ fn add_item(
     quantity: u32,
     is_storage: bool,
     state_save: tauri::State<MutexSave>,
+    handle: tauri::AppHandle
 ) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
@@ -552,7 +562,7 @@ fn add_item(
     if !is_storage {
         match save
             .inventory
-            .add_item(&mut save.file, id, quantity, is_storage)
+            .add_item(&mut save.file, id, quantity, is_storage, &handle)
         {
             Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to add the item".to_string()),
@@ -560,7 +570,7 @@ fn add_item(
     } else {
         match save
             .storage
-            .add_item(&mut save.file, id, quantity, is_storage)
+            .add_item(&mut save.file, id, quantity, is_storage, &handle)
         {
             Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to add the item".to_string()),
@@ -583,7 +593,7 @@ fn teleport(x: f32, y: f32, z: f32, map_id: Vec<u8>, state_save: tauri::State<Mu
     let le_map = [00, 00, map_id[1], map_id[0]];
 
     for (i, j) in (0x04..0x08).enumerate() {
-            save.file.bytes[j] = le_map[i];
+        save.file.bytes[j] = le_map[i];
     }
 
     save.position.coordinates.edit(&mut save.file, x, y, z);
@@ -596,7 +606,7 @@ fn change_weapon_level(
     slot_index: usize,
     is_storage: bool,
     level: u8,
-    state_save: tauri::State<MutexSave>
+    state_save: tauri::State<MutexSave>,
 ) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save: &mut SaveData = save_option.as_mut().unwrap();
@@ -608,7 +618,7 @@ fn change_weapon_level(
             article_index,
             slot_index,
             is_storage,
-            level
+            level,
         )
     } else {
         save.inventory.change_weapon_level(
@@ -617,7 +627,7 @@ fn change_weapon_level(
             article_index,
             slot_index,
             is_storage,
-            level
+            level,
         )
     };
 

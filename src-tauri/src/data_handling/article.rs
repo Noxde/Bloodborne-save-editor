@@ -6,6 +6,9 @@ use super::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
+use tauri::Manager;
+use tauri_plugin_fs::FsExt;
+use crate::BaseDirectory;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct ItemInfo {
@@ -59,15 +62,16 @@ impl Article {
         file_data: &mut FileData,
         new_id: u32,
         is_storage: bool,
+        handle: &tauri::AppHandle
     ) -> Result<(), Error> {
         let mut new_id = new_id.to_le_bytes().to_vec();
         match self.type_family {
             TypeFamily::Item => {
                 new_id.pop();
-                self.transform_item(file_data, new_id, is_storage)
+                self.transform_item(file_data, new_id, is_storage, handle)
             }
             TypeFamily::Armor | TypeFamily::Weapon => {
-                self.transform_armor_or_weapon(file_data, new_id, is_storage)
+                self.transform_armor_or_weapon(file_data, new_id, is_storage, handle)
             }
         }
     }
@@ -76,6 +80,7 @@ impl Article {
         file_data: &mut FileData,
         new_id: Vec<u8>,
         is_storage: bool,
+        handle: &tauri::AppHandle
     ) -> Result<(), Error> {
         if new_id.len() != 3 {
             return Err(Error::CustomError(
@@ -90,7 +95,7 @@ impl Article {
         let article_type;
         let type_family;
         //INFO & ARTICLE_TYPE
-        if let Ok((new_info, new_article_type)) = get_info_item(id, &file_data.resources_path) {
+        if let Ok((new_info, new_article_type)) = get_info_item(id, &file_data.resources_path, handle) {
             info = new_info;
             article_type = new_article_type;
             type_family = article_type.into();
@@ -146,6 +151,7 @@ impl Article {
         file_data: &mut FileData,
         new_id: Vec<u8>,
         is_storage: bool,
+        handle: &tauri::AppHandle,
     ) -> Result<(), Error> {
         if new_id.len() != 4 {
             return Err(Error::CustomError(
@@ -181,10 +187,10 @@ impl Article {
         if self.article_type == ArticleType::Armor {
             second_part = u32::from_le_bytes([new_id[0], new_id[1], new_id[2], 0x10]);
             byte_count = 3;
-            result = get_info_armor(id, &file_data.resources_path);
+            result = get_info_armor(id, &file_data.resources_path, handle);
         } else {
             second_part = u32::from_le_bytes([new_id[0], new_id[1], new_id[2], new_id[3]]);
-            result = get_info_weapon(id, &file_data.resources_path);
+            result = get_info_weapon(id, &file_data.resources_path, handle);
         }
 
         //INFO & ARTICLE_TYPE

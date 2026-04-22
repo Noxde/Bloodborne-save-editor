@@ -5,6 +5,10 @@ use super::{
 use serde::{Deserialize, Serialize};
 use serde_json::{self, Value};
 use std::{collections::HashMap, fs::File, io::BufReader};
+use tauri::Manager;
+use tauri_plugin_fs::FsExt;
+use crate::BaseDirectory;
+
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct UpgradeInfo {
     pub name: String,
@@ -205,12 +209,11 @@ impl Upgrade {
     }
 }
 
-pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeType)> {
+pub fn parse_upgrades(file_data: &FileData, handle: &tauri::AppHandle) -> HashMap<u32, (Upgrade, UpgradeType)> {
     let mut upgrades = HashMap::new();
-    let file_path = file_data.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).map_err(Error::IoError).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
+    let resource_path = handle.path().resolve("resources/upgrades.json", BaseDirectory::Resource).unwrap();
+    let json = handle.fs().read_to_string(&resource_path).unwrap();
+    let upgrades_json: Value = serde_json::from_str(&json).unwrap();
 
     let (start, end) = file_data.offsets.upgrades;
 
