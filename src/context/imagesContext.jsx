@@ -11,14 +11,10 @@ export const ImagesProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       const itemsLoaded = await Promise.all(
-        itemImages.map((x) =>
-          loadImage(`${process.env.PUBLIC_URL}/assets/itemImages/${x}`)
-        )
+        itemImages.map((x) => loadImage(`/assets/itemImages/${x}`)),
       );
       const backgroundsLoaded = await Promise.all(
-        backgroundImages.map((x) =>
-          loadImage(`${process.env.PUBLIC_URL}/assets/itemsBg/${x}`)
-        )
+        backgroundImages.map((x) => loadImage(`/assets/itemsBg/${x}`)),
       );
 
       setImages({
