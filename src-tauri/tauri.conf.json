@@ -1,8 +1,8 @@
 {
   "build": {
     "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npx cross-env BROWSER=none npm start",
-    "frontendDist": "../build",
+    "beforeDevCommand": "npm run dev",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:3000"
   },
   "bundle": {
