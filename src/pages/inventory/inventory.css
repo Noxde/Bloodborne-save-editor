@@ -11,10 +11,11 @@ canvas {
     display: flex;
     align-items: center;
     button {
-      padding: 0.2rem 1rem;
+      padding: 0.2rem 0.7rem;
     }
     input {
-      height: 52px;
+      height: 42px;
+      width: 100px !important;
     }
   }
 }

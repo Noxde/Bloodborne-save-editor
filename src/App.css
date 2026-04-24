@@ -48,17 +48,25 @@ main {
 
 .inventory-btn {
   background-size: 100% 100% !important;
-  width: 200px;
+  width: 100%;
   &:not(:first-of-type) {
     margin-top: 10px;
   }
 }
 
 #sideBar {
-  padding-top: 3rem;
+  position: absolute;
+  font-size: 1.5rem;
+  left: -200px;
+  width: 200px;
   text-align: center;
-  background-color: #000000a2;
+  background-color: #000000;
   height: 100%;
+  transition: left 500ms;
+  z-index: 9999;
+  &.show {
+    left: 0px;
+  }
   ul {
     list-style: none;
     li a {
