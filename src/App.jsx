@@ -12,12 +12,13 @@ import * as shell from "@tauri-apps/plugin-shell";
 function App() {
   const [save, setSave] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     async function checkUpdate() {
       try {
         const req = await fetch(
-          "https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest"
+          "https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest",
         );
         const { tag_name, html_url } = await req.json();
         const currentVersion = await invoke("get_version");
@@ -78,9 +79,19 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav setLoading={setLoading} save={save} setSave={setSave} />
+        <Nav
+          setLoading={setLoading}
+          save={save}
+          setSave={setSave}
+          setShowMenu={setShowMenu}
+        />
         <ImagesProvider>
-          <Main save={save} setSave={setSave} loading={loading} />
+          <Main
+            save={save}
+            setSave={setSave}
+            loading={loading}
+            showMenu={showMenu}
+          />
         </ImagesProvider>
       </Router>
     </div>

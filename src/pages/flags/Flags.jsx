@@ -5,7 +5,7 @@ function Flags() {
   return (
     <div
       style={{
-        gridColumn: "2/4",
+        gridColumn: "1/4",
         display: "grid",
         gridTemplateRows: "minmax(370px, 60vh)",
         gridTemplateColumns: "50%",

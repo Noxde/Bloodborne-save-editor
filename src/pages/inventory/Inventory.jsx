@@ -118,7 +118,7 @@ function Inventory({ inv, isStorage }) {
       </div>
       {/* Right side buttons */}
       <div className="editButtons">
-        <span style={{ fontSize: "1.2rem" }}>Item quantity:</span>
+        <span style={{ fontSize: "1rem" }}>Item quantity:</span>
         <div className="editQuantity">
           <input
             type="number"
@@ -176,7 +176,7 @@ function Inventory({ inv, isStorage }) {
             Set
           </button>
         </div>
-        <span style={{ fontSize: "1.2rem" }}>Weapon level:</span>
+        <span style={{ fontSize: "1rem" }}>Weapon level:</span>
         <div className="editQuantity">
           <input
             type="number"

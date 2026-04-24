@@ -41,6 +41,9 @@ function FilterComponent({ inventory, selectedFilter = 0, selectedIndex }) {
     <Virtuoso
       data={items}
       height={"100%"}
+      style={{
+        overflowX: "hidden",
+      }}
       itemContent={(i, item) => (
         <Item
           className={selectedIndex === i ? "selectedItem" : ""} // FIXME: El select con esto me clava un re-render y parpadea lo que seleccionas
@@ -49,8 +52,8 @@ function FilterComponent({ inventory, selectedFilter = 0, selectedIndex }) {
         />
       )}
       overscan={{
-        main: 900,
-        reverse: 900,
+        main: 900 * 10,
+        reverse: 900 * 10,
       }}
       fixedItemHeight={91}
     />

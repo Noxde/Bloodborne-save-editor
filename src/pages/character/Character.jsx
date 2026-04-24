@@ -29,7 +29,7 @@ function Character() {
   return (
     <div
       style={{
-        gridColumn: "2/4",
+        gridColumn: "1/4",
         display: "grid",
         gridTemplateRows: "minmax(370px, 60vh) min-content",
         gap: "5rem",

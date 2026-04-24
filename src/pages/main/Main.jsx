@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
 import SideBar from "./SideBar";
 import Inventory from "../inventory/Inventory";
@@ -11,7 +11,7 @@ import EquippedGems from "./EquippedGems";
 import Bosses from "../bosses/Bosses";
 import Flags from "../flags/Flags";
 
-const Main = ({ save, setSave, loading }) => {
+const Main = ({ save, setSave, loading, showMenu }) => {
   const location = useLocation();
   const { loading: loadingImages } = useContext(ImagesContext);
 
@@ -38,13 +38,12 @@ const Main = ({ save, setSave, loading }) => {
       </div>
       <main
         style={{
-          gridTemplateColumns: `200px 805px ${
-            location.pathname.match(/storage|\/$/) != null ? "1fr" : ""
-          }`,
+          gridTemplateColumns: "1fr 1fr",
         }}
       >
         <SaveContext.Provider value={{ save, setSave }}>
-          <SideBar />
+          <SideBar setSave={setSave} save={save} show={showMenu} />
+
           {loading ? <div>Loading</div> : null}
 
           {save != null ? (
@@ -91,7 +90,7 @@ const Main = ({ save, setSave, loading }) => {
           {save == null && !loading ? (
             <div
               style={{
-                gridColumn: "2/4",
+                gridColumn: "1/4",
                 justifySelf: "center",
                 padding: "2.5rem",
               }}

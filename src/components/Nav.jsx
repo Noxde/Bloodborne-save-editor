@@ -2,43 +2,9 @@ import { invoke } from "@tauri-apps/api/core";
 import { basename } from "@tauri-apps/api/path";
 import { useState } from "react";
 import * as dialog from "@tauri-apps/plugin-dialog";
-import {
-  AndroidFs,
-  AndroidPublicGeneralPurposeDir,
-  AndroidProgressNotificationIconType,
-} from "tauri-plugin-android-fs-api";
 
-function Nav({ setLoading, setSave, save }) {
+function Nav({ setLoading, setSave, save, setShowMenu }) {
   const [name, setName] = useState("");
-
-  async function readFile() {
-    try {
-      const [selected] = await AndroidFs.showOpenFilePicker({
-        localOnly: true,
-      });
-      const bytes = await AndroidFs.readFile(selected);
-
-      if (save) setSave(null);
-      setLoading(true);
-
-      const parsedSave = await invoke("make_save", {
-        bytes,
-      });
-      setLoading(false);
-      setSave(parsedSave);
-      setName(await AndroidFs.getName(selected));
-    } catch (error) {
-      console.error(error);
-      await dialog.message(
-        "Could not parse file, make sure it is a decrypted save file",
-        {
-          title: "Failed to parse save",
-          kind: "error",
-        },
-      );
-      setLoading(false);
-    }
-  }
 
   async function saveChanges() {
     try {
@@ -59,8 +25,28 @@ function Nav({ setLoading, setSave, save }) {
 
   return (
     <nav className="nav">
-      <button id="openSave" onClick={readFile}>
-        Open
+      <button
+        id="openSave"
+        onClick={() => {
+          setShowMenu((prev) => !prev);
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-menu-icon lucide-menu"
+        >
+          <path d="M4 5h16" />
+          <path d="M4 12h16" />
+          <path d="M4 19h16" />
+        </svg>
       </button>
       <span>{name}</span>
       <button disabled={save == null ? true : false} onClick={saveChanges}>
