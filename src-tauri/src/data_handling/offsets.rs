@@ -51,21 +51,24 @@ impl Offsets {
                 break;
             }
         }
-        //Searches for the inv_start_bytes
-        for i in 0..(bytes.len() - inv_start_bytes_len) {
-            if *inv_start_bytes == bytes[i..(i + inv_start_bytes_len)] {
-                //If the beginning of the inventory is found we calculate the username_offset
-                //and the beginning of the key_inventory
-                inventory_offset.0 = i;
-                username_offset = i - USERNAME_TO_INV_OFFSET;
-                key_inventory_offset.0 = username_offset + USERNAME_TO_KEY_INV_OFFSET;
+
+        let mut last_i: usize = 0;
+        //Searches for the appearance_start_bytes
+        for i in 0xF000..(bytes.len() - 4) {
+            //0xF000: In all the saves i found the save bytes after 0x10000
+            if appearance_start_bytes == bytes[i..i + 4] {
+                appearance_offset.0 = i + 4;
+                appearance_offset.1 = appearance_offset.0 + APPEARANCE_BYTES_AMOUNT - 1;
+                last_i = i;
                 break;
             }
         }
-
-        if inventory_offset.0 == 0 {
-            return Err(Error::CustomError("Failed to find username in save data."));
+        if appearance_offset.0 == 0 {
+            return Err(Error::CustomError("Failed to find the appearance."));
         }
+
+        inventory_offset.0 = appearance_offset.0 - 4 - 34028; 
+        username_offset = inventory_offset.0 - USERNAME_TO_INV_OFFSET;
 
         //Find the end of the inventories
         let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
@@ -102,21 +105,6 @@ impl Offsets {
 
         inventory_offset.1 = username_offset + USERNAME_TO_INV_OFFSET + 1983 * 16; // source for the 1984 slots: https://www.bloodborne-wiki.com/2024/02/full-storage-glitch.html
         key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
-        let mut last_i: usize = 0;
-
-        //Searches for the appearance_start_bytes
-        for i in 0xF000..(bytes.len() - 4) {
-            //0xF000: In all the saves i found the save bytes after 0x10000
-            if appearance_start_bytes == bytes[i..i + 4] {
-                appearance_offset.0 = i + 4;
-                appearance_offset.1 = appearance_offset.0 + APPEARANCE_BYTES_AMOUNT - 1;
-                last_i = i;
-                break;
-            }
-        }
-        if appearance_offset.0 == 0 {
-            return Err(Error::CustomError("Failed to find the appearance."));
-        }
 
         // Find lced offset
         for i in last_i..(bytes.len() - 1) {
