@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { getGemPath, getRunePath, getUnique } from "../utils/upgrades";
 import { SaveContext } from "../context/context";
@@ -16,7 +16,7 @@ function EditUpgrade({
   equipped,
   slot,
 }) {
-  const { gemEffects, runeEffects } = useContext(ItemsContext);
+  const { gemEffects, runeEffects, runePresets } = useContext(ItemsContext);
   const { drawCanvas } = useDraw();
 
   const [edited, setEdited] = useState(JSON.parse(JSON.stringify(selected)));
@@ -28,6 +28,13 @@ function EditUpgrade({
     source,
   } = edited;
   const { setSave, save } = useContext(SaveContext);
+  const [readyToConfirm, setReadyToConfirm] = useState(false);
+
+  useEffect(() => {
+    if (readyToConfirm) {
+      handleConfirm();
+    }
+  }, [readyToConfirm]);
 
   async function handleConfirm(confirmCb) {
     try {
@@ -283,6 +290,29 @@ function EditUpgrade({
                 ></div>
               </div>
             ))}
+            {upgrade_type === "Rune" && (
+              <SelectSearch
+                defaultValue={"Select a rune preset"}
+                onChange={async (e) => {
+                  const { info, effects, shape } = e;
+                  if (!info?.name) return;
+                  setEdited((prevEdited) => {
+                    const newEdited = { ...prevEdited };
+                    newEdited.info = {
+                      ...newEdited.info,
+                      ...info,
+                    };
+                    newEdited.shape = shape;
+                    newEdited.effects = [...effects];
+
+                    return newEdited;
+                  });
+                  setReadyToConfirm(true);
+                }}
+                selected={""}
+                options={runePresets}
+              />
+            )}
           </div>
         </div>
       </div>
