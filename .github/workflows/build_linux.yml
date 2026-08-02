@@ -46,6 +46,8 @@ jobs:
         run: npm ci
 
       - name: Build Tauri binary (no bundle)
+        env:
+          CI: false
         run: npx tauri build --no-bundle
 
       - name: Locate built binary
