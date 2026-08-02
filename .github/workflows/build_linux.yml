@@ -78,6 +78,21 @@ jobs:
           wget -q https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/main/useful-tools/quick-sharun.sh
           chmod +x quick-sharun.sh
 
+      - name: Prepare AppDir assets (.desktop & icon)
+        run: |
+          APP_NAME="Bloodborne-save-editor"
+
+          cat <<EOF > "${APP_NAME}.desktop"
+          [Desktop Entry]
+          Type=Application
+          Name=Bloodborne Save Editor
+          Exec=Bloodborne Save Editor
+          Icon=${APP_NAME}
+          Categories=Utility;
+          EOF
+
+          cp "src-tauri/icons/icon.png" "${APP_NAME}.png"
+
       - name: Build portable AppImage
         env:
           DEPLOY_GTK: 1
