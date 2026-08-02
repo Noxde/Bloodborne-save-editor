@@ -3,8 +3,6 @@ name: "publish-linux"
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "*"
 
 jobs:
   publish-linux:
