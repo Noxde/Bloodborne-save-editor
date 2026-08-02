@@ -1,0 +1,109 @@
+name: "publish-linux"
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish-linux:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libssl-dev \
+            file \
+            wget \
+            curl \
+            xz-utils
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build Tauri binary (no bundle)
+        run: npx tauri build --no-bundle
+
+      - name: Locate built binary
+        id: locate
+        shell: bash
+        run: |
+          set -e
+
+          BIN=$(find src-tauri/target/release \
+            -maxdepth 1 \
+            -type f \
+            -executable \
+            ! -name "*.so" \
+            ! -name "*.d" \
+            ! -name "build-*" \
+            | head -1)
+
+          if [ -z "$BIN" ]; then
+            echo "::error::Could not locate binary"
+            ls -la src-tauri/target/release
+            exit 1
+          fi
+
+          echo "binary=$(realpath "$BIN")" >> "$GITHUB_OUTPUT"
+
+      - name: Install quick-sharun
+        run: |
+          wget -q https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/main/useful-tools/quick-sharun.sh
+          chmod +x quick-sharun.sh
+
+      - name: Build portable AppImage
+        env:
+          DEPLOY_GTK: 1
+          DEPLOY_OPENGL: 1
+          DEPLOY_VULKAN: 1
+          DEPLOY_GSTREAMER: 1
+          DEPLOY_PIPEWIRE: 1
+          DEPLOY_PULSE: 1
+          OUTPUT_APPIMAGE: 1
+          APPIMAGE_NAME: Bloodborne-save-editor
+        run: |
+          ./quick-sharun.sh "${{ steps.locate.outputs.binary }}"
+
+      - name: Rename AppImage
+        run: |
+          mv Bloodborne-save-editor*.AppImage \
+             Bloodborne-save-editor_${{ github.ref_name }}_amd64.AppImage
+
+      - name: Upload AppImage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bloodborne-save-editor
+          path: Bloodborne-save-editor_${{ github.ref_name }}_amd64.AppImage
+
+      # Descomentar cuando quieras volver a publicar releases
+      # - name: Upload release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     files: Bloodborne-save-editor_${{ github.ref_name }}_amd64.AppImage
