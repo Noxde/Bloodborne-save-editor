@@ -78,20 +78,32 @@ jobs:
           wget -q https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/main/useful-tools/quick-sharun.sh
           chmod +x quick-sharun.sh
 
-      - name: Prepare AppDir assets (.desktop & icon)
+      - name: Fix binary space and Prepare AppDir
+        id: fix_bin
         run: |
-          APP_NAME="Bloodborne-save-editor"
+          ORIGINAL_BIN="${{ steps.locate.outputs.binary }}"
+          DIR_NAME=$(dirname "$ORIGINAL_BIN")
+          CLEAN_BIN="${DIR_NAME}/bloodborne-save-editor"
 
-          cat <<EOF > "${APP_NAME}.desktop"
+          cp "$ORIGINAL_BIN" "$CLEAN_BIN"
+
+          echo "clean_binary=${CLEAN_BIN}" >> "$GITHUB_OUTPUT"
+
+          mkdir -p AppDir
+
+          cat <<EOF > AppDir/bloodborne-save-editor.desktop
           [Desktop Entry]
           Type=Application
           Name=Bloodborne Save Editor
-          Exec=Bloodborne Save Editor
-          Icon=${APP_NAME}
+          Exec=bloodborne-save-editor
+          Icon=bloodborne-save-editor
           Categories=Utility;
           EOF
 
-          cp "src-tauri/icons/icon.png" "${APP_NAME}.png"
+          cp AppDir/bloodborne-save-editor.desktop ./bloodborne-save-editor.desktop
+
+          cp "src-tauri/icons/icon.png" AppDir/bloodborne-save-editor.png
+          cp "src-tauri/icons/icon.png" ./bloodborne-save-editor.png
 
       - name: Build portable AppImage
         env:
@@ -104,7 +116,7 @@ jobs:
           OUTPUT_APPIMAGE: 1
           APPIMAGE_NAME: Bloodborne-save-editor
         run: |
-          ./quick-sharun.sh "${{ steps.locate.outputs.binary }}"
+          ./quick-sharun.sh "${{ steps.fix_bin.outputs.clean_binary }}"
 
       - name: Rename AppImage
         run: |
