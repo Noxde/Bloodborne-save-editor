@@ -26,6 +26,7 @@ jobs:
             file \
             wget \
             curl \
+            xvfb \
             xz-utils
 
       - name: Setup Node.js
@@ -100,13 +101,11 @@ jobs:
           Categories=Utility;
           EOF
 
-          cp AppDir/bloodborne-save-editor.desktop ./bloodborne-save-editor.desktop
-
           cp "src-tauri/icons/icon.png" AppDir/bloodborne-save-editor.png
-          cp "src-tauri/icons/icon.png" ./bloodborne-save-editor.png
 
       - name: Build portable AppImage
         env:
+          VERSION: ${{ github.ref_name }}
           DEPLOY_GTK: 1
           DEPLOY_OPENGL: 1
           DEPLOY_VULKAN: 1
@@ -116,7 +115,7 @@ jobs:
           OUTPUT_APPIMAGE: 1
           APPIMAGE_NAME: Bloodborne-save-editor
         run: |
-          ./quick-sharun.sh "${{ steps.fix_bin.outputs.clean_binary }}"
+          xvfb-run --auto-servernum ./quick-sharun.sh "${{ steps.fix_bin.outputs.clean_binary }}"
 
       - name: Rename AppImage
         run: |
