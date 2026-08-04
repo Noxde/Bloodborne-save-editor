@@ -106,6 +106,7 @@ jobs:
       - name: Build portable AppImage
         env:
           VERSION: ${{ github.ref_name }}
+          STRACE_MODE: 0
           DEPLOY_GTK: 1
           DEPLOY_OPENGL: 1
           DEPLOY_VULKAN: 1
