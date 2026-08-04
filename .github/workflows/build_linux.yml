@@ -120,7 +120,7 @@ jobs:
 
       - name: Rename AppImage
         run: |
-          mv Bloodborne-Save-Editor*.AppImage \
+          mv Bloodborne*.AppImage \
              Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
 
       - name: Upload AppImage artifact
