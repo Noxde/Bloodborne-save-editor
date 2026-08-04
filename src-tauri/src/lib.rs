@@ -183,10 +183,9 @@ fn save(path: String, state_save: tauri::State<MutexSave>) -> Result<&str, &str>
 fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("weapons.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let weapons: Value = serde_json::from_reader(reader).unwrap();
+    let weapons_str = include_str!("../resources/weapons.json");
+
+    let weapons: Value = serde_json::from_str(weapons_str).unwrap();
 
     weapons
 }
@@ -195,10 +194,9 @@ fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
 fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("armors.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let armors: Value = serde_json::from_reader(reader).unwrap();
+    let armors_str = include_str!("../resources/armors.json");
+
+    let armors: Value = serde_json::from_str(armors_str).unwrap();
 
     armors
 }
@@ -207,10 +205,9 @@ fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
 fn return_items(state_save: tauri::State<MutexSave>) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("items.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let items: Value = serde_json::from_reader(reader).unwrap();
+    let upgrades_str = include_str!("../resources/items.json");
+
+    let items: Value = serde_json::from_str(upgrades_str).unwrap();
 
     items
 }
@@ -219,10 +216,9 @@ fn return_items(state_save: tauri::State<MutexSave>) -> Value {
 fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+    let upgrades_str = include_str!("../resources/upgrades.json");
+
+    let upgrade_json: Value = serde_json::from_str(upgrades_str).unwrap();
 
     upgrade_json["gemEffects"].clone()
 }
@@ -231,10 +227,9 @@ fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
 fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
     let save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_ref().unwrap();
-    let file_path = save.file.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrade_json: Value = serde_json::from_reader(reader).unwrap();
+    let upgrades_str = include_str!("../resources/upgrades.json");
+
+    let upgrade_json: Value = serde_json::from_str(upgrades_str).unwrap();
 
     upgrade_json["runeEffects"].clone()
 }

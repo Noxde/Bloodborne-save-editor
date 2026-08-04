@@ -22,12 +22,11 @@ impl Stat {
 }
 
 pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
-    let file_path = file.resources_path.join("offsets.json");
-    let json_file = File::open(file_path)?;
-    let reader = BufReader::new(json_file);
+    let offsets_str = include_str!("../../resources/offsets.json");
+
 
     // Read the JSON contents of the file as Vec<Stat>.
-    let mut stats: Vec<Stat> = serde_json::from_reader(reader)?;
+    let mut stats: Vec<Stat> = serde_json::from_str(offsets_str)?;
     for s in &mut stats {
         s.value = file.get_number(s.rel_offset, s.length);
     }
