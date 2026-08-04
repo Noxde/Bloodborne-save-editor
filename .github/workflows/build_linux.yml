@@ -120,14 +120,14 @@ jobs:
 
       - name: Rename AppImage
         run: |
-          mv Bloodborne-save-editor*.AppImage \
-             Bloodborne-save-editor_${{ github.ref_name }}_amd64.AppImage
+          mv Bloodborne-Save-Editor*.AppImage \
+             Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
 
       - name: Upload AppImage artifact
         uses: actions/upload-artifact@v4
         with:
           name: Bloodborne-save-editor
-          path: Bloodborne-save-editor_${{ github.ref_name }}_amd64.AppImage
+          path: Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
 
       # Descomentar cuando quieras volver a publicar releases
       # - name: Upload release
