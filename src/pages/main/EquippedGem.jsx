@@ -32,9 +32,11 @@ function EquippedGem({
         const cursed = isCursed(effects);
         const path = getGemPath(effects, shape, level, unique, cursed);
 
-        loadImage(path).then((img) => {
-          ctx.drawImage(img, 0, 0, 175, 175);
-        });
+        loadImage(path)
+          .then((img) => {
+            ctx.drawImage(img, 0, 0, 175, 175);
+          })
+          .catch((err) => console.error(err));
       }
     } else {
       const canvas = canvasRef?.current;

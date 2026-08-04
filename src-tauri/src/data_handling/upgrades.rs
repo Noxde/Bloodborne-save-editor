@@ -4,7 +4,7 @@ use super::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{self, Value};
-use std::{collections::HashMap, fs::File, io::BufReader};
+use std::collections::HashMap;
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct UpgradeInfo {
     pub name: String,
@@ -70,10 +70,7 @@ impl Upgrade {
         new_value: u32,
         value_index: usize,
     ) -> Result<(), Error> {
-        let file_path = file_data.resources_path.join("upgrades.json");
-        let json_file = File::open(file_path).map_err(Error::IoError).unwrap();
-        let reader = BufReader::new(json_file);
-        let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
+        let upgrades_json: Value = serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
 
         let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
             Some(offset) => offset,
@@ -207,10 +204,7 @@ impl Upgrade {
 
 pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeType)> {
     let mut upgrades = HashMap::new();
-    let file_path = file_data.resources_path.join("upgrades.json");
-    let json_file = File::open(file_path).map_err(Error::IoError).unwrap();
-    let reader = BufReader::new(json_file);
-    let upgrades_json: Value = serde_json::from_reader(reader).unwrap();
+    let upgrades_json: Value = serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
 
     let (start, end) = file_data.offsets.upgrades;
 
