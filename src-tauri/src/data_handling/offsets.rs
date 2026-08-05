@@ -19,7 +19,6 @@ impl Offsets {
         let mut username_offset = 0;
         let mut inventory_offset = (0, 0);
         let mut upgrades_offset = (START_TO_UPGRADE, 0);
-        let mut key_inventory_offset = (0, 0);
         let mut appearance_offset = (0, 0);
         let mut lced_offset = 0;
         let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
@@ -71,40 +70,7 @@ impl Offsets {
         username_offset = inventory_offset.0 - USERNAME_TO_INV_OFFSET;
 
         //Find the end of the inventories
-        let end = [0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0];
-        let mut end_offset: Option<usize> = None;
-        let mut find_end = |start: usize, allow_empty: bool| -> Result<usize, Error> {
-            //Maximum length of the normal inv before it reaches the key inv
-            let inv_max_length = USERNAME_TO_KEY_INV_OFFSET - USERNAME_TO_INV_OFFSET;
-            let inv_max_length = if bytes.len() < inv_max_length + start {
-                bytes.len() - start
-            } else {
-                inv_max_length
-            };
-            let mut buffer = [0; 12];
-            for i in (start..start + inv_max_length - 15).step_by(16) {
-                buffer.copy_from_slice(&bytes[i + 4..=i + 15]);
-                if end == buffer {
-                    if end_offset.is_none() {
-                        if !allow_empty {
-                            return Ok(i + 15);
-                        }
-                        end_offset = Some(i + 15);
-                    }
-                } else if end_offset.is_some() {
-                    end_offset = None;
-                }
-            }
-            match end_offset {
-                Some(off) => Ok(off),
-                None => Err(Error::CustomError(
-                    "Failed to find the end of the inventory.",
-                )),
-            }
-        };
-
         inventory_offset.1 = username_offset + USERNAME_TO_INV_OFFSET + 1983 * 16; // source for the 1984 slots: https://www.bloodborne-wiki.com/2024/02/full-storage-glitch.html
-        key_inventory_offset.1 = find_end(key_inventory_offset.0, false)?;
 
         // Find lced offset
         for i in last_i..(bytes.len() - 1) {
@@ -119,6 +85,8 @@ impl Offsets {
             storage_start_offset,
             storage_start_offset + 1984 * 16, // source for the 1984 slots: https://www.bloodborne-wiki.com/2024/02/full-storage-glitch.html
         );
+
+        let key_inventory_offset = (username_offset + USERNAME_TO_KEY_INV_OFFSET, username_offset + USERNAME_TO_KEY_INV_OFFSET + 2204);
 
         Ok(Offsets {
             username: username_offset,
