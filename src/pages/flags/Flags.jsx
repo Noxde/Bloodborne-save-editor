@@ -42,9 +42,7 @@ function Flags() {
           label="Enable Doll's lullaby"
           offset={6689}
           values={[8, 1]}
-          info={
-            "Enables the doll's lullaby from version 1.0, the doll needs to be sleeping to trigger when enabled."
-          }
+          info={"Enables the doll's lullaby from version 1.0."}
         />
         <Flag
           label="Enable Blood addled"
@@ -54,14 +52,14 @@ function Flags() {
             "Enables pvp when doing coop with players that have the Hunter rune equipped."
           }
         />
-        <Flag
+        {/* <Flag
           label="Enable multiplayer in Central yharnam"
           offset={4127}
           values={[162]}
           info={
             "Enables multiplayer in central yharnam when both bosses are dead."
           }
-        />
+        /> */}
       </div>
     </div>
   );
