@@ -1,9 +1,9 @@
 {
   "build": {
     "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npx cross-env BROWSER=none npm start",
+    "beforeDevCommand": "npx cross-env BROWSER=none npm run dev",
     "frontendDist": "../build",
-    "devUrl": "http://localhost:3000"
+    "devUrl": "http://localhost:5173"
   },
   "bundle": {
     "active": true,

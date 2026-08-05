@@ -120,7 +120,7 @@ function EditUpgrade({
                 alignItems: "center",
                 width: "375px",
                 height: "375px",
-                background: `url(${process.env.PUBLIC_URL}/assets/gems/gem_bg.png)`,
+                background: `url(/assets/gems/gem_bg.png)`,
                 backgroundSize: "contain",
                 borderRadius: "5px",
               }}
@@ -285,7 +285,7 @@ function EditUpgrade({
                     left: -29,
                     width: "350px",
                     height: "1px",
-                    background: `url(${process.env.PUBLIC_URL}/assets/line.png)`,
+                    background: `url(/assets/line.png)`,
                   }}
                 ></div>
               </div>

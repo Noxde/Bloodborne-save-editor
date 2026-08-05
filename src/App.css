@@ -8,14 +8,14 @@
 
 @font-face {
   font-family: "Reim";
-  src: url("../public/fonts/A-OTF-ReimPr6-Medium.otf");
+  src: url("/fonts/A-OTF-ReimPr6-Medium.otf");
 }
 
 .App {
   display: flex;
   flex-direction: column;
   position: relative;
-  background-image: url("/public/assets/bg.png");
+  background-image: url("/assets/bg.png");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
