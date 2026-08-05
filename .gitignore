@@ -19,6 +19,7 @@ src-tauri/*/*.tags
 
 node_modules/
 build/
+dist/
 
 # .env
 .env
