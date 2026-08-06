@@ -619,21 +619,17 @@ impl Inventory {
     }
 
     pub fn change_weapon_level(
-        &mut self, 
-        file_data: &mut FileData, 
-        article_type: ArticleType, 
-        article_index: usize, 
-        slot_index: usize, 
+        &mut self,
+        file_data: &mut FileData,
+        article_type: ArticleType,
+        article_index: usize,
+        slot_index: usize,
         is_storage: bool,
-        level: u8
+        level: u8,
     ) -> Result<Article, Error> {
         if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
             if let Some(article) = articles_of_type.get_mut(article_index) {
-                article.set_imprint_and_upgrade(
-                    file_data,
-                    None,
-                    Some(level)
-                )
+                article.set_imprint_and_upgrade(file_data, None, Some(level))
             } else {
                 Err(Error::CustomError(
                     "ERROR: There are no articles of the specified type.",
@@ -641,7 +637,7 @@ impl Inventory {
             }
         } else {
             Err(Error::CustomError(
-                    "ERROR: There are no articles of the specified type.",
+                "ERROR: There are no articles of the specified type.",
             ))
         }
     }
@@ -677,7 +673,10 @@ pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, Ar
     ))
 }
 
-pub fn get_info_armor(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
+pub fn get_info_armor(
+    id: u32,
+    _resources_path: &PathBuf,
+) -> Result<(ItemInfo, ArticleType), Error> {
     let armors: Value = serde_json::from_str(include_str!("../../resources/armors.json")).unwrap();
     let armors = armors.as_object().unwrap();
 
@@ -703,7 +702,8 @@ pub fn get_info_weapon(
     mut id: u32,
     _resources_path: &PathBuf,
 ) -> Result<(ItemInfo, ArticleType), Error> {
-    let weapons: Value = serde_json::from_str(include_str!("../../resources/weapons.json")).unwrap();
+    let weapons: Value =
+        serde_json::from_str(include_str!("../../resources/weapons.json")).unwrap();
     let weapons = weapons.as_object().unwrap();
 
     let weapon_mods = WeaponMods::try_from(id)?;

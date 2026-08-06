@@ -50,6 +50,8 @@ jobs:
         env:
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: "Bloodborne save editor ${{ github.ref_name }}"
@@ -81,7 +83,8 @@ jobs:
             wget \
             curl \
             xvfb \
-            xz-utils
+            xz-utils \
+            jq
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -174,14 +177,49 @@ jobs:
           mv Bloodborne*.AppImage \
              Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
 
+      - name: Sign AppImage for updater
+        id: sign
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          set -e
+          FILE="Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage"
+          npx tauri signer sign "$FILE"
+          echo "signature=$(cat "${FILE}.sig")" >> "$GITHUB_OUTPUT"
+
       - name: Upload AppImage artifact
         uses: actions/upload-artifact@v4
         with:
           name: Bloodborne-save-editor-AppImage
-          path: Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
+          path: |
+            Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
+            Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage.sig
 
       - name: Attach AppImage to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref_name }}
-          files: Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
+          draft: true
+          files: |
+            Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage
+            Bloodborne-Save-Editor_${{ github.ref_name }}_amd64.AppImage.sig
+
+      - name: Merge Linux entry into latest.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          TAG="${{ github.ref_name }}"
+          REPO="${{ github.repository }}"
+          URL="https://github.com/${REPO}/releases/download/${TAG}/Bloodborne-Save-Editor_${TAG}_amd64.AppImage"
+
+          gh release download "$TAG" --repo "$REPO" --pattern latest.json --output latest.json --clobber
+
+          jq --arg sig "${{ steps.sign.outputs.signature }}" \
+             --arg url "$URL" \
+             '.platforms["linux-x86_64"] = {"signature": $sig, "url": $url}' \
+             latest.json > latest.json.tmp
+          mv latest.json.tmp latest.json
+
+          gh release upload "$TAG" latest.json --repo "$REPO" --clobber

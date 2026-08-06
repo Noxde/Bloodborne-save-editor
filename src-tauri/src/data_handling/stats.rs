@@ -24,7 +24,6 @@ impl Stat {
 pub fn new(file: &FileData) -> Result<Vec<Stat>, io::Error> {
     let offsets_str = include_str!("../../resources/offsets.json");
 
-
     // Read the JSON contents of the file as Vec<Stat>.
     let mut stats: Vec<Stat> = serde_json::from_str(offsets_str)?;
     for s in &mut stats {

@@ -66,7 +66,7 @@ impl Offsets {
             return Err(Error::CustomError("Failed to find the appearance."));
         }
 
-        inventory_offset.0 = appearance_offset.0 - 4 - 34028; 
+        inventory_offset.0 = appearance_offset.0 - 4 - 34028;
         username_offset = inventory_offset.0 - USERNAME_TO_INV_OFFSET;
 
         //Find the end of the inventories
@@ -86,7 +86,10 @@ impl Offsets {
             storage_start_offset + 1984 * 16, // source for the 1984 slots: https://www.bloodborne-wiki.com/2024/02/full-storage-glitch.html
         );
 
-        let key_inventory_offset = (username_offset + USERNAME_TO_KEY_INV_OFFSET, username_offset + USERNAME_TO_KEY_INV_OFFSET + 2204);
+        let key_inventory_offset = (
+            username_offset + USERNAME_TO_KEY_INV_OFFSET,
+            username_offset + USERNAME_TO_KEY_INV_OFFSET + 2204,
+        );
 
         Ok(Offsets {
             username: username_offset,

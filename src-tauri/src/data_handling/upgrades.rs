@@ -70,7 +70,8 @@ impl Upgrade {
         new_value: u32,
         value_index: usize,
     ) -> Result<(), Error> {
-        let upgrades_json: Value = serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
+        let upgrades_json: Value =
+            serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
 
         let upgrade_offset = match file_data.find_upgrade_offset(self.id) {
             Some(offset) => offset,
@@ -204,7 +205,8 @@ impl Upgrade {
 
 pub fn parse_upgrades(file_data: &FileData) -> HashMap<u32, (Upgrade, UpgradeType)> {
     let mut upgrades = HashMap::new();
-    let upgrades_json: Value = serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
+    let upgrades_json: Value =
+        serde_json::from_str(include_str!("../../resources/upgrades.json")).unwrap();
 
     let (start, end) = file_data.offsets.upgrades;
 

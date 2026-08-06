@@ -24,6 +24,7 @@ dist/
 # .env
 .env
 
+.tauri/
 src-tauri/vendor
 flatpak
 repo

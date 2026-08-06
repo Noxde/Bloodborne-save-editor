@@ -11,8 +11,8 @@ use data_handling::{
     save::SaveData,
     upgrades::Upgrade,
 };
-use serde_json::{Value, json};
-use tauri::{Manager, path::BaseDirectory};
+use serde_json::{json, Value};
+use tauri::{path::BaseDirectory, Manager};
 struct MutexSave {
     data: Mutex<Option<SaveData>>,
 }
@@ -29,6 +29,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     }
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
@@ -126,7 +127,9 @@ fn make_save(
     handle: tauri::AppHandle,
 ) -> Result<Value, String> {
     let resource_path = handle
-        .path().resolve("resources/", BaseDirectory::Resource).unwrap();
+        .path()
+        .resolve("resources/", BaseDirectory::Resource)
+        .unwrap();
 
     match SaveData::build(path, resource_path) {
         Ok(s) => {
@@ -588,7 +591,7 @@ fn teleport(x: f32, y: f32, z: f32, map_id: Vec<u8>, state_save: tauri::State<Mu
     let le_map = [00, 00, map_id[1], map_id[0]];
 
     for (i, j) in (0x04..0x08).enumerate() {
-            save.file.bytes[j] = le_map[i];
+        save.file.bytes[j] = le_map[i];
     }
 
     save.position.coordinates.edit(&mut save.file, x, y, z);
@@ -601,7 +604,7 @@ fn change_weapon_level(
     slot_index: usize,
     is_storage: bool,
     level: u8,
-    state_save: tauri::State<MutexSave>
+    state_save: tauri::State<MutexSave>,
 ) -> Result<Value, String> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save: &mut SaveData = save_option.as_mut().unwrap();
@@ -613,7 +616,7 @@ fn change_weapon_level(
             article_index,
             slot_index,
             is_storage,
-            level
+            level,
         )
     } else {
         save.inventory.change_weapon_level(
@@ -622,7 +625,7 @@ fn change_weapon_level(
             article_index,
             slot_index,
             is_storage,
-            level
+            level,
         )
     };
 

@@ -8,6 +8,7 @@ import Main from "./pages/main/Main";
 import { ImagesProvider } from "./context/imagesContext";
 import * as dialog from "@tauri-apps/plugin-dialog";
 import * as shell from "@tauri-apps/plugin-shell";
+import { check } from "@tauri-apps/plugin-updater";
 
 function App() {
   const [save, setSave] = useState(null);
@@ -15,26 +16,9 @@ function App() {
 
   useEffect(() => {
     async function checkUpdate() {
-      try {
-        const req = await fetch(
-          "https://api.github.com/repos/Noxde/Bloodborne-save-editor/releases/latest"
-        );
-        const { tag_name, html_url } = await req.json();
-        const currentVersion = await invoke("get_version");
+      const update = await check();
 
-        if (tag_name > currentVersion) {
-          const ok = await dialog.confirm("New update available.", {
-            title: "Update available",
-            type: "info",
-            okLabel: "Go to github",
-          });
-          if (ok) {
-            shell.open(html_url);
-          }
-        }
-      } catch (err) {
-        console.error(err);
-      }
+      console.log(update);
     }
 
     checkUpdate();
