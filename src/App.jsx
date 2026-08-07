@@ -9,20 +9,11 @@ import { ImagesProvider } from "./context/imagesContext";
 import * as dialog from "@tauri-apps/plugin-dialog";
 import * as shell from "@tauri-apps/plugin-shell";
 import { check } from "@tauri-apps/plugin-updater";
+import { UpdateModal } from "./Update";
 
 function App() {
   const [save, setSave] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function checkUpdate() {
-      const update = await check();
-
-      console.log(update);
-    }
-
-    checkUpdate();
-  }, []);
 
   useEffect(() => {
     document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -61,6 +52,7 @@ function App() {
 
   return (
     <div className="App">
+      <UpdateModal />
       <Router>
         <Nav setLoading={setLoading} save={save} setSave={setSave} />
         <ImagesProvider>
