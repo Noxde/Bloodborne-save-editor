@@ -42,13 +42,14 @@
   },
   "productName": "Bloodborne Save Editor",
   "mainBinaryName": "Bloodborne Save Editor",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "identifier": "com.bloodborne.editor",
   "plugins": {
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDMyQzA0NzE1NUM0M0JBQzUKUldURnVrTmNGVWZBTXUwMUdZdHNOSGpkVkpZVnlBUGdPUno0aG0wYUJxWDhPNXRCR1Y1aGhVZHoK",
-      "dangerousInsecureTransportProtocol": true,
-      "endpoints": ["http://192.168.1.42:3000/latest.json"]
+      "endpoints": [
+        "https://github.com/Noxde/Bloodborne-save-editor/releases/latest/download/latest.json"
+      ]
     }
   },
   "app": {
@@ -63,7 +64,7 @@
         "center": true,
         "resizable": true,
         "maximizable": true,
-        "title": "Bloodborne Save Editor v0.9.0",
+        "title": "Bloodborne Save Editor v0.10.0",
         "useHttpsScheme": true
       }
     ],
