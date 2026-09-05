@@ -996,6 +996,7 @@ pub fn get_info_weapon(
                     "damage": &category_weapons[found]["damage"],
                     "upgrade_level": weapon_mods.upgrade_level,
                     "imprint": weapon_mods.imprint,
+                    "durability": &category_weapons[found]["durability"]
                 });
                 if weapon_mods.upgrade_level > 0 {
                     scale_weapon_info(&mut extra_info);
