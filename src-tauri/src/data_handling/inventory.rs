@@ -1,7 +1,9 @@
+use crate::data_handling::enums::SlotShape;
+
 use super::{
     article::{scale_weapon_info, Article, ItemInfo, WeaponMods},
     constants::*,
-    enums::{ArticleType, Error, Location, TypeFamily, UpgradeType},
+    enums::*,
     file::FileData,
     slots::Slot,
     upgrades::Upgrade,
@@ -312,6 +314,274 @@ impl Inventory {
         let vec = self.articles.entry(article_type).or_insert(Vec::new());
         new_item.index = vec.len();
         vec.push(new_item);
+
+        return Ok(self);
+    }
+
+    pub fn add_armor_or_weapon (
+        &mut self,
+        file_data: &mut FileData,
+        id: u32,
+        is_storage: bool,
+    ) -> Result<&mut Inventory, Error> {
+        // Check if the provided id matches a armor/weapon
+        let (info, article_type) = if let Ok((i_info, a_type)) =  get_info_armor(id, &file_data.resources_path) {
+            (i_info, a_type)
+        } else if let Ok((i_info, a_type)) = get_info_weapon(id, &file_data.resources_path) {
+            (i_info, a_type)
+        } else {
+            return Err(Error::CustomError(
+                "ERROR: failed to find info for the item.",
+            ));
+        };
+
+        //This function travels the equipped gems section (ga section), looking for
+        //an empty slot to add a weapon or armor. At the same time it looks for
+        //the biggest slot index (handle), to use the next one for the inserted item.
+        //Once the item is inserted on said section, it will also be added to the inventory.
+
+        //Each armor/weapon and their equipped gems appears in the ga section in 60B blocks
+        //This section goes from:
+        let start = file_data.offsets.equipped_gems.0;
+        //To:
+        let end = file_data.offsets.username - 147 - 60;
+        //Username offset - 147 is the start of the stats block. The last armor/weapon can be
+        //60B before that (inclusive)
+
+        //However we can not iterate this section simply stepping by 60B, because not all blocks
+        //are aligned
+
+        //This closure determines if there is a valid block in the received offset
+        //If there is, we return its index (first 2 bytes of the ga_handle)
+        //The offset must point to the fist byte of the block
+        let check_slot = |offset: usize| -> (u16, bool) {
+            let handle = u16::from_le_bytes([
+                file_data.bytes[offset + 0],
+                file_data.bytes[offset + 1],
+            ]);
+
+            // Check if the structure of the block makes sense
+            if file_data.bytes[offset + 2] != 0x80 {
+                return (handle, false);
+            }
+
+            if (file_data.bytes[offset + 3] != 0x80) && (file_data.bytes[offset + 3] != 0x90) {
+                return (handle, false);
+            }
+
+            if u32::from_le_bytes([
+                file_data.bytes[offset + 16],
+                file_data.bytes[offset + 17],
+                file_data.bytes[offset + 18],
+                file_data.bytes[offset + 19],
+            ]) != 0x00000001 {
+                return (handle, false);
+            }
+
+            for val in (offset + 20..offset + 60).into_iter().step_by(8) {
+                //If the slot shape is valid
+                if SlotShape::try_from(&[
+                    file_data.bytes[val + 0],
+                    file_data.bytes[val + 1],
+                    file_data.bytes[val + 2],
+                    file_data.bytes[val + 3],
+                ]).is_err() {
+                    return (handle, false);
+                }
+            }
+            (handle, true)
+        };
+
+        let mut i = start;
+        let mut previous_empty = false; //If the previous offset was empty
+        let mut max_handle = u16::MIN;
+        let mut handle;
+        let mut valid;
+        let mut available_offset = 0; // Available slot offset
+        let mut last = i; //Last index that did not have a valid/used slot
+
+        while i <= end {
+            (handle, valid) = check_slot(i);
+            if !valid {
+                if !previous_empty {
+                    last = i;
+                    previous_empty = true;
+                } else if (i-last) == 59 && available_offset == 0  {
+                    available_offset = last;
+                }
+                i+=1;
+            } else {
+                if handle > max_handle {
+                    max_handle = handle;
+                }
+                previous_empty = false;
+                i+=60;
+            }
+        }
+
+        // --- WRITE THE INVENTORY --
+        let empty_slot_index;
+        match file_data.find_inv_empty_slot(Location::from(is_storage)) {
+            Some(index) => empty_slot_index = index,
+            None => {
+                if !is_storage {
+                    empty_slot_index = file_data.offsets.inventory.1;
+                    file_data.offsets.inventory.1 += 16;
+                } else {
+                    empty_slot_index = file_data.offsets.storage.1;
+                    file_data.offsets.storage.1 += 16;
+                }
+                // Increment the index of the next slot to be used
+                (file_data.bytes[empty_slot_index + 12], _) =
+                    file_data.bytes[empty_slot_index - 4].overflowing_add(1);
+            }
+        };
+
+        let uname = file_data.offsets.username;
+        let (first_counter_index, second_counter_index) = {
+            if !is_storage {
+                (
+                    uname + USERNAME_TO_FIRST_INVENTORY_COUNTER,
+                    uname + USERNAME_TO_SECOND_INVENTORY_COUNTER,
+                )
+            } else {
+                (
+                    uname + USERNAME_TO_FIRST_STORAGE_COUNTER,
+                    uname + USERNAME_TO_SECOND_STORAGE_COUNTER,
+                )
+            }
+        };
+
+        let new_handle_bytes = (max_handle + 1).to_le_bytes();
+        let first_part = match article_type {
+            ArticleType::Armor => [new_handle_bytes[0], new_handle_bytes[1], 0x80, 0x90],
+            ArticleType::LeftHand | ArticleType::RightHand => [new_handle_bytes[0], new_handle_bytes[1], 0x80, 0x80],
+            _ => {
+                // Rollback the changes made and return
+                if !is_storage {
+                    file_data.offsets.inventory.1 -= 16;
+                } else {
+                    file_data.offsets.storage.1 -= 16;
+                }
+                return Err(Error::CustomError(
+                    "ERROR: Invalid ArticleType.",
+                ));
+            }
+        };
+        let mut second_part = u32::to_le_bytes(id);
+        if article_type == ArticleType::Armor {
+            second_part[3] = 0x10;
+        }
+        let endian_quantity = [0x01, 0x00, 0x00, 0x00];
+
+        // Remember empty_slot_index points to the first part of the slot (+4)
+        for i in 0..4 {
+            file_data.bytes[empty_slot_index + i] = first_part[i];
+        }
+        for i in 0..4 {
+            file_data.bytes[empty_slot_index + i + 4] = second_part[i];
+        }
+        for i in 0..4 {
+            file_data.bytes[empty_slot_index + i + 8] = endian_quantity[i];
+        }
+
+        //Update counters
+        let new_counter_value = u32::from_le_bytes([
+            file_data.bytes[first_counter_index],
+            file_data.bytes[first_counter_index + 1],
+            file_data.bytes[first_counter_index + 2],
+            file_data.bytes[first_counter_index + 3],
+        ]) + 1;
+        let new_counter_value_bytes = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + first_counter_index] = new_counter_value_bytes[i];
+        }
+
+        let new_counter_value = u32::from_le_bytes([
+            file_data.bytes[second_counter_index],
+            file_data.bytes[second_counter_index + 1],
+            file_data.bytes[second_counter_index + 2],
+            file_data.bytes[second_counter_index + 3],
+        ]) + 1;
+        let new_counter_value_bytes = new_counter_value.to_le_bytes();
+        for i in 0..4 {
+            file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
+        }
+
+        let mut new_item = Article {
+            number: file_data.bytes[empty_slot_index - 4],
+            id,
+            first_part: u32::from_le_bytes(first_part),
+            second_part: u32::from_le_bytes(second_part),
+            info,
+            amount: 1,
+            article_type,
+            type_family: article_type.into(),
+            slots: None,
+            index: 0,
+        };
+
+        //Find the first item of the storage to increase it's index
+        //(The first counter and the first 4 bytes of the first inv/sto slot are the same)
+        let mut found = false;
+        if is_storage {
+            if let Some(article_type) = self.first_article {
+                if let Some(ref mut articles_of_type) = self.articles.get_mut(&article_type) {
+                    if let Some(first) = articles_of_type.first_mut() {
+                        first.number += 1;
+                        found = true;
+                    }
+                }
+            } else if let Some(upgrade_type) = self.first_upgrade {
+                if let Some(ref mut upgrades_of_type) = self.upgrades.get_mut(&upgrade_type) {
+                    if let Some(first) = upgrades_of_type.first_mut() {
+                        first.number += 1;
+                        found = true;
+                    }
+                }
+            }
+            if !found {
+                new_item.number = file_data.bytes[first_counter_index];
+            }
+        }
+
+        let vec = self.articles.entry(article_type).or_insert(Vec::new());
+        new_item.index = vec.len();
+        vec.push(new_item);
+
+        // --- WRITE THE GA SECTION --
+        for i in 0..4 { // First part 0-3
+            file_data.bytes[available_offset + i] = first_part[i];
+        }
+        for i in 0..4 { // Second part 4-7
+            file_data.bytes[available_offset + i + 4] = second_part[i];
+        }
+
+        let durability = [0xC8, 0x00, 0x00, 0x00];
+        for i in 0..4 { // Durability 8-11
+            file_data.bytes[available_offset + i + 8] = durability[i];
+        }
+
+        for i in 0..4 { // :)-|-<  12-15
+            file_data.bytes[available_offset + i + 12] = 0x00;
+        }
+
+        let durability = [0x01, 0x00, 0x00, 0x00];
+        for i in 0..4 { // Gem Start 16-19
+            file_data.bytes[available_offset + i + 16] = durability[i];
+        }
+
+        // Gem slots 20-59
+        let shape: [u8; 4] = SlotShape::Closed.into();
+        for i in 0..5 { // For each slot
+            for j in 0..4 { // Slot shape 0-3
+                file_data.bytes[available_offset + 20 + i*8 + j] = shape[j];
+            }
+
+            for j in 0..4 { // Gem id 4-7
+                file_data.bytes[available_offset + 20 + i*8 + j + 4] = 0x00;
+            }
+        }
 
         return Ok(self);
     }
@@ -743,7 +1013,9 @@ pub fn get_info_weapon(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use std::sync::Arc;
+
+use super::*;
     use crate::data_handling::{
         enums::SlotShape,
         slots::parse_equipped_gems,
@@ -1026,6 +1298,202 @@ mod tests {
             u32::from_le_bytes([0x20, 0x00, 0x00, 0x00])
         );
         assert_eq!(new_item.article_type, ArticleType::Consumable);
+    }
+
+    #[test]
+    fn inventory_add_armor_or_weapon () {
+        let mut save = build_save_data("testsave0");
+
+        // Add an armor to inventory
+        let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
+        let result = save.inventory.add_armor_or_weapon(
+            &mut save.file,
+            id,
+            false);
+        assert!(result.is_ok());
+
+        assert!(check_bytes( // Ga section
+            &save.file,
+            0x1D0,
+            &[0x8E, 0x00, 0x80, 0x90, // First part
+              0x60, 0x5B, 0x03, 0x10, // Second part
+              0xC8, 0x00, 0x00, 0x00, // Durability
+              0x00, 0x00, 0x00, 0x00, // :)-|-<
+              0x01, 0x00, 0x00, 0x00, //
+              0x00, 0x00, 0x00, 0x80, // Gem slot 1 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 1 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 2 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 2 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 3 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 3 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 4 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 4 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 5 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 5 gem id
+            ]
+        ));
+
+        assert!(check_bytes( // Inventory
+            &save.file,
+            0x8CCC,
+            &[0x78, 0xFF, 0xFF, 0xFF, // Slot
+              0x8E, 0x00, 0x80, 0x90, // First part
+              0x60, 0x5B, 0x03, 0x10, // Second part
+              0x01, 0x00, 0x00, 0x00, // Quantity
+            ]
+        ));
+
+        assert!(check_bytes( // Inventory first counter
+            &save.file, 0x893C, &[0x2B, 0x00, 0x00, 0x00]));
+
+        assert!(check_bytes( // Inventory second counter
+            &save.file, 0x10D48, &[0x6A, 0x00, 0x00, 0x00]));
+
+        let article = save.inventory.articles.get_mut(&ArticleType::Armor).unwrap().to_owned().last().unwrap().clone();
+        let expected_article = Article {
+            number: 0x78,
+            id,
+            first_part: 0x9080008E,
+            second_part: id + 0x10000000,
+            info: get_info_armor(id, &save.file.resources_path).unwrap().0,
+            amount: 1,
+            article_type: ArticleType::Armor,
+            type_family: TypeFamily::Armor,
+            slots: None,
+            index: 13,
+        };
+        assert_eq!(article, expected_article);
+
+
+        // Add a weapon to storage
+        let id = u32::from_le_bytes([0x40, 0x5D, 0xC6, 0x00]);
+        let result = save.storage.add_armor_or_weapon(
+            &mut save.file,
+            id,
+            true);
+        assert!(result.is_ok());
+
+        assert!(check_bytes( // Ga section
+            &save.file,
+            0x20C,
+            &[0x8F, 0x00, 0x80, 0x80, // First part
+              0x40, 0x5D, 0xC6, 0x00, // Second part
+              0xC8, 0x00, 0x00, 0x00, // Durability
+              0x00, 0x00, 0x00, 0x00, // :)-|-<
+              0x01, 0x00, 0x00, 0x00, //
+              0x00, 0x00, 0x00, 0x80, // Gem slot 1 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 1 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 2 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 2 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 3 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 3 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 4 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 4 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 5 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 5 gem id
+            ]
+        ));
+
+        assert!(check_bytes( // Storage
+            &save.file,
+            0x10F68,
+            &[0x43, 0xE0, 0xA7, 0x0E, // Slot
+              0x8F, 0x00, 0x80, 0x80, // First part
+              0x40, 0x5D, 0xC6, 0x00, // Second part
+              0x01, 0x00, 0x00, 0x00, // Quantity
+            ]
+        ));
+
+        assert!(check_bytes( // Storage first counter
+            &save.file, 0x10F28, &[0x05, 0x00, 0x00, 0x00]));
+
+        assert!(check_bytes( // Storage second counter
+            &save.file, 0x19334, &[0x44, 0x00, 0x00, 0x00]));
+
+        let article = save.storage.articles.get_mut(&ArticleType::RightHand).unwrap().to_owned().last().unwrap().clone();
+        let expected_article = Article {
+            number: 0x43,
+            id,
+            first_part: 0x8080008F,
+            second_part: id,
+            info: get_info_weapon(id, &save.file.resources_path).unwrap().0,
+            amount: 1,
+            article_type: ArticleType::RightHand,
+            type_family: TypeFamily::Weapon,
+            slots: None,
+            index: 0,
+        };
+        assert_eq!(article, expected_article);
+
+        // Add a weapon to inventory
+        let id = u32::from_le_bytes([0x80, 0xA8, 0x12, 0x01]);
+        let result = save.inventory.add_armor_or_weapon(
+            &mut save.file,
+            id,
+            false);
+        assert!(result.is_ok());
+
+        assert!(check_bytes( // Ga section
+            &save.file,
+            0x248,
+            &[0x90, 0x00, 0x80, 0x80, // First part
+              0x80, 0xA8, 0x12, 0x01, // Second part
+              0xC8, 0x00, 0x00, 0x00, // Durability
+              0x00, 0x00, 0x00, 0x00, // :)-|-<
+              0x01, 0x00, 0x00, 0x00, //
+              0x00, 0x00, 0x00, 0x80, // Gem slot 1 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 1 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 2 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 2 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 3 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 3 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 4 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 4 gem id
+              0x00, 0x00, 0x00, 0x80, // Gem slot 5 shape
+              0x00, 0x00, 0x00, 0x00, // Gem slot 5 gem id
+            ]
+        ));
+
+        assert!(check_bytes( // Inventory
+            &save.file,
+            0x8CDC,
+            &[0x00, 0x00, 0x00, 0x00, // Slot
+              0x90, 0x00, 0x80, 0x80, // First part
+              0x80, 0xA8, 0x12, 0x01, // Second part
+              0x01, 0x00, 0x00, 0x00, // Quantity
+            ]
+        ));
+
+        assert!(check_bytes( // Inventory first counter
+            &save.file, 0x893C, &[0x2C, 0x00, 0x00, 0x00]));
+
+        assert!(check_bytes( // Inventory second counter
+            &save.file, 0x10D48, &[0x6B, 0x00, 0x00, 0x00]));
+
+        let article = save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap().to_owned().last().unwrap().clone();
+        let expected_article = Article {
+            number: 0x00,
+            id,
+            first_part: 0x80800090,
+            second_part: id,
+            info: get_info_weapon(id, &save.file.resources_path).unwrap().0,
+            amount: 1,
+            article_type: ArticleType::LeftHand,
+            type_family: TypeFamily::Weapon,
+            slots: None,
+            index: 3,
+        };
+        assert_eq!(article, expected_article);
+
+        // Test an invalid id
+        let result = save.inventory.add_armor_or_weapon(&mut save.file, 0x00, false);
+        assert!(result.is_err());
+        if let Err(error) = result {
+            assert_eq!(
+                error.to_string(),
+                "Save error: ERROR: failed to find info for the item."
+            );
+        }
     }
 
     #[test]

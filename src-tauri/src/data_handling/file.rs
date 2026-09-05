@@ -156,8 +156,8 @@ impl FileData {
         None
     }
 
-    //If there is an empty slot return the index of the first byte of the first part
-    //Or else return None
+    ///If there is an empty slot return the index of the first byte of the first part
+    ///Or else return None
     pub fn find_inv_empty_slot(&self, location: Location) -> Option<usize> {
         let (start, end) = match location {
             Location::Inventory => self.offsets.inventory,
