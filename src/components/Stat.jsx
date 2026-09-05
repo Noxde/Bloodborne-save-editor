@@ -12,6 +12,7 @@ function Stat({ stat, editedStats, setEditedStats, width }) {
       style={{
         display: "flex",
         alignItems: "center",
+        paddingRight: 5,
         borderBottom: "1px solid #6b5f49",
       }}
     >

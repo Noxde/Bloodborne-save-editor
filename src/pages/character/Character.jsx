@@ -77,6 +77,20 @@ function Character() {
             }}
           />
         </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            borderBottom: "1px solid rgb(107, 95, 73)",
+          }}
+        >
+          <span>Death Count:</span>
+          <span style={{ fontSize: 16, paddingRight: 5 }}>
+            {save.death_count}
+          </span>
+        </div>
         <div id="currency" style={{ padding: "0 0px" }}>
           <Stat
             editedStats={editedStats}
