@@ -70,7 +70,11 @@ export function UpdateModal() {
         <h3 style={styles.title}>Update available</h3>
         <p style={styles.version}>Version {update.version}</p>
 
-        {update.body && <p style={styles.notes}>{update.body}</p>}
+        <div style={styles.notesContainer}>
+          {update.body.split("\n").map((x) => (
+            <p style={styles.notes}>{x}</p>
+          ))}
+        </div>
 
         {downloading ? (
           <div style={styles.progressContainer}>
@@ -115,7 +119,7 @@ const styles = {
     backgroundColor: "#121212",
     border: "1px solid #333",
     padding: "24px 32px",
-    width: "380px",
+    width: "450px",
     boxShadow: "0 8px 32px rgba(0,0,0,0.9)",
     color: "#e0e0e0",
     textAlign: "center",
@@ -132,13 +136,16 @@ const styles = {
     fontSize: "0.9rem",
     color: "#888",
   },
+  notesContainer: {
+    textAlign: "left",
+    maxHeight: "200px",
+    overflowY: "auto",
+    paddingRight: "10px",
+  },
   notes: {
     fontSize: "0.85rem",
     color: "#aaa",
-    marginBottom: "20px",
-    textAlign: "left",
-    maxHeight: "80px",
-    overflowY: "auto",
+    marginBottom: "15px",
   },
   progressContainer: {
     marginTop: "16px",
