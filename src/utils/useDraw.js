@@ -13,7 +13,7 @@ function useDraw() {
         info,
         "",
         images.backgrounds["item_small.png"],
-        context
+        context,
       );
     }
     const itemBackground = images.backgrounds[getBackground(item)];
@@ -52,6 +52,9 @@ function useDraw() {
     note = note ?? info.note ?? "";
     ctx.drawImage(img, 0, 0);
 
+    if (type == "armor" || type == "weapon") {
+      ctx.shadowColor = "transparent";
+    }
     if (image) {
       const thumbnail = imgContext.items[image || "empty.png"];
       ctx.drawImage(thumbnail, x, y, x + size, y + size);
@@ -59,11 +62,12 @@ function useDraw() {
 
     // Set up text
     ctx.font = "18px Reim";
+    ctx.fillStyle = "#ab9e87";
+
     ctx.shadowBlur = 3;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 2;
     ctx.shadowColor = "black";
-    ctx.fillStyle = "#ab9e87";
 
     if (article?.upgrade_type) {
       handleUpgrades(ctx, article, { x, y, size });
@@ -73,7 +77,7 @@ function useDraw() {
     }
     if (article.slots) {
       const openSlots = article.slots.filter(
-        (x) => x.shape !== "Closed"
+        (x) => x.shape !== "Closed",
       ).length;
       const fullSlots = article.slots.filter((x) => x.gem !== null).length;
       ctx.fillStyle = "#a5a49c";
@@ -121,7 +125,7 @@ function useDraw() {
   function handleWeapon(ctx, weapon) {
     const {
       item_name: name,
-      extra_info: { damage, upgrade_level: upgrade, imprint },
+      extra_info: { damage, upgrade_level: upgrade, imprint, durability },
     } = weapon;
     const { physical, blood, arcane, fire, bolt } = damage;
     const finalName = `${imprint ? imprint + " " : ""}${name}${
@@ -137,6 +141,7 @@ function useDraw() {
     ctx.fillText(arcane, margin * 3 + 37, 77);
     ctx.fillText(fire, margin * 4 + 37, 77);
     ctx.fillText(bolt, margin * 5 + 37, 77);
+    // ctx.fillText(durability, margin * 6 + 37, 77); TODO: This is max durability instead of current
   }
 
   function handleArmor(ctx, armor) {
@@ -173,7 +178,7 @@ function useDraw() {
       const cursed = isCursed(effects);
       const finalName = makeGemName(name, uniqueGem, cursed, source);
       const thumbnail = await loadImage(
-        getGemPath(effects, shape, level, uniqueGem, cursed)
+        getGemPath(effects, shape, level, uniqueGem, cursed),
       ).catch(() => {});
 
       ctx.font = "20px Reim";
@@ -305,7 +310,7 @@ function useDraw() {
       ([_, name]) =>
         name.includes("-") ||
         name.includes("Increases stamina") ||
-        name.includes("DOWN")
+        name.includes("DOWN"),
     );
   }
 
@@ -345,7 +350,7 @@ function useDraw() {
       case /fire|vs the kin/.test(lowerCaseEffect):
         return "orange";
       case /charge atks up|stamina cost|phys. up|boosts rally|hp continues|wpn durability/.test(
-        lowerCaseEffect
+        lowerCaseEffect,
       ):
         return "green";
       case /arcane/.test(lowerCaseEffect):
