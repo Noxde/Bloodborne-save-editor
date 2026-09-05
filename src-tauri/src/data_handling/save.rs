@@ -23,6 +23,7 @@ pub struct SaveData {
     pub inventory: Inventory,
     pub storage: Inventory,
     pub username: Username,
+    pub death_count: u32,
     pub bosses: Vec<Boss>,
     pub playtime: u32,
     pub position: Pos,
@@ -50,6 +51,7 @@ impl SaveData {
             &mut slots,
         ); // Its not possible to store key items
         let username = Username::build(&file);
+        let death_count = file.get_death_count();
         let playtime = file.get_playtime();
         let position = Pos::new(&file).unwrap();
 
@@ -59,6 +61,7 @@ impl SaveData {
             inventory,
             storage,
             username,
+            death_count,
             bosses,
             playtime,
             position,

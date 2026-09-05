@@ -60,6 +60,12 @@ impl FileData {
         value
     }
 
+    pub fn get_death_count(&self) -> u32 {
+        let value_offset = self.offsets.username + USERNAME_TO_AOB + 360;
+
+        u32::from_le_bytes([self.bytes[value_offset], self.bytes[value_offset + 1], self.bytes[value_offset + 2], self.bytes[value_offset + 3]])
+    }
+
     pub fn get_flag(&self, offset_from_aob: usize) -> u8 {
         let value_offset = self.offsets.username + USERNAME_TO_AOB + offset_from_aob;
 
