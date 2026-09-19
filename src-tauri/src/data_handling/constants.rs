@@ -33,3 +33,6 @@ pub const APPEARANCE_BYTES_AMOUNT: usize = 0xEB;
 
 //Amount of empty slots that can be detected while parsing the inventory before considering it finished
 pub const MAX_EMPTY_INV_SLOTS: usize = 20;
+
+//Amount of slots of the ga section
+pub const GA_SECTION_SLOTS: usize = 4096;
