@@ -1,4 +1,4 @@
-use crate::data_handling::enums::SlotShape;
+use crate::data_handling::{constants, enums::{Error::CustomError, SlotShape}, file};
 
 use super::{
     article::{scale_weapon_info, Article, ItemInfo, WeaponMods},
@@ -340,84 +340,38 @@ impl Inventory {
         //the biggest slot index (handle), to use the next one for the inserted item.
         //Once the item is inserted on said section, it will also be added to the inventory.
 
-        //Each armor/weapon and their equipped gems appears in the ga section in 60B blocks
-        //This section goes from:
-        let start = file_data.offsets.equipped_gems.0;
-        //To:
-        let end = file_data.offsets.username - 147 - 60;
-        //Username offset - 147 is the start of the stats block. The last armor/weapon can be
-        //60B before that (inclusive)
-
-        //However we can not iterate this section simply stepping by 60B, because not all blocks
-        //are aligned
-
-        //This closure determines if there is a valid block in the received offset
-        //If there is, we return its index (first 2 bytes of the ga_handle)
-        //The offset must point to the fist byte of the block
-        let check_slot = |offset: usize| -> (u16, bool) {
-            let handle = u16::from_le_bytes([
-                file_data.bytes[offset + 0],
-                file_data.bytes[offset + 1],
-            ]);
-
-            // Check if the structure of the block makes sense
-            if file_data.bytes[offset + 2] != 0x80 {
-                return (handle, false);
-            }
-
-            if (file_data.bytes[offset + 3] != 0x80) && (file_data.bytes[offset + 3] != 0x90) {
-                return (handle, false);
-            }
-
-            if u32::from_le_bytes([
-                file_data.bytes[offset + 16],
-                file_data.bytes[offset + 17],
-                file_data.bytes[offset + 18],
-                file_data.bytes[offset + 19],
-            ]) != 0x00000001 {
-                return (handle, false);
-            }
-
-            for val in (offset + 20..offset + 60).into_iter().step_by(8) {
-                //If the slot shape is valid
-                if SlotShape::try_from(&[
-                    file_data.bytes[val + 0],
-                    file_data.bytes[val + 1],
-                    file_data.bytes[val + 2],
-                    file_data.bytes[val + 3],
-                ]).is_err() {
-                    return (handle, false);
-                }
-            }
-            (handle, true)
-        };
-
-        let mut i = start;
-        let mut previous_empty = false; //If the previous offset was empty
-        let mut max_handle = u16::MIN;
+        let mut i = constants::START_TO_UPGRADE; //The start of the ga section
+        let mut empty_slot_offset = 0; //Offset of the first empty slot
+        let mut max_handle = 0;
         let mut handle;
-        let mut valid;
-        let mut available_offset = 0; // Available slot offset
-        let mut last = i; //Last index that did not have a valid/used slot
+        let mut slot_type;
+        let mut cant = 0;
 
-        while i <= end {
-            (handle, valid) = check_slot(i);
-            if !valid {
-                if !previous_empty {
-                    last = i;
-                    previous_empty = true;
-                } else if (i-last) == 59 && available_offset == 0  {
-                    available_offset = last;
-                }
-                i+=1;
-            } else {
-                if handle > max_handle {
-                    max_handle = handle;
-                }
-                previous_empty = false;
-                i+=60;
+        for _ in 0..GA_SECTION_SLOTS { //There is a fixed number of slots
+            slot_type = file_data.bytes[i+3]; //Fourth byte of the handle
+            cant +=1;
+            handle = u16::from_le_bytes([
+                file_data.bytes[i],
+                file_data.bytes[i+1]]);
+
+            match slot_type { //Update i and save empty slot offset
+                0x80 | 0x90 => i+=60, //Armor or weapon (60B block)
+                0xC0 => i+=40, //Gem (40B block)
+                0x00 => { //Empty
+                    empty_slot_offset = if empty_slot_offset == 0 { i } else {empty_slot_offset};
+                    i+=8;
+                },
+                _ => return Err(Error::CustomError("Found invalid slot while parsing ga section.")),
+            }
+
+            if (slot_type != 0x00) && (handle > max_handle) { //Update max handle
+                max_handle = handle;
             }
         }
+        println!("cant: {}", cant);
+        println!("i: {:#2X}", i);
+        println!("empty slot: {:#2X}", empty_slot_offset);
+        println!("max handle: {:#2X}", max_handle);
 
         // --- WRITE THE INVENTORY --
         let empty_slot_index;
@@ -550,38 +504,32 @@ impl Inventory {
         vec.push(new_item);
 
         // --- WRITE THE GA SECTION --
-        for i in 0..4 { // First part 0-3
-            file_data.bytes[available_offset + i] = first_part[i];
-        }
-        for i in 0..4 { // Second part 4-7
-            file_data.bytes[available_offset + i + 4] = second_part[i];
-        }
+        let new_slot = [
+            first_part[0], first_part[1], first_part[2], first_part[3], // First part
+            second_part[0], second_part[1], second_part[2], second_part[3], // Second part
+            0xC8, 0x00, 0x00, 0x00, // Durability
+            0x00, 0x00, 0x00, 0x00, // :)-|-<
+            0x01, 0x00, 0x00, 0x00, // Gem start
+            0x00, 0x00, 0x00, 0x80, // Upgrade slot 1 (closed)
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x80, // Upgrade slot 2 (closed)
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x80, // Upgrade slot 3 (closed)
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x80, // Upgrade slot 4 (closed)
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x80, // Upgrade slot 5 (closed)
+            0x00, 0x00, 0x00, 0x00,
+        ];
 
-        let durability = [0xC8, 0x00, 0x00, 0x00];
-        for i in 0..4 { // Durability 8-11
-            file_data.bytes[available_offset + i + 8] = durability[i];
-        }
+        // Insert the item where the empty slot is
+        // This basically inserts the 60B of the new slot and deletes the 8B of the empty slot
+        file_data.bytes.splice(empty_slot_offset..empty_slot_offset+8, new_slot);
 
-        for i in 0..4 { // :)-|-<  12-15
-            file_data.bytes[available_offset + i + 12] = 0x00;
-        }
-
-        let durability = [0x01, 0x00, 0x00, 0x00];
-        for i in 0..4 { // Gem Start 16-19
-            file_data.bytes[available_offset + i + 16] = durability[i];
-        }
-
-        // Gem slots 20-59
-        let shape: [u8; 4] = SlotShape::Closed.into();
-        for i in 0..5 { // For each slot
-            for j in 0..4 { // Slot shape 0-3
-                file_data.bytes[available_offset + 20 + i*8 + j] = shape[j];
-            }
-
-            for j in 0..4 { // Gem id 4-7
-                file_data.bytes[available_offset + 20 + i*8 + j + 4] = 0x00;
-            }
-        }
+        // Truncate the file 52B
+        // We inserted 60, deleted 8 from the empty slot, and truncated 52
+        // 60-8-52=0 the save size remains the same
+        file_data.bytes.truncate(file_data.bytes.len() - 52);
 
         return Ok(self);
     }
@@ -1313,6 +1261,10 @@ use super::*;
             false);
         assert!(result.is_ok());
 
+        save.file.save("/home/amato/Desktop/testsaveff").unwrap();
+
+        panic!("end test here");
+
         assert!(check_bytes( // Ga section
             &save.file,
             0x1D0,
@@ -1372,7 +1324,8 @@ use super::*;
             &mut save.file,
             id,
             true);
-        assert!(result.is_ok());
+        result.unwrap();
+        //assert!(result.is_ok());
 
         assert!(check_bytes( // Ga section
             &save.file,
