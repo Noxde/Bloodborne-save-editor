@@ -102,6 +102,30 @@ impl Offsets {
             lced_offset,
         })
     }
+
+    fn update_aux(value: &mut usize, from: usize, shift: isize) {
+        if *value >= from {
+            *value = (*value as isize + shift) as usize;
+        }
+    }
+
+    ///Shift all offsets equal or bigger than `from`
+    pub fn update(&mut self, from: usize, shift: isize) {
+        Offsets::update_aux(&mut self.username, from, shift);
+        Offsets::update_aux(&mut self.inventory.0, from, shift);
+        Offsets::update_aux(&mut self.inventory.1, from, shift);
+        Offsets::update_aux(&mut self.storage.0, from, shift);
+        Offsets::update_aux(&mut self.storage.1, from, shift);
+        Offsets::update_aux(&mut self.upgrades.0, from, shift);
+        Offsets::update_aux(&mut self.upgrades.1, from, shift);
+        Offsets::update_aux(&mut self.key_inventory.0, from, shift);
+        Offsets::update_aux(&mut self.key_inventory.1, from, shift);
+        Offsets::update_aux(&mut self.appearance.0, from, shift);
+        Offsets::update_aux(&mut self.appearance.1, from, shift);
+        Offsets::update_aux(&mut self.equipped_gems.0, from, shift);
+        Offsets::update_aux(&mut self.equipped_gems.1, from, shift);
+        Offsets::update_aux(&mut self.lced_offset, from, shift);
+    }
 }
 
 #[cfg(test)]

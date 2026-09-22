@@ -10,7 +10,7 @@ use super::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use std::{collections::HashMap, path::PathBuf};
+use std::{collections::HashMap, io::empty, path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inventory {
@@ -384,7 +384,7 @@ impl Inventory {
                     empty_slot_index = file_data.offsets.inventory.1;
                     //If the new item is added, the inventory will be pushed 52B,
                     //And the new last inventory slot will be the next (+16B)
-                    file_data.offsets.inventory.1 += 68;
+                    file_data.offsets.inventory.1 += 16;
                 } else {
                     empty_slot_index = file_data.offsets.storage.1;
                     file_data.offsets.storage.1 += 68;
@@ -394,6 +394,8 @@ impl Inventory {
                     file_data.bytes[empty_slot_index - 4].overflowing_add(1);
             }
         };
+
+        println!("empty_slot_index: {}", empty_slot_index);
 
         let uname = file_data.offsets.username;
         let (first_counter_index, second_counter_index) = {
@@ -418,9 +420,9 @@ impl Inventory {
                 // Rollback the changes made and return
                 if !found_empty_inv_slot {
                     if !is_storage {
-                        file_data.offsets.inventory.1 -= 68;
+                        file_data.offsets.inventory.1 -= 16;
                     } else {
-                        file_data.offsets.storage.1 -= 68;
+                        file_data.offsets.storage.1 -= 16;
                     }
                 }
                 return Err(Error::CustomError(
@@ -536,6 +538,8 @@ impl Inventory {
         // We inserted 60, deleted 8 from the empty slot, and truncated 52
         // 60-8-52=0 the save size remains the same
         file_data.bytes.truncate(file_data.bytes.len() - 52);
+
+        file_data.offsets.update(empty_slot_offset, 52);
 
         return Ok(self);
     }
@@ -1273,7 +1277,24 @@ use super::*;
             false);
         assert!(result.is_ok());
 
-        save.file.save("/home/amato/Desktop/newsave_yo").unwrap();
+
+
+        // Add an armor to inventory
+        //let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
+        //let result = save.inventory.add_armor_or_weapon(
+        //    &mut save.file,
+        //    id,
+        //    false);
+        //assert!(result.is_ok());
+
+        let id = u32::from_le_bytes([0x40, 0x4B, 0x4C, 0x00]);
+        let result = save.inventory.add_armor_or_weapon(
+            &mut save.file,
+            id,
+            false);
+        assert!(result.is_ok());
+
+        save.file.save("/home/amato/Desktop/newsave_yo_yo_gui").unwrap();
 
         panic!("end test here");
 
