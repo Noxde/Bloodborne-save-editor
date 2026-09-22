@@ -375,15 +375,19 @@ impl Inventory {
 
         // --- WRITE THE INVENTORY --
         let empty_slot_index;
+        let mut found_empty_inv_slot = true;
         match file_data.find_inv_empty_slot(Location::from(is_storage)) {
             Some(index) => empty_slot_index = index,
             None => {
+                found_empty_inv_slot = false;
                 if !is_storage {
                     empty_slot_index = file_data.offsets.inventory.1;
-                    file_data.offsets.inventory.1 += 16;
+                    //If the new item is added, the inventory will be pushed 52B,
+                    //And the new last inventory slot will be the next (+16B)
+                    file_data.offsets.inventory.1 += 68;
                 } else {
                     empty_slot_index = file_data.offsets.storage.1;
-                    file_data.offsets.storage.1 += 16;
+                    file_data.offsets.storage.1 += 68;
                 }
                 // Increment the index of the next slot to be used
                 (file_data.bytes[empty_slot_index + 12], _) =
@@ -412,10 +416,12 @@ impl Inventory {
             ArticleType::LeftHand | ArticleType::RightHand => [new_handle_bytes[0], new_handle_bytes[1], 0x80, 0x80],
             _ => {
                 // Rollback the changes made and return
-                if !is_storage {
-                    file_data.offsets.inventory.1 -= 16;
-                } else {
-                    file_data.offsets.storage.1 -= 16;
+                if !found_empty_inv_slot {
+                    if !is_storage {
+                        file_data.offsets.inventory.1 -= 68;
+                    } else {
+                        file_data.offsets.storage.1 -= 68;
+                    }
                 }
                 return Err(Error::CustomError(
                     "ERROR: Invalid ArticleType.",
@@ -944,7 +950,6 @@ pub fn get_info_weapon(
                     "damage": &category_weapons[found]["damage"],
                     "upgrade_level": weapon_mods.upgrade_level,
                     "imprint": weapon_mods.imprint,
-                    "durability": &category_weapons[found]["durability"]
                 });
                 if weapon_mods.upgrade_level > 0 {
                     scale_weapon_info(&mut extra_info);
@@ -1251,17 +1256,24 @@ use super::*;
 
     #[test]
     fn inventory_add_armor_or_weapon () {
-        let mut save = build_save_data("testsave0");
+        let mut save = build_save_data("newsave");
 
         // Add an armor to inventory
-        let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
+        //let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
+        //let result = save.inventory.add_armor_or_weapon(
+        //    &mut save.file,
+        //    id,
+        //    false);
+        //assert!(result.is_ok());
+
+        let id = u32::from_le_bytes([0x40, 0x4B, 0x4C, 0x00]);
         let result = save.inventory.add_armor_or_weapon(
             &mut save.file,
             id,
             false);
         assert!(result.is_ok());
 
-        save.file.save("/home/amato/Desktop/testsaveff").unwrap();
+        save.file.save("/home/amato/Desktop/newsave_yo").unwrap();
 
         panic!("end test here");
 
