@@ -368,10 +368,6 @@ impl Inventory {
                 max_handle = handle;
             }
         }
-        println!("cant: {}", cant);
-        println!("i: {:#2X}", i);
-        println!("empty slot: {:#2X}", empty_slot_offset);
-        println!("max handle: {:#2X}", max_handle);
 
         // --- WRITE THE INVENTORY --
         let empty_slot_index;
@@ -394,8 +390,6 @@ impl Inventory {
                     file_data.bytes[empty_slot_index - 4].overflowing_add(1);
             }
         };
-
-        println!("empty_slot_index: {}", empty_slot_index);
 
         let uname = file_data.offsets.username;
         let (first_counter_index, second_counter_index) = {
@@ -1262,47 +1256,19 @@ use super::*;
     fn inventory_add_armor_or_weapon () {
         let mut save = build_save_data("newsave");
 
-        // Add an armor to inventory
-        //let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
-        //let result = save.inventory.add_armor_or_weapon(
-        //    &mut save.file,
-        //    id,
-        //    false);
-        //assert!(result.is_ok());
-
+        // Add Hunter Axe to inventory
         let id = u32::from_le_bytes([0x40, 0x4B, 0x4C, 0x00]);
         let result = save.inventory.add_armor_or_weapon(
             &mut save.file,
             id,
             false);
         assert!(result.is_ok());
-
-
-
-        // Add an armor to inventory
-        //let id = u32::from_le_bytes([0x60, 0x5b, 0x03, 0x00]);
-        //let result = save.inventory.add_armor_or_weapon(
-        //    &mut save.file,
-        //    id,
-        //    false);
-        //assert!(result.is_ok());
-
-        let id = u32::from_le_bytes([0x40, 0x4B, 0x4C, 0x00]);
-        let result = save.inventory.add_armor_or_weapon(
-            &mut save.file,
-            id,
-            false);
-        assert!(result.is_ok());
-
-        save.file.save("/home/amato/Desktop/newsave_yo_yo_gui").unwrap();
-
-        panic!("end test here");
 
         assert!(check_bytes( // Ga section
             &save.file,
-            0x1D0,
-            &[0x8E, 0x00, 0x80, 0x90, // First part
-              0x60, 0x5B, 0x03, 0x10, // Second part
+            0x180,
+            &[0x83, 0x0E, 0x80, 0x80, // First part
+              0x40, 0x4B, 0x4C, 0x00, // Second part
               0xC8, 0x00, 0x00, 0x00, // Durability
               0x00, 0x00, 0x00, 0x00, // :)-|-<
               0x01, 0x00, 0x00, 0x00, //
@@ -1321,50 +1287,49 @@ use super::*;
 
         assert!(check_bytes( // Inventory
             &save.file,
-            0x8CCC,
-            &[0x78, 0xFF, 0xFF, 0xFF, // Slot
-              0x8E, 0x00, 0x80, 0x90, // First part
-              0x60, 0x5B, 0x03, 0x10, // Second part
+            0x88D8,
+            &[0x4D, 0x60, 0x9C, 0x3A, // Slot
+              0x83, 0x0E, 0x80, 0x80, // First part
+              0x40, 0x4B, 0x4C, 0x00, // Second part
               0x01, 0x00, 0x00, 0x00, // Quantity
             ]
         ));
 
         assert!(check_bytes( // Inventory first counter
-            &save.file, 0x893C, &[0x2B, 0x00, 0x00, 0x00]));
+            &save.file, 0x87F8, &[0x0F, 0x00, 0x00, 0x00]));
 
         assert!(check_bytes( // Inventory second counter
-            &save.file, 0x10D48, &[0x6A, 0x00, 0x00, 0x00]));
+            &save.file, 0x10C04, &[0x4E, 0x00, 0x00, 0x00]));
 
-        let article = save.inventory.articles.get_mut(&ArticleType::Armor).unwrap().to_owned().last().unwrap().clone();
+        let article = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().to_owned().last().unwrap().clone();
         let expected_article = Article {
-            number: 0x78,
+            number: 0x4D,
             id,
-            first_part: 0x9080008E,
-            second_part: id + 0x10000000,
-            info: get_info_armor(id, &save.file.resources_path).unwrap().0,
+            first_part: 0x80800E83,
+            second_part: id,
+            info: get_info_weapon(id, &save.file.resources_path).unwrap().0,
             amount: 1,
-            article_type: ArticleType::Armor,
-            type_family: TypeFamily::Armor,
+            article_type: ArticleType::RightHand,
+            type_family: TypeFamily::Weapon,
             slots: None,
-            index: 13,
+            index: 1,
         };
         assert_eq!(article, expected_article);
 
 
-        // Add a weapon to storage
-        let id = u32::from_le_bytes([0x40, 0x5D, 0xC6, 0x00]);
+        // Add a Hunter Axe to storage
+        let id = u32::from_le_bytes([0x40, 0x4B, 0x4C, 0x00]);
         let result = save.storage.add_armor_or_weapon(
             &mut save.file,
             id,
             true);
-        result.unwrap();
-        //assert!(result.is_ok());
+        assert!(result.is_ok());
 
         assert!(check_bytes( // Ga section
             &save.file,
-            0x20C,
-            &[0x8F, 0x00, 0x80, 0x80, // First part
-              0x40, 0x5D, 0xC6, 0x00, // Second part
+            0x1BC,
+            &[0x84, 0x0E, 0x80, 0x80, // First part
+              0x40, 0x4B, 0x4C, 0x00, // Second part
               0xC8, 0x00, 0x00, 0x00, // Durability
               0x00, 0x00, 0x00, 0x00, // :)-|-<
               0x01, 0x00, 0x00, 0x00, //
@@ -1383,25 +1348,25 @@ use super::*;
 
         assert!(check_bytes( // Storage
             &save.file,
-            0x10F68,
-            &[0x43, 0xE0, 0xA7, 0x0E, // Slot
-              0x8F, 0x00, 0x80, 0x80, // First part
-              0x40, 0x5D, 0xC6, 0x00, // Second part
+            0x10E18,
+            &[0x01, 0x00, 0x00, 0x00, // Slot
+              0x84, 0x0E, 0x80, 0x80, // First part
+              0x40, 0x4B, 0x4C, 0x00, // Second part
               0x01, 0x00, 0x00, 0x00, // Quantity
             ]
         ));
 
         assert!(check_bytes( // Storage first counter
-            &save.file, 0x10F28, &[0x05, 0x00, 0x00, 0x00]));
+            &save.file, 0x10E18, &[0x01, 0x00, 0x00, 0x00]));
 
         assert!(check_bytes( // Storage second counter
-            &save.file, 0x19334, &[0x44, 0x00, 0x00, 0x00]));
+            &save.file, 0x19224, &[0x01, 0x00, 0x00, 0x00]));
 
         let article = save.storage.articles.get_mut(&ArticleType::RightHand).unwrap().to_owned().last().unwrap().clone();
         let expected_article = Article {
-            number: 0x43,
+            number: 0x01,
             id,
-            first_part: 0x8080008F,
+            first_part: 0x80800E84,
             second_part: id,
             info: get_info_weapon(id, &save.file.resources_path).unwrap().0,
             amount: 1,
@@ -1412,8 +1377,9 @@ use super::*;
         };
         assert_eq!(article, expected_article);
 
-        // Add a weapon to inventory
-        let id = u32::from_le_bytes([0x80, 0xA8, 0x12, 0x01]);
+
+        // Add Hunter Hat to inventory
+        let id = u32::from_le_bytes([0x70, 0x11, 0x01, 0x00]);
         let result = save.inventory.add_armor_or_weapon(
             &mut save.file,
             id,
@@ -1422,9 +1388,9 @@ use super::*;
 
         assert!(check_bytes( // Ga section
             &save.file,
-            0x248,
-            &[0x90, 0x00, 0x80, 0x80, // First part
-              0x80, 0xA8, 0x12, 0x01, // Second part
+            0x1F8,
+            &[0x85, 0x0E, 0x80, 0x90, // First part
+              0x70, 0x11, 0x01, 0x10, // Second part
               0xC8, 0x00, 0x00, 0x00, // Durability
               0x00, 0x00, 0x00, 0x00, // :)-|-<
               0x01, 0x00, 0x00, 0x00, //
@@ -1443,32 +1409,32 @@ use super::*;
 
         assert!(check_bytes( // Inventory
             &save.file,
-            0x8CDC,
+            0x8950,
             &[0x00, 0x00, 0x00, 0x00, // Slot
-              0x90, 0x00, 0x80, 0x80, // First part
-              0x80, 0xA8, 0x12, 0x01, // Second part
+              0x85, 0x0E, 0x80, 0x90, // First part
+              0x70, 0x11, 0x01, 0x10, // Second part
               0x01, 0x00, 0x00, 0x00, // Quantity
             ]
         ));
 
         assert!(check_bytes( // Inventory first counter
-            &save.file, 0x893C, &[0x2C, 0x00, 0x00, 0x00]));
+            &save.file, 0x8860, &[0x10, 0x00, 0x00, 0x00]));
 
         assert!(check_bytes( // Inventory second counter
-            &save.file, 0x10D48, &[0x6B, 0x00, 0x00, 0x00]));
+            &save.file, 0x10C6C, &[0x4F, 0x00, 0x00, 0x00]));
 
-        let article = save.inventory.articles.get_mut(&ArticleType::LeftHand).unwrap().to_owned().last().unwrap().clone();
+        let article = save.inventory.articles.get_mut(&ArticleType::Armor).unwrap().to_owned().last().unwrap().clone();
         let expected_article = Article {
             number: 0x00,
             id,
-            first_part: 0x80800090,
-            second_part: id,
-            info: get_info_weapon(id, &save.file.resources_path).unwrap().0,
+            first_part: 0x90800E85,
+            second_part: id + 0x10000000,
+            info: get_info_armor(id, &save.file.resources_path).unwrap().0,
             amount: 1,
-            article_type: ArticleType::LeftHand,
-            type_family: TypeFamily::Weapon,
+            article_type: ArticleType::Armor,
+            type_family: TypeFamily::Armor,
             slots: None,
-            index: 3,
+            index: 4,
         };
         assert_eq!(article, expected_article);
 
