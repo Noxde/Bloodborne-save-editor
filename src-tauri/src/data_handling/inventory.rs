@@ -887,12 +887,16 @@ pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, Ar
                 }
                 return Ok((info, ArticleType::from(category.as_str())));
             }
-            None => (),
+            None => ()
         }
     }
-    Err(Error::CustomError(
-        "ERROR: Failed to find info for the item.",
-    ))
+    let info: ItemInfo = serde_json::from_str("{
+        \"item_name\": \"?GoodsName?\",
+        \"item_desc\": \"Probably cut content or unused item, not listed\",
+        \"item_img\": \"\",
+        \"extra_info\": \"None\"
+    }").unwrap();
+    Ok((info, ArticleType::Consumable)) // Show items that are not present in the json
 }
 
 pub fn get_info_armor(
