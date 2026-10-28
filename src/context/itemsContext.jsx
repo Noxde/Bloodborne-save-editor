@@ -1443,8 +1443,10 @@ export const ItemsProvider = ({ children }) => {
             };
 
             if (item.article_type === "Chalice") {
-              item.info.depth = items[x][y]["depth"];
-              item.info.area = items[x][y]["area"];
+              item.info.extra_info = {
+                depth: items[x][y]["depth"],
+                area: items[x][y]["area"],
+              };
             }
 
             return item;
