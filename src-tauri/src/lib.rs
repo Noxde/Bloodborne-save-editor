@@ -56,6 +56,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
             set_username,
             get_version,
             add_item,
+            add_armor_or_weapon,
             edit_slot,
             get_isz,
             fix_isz,
@@ -65,7 +66,8 @@ pub fn run() -> Result<(), Box<dyn Error>> {
             edit_coordinates,
             teleport,
             change_weapon_level,
-            apply_mask
+            apply_mask_and,
+            apply_mask_or
         ])
         .run(tauri::generate_context!())?;
 
@@ -81,11 +83,19 @@ fn set_flag(offset: usize, new_value: u8, state_save: tauri::State<MutexSave>) {
 }
 
 #[tauri::command]
-fn apply_mask(offset: usize, mask: u8, state_save: tauri::State<MutexSave>) {
+fn apply_mask_and(offset: usize, mask: u8, state_save: tauri::State<MutexSave>) {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    save.file.apply_mask(offset, mask);
+    save.file.apply_mask_and(offset, mask);
+}
+
+#[tauri::command]
+fn apply_mask_or(offset: usize, mask: u8, state_save: tauri::State<MutexSave>) {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    save.file.apply_mask_or(offset, mask);
 }
 
 #[tauri::command]
@@ -563,12 +573,46 @@ fn add_item(
             .add_item(&mut save.file, id, quantity, is_storage)
         {
             Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
-            Err(_) => Err("Failed to add the item".to_string()),
+            Err(e) => {
+                println!("{:#?}", e);
+                Err(e.to_string())
+            },
         }
     } else {
         match save
             .storage
             .add_item(&mut save.file, id, quantity, is_storage)
+        {
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
+            Err(e) => {
+                println!("{:#?}", e);
+                Err(e.to_string())
+            },
+        }
+    }
+}
+
+#[tauri::command]
+fn add_armor_or_weapon(
+    id: u32,
+    is_storage: bool,
+    state_save: tauri::State<MutexSave>,
+) -> Result<Value, String> {
+    let mut save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_mut().unwrap();
+
+    if !is_storage {
+        match save
+            .inventory
+            .add_armor_or_weapon(&mut save.file, id, is_storage)
+        {
+            Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
+            Err(_) => Err("Failed to add the item".to_string()),
+        }
+    } else {
+        match save
+            .storage
+            .add_armor_or_weapon(&mut save.file, id, is_storage)
         {
             Ok(_) => Ok(serde_json::to_value(&save).map_err(|x| x.to_string())?),
             Err(_) => Err("Failed to add the item".to_string()),
