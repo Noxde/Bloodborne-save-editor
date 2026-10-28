@@ -12,18 +12,7 @@ function Item({ index, item, isSmall, className, ...props }) {
     drawCanvas(ctx, item, isSmall);
   }, [item, isSmall]);
 
-  return isSmall ? (
-    <canvas
-      data-index={index}
-      data-item-id={item.id}
-      data-item={JSON.stringify(item)}
-      width={526}
-      height={90}
-      ref={canvasRef}
-      style={{ display: "block", marginBottom: "1px" }}
-      {...props}
-    ></canvas>
-  ) : (
+  return (
     <div className={className}>
       <canvas
         data-index={index}
@@ -32,7 +21,7 @@ function Item({ index, item, isSmall, className, ...props }) {
           item?.article_type?.toLowerCase() || item.upgrade_type.toLowerCase()
         }
         data-item={JSON.stringify(item)}
-        width={795}
+        width={isSmall ? 526 : 795}
         height={90}
         ref={canvasRef}
         style={{ display: "block", marginBottom: "1px" }}
