@@ -1632,7 +1632,7 @@
     "type": "Head",
     "item_desc": "\nThe School of Mensis controls the Unseen Village.\nThis hexagonal iron cage suggests their strange ways. Thecage is a device that restrains the will of the self, allowingone to see the profane world for what it is.\nIt also serves as an antenna that facilitates contact with theGreat Ones of the dream.\nBut to an observer, the iron cage appears to be precisely\nwhat delivered them to their harrowing nightmare."
   },
-  "191000": {
+  "301000": {
     "item_img": "student_uniform.png",
     "item_name": "Student Uniform",
     "physicalDefense": {
@@ -2322,7 +2322,7 @@
     "type": "Legs",
     "item_desc": "\nAttire of special Church doctors.\nThese doctors are superiors to the black preventative \nhunters, and specialists in experimentally-backed blood \nministration and the scourge of the beast.\nThey believe that medicine is not a means of treatment but rather a method for research, and that some knowledge can only be obtained by exposing oneself to sickness."
   },
-  "301000": {
+  "191000": {
     "item_img": "student_uniform_(cape).png",
     "item_name": "Student Uniform (Cape)",
     "physicalDefense": {
