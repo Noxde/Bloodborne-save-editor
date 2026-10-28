@@ -362,7 +362,7 @@ function useDraw() {
     }
   }
 
-  return { drawCanvas, getUnique, getGemPath, loadImage, isCursed };
+  return { drawCanvas, getUnique, getGemPath, loadImage, isCursed, getType };
 }
 
 export default useDraw;
