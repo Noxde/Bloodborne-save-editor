@@ -2,17 +2,30 @@ import { useContext, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { SaveContext } from "../../context/context";
 import SearchAllitems from "../../components/SearchAllitems";
+import useDraw from "../../utils/useDraw";
 
 function AddScreen({ type, setAddScreen, isStorage }) {
   const [selected, setSelected] = useState(null);
   const { setSave } = useContext(SaveContext);
+  const { getType } = useDraw();
 
   async function handleConfirm() {
+    if (!selected) return;
+
     try {
-      if (selected) {
+      console.log(selected);
+      const selectedType = getType(selected.article_type);
+      if (["item", "key", "chalice"].includes(selectedType)) {
         const editedSave = await invoke("add_item", {
           id: selected.id,
           quantity: 1,
+          isStorage,
+        });
+
+        setSave(editedSave);
+      } else {
+        const editedSave = await invoke("add_armor_or_weapon", {
+          id: selected.id,
           isStorage,
         });
 
@@ -21,7 +34,7 @@ function AddScreen({ type, setAddScreen, isStorage }) {
 
       setAddScreen(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -38,7 +51,7 @@ function AddScreen({ type, setAddScreen, isStorage }) {
         }}
       >
         {/* List and input */}
-        <SearchAllitems type={type} onChange={(x) => setSelected(x)} />
+        <SearchAllitems type="all" onChange={(x) => setSelected(x)} />
         <div>
           <button
             onClick={() => setAddScreen(false)}
