@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import Item from "./Item";
 import { ItemsContext } from "../context/itemsContext";
+import { Virtuoso } from "react-virtuoso";
+import "../pages/inventory/inventory.css";
 
 /**
  *
  * @param {Object} props
- * @param {"item" | "armor" | "weapon" | "key"} props.type
+ * @param {"item" | "armor" | "weapon" | "key" | "all"} props.type
  * @param {Function} props.onChange
  * @returns
  */
@@ -13,23 +15,22 @@ function SearchAllitems({ type, onChange, title }) {
   const [search, setSearch] = useState("");
   const [replacements, setReplacements] = useState(null);
   const [back, setBack] = useState(null);
-  const [hoverIndex, setHoverIndex] = useState(null);
   const { weapons, items, armors, all } = useContext(ItemsContext);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
-    setHoverIndex(null);
+    setSelectedIndex(null);
+    console.log("search effect");
     if (search) {
       setReplacements(
         back.filter((x) =>
-          x.info.item_name.toLowerCase().includes(search.toLowerCase())
-        )
+          x.info.item_name.toLowerCase().includes(search.toLowerCase()),
+        ),
       );
     } else {
       setReplacements(back);
     }
   }, [search]);
-
-  console.log(type);
 
   useEffect(() => {
     switch (type) {
@@ -44,7 +45,7 @@ function SearchAllitems({ type, onChange, title }) {
         break;
       case "key":
         setReplacements(
-          items.filter((y) => y.article_type.toLowerCase() === type)
+          items.filter((y) => y.article_type.toLowerCase() === type),
         );
         setBack(items.filter((y) => y.article_type.toLowerCase() === type));
         break;
@@ -52,6 +53,7 @@ function SearchAllitems({ type, onChange, title }) {
         setReplacements(armors);
         setBack(armors);
         break;
+      case "all":
       default:
         setReplacements(all);
         setBack(all);
@@ -60,7 +62,7 @@ function SearchAllitems({ type, onChange, title }) {
   }, []);
 
   return (
-    <div style={{ width: "534px", maxHeight: "calc(100% - 149px)" }}>
+    <div style={{ width: "534px", height: "calc(100% - 149px)" }}>
       <div>
         {title ? title : null}
 
@@ -79,33 +81,34 @@ function SearchAllitems({ type, onChange, title }) {
       <div
         style={{
           position: "relative",
-          overflowY: "scroll",
           // maxHeight: "calc(100% - 111px)",
           height: "100%",
         }}
       >
-        <div
-          id="hoverReplacement"
-          style={{
-            display: hoverIndex == null ? "none" : "block",
-            top: `${hoverIndex * 91}px`,
+        <Virtuoso
+          data={replacements}
+          height={"500px"}
+          itemContent={(index, item) => (
+            <Item
+              className={selectedIndex === index ? "selectedItem small" : ""} // FIXME: El select con esto me clava un re-render y parpadea lo que seleccionas
+              onClick={() => {
+                if (typeof onChange == "function") {
+                  onChange(item);
+                }
+                setSelectedIndex(index);
+              }}
+              key={index}
+              index={index + 1}
+              item={item}
+              isSmall={true}
+            />
+          )}
+          overscan={{
+            main: 900,
+            reverse: 900,
           }}
-        ></div>
-
-        {replacements?.map((x, i) => (
-          <Item
-            onClick={() => {
-              if (typeof onChange == "function") {
-                onChange(x);
-              }
-              setHoverIndex(i);
-            }}
-            key={i}
-            index={i + 1}
-            item={x}
-            isSmall={true}
-          />
-        ))}
+          fixedItemHeight={91}
+        />
       </div>
     </div>
   );
