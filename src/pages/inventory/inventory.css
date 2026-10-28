@@ -85,6 +85,11 @@ canvas {
     pointer-events: none;
     animation: hover-fade alternate infinite 700ms ease-out;
   }
+
+  &.small::before {
+    width: 526px;
+    background-size: 526px 90px;
+  }
 }
 
 @keyframes hover-fade {
