@@ -2,10 +2,11 @@ import { invoke } from "@tauri-apps/api/core";
 import { message } from "@tauri-apps/plugin-dialog";
 import { useEffect, useRef, useState } from "react";
 
-function Flag({ label, offset, values, info, isMask = false }) {
+function Flag({ label, offset, values, info, isMask = false, onClick }) {
   const tipRef = useRef();
   const [top, setTop] = useState(0);
   const [showTip, setShowTip] = useState(false);
+  const [tooltipBelow, setTooltipBelow] = useState(false);
 
   useEffect(() => {
     if (tipRef.current) {
@@ -24,10 +25,26 @@ function Flag({ label, offset, values, info, isMask = false }) {
   }
 
   async function applyMask() {
-    await invoke("apply_mask", {
+    await invoke("apply_mask_and", {
       offset: offset,
       mask: values[0],
     });
+  }
+
+  function showTooltip() {
+    const tooltip = tipRef.current;
+    const row = tooltip?.parentElement;
+    const list = row?.closest(".flags-list");
+
+    if (tooltip && row && list) {
+      const rowTop = row.getBoundingClientRect().top;
+      const listTop = list.getBoundingClientRect().top;
+      setTooltipBelow(
+        rowTop - tooltip.getBoundingClientRect().height - 5 < listTop,
+      );
+    }
+
+    setShowTip(true);
   }
 
   return (
@@ -45,7 +62,8 @@ function Flag({ label, offset, values, info, isMask = false }) {
         className="tooltip"
         style={{
           opacity: showTip ? 1 : 0,
-          top: `-${top + 5}px`,
+          top: tooltipBelow ? "calc(70% + 5px)" : `-${top + 5}px`,
+          zIndex: 999,
         }}
         ref={tipRef}
       >
@@ -61,7 +79,7 @@ function Flag({ label, offset, values, info, isMask = false }) {
       >
         <div
           className="tooltip-hover"
-          onMouseEnter={() => setShowTip(true)}
+          onMouseEnter={showTooltip}
           onMouseLeave={() => setShowTip(false)}
         >
           ?
@@ -75,7 +93,16 @@ function Flag({ label, offset, values, info, isMask = false }) {
           backgroundSize: "100% 100%",
         }}
         className="buttonBg"
-        onClick={isMask ? applyMask : setFlag}
+        onClick={
+          typeof onClick === "function"
+            ? async () => {
+                onClick();
+                await message("Flags applied");
+              }
+            : isMask
+              ? applyMask
+              : setFlag
+        }
       >
         Apply
       </button>

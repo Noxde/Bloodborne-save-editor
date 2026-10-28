@@ -1,3 +1,7 @@
+.flags-list > * {
+  flex-shrink: 0;
+}
+
 .tooltip {
   position: absolute;
   left: 0;
