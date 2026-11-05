@@ -11,13 +11,40 @@ function Bosses() {
 
   const { images } = useContext(ImagesContext);
 
-  async function handleChange(e, i) {
-    e.forEach(async (x) => {
-      await invoke("set_flag", {
-        offset: x.rel_offset,
-        newValue: x.current_value,
-      });
-    });
+  function isDead(boss) {
+    const flag = boss.flags.find((f) => f._comment !== "mp");
+    return (flag.dead_value & flag.current_value & 0xff) !== 0;
+  }
+
+  async function handleChange(e, alive, i) {
+    for (const x of e) {
+      if (x._comment === "mp") {
+        // Bosses sharing the same mp flag (same area) must all be dead to disable it
+        const sharing = bosses.filter((b) =>
+          b.flags.some(
+            (f) =>
+              f._comment === "mp" &&
+              f.rel_offset === x.rel_offset &&
+              f.dead_value === x.dead_value,
+          ),
+        );
+        if (!alive && !sharing.every(isDead)) continue;
+
+        // Mask instead of set, other flags share the same byte
+        await invoke(alive ? "apply_mask_and" : "apply_mask_or", {
+          offset: x.rel_offset,
+          mask: alive ? x.alive_value : x.dead_value,
+        });
+        x.current_value = alive
+          ? x.current_value & x.alive_value
+          : x.current_value | x.dead_value;
+      } else {
+        await invoke("set_flag", {
+          offset: x.rel_offset,
+          newValue: x.current_value,
+        });
+      }
+    }
 
     bosses[i].flags = e;
     setSave((prev) => {
@@ -51,7 +78,7 @@ function Bosses() {
     >
       {bosses.map((x, i) => {
         return (
-          <Boss boss={x} onChange={async (e) => await handleChange(e, i)} />
+          <Boss boss={x} onChange={async (e, alive) => await handleChange(e, alive, i)} />
         );
       })}
     </div>

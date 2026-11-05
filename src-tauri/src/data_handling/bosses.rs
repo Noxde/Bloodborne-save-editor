@@ -5,6 +5,8 @@ use std::io::{self, BufReader};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Flag {
+    #[serde(rename = "_comment", default, skip_serializing_if = "Option::is_none")]
+    comment: Option<String>,
     rel_offset: usize,
     dead_value: u8,
     alive_value: u8,

@@ -18,10 +18,11 @@ const mpFlags = [
   { offset: 1702, mask: 191 }, // NightmareOfMensisMergo: x1xx xxxx
   { offset: 2289, mask: 247 }, // NightmareFrontier: xxxx 1xxx
   // DLC
-  { offset: 2302, mask: 63 }, // HunterNightmare: 11xx xxxx
+  { offset: 2302, mask: 127 }, // HunterNightmareLaurence: 1xxx xxxx
+  { offset: 2302, mask: 191 }, // HunterNightmareLudwig: x1xx xxxx
   { offset: 2315, mask: 254 }, // ResearchHall: xxxx xxx1
   { offset: 2316, mask: 127 }, // ClockTower: 1xxx xxxx
-  { offset: 2327, mask: 247 }, // HunterNightmare: xxxx 1xxx
+  { offset: 2327, mask: 127 }, // FishingHamlet: 1xxx xxxx
 ];
 
 async function enableMp() {
@@ -93,7 +94,7 @@ function Flags() {
             console.log("Clicked");
           }}
           info={
-            "Enables multiplayer on all maps except for cathedral ward, yahargul and dlc."
+            "Enables multiplayer on all maps except for hunter's dream, cathedral ward, yahargul and all the dlc except for fishing hamlet."
           }
         />
       </div>

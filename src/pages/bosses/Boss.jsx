@@ -1,22 +1,19 @@
 function Boss({ boss, onChange }) {
   let { name, flags } = boss;
-  let [defeatedFlag] = flags;
+  const defeatedFlag = flags.find((f) => f._comment !== "mp");
 
   function handleChange({ target }) {
-    const option = JSON.parse(target.value);
+    const alive = JSON.parse(target.value) === 1;
 
-    if (option === 1) {
-      flags.forEach((f) => {
-        f.current_value = f.alive_value;
-      });
-    } else {
-      flags.forEach((f) => {
-        f.current_value = f.dead_value;
-      });
-    }
-    // boss.value = value;
+    // Multiplayer flags are masks, they're applied in Bosses
+    flags.forEach((f) => {
+      if (f._comment !== "mp") {
+        f.current_value = alive ? f.alive_value : f.dead_value;
+      }
+    });
+
     if (typeof onChange === "function") {
-      onChange(flags);
+      onChange(flags, alive);
     }
   }
 
