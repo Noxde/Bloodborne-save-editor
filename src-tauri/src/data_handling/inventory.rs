@@ -463,6 +463,13 @@ impl Inventory {
         for i in 0..4 {
             file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
         }
+        let closed_slots = [
+            Slot::build(SlotShape::Closed, None, 0),
+            Slot::build(SlotShape::Closed, None, 1),
+            Slot::build(SlotShape::Closed, None, 2),
+            Slot::build(SlotShape::Closed, None, 3),
+            Slot::build(SlotShape::Closed, None, 4)
+        ];
 
         let mut new_item = Article {
             number: file_data.bytes[empty_slot_index - 4],
@@ -473,7 +480,7 @@ impl Inventory {
             amount: 1,
             article_type,
             type_family: article_type.into(),
-            slots: None,
+            slots: Some(closed_slots.to_vec()),
             index: 0,
         };
 

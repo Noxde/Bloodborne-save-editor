@@ -15,7 +15,7 @@ pub struct Slot {
 }
 
 impl Slot {
-    fn build(shape: SlotShape, gem: Option<Upgrade>, index: usize) -> Self {
+    pub fn build(shape: SlotShape, gem: Option<Upgrade>, index: usize) -> Self {
         Slot { shape, gem, index }
     }
 }
