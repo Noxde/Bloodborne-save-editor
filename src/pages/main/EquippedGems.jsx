@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Item from "../../components/Item";
 import EditUpgrade from "../../components/EditUpgrade";
@@ -7,6 +7,7 @@ import EquippedGem from "./EquippedGem";
 import useDraw from "../../utils/useDraw";
 import { SaveContext } from "../../context/context";
 import ChangeGemScreen from "./ChangeGemScreen";
+import WeaponStatsTable from "./WeaponStatsTable";
 
 function EquippedGems() {
   const { images } = useContext(ImagesContext);
@@ -22,6 +23,20 @@ function EquippedGems() {
   const [changeScreen, setChangeScreen] = useState(false);
   const [selectedGem, setSelectedGem] = useState(null);
   const nav = useNavigate();
+
+  // Shrink the gem slots (207px each) when the column is narrower than them
+  const columnRef = useRef(null);
+  const [gemsZoom, setGemsZoom] = useState(1);
+  const slotCount = article?.slots?.length ?? 0;
+  useEffect(() => {
+    const column = columnRef.current;
+    if (!column || slotCount === 0) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setGemsZoom(Math.min(1, entry.contentRect.width / (slotCount * 207)));
+    });
+    observer.observe(column);
+    return () => observer.disconnect();
+  }, [slotCount]);
 
   useEffect(() => {
     if (!selected) {
@@ -68,75 +83,99 @@ function EquippedGems() {
         style={{
           gridColumn: "2/4",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           background: `url(${images.backgrounds["statsBg.png"].src})`,
           backgroundSize: "cover",
-          padding: "2rem",
+          overflow: "hidden",
         }}
       >
-        {/* Selected Weapon */}
+        {/* Weapon, gems and buttons */}
         <div
+          ref={columnRef}
           style={{
-            marginBottom: "5rem",
-          }}
-        >
-          <Item item={article} index={0} />
-        </div>
-        {/* Gems */}
-        <div
-          style={{
+            flex: 1,
+            minWidth: 0,
             display: "flex",
-            position: "relative",
+            flexDirection: "column",
+            padding: "2rem",
+            overflowY: "auto",
           }}
         >
+          {/* margin auto centers the content but lets it scroll when it doesn't fit */}
           <div
-            className="selected-slot"
             style={{
-              display: selectedGem !== null ? "block" : "none",
-              left: `${selectedGem?.index * 207}px`,
+              margin: "auto 0",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-          ></div>
-          {article.slots.map((slot, i) => (
-            <EquippedGem
-              gem={slot?.gem}
-              shape={slot.shape}
-              setRef={setSelectedRef}
-              setSelected={setSelectedGem}
-              isStorage={isStorage}
-              article={article}
-              setArticle={setArticle}
-              index={i}
-              key={i}
-            />
-          ))}
-        </div>
-        {/* Buttons */}
-        <div
-          style={{
-            marginTop: "5rem",
-          }}
-        >
-          <button onClick={() => nav("/")}>Back</button>
-          <button
-            style={{ margin: "0 2rem" }}
-            onClick={() => {
-              setChangeScreen(true);
-            }}
-            disabled={!selectedGem}
           >
-            Change
-          </button>
-          <button
-            onClick={() => {
-              setEditScreen(true);
-            }}
-            disabled={!selectedGem?.gem}
-          >
-            Edit
-          </button>
+            {/* Selected Weapon */}
+            <div
+              style={{
+                marginBottom: "5rem",
+              }}
+            >
+              <Item item={article} index={0} />
+            </div>
+            {/* Gems */}
+            <div
+              style={{
+                display: "flex",
+                position: "relative",
+                zoom: gemsZoom,
+              }}
+            >
+              <div
+                className="selected-slot"
+                style={{
+                  display: selectedGem !== null ? "block" : "none",
+                  left: `${selectedGem?.index * 207}px`,
+                }}
+              ></div>
+              {article.slots.map((slot, i) => (
+                <EquippedGem
+                  gem={slot?.gem}
+                  shape={slot.shape}
+                  setRef={setSelectedRef}
+                  setSelected={setSelectedGem}
+                  isStorage={isStorage}
+                  article={article}
+                  setArticle={setArticle}
+                  index={i}
+                  key={i}
+                />
+              ))}
+            </div>
+            {/* Buttons */}
+            <div
+              style={{
+                marginTop: "5rem",
+              }}
+            >
+              <button onClick={() => nav("/")}>Back</button>
+              <button
+                style={{ margin: "0 2rem" }}
+                onClick={() => {
+                  setChangeScreen(true);
+                }}
+                disabled={!selectedGem}
+              >
+                Change
+              </button>
+              <button
+                onClick={() => {
+                  setEditScreen(true);
+                }}
+                disabled={!selectedGem?.gem}
+              >
+                Edit
+              </button>
+            </div>
+          </div>
         </div>
+        {article.type_family === "Weapon" ? (
+          <WeaponStatsTable article={article} />
+        ) : null}
       </div>
     </>
   );

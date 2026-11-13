@@ -30,3 +30,4 @@ flatpak
 repo
 *.flatpak
 graphify-out/
+scripts/
