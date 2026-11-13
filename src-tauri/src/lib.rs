@@ -10,6 +10,7 @@ use data_handling::{
     enums::{ArticleType, Location, SlotShape, UpgradeType},
     save::SaveData,
     upgrades::Upgrade,
+    weapon_stats,
 };
 use serde_json::{json, Value};
 use tauri::{path::BaseDirectory, Manager};
@@ -67,7 +68,8 @@ pub fn run() -> Result<(), Box<dyn Error>> {
             teleport,
             change_weapon_level,
             apply_mask_and,
-            apply_mask_or
+            apply_mask_or,
+            weapon_stats
         ])
         .run(tauri::generate_context!())?;
 
@@ -312,7 +314,20 @@ fn edit_stat(
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    save.file.edit(rel_offset, length, times, value);
+    data_handling::stats::write_stat(&mut save.file, rel_offset, length, times, value);
+}
+
+#[tauri::command]
+fn weapon_stats(
+    weapon_id: u32,
+    gem_effects: Vec<u32>,
+    state_save: tauri::State<MutexSave>,
+) -> Result<weapon_stats::WeaponStats, String> {
+    let save_option = state_save.inner().data.lock().unwrap();
+    let save = save_option.as_ref().ok_or("ERROR: No save loaded.")?;
+    let attributes = weapon_stats::Attributes::from_file(&save.file).map_err(|e| e.to_string())?;
+
+    weapon_stats::compute(weapon_id, &gem_effects, attributes).map_err(|e| e.to_string())
 }
 
 #[tauri::command]

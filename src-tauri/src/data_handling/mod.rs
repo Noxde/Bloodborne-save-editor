@@ -13,3 +13,4 @@ pub mod stats;
 pub mod upgrades;
 pub mod username;
 pub mod utils;
+pub mod weapon_stats;

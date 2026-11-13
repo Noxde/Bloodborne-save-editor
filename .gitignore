@@ -29,3 +29,5 @@ src-tauri/vendor
 flatpak
 repo
 *.flatpak
+graphify-out/
+scripts/
