@@ -312,7 +312,7 @@ fn edit_stat(
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
-    save.file.edit(rel_offset, length, times, value);
+    data_handling::stats::write_stat(&mut save.file, rel_offset, length, times, value);
 }
 
 #[tauri::command]

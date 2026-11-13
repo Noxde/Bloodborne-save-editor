@@ -159,16 +159,21 @@ function Character() {
           }}
           onClick={async () => {
             try {
-              editedStats.forEach(
-                async ({ rel_offset, length, times, value }) => {
-                  await invoke("edit_stat", {
-                    relOffset: rel_offset,
-                    length,
-                    times,
-                    value: parseInt(value),
-                  });
-                },
-              );
+              // Only write stats that changed, rewriting untouched ones can alter the save (#14)
+              for (const [i, stat] of editedStats.entries()) {
+                const { rel_offset, length, times } = stat;
+                const value = parseInt(stat.value);
+                if (isNaN(value) || value === parseInt(save.stats[i].value)) {
+                  continue;
+                }
+
+                await invoke("edit_stat", {
+                  relOffset: rel_offset,
+                  length,
+                  times,
+                  value,
+                });
+              }
 
               if (username.length > 0 && username !== save.username.string) {
                 await invoke("set_username", {
