@@ -28,17 +28,18 @@ function Boss({ boss, onChange }) {
     >
       <span>{name}:</span>
       <div className="select-wrapper">
-        <select name="bossStatus" id="bossStatus" onChange={handleChange}>
+        <select
+          name="bossStatus"
+          id="bossStatus"
+          onChange={handleChange}
+          defaultValue={
+            (defeatedFlag.dead_value & defeatedFlag.current_value & 0xff) !== 0
+              ? 2
+              : 1
+          }
+        >
           <option value={1}>Alive</option>
-          <option
-            selected={
-              (defeatedFlag.dead_value & defeatedFlag.current_value & 0xff) !==
-              0
-            }
-            value={2}
-          >
-            Dead
-          </option>
+          <option value={2}>Dead</option>
         </select>
       </div>
     </div>

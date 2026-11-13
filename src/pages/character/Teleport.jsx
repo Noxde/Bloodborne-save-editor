@@ -44,8 +44,13 @@ function Teleport({ setSave, setEditedCoordinates }) {
           gap: "5px",
         }}
       >
-        <select name="location" id="location-select" onChange={handleChange}>
-          <option selected hidden disabled>
+        <select
+          name="location"
+          id="location-select"
+          onChange={handleChange}
+          defaultValue=""
+        >
+          <option value="" hidden disabled>
             Select a location
           </option>
           <option value='{"x":-8,"y":-6,"z":-18,"mapId":[21,0]}'>

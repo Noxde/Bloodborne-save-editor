@@ -78,7 +78,11 @@ function Bosses() {
     >
       {bosses.map((x, i) => {
         return (
-          <Boss boss={x} onChange={async (e, alive) => await handleChange(e, alive, i)} />
+          <Boss
+            key={x.name}
+            boss={x}
+            onChange={async (e, alive) => await handleChange(e, alive, i)}
+          />
         );
       })}
     </div>
