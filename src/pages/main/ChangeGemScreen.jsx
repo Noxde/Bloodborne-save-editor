@@ -77,6 +77,7 @@ function ChangeGemScreen({
           ></div>
           {gems.map((x, i) => (
             <Item
+              key={i}
               item={x}
               index={i + 1}
               isSmall={false}

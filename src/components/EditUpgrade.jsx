@@ -253,7 +253,7 @@ function EditUpgrade({
             }}
           >
             {selected.effects.map(([id, name], i) => (
-              <div className="effect">
+              <div className="effect" key={i}>
                 <SelectSearch
                   defaultValue={"No Effect"}
                   onChange={(e) => {

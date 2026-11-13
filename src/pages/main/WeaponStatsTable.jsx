@@ -16,7 +16,7 @@ const panelStyle = {
   borderLeft: "1px solid #6b5f49",
   background: "#0000004d",
   fontFamily: "monospace",
-  fontSize: 13,
+  fontSize: 17,
 };
 
 const signed = (n) => (n >= 0 ? `+${n}` : `${n}`);
@@ -129,7 +129,7 @@ function WeaponStatsTable({ article }) {
           })}
         </tbody>
       </table>
-      <p style={{ fontSize: 12, opacity: 0.7, maxWidth: "36ch" }}>
+      <p style={{ fontSize: 14, opacity: 0.7, maxWidth: "36ch" }}>
         Calculated for STR {str} / SKL {skl} / BLT {bld} / ARC {arc}.
         Situational effects are listed but not added to the attack.
       </p>
