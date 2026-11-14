@@ -1,0 +1,15 @@
+.lamps-page { grid-column: 2 / 4; overflow-y: auto; padding: 2rem 3rem; font-size: 16px; }
+.lamps-page h1 { font-size: 26px; margin-bottom: 12px; }
+.lamps-page p { color: #c5b9a5; margin-bottom: 16px; line-height: 1.4; }
+.lamp-toggle { display: flex; align-items: center; gap: 10px; padding: 6px 8px; cursor: pointer; }
+.lamp-toggle input { width: 16px; height: 16px; accent-color: #b49d70; }
+.lamp-toggle small { margin-left: auto; color: #a99b85; }
+.lamp-areas { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 12px; margin-top: 16px; }
+.lamp-area { border: 1px solid #6b6357; background: #101014a8; padding: 8px; }
+.lamp-area > .lamp-toggle { border-bottom: 1px solid #6b6357; color: #e3d0a1; }
+.lamp-items { padding: 5px 0 0 12px; }
+.about-page { grid-column: 2 / 4; padding: 3rem; font-size: 18px; line-height: 1.6; overflow-y: auto; }
+.about-page h1 { color: #e3d0a1; margin-bottom: 18px; }
+.about-page p { margin: 12px 0; }
+.about-page a { color: #d7bf8d; text-decoration: underline; }
+.about-page small { color: #a99b85; }
