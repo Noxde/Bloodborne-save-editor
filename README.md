@@ -4,6 +4,8 @@
 
 <h1 align="center">Bloodborne Save Editor</h1>
 
+<p align="center"><a href="https://bb-save-editor.pages.dev/">Visit the website</a></p>
+
 <p align="center">
   <img src="https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total">
   <img src="https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total">
@@ -132,6 +134,8 @@
    <img src="./assets/teleport.gif"/>
    </details>
 
+- Unlock or lock individual lamps, all lamps in an area, or all lamps.
+
 ## 2. Download
 
 You can download the pre-built executable for your operating system from the [Releases](https://github.com/Noxde/Bloodborne-save-editor/releases) section.
@@ -170,6 +174,8 @@ Thanks to [Ricky Zaragoza](https://www.youtube.com/@ricardozaragoza3812) for mak
 The release will be located in `Bloodborne-save-editor/src-tauri/target/release/`
 
 ## 4. Attributions
+
+Lamp controls contributed by [Argagaes](https://github.com/Argagaes), based on the [Bloodborne browser editor](https://github.com/Argagaes/bloodborne-save-editor-browser).
 
 Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). Weapon stats, game assets and inspiration for the UI come from here.
 

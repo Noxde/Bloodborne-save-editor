@@ -63,6 +63,8 @@ pub fn run() -> Result<(), Box<dyn Error>> {
             get_playtime,
             set_playtime,
             set_flag,
+            get_lamp_flags,
+            set_lamp_flags,
             edit_coordinates,
             teleport,
             change_weapon_level,
@@ -72,6 +74,86 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .run(tauri::generate_context!())?;
 
     Ok(())
+}
+
+#[derive(serde::Deserialize)]
+struct LampFlag {
+    #[serde(rename = "eventFlag")]
+    event_flag: u32,
+    offset: usize,
+    mask: u8,
+}
+
+fn lamp_flags() -> Result<Vec<LampFlag>, String> {
+    serde_json::from_str(include_str!("../resources/lamps.json")).map_err(|e| e.to_string())
+}
+
+fn lamp_offsets(save: &SaveData, lamps: &[LampFlag]) -> Result<Vec<usize>, String> {
+    let base = save
+        .file
+        .offsets
+        .username
+        .checked_add(data_handling::constants::USERNAME_TO_AOB)
+        .ok_or("Invalid flag base")?;
+    lamps
+        .iter()
+        .map(|lamp| {
+            let offset = base.checked_add(lamp.offset).ok_or("Invalid lamp offset")?;
+            if lamp.mask.count_ones() != 1
+                || offset >= save.file.bytes.len()
+                || save.file.offsets.lced_offset == 0
+                || offset >= save.file.offsets.lced_offset
+            {
+                return Err("Lamp flags are outside this save's supported flag area".to_string());
+            }
+            Ok(offset)
+        })
+        .collect()
+}
+
+#[tauri::command]
+fn get_lamp_flags(state_save: tauri::State<MutexSave>) -> Result<Vec<bool>, String> {
+    let guard = state_save.data.lock().map_err(|_| "Save lock failed")?;
+    let save = guard.as_ref().ok_or("Open a save first")?;
+    let lamps = lamp_flags()?;
+    let offsets = lamp_offsets(save, &lamps)?;
+    Ok(lamps
+        .iter()
+        .zip(offsets)
+        .map(|(lamp, offset)| save.file.bytes[offset] & lamp.mask != 0)
+        .collect())
+}
+
+#[tauri::command]
+fn set_lamp_flags(
+    ids: Vec<u32>,
+    enabled: bool,
+    state_save: tauri::State<MutexSave>,
+) -> Result<Vec<bool>, String> {
+    let mut guard = state_save.data.lock().map_err(|_| "Save lock failed")?;
+    let save = guard.as_mut().ok_or("Open a save first")?;
+    let lamps = lamp_flags()?;
+    let offsets = lamp_offsets(save, &lamps)?;
+    if ids
+        .iter()
+        .any(|id| !lamps.iter().any(|lamp| lamp.event_flag == *id))
+    {
+        return Err("Unknown lamp flag".to_string());
+    }
+    for (lamp, offset) in lamps.iter().zip(offsets.iter().copied()) {
+        if ids.contains(&lamp.event_flag) {
+            if enabled {
+                save.file.bytes[offset] |= lamp.mask;
+            } else {
+                save.file.bytes[offset] &= !lamp.mask;
+            }
+        }
+    }
+    Ok(lamps
+        .iter()
+        .zip(offsets)
+        .map(|(lamp, offset)| save.file.bytes[offset] & lamp.mask != 0)
+        .collect())
 }
 
 #[tauri::command]
