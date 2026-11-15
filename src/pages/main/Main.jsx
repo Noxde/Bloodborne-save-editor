@@ -16,15 +16,6 @@ import "../lamps/lamps.css";
 
 const Main = ({ save, setSave, loading }) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  useEffect(() => {
-    try {
-      if (localStorage.getItem("bb-desktop-about-version") !== __APP_VERSION__) {
-        navigate("/about", { replace: true });
-        localStorage.setItem("bb-desktop-about-version", __APP_VERSION__);
-      }
-    } catch { navigate("/about", { replace: true }); }
-  }, [navigate]);
   const { loading: loadingImages } = useContext(ImagesContext);
 
   return (
