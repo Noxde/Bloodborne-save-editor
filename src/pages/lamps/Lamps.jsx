@@ -1,14 +1,26 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { SaveContext } from "../../context/context";
-import lamps from "../../lamps.json";
+import lamps from "../../../src-tauri/resources/lamps.json";
 import "./lamps.css";
 
 const areaOrder = [
-  "Central Yharnam", "Cathedral Ward", "Upper Cathedral Ward", "Old Yharnam",
-  "Hemwick Charnel Lane", "Forbidden Woods", "Byrgenwerth", "Yahar’gul",
-  "Cainhurst", "Abandoned Old Workshop", "Lecture Building", "Nightmare Frontier",
-  "Nightmare of Mensis", "Hunter’s Nightmare", "Research Hall", "Fishing Hamlet",
+  "Central Yharnam",
+  "Cathedral Ward",
+  "Upper Cathedral Ward",
+  "Old Yharnam",
+  "Hemwick Charnel Lane",
+  "Forbidden Woods",
+  "Byrgenwerth",
+  "Yahar’gul",
+  "Cainhurst",
+  "Abandoned Old Workshop",
+  "Lecture Building",
+  "Nightmare Frontier",
+  "Nightmare of Mensis",
+  "Hunter’s Nightmare",
+  "Research Hall",
+  "Fishing Hamlet",
 ];
 
 const entries = lamps.map((lamp, index) => ({ ...lamp, index }));
@@ -31,8 +43,12 @@ function LampToggle({ label, lamps, values, busy, onChange }) {
         checked={all}
         onChange={(event) => onChange(lamps, event.target.checked)}
       />
-      <span>{label}</span>
-      {lamps.length > 1 && <small>{count}/{lamps.length}</small>}
+      <span style={{ userSelect: "none" }}>{label}</span>
+      {lamps.length > 1 && (
+        <small>
+          {count}/{lamps.length}
+        </small>
+      )}
     </label>
   );
 }
@@ -53,9 +69,15 @@ function Lamps() {
           setError("");
         }
       })
-      .catch((error) => { if (active) setError(String(error)); })
-      .finally(() => { if (active) setBusy(false); });
-    return () => { active = false; };
+      .catch((error) => {
+        if (active) setError(String(error));
+      })
+      .finally(() => {
+        if (active) setBusy(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [save]);
 
   async function changeLamps(group, enabled) {
@@ -76,23 +98,37 @@ function Lamps() {
 
   return (
     <section className="lamps-page">
-      <h1>Lamps</h1>
-      <p>
-        Toggle all lamps, an area, or individual lamps. Early travel to boss
-        lamps can cause problems; the DLC headstone may require separate activation.
-      </p>
       {error && <p role="alert">{error}</p>}
-      <LampToggle label="All lamps" lamps={entries} values={values} busy={busy} onChange={changeLamps} />
+      <LampToggle
+        label="All lamps"
+        lamps={entries}
+        values={values}
+        busy={busy}
+        onChange={changeLamps}
+      />
       <div className="lamp-areas">
         {areaOrder.map((area) => {
           const group = entries.filter((lamp) => lamp.area === area);
           if (!group.length) return null;
           return (
             <section className="lamp-area" key={area}>
-              <LampToggle label={area} lamps={group} values={values} busy={busy} onChange={changeLamps} />
+              <LampToggle
+                label={area}
+                lamps={group}
+                values={values}
+                busy={busy}
+                onChange={changeLamps}
+              />
               <div className="lamp-items">
                 {group.map((lamp) => (
-                  <LampToggle key={lamp.eventFlag} label={lamp.name} lamps={[lamp]} values={values} busy={busy} onChange={changeLamps} />
+                  <LampToggle
+                    key={lamp.eventFlag}
+                    label={lamp.name}
+                    lamps={[lamp]}
+                    values={values}
+                    busy={busy}
+                    onChange={changeLamps}
+                  />
                 ))}
               </div>
             </section>
