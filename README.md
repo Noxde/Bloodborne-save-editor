@@ -4,8 +4,6 @@
 
 <h1 align="center">Bloodborne Save Editor</h1>
 
-<p align="center"><a href="https://bb-save-editor.pages.dev/">Visit the website</a></p>
-
 <p align="center">
   <img src="https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total">
   <img src="https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total">
@@ -186,6 +184,8 @@ Thanks to [PlayingUnfairly](https://www.youtube.com/@PlayingUnfairly) for the de
 Thanks to @xtrin on the "The Tomb Prospectors" discord for explaining to me how gem images work based on their effects and level.
 
 Thanks to @n3r4\_ on the "?ServerName?" discord for sharing a spreadsheet with boss flags
+
+Thanks to [Argagaes'](https://github.com/Argagaes) for providing the lamps section
 
 ## Star History
 Thanks to everyone that has starred the repo and used the editor!
