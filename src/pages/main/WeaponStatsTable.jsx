@@ -57,7 +57,8 @@ function rows(stats) {
 
 // Stats of the weapon with its current gems, compared with the ones it had
 // before the last confirmed gem change ("before > after", like the game menu)
-function WeaponStatsTable({ article }) {
+function WeaponStatsTable({ article, hidden = false }) {
+  const style = hidden ? { ...panelStyle, display: "none" } : panelStyle;
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
 
@@ -82,12 +83,12 @@ function WeaponStatsTable({ article }) {
 
   if (error) {
     return (
-      <div style={panelStyle}>
+      <div style={style}>
         <p style={{ color: "#b84a4a" }}>{String(error)}</p>
       </div>
     );
   }
-  if (!stats) return <div style={panelStyle}></div>;
+  if (!stats) return <div style={style}></div>;
 
   const before = rows(stats.before);
   const after = rows(stats.after);
@@ -96,7 +97,7 @@ function WeaponStatsTable({ article }) {
   const [str, skl, bld, arc] = stats.after.attributes;
 
   return (
-    <div style={panelStyle}>
+    <div style={style}>
       <table style={{ borderCollapse: "collapse", whiteSpace: "nowrap" }}>
         <thead>
           <tr style={{ borderBottom: "1px solid #6b5f49" }}>
