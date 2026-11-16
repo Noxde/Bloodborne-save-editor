@@ -1,6 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import { FixedSizeList as List } from "react-window";
+import { List } from "react-window";
 import { useFloating, flip, offset, autoUpdate } from "@floating-ui/react";
+
+const ROW_HEIGHT = 35;
+
+function Row({ index, style, ariaAttributes, options, onSelect }) {
+  return (
+    <div
+      {...ariaAttributes}
+      style={{
+        ...style,
+        background: "black",
+        borderBottom: "1px solid #444",
+        fontSize: "16px",
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
+      onClick={() => onSelect(options[index])}
+    >
+      {options[index].label}
+    </div>
+  );
+}
 
 function SelectSearch({
   options,
@@ -58,29 +80,12 @@ function SelectSearch({
     !readOnly ? x.label.toLowerCase().includes(search.toLowerCase()) : true,
   );
 
-  function Row({ index, style: rowStyle }) {
-    return (
-      <div
-        style={{
-          ...rowStyle,
-          background: "black",
-          borderBottom: "1px solid #444",
-          fontSize: "16px",
-          display: "flex",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          setSearch(filteredOptions[index].label);
-          if (typeof onChange === "function") {
-            onChange(filteredOptions[index]);
-          }
-          setIsOpen(false); // Close menu on select
-        }}
-      >
-        {filteredOptions[index].label}
-      </div>
-    );
+  function handleSelect(option) {
+    setSearch(option.label);
+    if (typeof onChange === "function") {
+      onChange(option);
+    }
+    setIsOpen(false); // Close menu on select
   }
 
   return (
@@ -119,14 +124,14 @@ function SelectSearch({
           }}
         >
           <List
-            height={Math.min(210, filteredOptions.length * 35)} // Shrinks menu if search yields few results
-            itemCount={filteredOptions.length}
-            itemSize={35}
-            width="100%"
+            // Shrinks menu if search yields few results
+            style={{ height: Math.min(210, filteredOptions.length * ROW_HEIGHT) }}
+            rowComponent={Row}
+            rowCount={filteredOptions.length}
+            rowHeight={ROW_HEIGHT}
+            rowProps={{ options: filteredOptions, onSelect: handleSelect }}
             overscanCount={10}
-          >
-            {Row}
-          </List>
+          />
         </div>
       )}
     </div>
