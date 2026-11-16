@@ -111,6 +111,25 @@ fn lamp_offsets(save: &SaveData, lamps: &[LampFlag]) -> Result<Vec<usize>, Strin
         .collect()
 }
 
+// Request groups follow the same map order as the lamp availability groups.
+// Central Yharnam and Great Bridge were tested; other maps are inferred.
+fn lamp_request(lamp: &LampFlag, offset: usize, end: usize) -> Result<(usize, u8), String> {
+    let suffix = lamp.event_flag % 1000;
+    if suffix < 810 || (suffix - 810) % 20 != 0 || (suffix - 810) / 20 > 19 {
+        return Err("Invalid lamp flag".to_string());
+    }
+    let bit = 200 + (suffix - 810) / 20;
+    let request = offset
+        .checked_sub((suffix / 8) as usize)
+        .and_then(|value| value.checked_sub(92000))
+        .and_then(|value| value.checked_add((bit / 8) as usize))
+        .ok_or("Invalid lamp request offset")?;
+    if request >= end {
+        return Err("Lamp request flags are outside this save's supported flag area".to_string());
+    }
+    Ok((request, 0x80 >> (bit % 8)))
+}
+
 #[tauri::command]
 fn get_lamp_flags(state_save: tauri::State<MutexSave>) -> Result<Vec<bool>, String> {
     let guard = state_save.data.lock().map_err(|_| "Save lock failed")?;
@@ -140,6 +159,15 @@ fn set_lamp_flags(
     {
         return Err("Unknown lamp flag".to_string());
     }
+    let mut requests = Vec::new();
+    if !enabled {
+        let end = save.file.bytes.len().min(save.file.offsets.lced_offset);
+        for (lamp, offset) in lamps.iter().zip(offsets.iter().copied()) {
+            if ids.contains(&lamp.event_flag) {
+                requests.push(lamp_request(lamp, offset, end)?);
+            }
+        }
+    }
     for (lamp, offset) in lamps.iter().zip(offsets.iter().copied()) {
         if ids.contains(&lamp.event_flag) {
             if enabled {
@@ -148,6 +176,9 @@ fn set_lamp_flags(
                 save.file.bytes[offset] &= !lamp.mask;
             }
         }
+    }
+    for (offset, mask) in requests {
+        save.file.bytes[offset] &= !mask;
     }
     Ok(lamps
         .iter()
@@ -761,5 +792,19 @@ fn change_weapon_level(
             "weapon": weapon
         })),
         Err(e) => Err(e.to_string()),
+    }
+}
+
+#[cfg(test)]
+mod lamp_request_tests {
+    use super::*;
+
+    #[test]
+    fn central_yharnam_lamp_requests() {
+        let lamps = lamp_flags().unwrap();
+        for (id, mask) in [(12417830, 0x40), (12417850, 0x20)] {
+            let lamp = lamps.iter().find(|lamp| lamp.event_flag == id).unwrap();
+            assert_eq!(lamp_request(lamp, lamp.offset, usize::MAX).unwrap(), (15902, mask));
+        }
     }
 }

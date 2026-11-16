@@ -132,7 +132,7 @@
    <img src="./assets/teleport.gif"/>
    </details>
 
-- Unlock or lock individual lamps, all lamps in an area, or all lamps.
+- Unlock or lock individual lamps, all lamps in an area, or all lamps. Disabling a lamp also clears its lighting request so it can be lit again.
 
 ## 2. Download
 
