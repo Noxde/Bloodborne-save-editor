@@ -24,6 +24,23 @@ function EquippedGems() {
   const [selectedGem, setSelectedGem] = useState(null);
   const nav = useNavigate();
 
+  // Stats panel visibility, remembered between visits
+  const [showStats, setShowStats] = useState(() => {
+    try {
+      return localStorage.getItem("showWeaponStats") !== "false";
+    } catch {
+      return true;
+    }
+  });
+  function toggleStats() {
+    setShowStats((prev) => {
+      try {
+        localStorage.setItem("showWeaponStats", String(!prev));
+      } catch {}
+      return !prev;
+    });
+  }
+
   // Shrink the gem slots (207px each) when the column is narrower than them
   const columnRef = useRef(null);
   const [gemsZoom, setGemsZoom] = useState(1);
@@ -170,11 +187,17 @@ function EquippedGems() {
               >
                 Edit
               </button>
+              {article.type_family === "Weapon" ? (
+                <button style={{ marginLeft: "2rem" }} onClick={toggleStats}>
+                  {showStats ? "Hide Stats" : "Show Stats"}
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
         {article.type_family === "Weapon" ? (
-          <WeaponStatsTable article={article} />
+          // Hidden instead of unmounted so the before/after comparison is kept
+          <WeaponStatsTable article={article} hidden={!showStats} />
         ) : null}
       </div>
     </>
