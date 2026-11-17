@@ -1,4 +1,4 @@
-use crate::data_handling::{constants, enums::{Error::CustomError, SlotShape}, file};
+use crate::data_handling::{constants, enums::SlotShape};
 
 use super::{
     article::{scale_weapon_info, Article, ItemInfo, WeaponMods},
@@ -10,7 +10,7 @@ use super::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{self, json, Value};
-use std::{collections::HashMap, io::empty, path::PathBuf};
+use std::{collections::HashMap, path::PathBuf};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inventory {
@@ -345,11 +345,9 @@ impl Inventory {
         let mut max_handle = 0;
         let mut handle;
         let mut slot_type;
-        let mut cant = 0;
 
         for _ in 0..GA_SECTION_SLOTS { //There is a fixed number of slots
             slot_type = file_data.bytes[i+3]; //Fourth byte of the handle
-            cant +=1;
             handle = u16::from_le_bytes([
                 file_data.bytes[i],
                 file_data.bytes[i+1]]);
@@ -852,13 +850,12 @@ impl Inventory {
         file_data: &mut FileData,
         article_type: ArticleType,
         article_index: usize,
-        slot_index: usize,
         is_storage: bool,
         level: u8,
     ) -> Result<Article, Error> {
         if let Some(articles_of_type) = self.articles.get_mut(&article_type) {
             if let Some(article) = articles_of_type.get_mut(article_index) {
-                article.set_imprint_and_upgrade(file_data, None, Some(level))
+                article.set_imprint_and_upgrade(file_data, None, Some(level), is_storage)
             } else {
                 Err(Error::CustomError(
                     "ERROR: There are no articles of the specified type.",
@@ -2073,5 +2070,23 @@ use super::*;
             0x8fe8,
             &[0x51, 0x40, 0x89, 0x13, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0]
         ));
+    }
+
+    #[test]
+    fn inventory_change_weapon_level_in_storage() {
+        //testsave8: the storage has a Hunter Axe +6 that is not in the inventory
+        let mut save = build_save_data("testsave8");
+        let index = 17;
+        let offset = 0x222e8;
+        assert_eq!(save.storage.articles[&ArticleType::RightHand][index].id, 5000600);
+        assert!(check_bytes(&save.file, offset + 8, &5000600u32.to_le_bytes()));
+
+        let weapon = save
+            .storage
+            .change_weapon_level(&mut save.file, ArticleType::RightHand, index, true, 10)
+            .unwrap();
+        assert_eq!(weapon.id, 5001000);
+        assert_eq!(weapon.info.extra_info.unwrap()["upgrade_level"], Value::from(10));
+        assert!(check_bytes(&save.file, offset + 8, &5001000u32.to_le_bytes()));
     }
 }

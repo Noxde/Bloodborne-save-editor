@@ -208,7 +208,6 @@ function Inventory({ inv, isStorage }) {
                 {
                   articleType: selected.article_type,
                   articleIndex: selected.index,
-                  slotIndex: selected.number,
                   isStorage,
                   level,
                 },
