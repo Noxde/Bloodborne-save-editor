@@ -251,6 +251,7 @@ impl Article {
         file_data: &mut FileData,
         imprint: Option<Option<Imprint>>,
         upgrade_level: Option<u8>,
+        is_storage: bool,
     ) -> Result<Article, Error> {
         if !self.is_weapon() {
             return Err(Error::CustomError("ERROR: The article must be a weapon."));
@@ -288,14 +289,16 @@ impl Article {
         let new_second_part_array = new_second_part.to_le_bytes();
         let second_part_array = self.second_part.to_le_bytes();
 
-        //Update the second part in the inventory
+        //Update the second part in the inventory or the storage
         let mut index;
-        match file_data.find_article_offset(self.number, self.id, self.type_family, false) {
+        match file_data.find_article_offset(self.number, self.id, self.type_family, is_storage) {
             Some(offset) => index = offset,
             None => {
-                return Err(Error::CustomError(
-                    "ERROR: The Article was not found in the inventory.",
-                ))
+                return Err(Error::CustomError(if is_storage {
+                    "ERROR: The Article was not found in the storage."
+                } else {
+                    "ERROR: The Article was not found in the inventory."
+                }))
             }
         }
         for i in index + 8..=index + 11 {
@@ -375,24 +378,18 @@ pub fn scale_weapon_info(extra_info: &mut Value) {
 
     for (k, v) in extra_info["damage"].as_object_mut().unwrap() {
         //Get the damage for the current type
-        let damage: String = serde_json::from_value(v.clone()).unwrap();
         let base_damage: String = serde_json::from_value(base_damages[k].clone()).unwrap();
-
-        let mut damage: u32 = match damage.parse::<u32>() {
-            Ok(num) => num,
-            Err(_) => continue, //If the damage is "-" (n/a), skip
-        };
 
         let base_damage: u32 = match base_damage.parse::<u32>() {
             Ok(num) => num,
             Err(_) => continue, //If the damage is "-" (n/a), skip
         };
 
-        if upgrade_level == 10 {
-            damage = base_damage * 2;
+        let damage = if upgrade_level == 10 {
+            base_damage * 2
         } else {
-            damage = base_damage + (base_damage / 10) * upgrade_level;
-        }
+            base_damage + (base_damage / 10) * upgrade_level
+        };
         *v = json!(damage.to_string());
     }
 }
@@ -794,7 +791,7 @@ mod tests {
         assert_eq!(extra_info["upgrade_level"], Value::from(0));
         // 0xD59F80 + 20800 = 0xD5F0C0
         article
-            .set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Lost)), Some(8))
+            .set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Lost)), Some(8), false)
             .unwrap();
         assert!(check_bytes(
             &save.file,
@@ -828,7 +825,7 @@ mod tests {
             .unwrap()[0];
         // 0xD59F80 + 11000 = 0xD5CA78
         article
-            .set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Uncanny)), Some(10))
+            .set_imprint_and_upgrade(&mut save.file, Some(Some(Imprint::Uncanny)), Some(10), false)
             .unwrap();
         assert!(check_bytes(
             &save.file,
@@ -858,7 +855,7 @@ mod tests {
             .articles
             .get_mut(&ArticleType::Armor)
             .unwrap()[0];
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(
@@ -872,7 +869,7 @@ mod tests {
             .articles
             .get_mut(&ArticleType::RightHand)
             .unwrap()[0];
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, Some(11));
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, Some(11), false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(
@@ -882,7 +879,7 @@ mod tests {
         }
 
         article.info.extra_info = None;
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(
@@ -892,7 +889,7 @@ mod tests {
         }
 
         article.second_part = u32::MAX;
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(error.to_string(), "Save error: ERROR: Invalid second_part");
@@ -904,7 +901,7 @@ mod tests {
             .get_mut(&ArticleType::RightHand)
             .unwrap()[1];
         article.number = 0xEE;
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(
@@ -919,7 +916,7 @@ mod tests {
             .get_mut(&ArticleType::LeftHand)
             .unwrap()[0];
         save.file.bytes[0x5f8] = 0x00;
-        let result = article.set_imprint_and_upgrade(&mut save.file, None, None);
+        let result = article.set_imprint_and_upgrade(&mut save.file, None, None, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(

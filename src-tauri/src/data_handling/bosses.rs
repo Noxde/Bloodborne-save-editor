@@ -1,7 +1,6 @@
 use super::file::FileData;
 use serde::{Deserialize, Serialize};
-use std::fs::File;
-use std::io::{self, BufReader};
+use std::io;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Flag {

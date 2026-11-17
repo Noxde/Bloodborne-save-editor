@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::{error::Error, fs::File, io::BufReader, sync::Mutex};
+use std::{error::Error, sync::Mutex};
 mod data_handling;
 
 use data_handling::{
@@ -184,7 +184,7 @@ fn edit_quantity(
 }
 
 #[tauri::command]
-fn save(path: String, state_save: tauri::State<MutexSave>) -> Result<&str, &str> {
+fn save(path: String, state_save: tauri::State<'_, MutexSave>) -> Result<&str, &str> {
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save = save_option.as_mut().unwrap();
 
@@ -195,9 +195,7 @@ fn save(path: String, state_save: tauri::State<MutexSave>) -> Result<&str, &str>
 }
 
 #[tauri::command]
-fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
-    let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
+fn return_weapons() -> Value {
     let weapons_str = include_str!("../resources/weapons.json");
 
     let weapons: Value = serde_json::from_str(weapons_str).unwrap();
@@ -206,9 +204,7 @@ fn return_weapons(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
-fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
-    let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
+fn return_armors() -> Value {
     let armors_str = include_str!("../resources/armors.json");
 
     let armors: Value = serde_json::from_str(armors_str).unwrap();
@@ -217,9 +213,7 @@ fn return_armors(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
-fn return_items(state_save: tauri::State<MutexSave>) -> Value {
-    let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
+fn return_items() -> Value {
     let upgrades_str = include_str!("../resources/items.json");
 
     let items: Value = serde_json::from_str(upgrades_str).unwrap();
@@ -228,9 +222,7 @@ fn return_items(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
-fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
-    let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
+fn return_gem_effects() -> Value {
     let upgrades_str = include_str!("../resources/upgrades.json");
 
     let upgrade_json: Value = serde_json::from_str(upgrades_str).unwrap();
@@ -239,9 +231,7 @@ fn return_gem_effects(state_save: tauri::State<MutexSave>) -> Value {
 }
 
 #[tauri::command]
-fn return_rune_effects(state_save: tauri::State<MutexSave>) -> Value {
-    let save_option = state_save.inner().data.lock().unwrap();
-    let save = save_option.as_ref().unwrap();
+fn return_rune_effects() -> Value {
     let upgrades_str = include_str!("../resources/upgrades.json");
 
     let upgrade_json: Value = serde_json::from_str(upgrades_str).unwrap();
@@ -660,7 +650,6 @@ fn teleport(x: f32, y: f32, z: f32, map_id: Vec<u8>, state_save: tauri::State<Mu
 fn change_weapon_level(
     article_type: ArticleType,
     article_index: usize,
-    slot_index: usize,
     is_storage: bool,
     level: u8,
     state_save: tauri::State<MutexSave>,
@@ -668,25 +657,18 @@ fn change_weapon_level(
     let mut save_option = state_save.inner().data.lock().unwrap();
     let save: &mut SaveData = save_option.as_mut().unwrap();
 
-    let result = if is_storage {
-        save.storage.change_weapon_level(
-            &mut save.file,
-            article_type,
-            article_index,
-            slot_index,
-            is_storage,
-            level,
-        )
+    let inventory = if is_storage {
+        &mut save.storage
     } else {
-        save.inventory.change_weapon_level(
-            &mut save.file,
-            article_type,
-            article_index,
-            slot_index,
-            is_storage,
-            level,
-        )
+        &mut save.inventory
     };
+    let result = inventory.change_weapon_level(
+        &mut save.file,
+        article_type,
+        article_index,
+        is_storage,
+        level,
+    );
 
     match result {
         Ok(weapon) => Ok(json!({

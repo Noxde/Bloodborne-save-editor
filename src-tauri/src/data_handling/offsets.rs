@@ -16,13 +16,10 @@ pub struct Offsets {
 impl Offsets {
     //Searches the username and inventories offsets
     pub fn build(bytes: &Vec<u8>) -> Result<Offsets, Error> {
-        let mut username_offset = 0;
         let mut inventory_offset = (0, 0);
         let mut upgrades_offset = (START_TO_UPGRADE, 0);
         let mut appearance_offset = (0, 0);
         let mut lced_offset = 0;
-        let inv_start_bytes = vec![0x40, 0xf0, 0xff, 0xff]; //Bytes the inventory starts with
-        let inv_start_bytes_len = inv_start_bytes.len();
         let appearance_start_bytes = [b'F', b'A', b'C', b'E'];
         let lced_bytes = [0x4C, 0x43, 0x45, 0x44];
 
@@ -67,7 +64,7 @@ impl Offsets {
         }
 
         inventory_offset.0 = appearance_offset.0 - 4 - 34028;
-        username_offset = inventory_offset.0 - USERNAME_TO_INV_OFFSET;
+        let username_offset = inventory_offset.0 - USERNAME_TO_INV_OFFSET;
 
         //Find the end of the inventories
         inventory_offset.1 = username_offset + USERNAME_TO_INV_OFFSET + 1983 * 16; // source for the 1984 slots: https://www.bloodborne-wiki.com/2024/02/full-storage-glitch.html
