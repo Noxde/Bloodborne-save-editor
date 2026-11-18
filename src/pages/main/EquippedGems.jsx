@@ -4,15 +4,11 @@ import Item from "../../components/Item";
 import EditUpgrade from "../../components/EditUpgrade";
 import { ImagesContext } from "../../context/imagesContext";
 import EquippedGem from "./EquippedGem";
-import useDraw from "../../utils/useDraw";
-import { SaveContext } from "../../context/context";
 import ChangeGemScreen from "./ChangeGemScreen";
 import WeaponStatsTable from "./WeaponStatsTable";
 
 function EquippedGems() {
   const { images } = useContext(ImagesContext);
-  const { save } = useContext(SaveContext);
-  const { getGemPath, loadImage } = useDraw();
 
   const {
     state: { selected, isStorage },
@@ -40,20 +36,6 @@ function EquippedGems() {
       return !prev;
     });
   }
-
-  // Shrink the gem slots (207px each) when the column is narrower than them
-  const columnRef = useRef(null);
-  const [gemsZoom, setGemsZoom] = useState(1);
-  const slotCount = article?.slots?.length ?? 0;
-  useEffect(() => {
-    const column = columnRef.current;
-    if (!column || slotCount === 0) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setGemsZoom(Math.min(1, entry.contentRect.width / (slotCount * 207)));
-    });
-    observer.observe(column);
-    return () => observer.disconnect();
-  }, [slotCount]);
 
   useEffect(() => {
     if (!selected) {
@@ -86,7 +68,7 @@ function EquippedGems() {
           confirmCb={(newGem) => {
             setArticle((prev) => {
               const index = prev.slots.findIndex(
-                (x) => x.gem?.id === selectedGem.gem.id
+                (x) => x.gem?.id === selectedGem.gem.id,
               );
               prev.slots[index].gem = newGem;
               return JSON.parse(JSON.stringify(prev));
@@ -107,7 +89,6 @@ function EquippedGems() {
       >
         {/* Weapon, gems and buttons */}
         <div
-          ref={columnRef}
           style={{
             flex: 1,
             minWidth: 0,
@@ -139,7 +120,6 @@ function EquippedGems() {
               style={{
                 display: "flex",
                 position: "relative",
-                zoom: gemsZoom,
               }}
             >
               <div
@@ -174,6 +154,7 @@ function EquippedGems() {
                 style={{ margin: "0 2rem" }}
                 onClick={() => {
                   setChangeScreen(true);
+                  setShowStats(false);
                 }}
                 disabled={!selectedGem}
               >
@@ -182,13 +163,21 @@ function EquippedGems() {
               <button
                 onClick={() => {
                   setEditScreen(true);
+                  setShowStats(false);
                 }}
                 disabled={!selectedGem?.gem}
               >
                 Edit
               </button>
               {article.type_family === "Weapon" ? (
-                <button style={{ marginLeft: "2rem" }} onClick={toggleStats}>
+                <button
+                  style={{
+                    marginLeft: "2rem",
+                    zIndex: 991,
+                    position: "relative",
+                  }}
+                  onClick={toggleStats}
+                >
                   {showStats ? "Hide Stats" : "Show Stats"}
                 </button>
               ) : null}
