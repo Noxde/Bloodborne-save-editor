@@ -10,20 +10,26 @@ const CONDITIONS = {
 
 // Side panel on the right of the Gems screen
 const panelStyle = {
+  position: "absolute",
+  right: 0,
+  height: "100%",
   flexShrink: 0,
   overflowY: "auto",
   padding: "1.5rem 1.2rem",
   borderLeft: "1px solid #6b5f49",
-  background: "#0000004d",
+  background: "rgba(0, 0, 0, 0.8)",
   fontFamily: "monospace",
   fontSize: 17,
+  zIndex: 990,
 };
 
 const signed = (n) => (n >= 0 ? `+${n}` : `${n}`);
 const attack = ({ base, bonus }) => `${base ?? "-"} ${signed(bonus)}`;
 const percent = (n) => (n === 0 ? "-" : `${signed(n)}%`);
 const conditionName = ({ condition, all }) =>
-  all ? CONDITIONS[condition] : CONDITIONS[condition].replace("ATK", "Phys. ATK");
+  all
+    ? CONDITIONS[condition]
+    : CONDITIONS[condition].replace("ATK", "Phys. ATK");
 
 function rows(stats) {
   const conditional = Object.fromEntries(
@@ -72,7 +78,10 @@ function WeaponStatsTable({ article, hidden = false }) {
       .then((current) => {
         if (cancelled) return;
         setError(null);
-        setStats((prev) => ({ before: prev?.after ?? current, after: current }));
+        setStats((prev) => ({
+          before: prev?.after ?? current,
+          after: current,
+        }));
       })
       .catch((e) => !cancelled && setError(e));
 
@@ -114,9 +123,13 @@ function WeaponStatsTable({ article, hidden = false }) {
             const changed = String(a) !== String(b);
             return (
               <tr key={label} style={{ borderBottom: "1px solid #6b5f4955" }}>
-                <td style={{ whiteSpace: "pre", paddingRight: "1.2rem" }}>{label}</td>
+                <td style={{ whiteSpace: "pre", paddingRight: "1.2rem" }}>
+                  {label}
+                </td>
                 <td style={{ textAlign: "right" }}>{a}</td>
-                <td style={{ textAlign: "center", padding: "0 0.6rem" }}>&gt;</td>
+                <td style={{ textAlign: "center", padding: "0 0.6rem" }}>
+                  &gt;
+                </td>
                 <td
                   style={{
                     textAlign: "right",
