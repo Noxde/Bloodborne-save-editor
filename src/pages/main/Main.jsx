@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { useLocation, Routes, Route } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useLocation, useNavigate, Routes, Route } from "react-router-dom";
 import SideBar from "./SideBar";
 import Inventory from "../inventory/Inventory";
 import Stats from "../stats/Stats";
@@ -10,6 +10,9 @@ import { ImagesContext } from "../../context/imagesContext";
 import EquippedGems from "./EquippedGems";
 import Bosses from "../bosses/Bosses";
 import Flags from "../flags/Flags";
+import Lamps from "../lamps/Lamps";
+import About from "../about/About";
+import "../lamps/lamps.css";
 
 const Main = ({ save, setSave, loading }) => {
   const location = useLocation();
@@ -47,8 +50,9 @@ const Main = ({ save, setSave, loading }) => {
           <SideBar />
           {loading ? <div>Loading</div> : null}
 
-          {save != null ? (
-            <Routes>
+          <Routes>
+              <Route path="/about" element={<About />} />
+              {save != null && <>
               <Route
                 path="/"
                 element={
@@ -85,10 +89,11 @@ const Main = ({ save, setSave, loading }) => {
               ></Route>
               <Route path="/bosses" element={<Bosses />}></Route>
               <Route path="/flags" element={<Flags />}></Route>
+              <Route path="/lamps" element={<Lamps />}></Route>
+              </>}
             </Routes>
-          ) : null}
 
-          {save == null && !loading ? (
+          {save == null && !loading && location.pathname !== "/about" ? (
             <div
               style={{
                 gridColumn: "2/4",
