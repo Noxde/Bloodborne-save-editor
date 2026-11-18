@@ -26,6 +26,7 @@ dist/
 
 .tauri/
 src-tauri/vendor
+src-tauri/gen
 flatpak
 repo
 *.flatpak
