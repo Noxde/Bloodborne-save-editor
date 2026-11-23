@@ -331,7 +331,7 @@ impl Inventory {
             (i_info, a_type)
         } else {
             return Err(Error::CustomError(
-                "ERROR: failed to find info for the item.",
+                "ERROR: Failed to find info for the item.",
             ));
         };
 
@@ -461,7 +461,7 @@ impl Inventory {
         for i in 0..4 {
             file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
         }
-        let closed_slots = [
+        let closed_slots = vec![
             Slot::build(SlotShape::Closed, None, 0),
             Slot::build(SlotShape::Closed, None, 1),
             Slot::build(SlotShape::Closed, None, 2),
@@ -478,7 +478,7 @@ impl Inventory {
             amount: 1,
             article_type,
             type_family: article_type.into(),
-            slots: Some(closed_slots.to_vec()),
+            slots: Some(closed_slots),
             index: 0,
         };
 
@@ -996,7 +996,7 @@ use super::*;
         //Try to edit a key item
         let result = save
             .inventory
-            .edit_item(&mut save.file, 0x00, 0xAAAAAAAA, 0xAABBCCDD, false);
+            .edit_item(&mut save.file, 0x00, 0x10D8, 0xAABBCCDD, false);
         assert!(result.is_err());
         if let Err(error) = result {
             assert_eq!(
@@ -1164,7 +1164,7 @@ use super::*;
         if let Err(error) = result {
             assert_eq!(
                 error.to_string(),
-                "Save error: ERROR: failed to find info for the item."
+                "Save error: ERROR: Failed to find info for the item."
             );
         }
 
@@ -1200,9 +1200,10 @@ use super::*;
             &save.file,
             0x8ccc,
             &[
-                0x78, 0xff, 0xff, 0xff, 0x60, 0x04, 0x00, 0xb0, 0x60, 0x04, 0x00, 0x40, 0x20, 0x00,
-                0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
-                0x00, 0x00, 0x00, 0x00
+                0x78, 0xff, 0xff, 0xff, 0x60, 0x04, 0x00, 0xb0,
+                0x60, 0x04, 0x00, 0x40, 0x20, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00
             ]
         ));
 
@@ -1311,6 +1312,14 @@ use super::*;
         assert!(check_bytes( // Inventory second counter
             &save.file, 0x10C04, &[0x4E, 0x00, 0x00, 0x00]));
 
+        let closed_slots = vec![
+            Slot::build(SlotShape::Closed, None, 0),
+            Slot::build(SlotShape::Closed, None, 1),
+            Slot::build(SlotShape::Closed, None, 2),
+            Slot::build(SlotShape::Closed, None, 3),
+            Slot::build(SlotShape::Closed, None, 4)
+        ];
+
         let article = save.inventory.articles.get_mut(&ArticleType::RightHand).unwrap().to_owned().last().unwrap().clone();
         let expected_article = Article {
             number: 0x4D,
@@ -1321,7 +1330,7 @@ use super::*;
             amount: 1,
             article_type: ArticleType::RightHand,
             type_family: TypeFamily::Weapon,
-            slots: None,
+            slots: Some(closed_slots.clone()),
             index: 1,
         };
         assert_eq!(article, expected_article);
@@ -1382,7 +1391,7 @@ use super::*;
             amount: 1,
             article_type: ArticleType::RightHand,
             type_family: TypeFamily::Weapon,
-            slots: None,
+            slots: Some(closed_slots.clone()),
             index: 0,
         };
         assert_eq!(article, expected_article);
@@ -1443,7 +1452,7 @@ use super::*;
             amount: 1,
             article_type: ArticleType::Armor,
             type_family: TypeFamily::Armor,
-            slots: None,
+            slots: Some(closed_slots),
             index: 4,
         };
         assert_eq!(article, expected_article);
@@ -1454,7 +1463,7 @@ use super::*;
         if let Err(error) = result {
             assert_eq!(
                 error.to_string(),
-                "Save error: ERROR: failed to find info for the item."
+                "Save error: ERROR: Failed to find info for the item."
             );
         }
     }
@@ -1570,9 +1579,10 @@ use super::*;
             &save.file,
             0x8ccc,
             &[
-                0x78, 0xff, 0xff, 0xff, 0x42, 0x00, 0x80, 0xc0, 0xbf, 0x92, 0x01, 0x80, 0x01, 0x00,
-                0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
-                0x00, 0x00, 0x00, 0x00
+                0x78, 0xff, 0xff, 0xff, 0x42, 0x00, 0x80, 0xc0,
+                0xbf, 0x92, 0x01, 0x80, 0x01, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00
             ]
         ));
 

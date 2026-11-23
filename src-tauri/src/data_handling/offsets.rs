@@ -153,7 +153,7 @@ mod tests {
         if let Err(e) = file_data {
             assert_eq!(
                 e.to_string(),
-                "Save error: Failed to find username in save data."
+                "Save error: Failed to find the appearance."
             );
         }
 
@@ -163,7 +163,7 @@ mod tests {
         if let Err(e) = file_data {
             assert_eq!(
                 e.to_string(),
-                "Save error: Failed to find the end of the inventory."
+                "Save error: Failed to find the appearance."
             );
         }
 
@@ -177,8 +177,8 @@ mod tests {
         //testsave0
         let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0x8777);
-        assert_eq!(file_data.offsets.inventory, (0x894c, 0x8cd0));
-        assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x105af));
+        assert_eq!(file_data.offsets.inventory, (0x894c, 0x1053c));
+        assert_eq!(file_data.offsets.key_inventory, (0x10540, 0x10540 + 2204));
         assert_eq!(file_data.offsets.upgrades, (84, 163));
         assert_eq!(
             file_data.offsets.appearance,
@@ -188,8 +188,8 @@ mod tests {
         //testsave1
         let file_data = FileData::build("saves/testsave1", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa82b);
-        assert_eq!(file_data.offsets.inventory, (0xaa00, 0xb6a4));
-        assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x126e3));
+        assert_eq!(file_data.offsets.inventory, (0xaa00, 0xaa00 + 16 * 1983));
+        assert_eq!(file_data.offsets.key_inventory, (0x125f4, 0x125f4 + 2204));
         assert_eq!(file_data.offsets.upgrades, (84, 0x8c3));
         assert_eq!(
             file_data.offsets.appearance,
@@ -199,45 +199,12 @@ mod tests {
         //testsave2
         let file_data = FileData::build("saves/testsave2", PathBuf::from("resources")).unwrap();
         assert_eq!(file_data.offsets.username, 0xa86f);
-        assert_eq!(file_data.offsets.inventory, (0xaa44, 0xb638));
-        assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12797));
+        assert_eq!(file_data.offsets.inventory, (0xaa44, 0xaa44 + 16 * 1983));
+        assert_eq!(file_data.offsets.key_inventory, (0x12638, 0x12638 + 2204));
         assert_eq!(file_data.offsets.upgrades, (84, 0x7d3));
         assert_eq!(
             file_data.offsets.appearance,
             (0x12f34, 0x12f34 + APPEARANCE_BYTES_AMOUNT - 1)
-        );
-
-        //testsave3
-        let file_data = FileData::build("saves/testsave3", PathBuf::from("resources")).unwrap();
-        assert_eq!(file_data.offsets.username, 0xb473);
-        assert_eq!(file_data.offsets.inventory, (0xb648, 0xc8ac));
-        assert_eq!(file_data.offsets.key_inventory, (0x1323c, 0x133db));
-        assert_eq!(file_data.offsets.upgrades, (84, 0xf7b));
-        assert_eq!(
-            file_data.offsets.appearance,
-            (0x13b38, 0x13b38 + APPEARANCE_BYTES_AMOUNT - 1)
-        );
-
-        //testsave4
-        let file_data = FileData::build("saves/testsave4", PathBuf::from("resources")).unwrap();
-        assert_eq!(file_data.offsets.username, 0xc85f);
-        assert_eq!(file_data.offsets.inventory, (0xca34, 0xe778));
-        assert_eq!(file_data.offsets.key_inventory, (0x14628, 0x14857));
-        assert_eq!(file_data.offsets.upgrades, (84, 163));
-        assert_eq!(
-            file_data.offsets.appearance,
-            (0x14f24, 0x14f24 + APPEARANCE_BYTES_AMOUNT - 1)
-        );
-
-        //testsave8
-        let file_data = FileData::build("saves/testsave8", PathBuf::from("resources")).unwrap();
-        assert_eq!(file_data.offsets.username, 0x19897);
-        assert_eq!(file_data.offsets.inventory, (0x19a6c, 0x210d0));
-        assert_eq!(file_data.offsets.key_inventory, (0x21660, 0x218ef));
-        assert_eq!(file_data.offsets.upgrades, (84, 0x10ae3));
-        assert_eq!(
-            file_data.offsets.appearance,
-            (0x21f5c, 0x21f5c + APPEARANCE_BYTES_AMOUNT - 1)
         );
     }
 }

@@ -282,7 +282,14 @@ mod tests {
             0x15304
         );
 
-        let file_data = FileData::build("saves/testsave0", PathBuf::from("resources")).unwrap();
-        assert!(file_data.find_inv_empty_slot(Location::Inventory).is_none());
+        let file_data = FileData::build("saves/newsave", PathBuf::from("resources")).unwrap();
+        assert_eq!(
+            file_data.find_inv_empty_slot(Location::Inventory).unwrap(),
+            0x88a8
+        );
+        assert_eq!(
+            file_data.find_inv_empty_slot(Location::Storage).unwrap(),
+            0x10db4
+        );
     }
 }
