@@ -86,19 +86,15 @@ impl Article {
         //ID
         let id = u32::from_le_bytes([new_id[0], new_id[1], new_id[2], 0]);
 
-        let info;
-        let article_type;
-        let type_family;
         //INFO & ARTICLE_TYPE
-        if let Ok((new_info, new_article_type)) = get_info_item(id, &file_data.resources_path) {
-            info = new_info;
-            article_type = new_article_type;
-            type_family = article_type.into();
-        } else {
+
+        let (info, article_type, default) = get_info_item(id, &file_data.resources_path);
+        if default {
             return Err(Error::CustomError(
                 "ERROR: Failed to find info for the item.",
             ));
         }
+        let type_family = article_type.into();
 
         let i;
         match file_data.find_article_offset(self.number, self.id, self.type_family, is_storage) {

@@ -68,7 +68,9 @@ impl Inventory {
                 let result = match (file_data.bytes[i + 7], file_data.bytes[i + 11]) {
                     (0xB0, 0x40) => {
                         has_slots = false;
-                        get_info_item(id, &file_data.resources_path)
+                        let info = get_info_item(id, &file_data.resources_path);
+                        Ok((info.0, info.1))
+
                     }
                     (_, 0x10) => {
                         has_slots = true;
@@ -188,10 +190,10 @@ impl Inventory {
         quantity: u32,
         is_storage: bool,
     ) -> Result<&mut Inventory, Error> {
-        let result = get_info_item(id, &file_data.resources_path);
-        if result.is_err() {
+        let (info, article_type, default) = get_info_item(id, &file_data.resources_path);
+        if default {
             return Err(Error::CustomError(
-                "ERROR: failed to find info for the item.",
+                "ERROR: Failed to find info for the item.",
             ));
         }
 
@@ -272,8 +274,6 @@ impl Inventory {
         for i in 0..4 {
             file_data.bytes[i + second_counter_index] = new_counter_value_bytes[i];
         }
-
-        let (info, article_type) = result.expect("Err variant checked at the beginning");
 
         let mut new_item = Article {
             number: file_data.bytes[empty_slot_index - 4],
@@ -869,7 +869,10 @@ impl Inventory {
     }
 }
 
-pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, ArticleType), Error> {
+/// Gets info for the item with the given id.
+/// If the id does not match an item returns default item info (with default = true).
+/// The function returns (item_info: ItemInfo, article_type: ArticleType, default: bool).
+pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> (ItemInfo, ArticleType, bool) {
     let items: Value = serde_json::from_str(include_str!("../../resources/items.json")).unwrap();
     let items = items.as_object().unwrap();
 
@@ -889,7 +892,7 @@ pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, Ar
                         "area": &category_items[found]["area"],
                     }));
                 }
-                return Ok((info, ArticleType::from(category.as_str())));
+                return (info, ArticleType::from(category.as_str()), false);
             }
             None => ()
         }
@@ -900,7 +903,7 @@ pub fn get_info_item(id: u32, _resources_path: &PathBuf) -> Result<(ItemInfo, Ar
         \"item_img\": \"\",
         \"extra_info\": \"None\"
     }").unwrap();
-    Ok((info, ArticleType::Consumable)) // Show items that are not present in the json
+    (info, ArticleType::Consumable, true) // Show items that are not present in the json
 }
 
 pub fn get_info_armor(
