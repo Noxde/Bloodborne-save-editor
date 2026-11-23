@@ -234,10 +234,14 @@ impl Article {
         return Ok(());
     }
 
+    // Remove if used outside tests
+    #[cfg(test)]
     pub fn is_armor(&self) -> bool {
         self.type_family == TypeFamily::Armor
     }
 
+    // Remove if used outside tests
+    #[cfg(test)]
     pub fn is_item(&self) -> bool {
         self.type_family == TypeFamily::Item
     }

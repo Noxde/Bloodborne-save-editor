@@ -129,6 +129,8 @@ impl Upgrade {
         Ok(())
     }
 
+    // Remove if used outside tests
+    #[cfg(test)]
     pub fn transform(&mut self, file_data: &mut FileData) -> Result<(), Error> {
         let new_upgrade_bytes: [u8; 32] = match self.upgrade_type {
             UpgradeType::Gem => {

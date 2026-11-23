@@ -139,6 +139,8 @@ impl SaveData {
         None
     }
 
+    // Remove if used outside tests
+    #[cfg(test)]
     pub fn move_upgrade(
         &mut self,
         upgrade_type: UpgradeType,

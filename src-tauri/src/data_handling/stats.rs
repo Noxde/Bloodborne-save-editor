@@ -19,6 +19,8 @@ const POOL_SLOTS: usize = 3;
 const SLOT_SIZE: isize = 4;
 
 impl Stat {
+    // Remove if used outside tests
+    #[cfg(test)]
     pub fn edit(&mut self, value: u32, file: &mut FileData) {
         //Updates the stat value and saves it in a FileData instance
         self.value = value;

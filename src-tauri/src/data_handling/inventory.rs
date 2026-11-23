@@ -973,14 +973,13 @@ pub fn get_info_weapon(
 
 #[cfg(test)]
 mod tests {
-    use std::sync::Arc;
 
 use super::*;
     use crate::data_handling::{
         enums::SlotShape,
         slots::parse_equipped_gems,
         upgrades::parse_upgrades,
-        utils::test_utils::{build_file_data, build_save_data, check_bytes},
+        utils::test_utils::{build_save_data, check_bytes},
     };
 
     #[test]
