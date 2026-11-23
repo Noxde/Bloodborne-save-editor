@@ -7,6 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/downloads/Noxde/Bloodborne-save-editor/total">
   <img src="https://img.shields.io/github/downloads-pre/Noxde/Bloodborne-save-editor/latest/total">
+  <img src="https://img.shields.io/coverallsCoverage/github/Noxde/Bloodborne-save-editor">
 </p>
 
 <p align="center">
