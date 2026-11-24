@@ -133,6 +133,8 @@
    <img src="./assets/teleport.gif"/>
    </details>
 
+- Unlock or lock individual lamps, all lamps in an area, or all lamps. Disabling a lamp also clears its lighting request so it can be lit again.
+
 ## 2. Download
 
 You can download the pre-built executable for your operating system from the [Releases](https://github.com/Noxde/Bloodborne-save-editor/releases) section.
@@ -172,6 +174,8 @@ The release will be located in `Bloodborne-save-editor/src-tauri/target/release/
 
 ## 4. Attributions
 
+Lamp controls contributed by [Argagaes](https://github.com/Argagaes), based on the [Bloodborne browser editor](https://github.com/Argagaes/bloodborne-save-editor-browser).
+
 Big thanks to Meph for making the [Bloodborne Wiki](https://www.bloodborne-wiki.com/). Weapon stats, game assets and inspiration for the UI come from here.
 
 Thanks to @foxyhooligan on discord for helping with gem effects ids, how to edit the new game plus level, other flags and more.
@@ -181,6 +185,8 @@ Thanks to [PlayingUnfairly](https://www.youtube.com/@PlayingUnfairly) for the de
 Thanks to @xtrin on the "The Tomb Prospectors" discord for explaining to me how gem images work based on their effects and level.
 
 Thanks to @n3r4\_ on the "?ServerName?" discord for sharing a spreadsheet with boss flags
+
+Thanks to [Argagaes'](https://github.com/Argagaes) for providing the lamps section
 
 ## Star History
 Thanks to everyone that has starred the repo and used the editor!

@@ -1,0 +1,310 @@
+[
+  {
+    "name": "Abandoned Old Workshop",
+    "eventFlag": 12117810,
+    "offset": 107478,
+    "mask": 32,
+    "area": "Abandoned Old Workshop"
+  },
+  {
+    "name": "Hemwick Charnel Lane",
+    "eventFlag": 12207810,
+    "offset": 107603,
+    "mask": 32,
+    "area": "Hemwick Charnel Lane"
+  },
+  {
+    "name": "Witch’s Abode",
+    "eventFlag": 12207830,
+    "offset": 107605,
+    "mask": 2,
+    "area": "Hemwick Charnel Lane"
+  },
+  {
+    "name": "Old Yharnam",
+    "eventFlag": 12307810,
+    "offset": 107728,
+    "mask": 32,
+    "area": "Old Yharnam"
+  },
+  {
+    "name": "Church of the Good Chalice",
+    "eventFlag": 12307830,
+    "offset": 107730,
+    "mask": 2,
+    "area": "Old Yharnam"
+  },
+  {
+    "name": "Graveyard of the Darkbeast",
+    "eventFlag": 12307850,
+    "offset": 107733,
+    "mask": 32,
+    "area": "Old Yharnam"
+  },
+  {
+    "name": "Cathedral Ward",
+    "eventFlag": 12407810,
+    "offset": 107853,
+    "mask": 32,
+    "area": "Cathedral Ward"
+  },
+  {
+    "name": "Grand Cathedral",
+    "eventFlag": 12407830,
+    "offset": 107855,
+    "mask": 2,
+    "area": "Cathedral Ward"
+  },
+  {
+    "name": "1st Floor Sickroom",
+    "eventFlag": 12417810,
+    "offset": 107978,
+    "mask": 32,
+    "area": "Central Yharnam"
+  },
+  {
+    "name": "Central Yharnam",
+    "eventFlag": 12417830,
+    "offset": 107980,
+    "mask": 2,
+    "area": "Central Yharnam"
+  },
+  {
+    "name": "Great Bridge",
+    "eventFlag": 12417850,
+    "offset": 107983,
+    "mask": 32,
+    "area": "Central Yharnam"
+  },
+  {
+    "name": "Tomb of Oedon",
+    "eventFlag": 12417870,
+    "offset": 107985,
+    "mask": 2,
+    "area": "Central Yharnam"
+  },
+  {
+    "name": "Upper Cathedral Ward",
+    "eventFlag": 12427810,
+    "offset": 108103,
+    "mask": 32,
+    "area": "Upper Cathedral Ward"
+  },
+  {
+    "name": "Altar of Despair",
+    "eventFlag": 12427830,
+    "offset": 108105,
+    "mask": 2,
+    "area": "Upper Cathedral Ward"
+  },
+  {
+    "name": "Lumenflower Gardens",
+    "eventFlag": 12427850,
+    "offset": 108108,
+    "mask": 32,
+    "area": "Upper Cathedral Ward"
+  },
+  {
+    "name": "Forsaken Castle Cainhurst",
+    "eventFlag": 12507810,
+    "offset": 108228,
+    "mask": 32,
+    "area": "Cainhurst"
+  },
+  {
+    "name": "Vileblood Queen’s Chamber",
+    "eventFlag": 12507830,
+    "offset": 108230,
+    "mask": 2,
+    "area": "Cainhurst"
+  },
+  {
+    "name": "Logarius’ Seat",
+    "eventFlag": 12507850,
+    "offset": 108233,
+    "mask": 32,
+    "area": "Cainhurst"
+  },
+  {
+    "name": "Nightmare of Mensis",
+    "eventFlag": 12607810,
+    "offset": 108353,
+    "mask": 32,
+    "area": "Nightmare of Mensis"
+  },
+  {
+    "name": "Wet Nurse’s Lunarium",
+    "eventFlag": 12607830,
+    "offset": 108355,
+    "mask": 2,
+    "area": "Nightmare of Mensis"
+  },
+  {
+    "name": "Mergo’s Loft: Middle",
+    "eventFlag": 12607850,
+    "offset": 108358,
+    "mask": 32,
+    "area": "Nightmare of Mensis"
+  },
+  {
+    "name": "Mergo’s Loft: Base",
+    "eventFlag": 12607870,
+    "offset": 108360,
+    "mask": 2,
+    "area": "Nightmare of Mensis"
+  },
+  {
+    "name": "Forbidden Woods",
+    "eventFlag": 12707810,
+    "offset": 108478,
+    "mask": 32,
+    "area": "Forbidden Woods"
+  },
+  {
+    "name": "Forbidden Grave",
+    "eventFlag": 12707830,
+    "offset": 108480,
+    "mask": 2,
+    "area": "Forbidden Woods"
+  },
+  {
+    "name": "Yahar’gul, Unseen Village",
+    "eventFlag": 12807810,
+    "offset": 108603,
+    "mask": 32,
+    "area": "Yahar’gul"
+  },
+  {
+    "name": "Advent Plaza",
+    "eventFlag": 12807830,
+    "offset": 108605,
+    "mask": 2,
+    "area": "Yahar’gul"
+  },
+  {
+    "name": "Hypogean Gaol",
+    "eventFlag": 12807850,
+    "offset": 108608,
+    "mask": 32,
+    "area": "Yahar’gul"
+  },
+  {
+    "name": "Yahar’gul Chapel",
+    "eventFlag": 12807870,
+    "offset": 108610,
+    "mask": 2,
+    "area": "Yahar’gul"
+  },
+  {
+    "name": "Byrgenwerth",
+    "eventFlag": 13207810,
+    "offset": 108853,
+    "mask": 32,
+    "area": "Byrgenwerth"
+  },
+  {
+    "name": "Lecture Building",
+    "eventFlag": 13207830,
+    "offset": 108855,
+    "mask": 2,
+    "area": "Lecture Building"
+  },
+  {
+    "name": "Moonside Lake",
+    "eventFlag": 13207850,
+    "offset": 108858,
+    "mask": 32,
+    "area": "Byrgenwerth"
+  },
+  {
+    "name": "Lecture Building 2nd Floor",
+    "eventFlag": 13207870,
+    "offset": 108860,
+    "mask": 2,
+    "area": "Lecture Building"
+  },
+  {
+    "name": "Nightmare Frontier",
+    "eventFlag": 13307810,
+    "offset": 108978,
+    "mask": 32,
+    "area": "Nightmare Frontier"
+  },
+  {
+    "name": "Amygdala’s Chamber",
+    "eventFlag": 13307830,
+    "offset": 108980,
+    "mask": 2,
+    "area": "Nightmare Frontier"
+  },
+  {
+    "name": "Hunter’s Nightmare",
+    "eventFlag": 13407810,
+    "offset": 109103,
+    "mask": 32,
+    "area": "Hunter’s Nightmare"
+  },
+  {
+    "name": "Nightmare Church",
+    "eventFlag": 13407830,
+    "offset": 109105,
+    "mask": 2,
+    "area": "Hunter’s Nightmare"
+  },
+  {
+    "name": "Underground Corpse Pile",
+    "eventFlag": 13407850,
+    "offset": 109108,
+    "mask": 32,
+    "area": "Hunter’s Nightmare"
+  },
+  {
+    "name": "Nightmare Grand Cathedral",
+    "eventFlag": 13407870,
+    "offset": 109110,
+    "mask": 2,
+    "area": "Hunter’s Nightmare"
+  },
+  {
+    "name": "Research Hall",
+    "eventFlag": 13507810,
+    "offset": 109228,
+    "mask": 32,
+    "area": "Research Hall"
+  },
+  {
+    "name": "Lumenwood Garden",
+    "eventFlag": 13507830,
+    "offset": 109230,
+    "mask": 2,
+    "area": "Research Hall"
+  },
+  {
+    "name": "Astral Clocktower",
+    "eventFlag": 13507850,
+    "offset": 109233,
+    "mask": 32,
+    "area": "Research Hall"
+  },
+  {
+    "name": "Fishing Hamlet",
+    "eventFlag": 13607810,
+    "offset": 109353,
+    "mask": 32,
+    "area": "Fishing Hamlet"
+  },
+  {
+    "name": "Lighthouse Hut",
+    "eventFlag": 13607830,
+    "offset": 109355,
+    "mask": 2,
+    "area": "Fishing Hamlet"
+  },
+  {
+    "name": "Coast",
+    "eventFlag": 13607850,
+    "offset": 109358,
+    "mask": 32,
+    "area": "Fishing Hamlet"
+  }
+]
